@@ -1,0 +1,9 @@
+﻿[
+  {
+    "id": "log-parameters",
+    "name": "Logging with parameters",
+    "url": "https://github.com/postsharp/Caravela.Samples/...",
+    "aspect": "Caravela.Samples.LogParameters/Aspect.cs",
+    "program": "Caravela.Samples.LogParameters/Program.cs"
+  }
+]
