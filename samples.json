@@ -2,8 +2,50 @@
   {
     "id": "log-parameters",
     "name": "Logging with parameters",
-    "url": "https://github.com/postsharp/Caravela.Samples/...",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.LogParameters",
     "aspect": "Caravela.Samples.LogParameters/Aspect.cs",
     "program": "Caravela.Samples.LogParameters/Program.cs"
+  },
+  {
+    "id": "log",
+    "name": "Simple logging",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Log",
+    "aspect": "Caravela.Samples.Log/Aspect.cs",
+    "program": "Caravela.Samples.Log/Program.cs"
+  },
+  {
+    "id": "cache",
+    "name": "Simple caching",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Cache",
+    "aspect": "Caravela.Samples.Cache/Aspect.cs",
+    "program": "Caravela.Samples.Cache/Program.cs"
+  },
+  {
+    "id": "retry",
+    "name": "Auto retry",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Retry",
+    "aspect": "Caravela.Samples.Retry/Aspect.cs",
+    "program": "Caravela.Samples.Retry/Program.cs"
+  },
+  {
+    "id": "exception-enrich",
+    "name": "Exception handling (enriching)",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.ExceptionEnrich",
+    "aspect": "Caravela.Samples.ExceptionEnrich/Aspect.cs",
+    "program": "Caravela.Samples.ExceptionEnrich/Program.cs"
+  },
+  {
+    "id": "autoconfigureawait",
+    "name": "Automatically call ConfigureAwait",
+    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.AutoConfigureAwait",
+    "aspect": "Caravela.Samples.AutoConfigureAwait/Aspect/Aspect.cs",
+    "program": "Caravela.Samples.AutoConfigureAwait/Program/Program.cs"
+  },
+  {
+    "id": "autocancellationtoken",
+    "name": "Automatically propagate CancellationToken",
+    "url": "https://github.com/postsharp/Caravela.Open.AutoCancellationToken",
+    "aspect": "Caravela.Samples.AutoCancellationToken/Aspect/Aspect.cs",
+    "program": "Caravela.Samples.AutoCancellationToken/Program/Program.cs"
   }
 ]

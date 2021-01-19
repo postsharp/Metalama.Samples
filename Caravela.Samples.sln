@@ -5,11 +5,28 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C96CB6C-EF40-494A-B4ED-EADEC2D5BD94}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
 		NuGet.config = NuGet.config
 		samples.json = samples.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogParameters", "Caravela.Samples.LogParameters\Caravela.Samples.LogParameters.csproj", "{C3E39A09-B14C-4447-B695-003B54D07D24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Log", "Caravela.Samples.Log\Caravela.Samples.Log.csproj", "{CD066924-DA11-4FFB-9C89-5EAB619E2847}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Cache", "Caravela.Samples.Cache\Caravela.Samples.Cache.csproj", "{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.ExceptionEnrich", "Caravela.Samples.ExceptionEnrich\Caravela.Samples.ExceptionEnrich.csproj", "{A4352C61-E9B2-4736-B1C7-F87F3882B61F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Retry", "Caravela.Samples.Retry\Caravela.Samples.Retry.csproj", "{8967B55C-2595-4455-9D16-DF144186B36E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoCancellationToken.Aspect", "Caravela.Samples.AutoCancellationToken\Aspect\Caravela.Samples.AutoCancellationToken.Aspect.csproj", "{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoCancellationToken.Program", "Caravela.Samples.AutoCancellationToken\Program\Caravela.Samples.AutoCancellationToken.Program.csproj", "{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait.Aspect", "Caravela.Samples.AutoConfigureAwait\Aspect\Caravela.Samples.AutoConfigureAwait.Aspect.csproj", "{186445F6-5DAA-4721-81AD-9997AC72DF4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait.Program", "Caravela.Samples.AutoConfigureAwait\Program\Caravela.Samples.AutoConfigureAwait.Program.csproj", "{BB012FB3-A6F3-46C3-81A2-102EF1734394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +38,38 @@ Global
 		{C3E39A09-B14C-4447-B695-003B54D07D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E39A09-B14C-4447-B695-003B54D07D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E39A09-B14C-4447-B695-003B54D07D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD066924-DA11-4FFB-9C89-5EAB619E2847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD066924-DA11-4FFB-9C89-5EAB619E2847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD066924-DA11-4FFB-9C89-5EAB619E2847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD066924-DA11-4FFB-9C89-5EAB619E2847}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4352C61-E9B2-4736-B1C7-F87F3882B61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4352C61-E9B2-4736-B1C7-F87F3882B61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4352C61-E9B2-4736-B1C7-F87F3882B61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4352C61-E9B2-4736-B1C7-F87F3882B61F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8967B55C-2595-4455-9D16-DF144186B36E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8967B55C-2595-4455-9D16-DF144186B36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8967B55C-2595-4455-9D16-DF144186B36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8967B55C-2595-4455-9D16-DF144186B36E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
