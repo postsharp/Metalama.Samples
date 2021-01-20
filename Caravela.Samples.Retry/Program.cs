@@ -16,7 +16,7 @@ class Program
         }
     }
 
-    [Retry]
+    [Retry(Attempts = 10)]
     static int Foo()
     {
         attempts++;

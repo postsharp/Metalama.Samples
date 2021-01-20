@@ -5,6 +5,8 @@ using static Caravela.Framework.Aspects.TemplateContext;
 
 public class RetryAttribute : OverrideMethodAspect
 {
+    public int Attempts { get; set; } = 5;
+
     public override object Template()
     {
         for (int i = 0; ; i++)
@@ -13,7 +15,7 @@ public class RetryAttribute : OverrideMethodAspect
             {
                 return proceed();
             }
-            catch (Exception e) when ( i < 5 )
+            catch (Exception e) when (i < Attempts)
             {
             }
         }
