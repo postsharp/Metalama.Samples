@@ -7,18 +7,18 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override object Template()
     {
-        Console.WriteLine(compileTime(string.Format("Method {0}.{1} started", target.Type.ToString(), target.Method.Name)));
+        Console.WriteLine(target.Method.ToDisplayString() + " started.");
 
         try
         {
             dynamic result = proceed();
 
-            Console.WriteLine(compileTime(string.Format("Method {0}.{1} succeeded", target.Type.ToString(), target.Method.Name)));
+            Console.WriteLine(target.Method.ToDisplayString() + " succeeded.");
             return result;
         }
         catch (Exception e)
         {
-            Console.WriteLine(compileTime(string.Format("Method {0}.{1} failed: ", target.Type.ToString(), target.Method.Name)) + e.Message);
+            Console.WriteLine(target.Method.ToDisplayString() + " failed: " + e.Message);
 
             throw;
         }
