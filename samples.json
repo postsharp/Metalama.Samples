@@ -36,14 +36,14 @@
   },
   {
     "id": "autoconfigureawait",
-    "name": "Automatically call ConfigureAwait",
+    "name": "Automatically call ConfigureAwait (SDK)",
     "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.AutoConfigureAwait",
     "aspect": "Caravela.Samples.AutoConfigureAwait/Aspect/Aspect.cs",
     "program": "Caravela.Samples.AutoConfigureAwait/Program/Program.cs"
   },
   {
     "id": "autocancellationtoken",
-    "name": "Automatically propagate CancellationToken",
+    "name": "Automatically propagate CancellationToken (SDK)",
     "url": "https://github.com/postsharp/Caravela.Open.AutoCancellationToken",
     "aspect": "Caravela.Samples.AutoCancellationToken/Aspect/Aspect.cs",
     "program": "Caravela.Samples.AutoCancellationToken/Program/Program.cs"
