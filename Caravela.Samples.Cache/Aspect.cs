@@ -37,7 +37,6 @@ public class CacheAttribute : OverrideMethodAspect
 
         if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
         {
-            // TODO: we need a generic advice here, not a dynamic one.
             return value;
         }
         else
