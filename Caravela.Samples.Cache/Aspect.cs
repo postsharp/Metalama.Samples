@@ -6,7 +6,7 @@ using static Caravela.Framework.Aspects.TemplateContext;
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    public override object Template()
+    public override dynamic OverrideMethod()
     {
         // Builds the caching string.
         var parameters = new object[target.Method.Parameters.Count];

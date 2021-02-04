@@ -7,7 +7,7 @@ public class RetryAttribute : OverrideMethodAspect
 {
     public int Attempts { get; set; } = 5;
 
-    public override object Template()
+    public override dynamic OverrideMethod()
     {
         for (int i = 0; ; i++)
         {

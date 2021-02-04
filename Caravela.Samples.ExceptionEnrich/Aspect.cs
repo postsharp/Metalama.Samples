@@ -5,7 +5,7 @@ using static Caravela.Framework.Aspects.TemplateContext;
 
 public class EnrichExceptionAttribute : OverrideMethodAspect
 {
-    public override object Template()
+    public override dynamic OverrideMethod()
     {
         try
         {
