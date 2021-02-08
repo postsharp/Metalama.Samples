@@ -1,4 +1,4 @@
-name: .NET
+name: Full Pipeline
 
 on:
   push:
