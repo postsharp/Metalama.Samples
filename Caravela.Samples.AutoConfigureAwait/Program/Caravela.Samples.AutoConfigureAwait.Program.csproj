@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aspect\Caravela.Samples.AutoCancellationToken.Aspect.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\Aspect\Caravela.Samples.AutoConfigureAwait.Aspect.csproj" OutputItemType="Analyzer" />
     <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)" />
   </ItemGroup>
 
