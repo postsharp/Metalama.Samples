@@ -1,5 +1,7 @@
 <Project>
-  <PropertyGroup>
-    <CaravelaVersion>0.1.0-preview</CaravelaVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<CaravelaVersion>0.1.2-preview</CaravelaVersion>
+		<CaravelaEmitCompilerTransformedFiles>True</CaravelaEmitCompilerTransformedFiles>
+		<CaravelaDebugTransformedCode>False</CaravelaDebugTransformedCode>
+	</PropertyGroup>
 </Project>

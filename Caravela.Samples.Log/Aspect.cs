@@ -5,7 +5,7 @@ using static Caravela.Framework.Aspects.TemplateContext;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public override object Template()
+    public override dynamic OverrideMethod()
     {
         Console.WriteLine(target.Method.ToDisplayString() + " started.");
 

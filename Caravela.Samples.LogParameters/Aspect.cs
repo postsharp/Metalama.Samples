@@ -5,7 +5,7 @@ using static Caravela.Framework.Aspects.TemplateContext;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public override object Template()
+    public override dynamic OverrideMethod()
     {
         // Build a formatting string and the array of parameters.
         var parameters = new object[target.Method.Parameters.Count + (target.Method.ReturnType.Is(typeof(void)) ? 0 : 1)];
