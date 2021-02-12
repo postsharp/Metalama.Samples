@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait.Program", "Caravela.Samples.AutoConfigureAwait\Program\Caravela.Samples.AutoConfigureAwait.Program.csproj", "{BB012FB3-A6F3-46C3-81A2-102EF1734394}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TryCaravelaOnly", "TryCaravelaOnly", "{18B75FAE-0E73-4993-BBCA-990A773627FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{186445F6-5DAA-4721-81AD-9997AC72DF4B} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{BB012FB3-A6F3-46C3-81A2-102EF1734394} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEE1D071-3DAD-415E-B763-05D3FA08B9F5}
