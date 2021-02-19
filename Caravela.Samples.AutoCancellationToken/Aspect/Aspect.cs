@@ -10,9 +10,15 @@ using Caravela.Framework.Aspects;
 using Caravela.Framework.Sdk;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Caravela.Framework.Code;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
-public class AutoCancellationTokenAttribute : Attribute, IAspect { }
+public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>
+{
+    void IAspect<INamedType>.Initialize(IAspectBuilder<INamedType> aspectBuilder)
+    {
+    }
+}
 
 [CompilerPlugin, AspectWeaver(typeof(AutoCancellationTokenAttribute))]
 class AutoCancellationTokenWeaver : IAspectWeaver
