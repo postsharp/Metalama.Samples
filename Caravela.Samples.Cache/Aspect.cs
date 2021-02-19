@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 using static Caravela.Framework.Aspects.TemplateContext;
 
 
@@ -20,7 +21,7 @@ public class CacheAttribute : OverrideMethodAspect
         {
             string comma = i > 0 ? ", " : "";
 
-            if (p.IsOut)
+            if (p.IsOut())
             {
                 stringBuilder.Append($"{comma}{p.Name} = <out> ");
             }

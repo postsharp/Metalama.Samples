@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Caravela;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Sdk;
+using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Caravela.Framework.Code;
@@ -26,7 +27,7 @@ class AutoCancellationTokenWeaver : IAspectWeaver
     public CSharpCompilation Transform(AspectWeaverContext context)
     {
         var compilation = context.Compilation;
-        var instancesNodes = context.AspectInstances.SelectMany(a => a.CodeElement.GetSyntaxNodes());
+        var instancesNodes = context.AspectInstances.SelectMany(a => a.CodeElement.Symbol.DeclaringSyntaxReferences).Select(r=>r.GetSyntax()).Cast<CSharpSyntaxNode>();
         RunRewriter(new AnnotateNodesRewriter(instancesNodes));
         RunRewriter(new AddCancellationTokenToMethodsRewriter(compilation));
         RunRewriter(new AddCancellationTokenToInvocationsRewriter(compilation));

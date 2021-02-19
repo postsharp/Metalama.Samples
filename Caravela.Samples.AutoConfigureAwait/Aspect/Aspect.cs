@@ -9,11 +9,17 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Caravela;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Sdk;
+using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 [AttributeUsage(AttributeTargets.Assembly)]
-public class AutoConfigureAwaitAttribute : Attribute, IAspect { }
+public class AutoConfigureAwaitAttribute : Attribute, IAspect<IMethod>
+{ 
+    void IAspect<IMethod>.Initialize(IAspectBuilder<IMethod> aspectBuilder)
+    {
+    }
+}
 
 [CompilerPlugin, AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
 class AutoConfigureAwaitWeaver : IAspectWeaver
