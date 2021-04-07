@@ -14,9 +14,9 @@ using Caravela.Framework.Code;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 [AttributeUsage(AttributeTargets.Assembly)]
-public class AutoConfigureAwaitAttribute : Attribute, IAspect<IMethod>
-{ 
-    void IAspect<IMethod>.Initialize(IAspectBuilder<IMethod> aspectBuilder)
+public class AutoConfigureAwaitAttribute : Attribute, IAspect<ICompilation>
+{
+    void IAspect<ICompilation>.Initialize(IAspectBuilder<ICompilation> aspectBuilder)
     {
     }
 }
@@ -24,7 +24,8 @@ public class AutoConfigureAwaitAttribute : Attribute, IAspect<IMethod>
 [CompilerPlugin, AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
 class AutoConfigureAwaitWeaver : IAspectWeaver
 {
-    public CSharpCompilation Transform(AspectWeaverContext context) => new Rewriter(context.Compilation).VisitAllTrees(context.Compilation);
+    public CSharpCompilation Transform(AspectWeaverContext context)
+        => new Rewriter(context.Compilation).Visit(context.Compilation);
 
     class Rewriter : CSharpSyntaxRewriter
     {
@@ -55,6 +56,16 @@ class AutoConfigureAwaitWeaver : IAspectWeaver
             }
 
             return awaitExpression;
+        }
+
+        public CSharpCompilation Visit(CSharpCompilation compilation)
+        {
+            foreach (var tree in compilation.SyntaxTrees)
+            {
+                compilation = compilation.ReplaceSyntaxTree(tree, tree.WithRootAndOptions(this.Visit(tree.GetRoot()), tree.Options));
+            }
+
+            return compilation;
         }
     }
 }
