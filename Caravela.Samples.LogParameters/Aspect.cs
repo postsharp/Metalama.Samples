@@ -8,7 +8,7 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
-        // Build a formatting string and the array of parameters.
+        // Build a formatting string.
         var stringBuilder = compileTime(new StringBuilder());
         stringBuilder.Append(target.Type.ToDisplayString());
         stringBuilder.Append('.');
