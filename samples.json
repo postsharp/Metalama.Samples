@@ -2,49 +2,49 @@
   {
     "id": "log-parameters",
     "name": "Logging with parameters",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.LogParameters",
+    "url": "Caravela.Samples.LogParameters",
     "aspect": "Caravela.Samples.LogParameters/Aspect.cs",
     "program": "Caravela.Samples.LogParameters/Program.cs"
   },
   {
     "id": "log",
     "name": "Simple logging",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Log",
+    "url": "Caravela.Samples.Log",
     "aspect": "Caravela.Samples.Log/Aspect.cs",
     "program": "Caravela.Samples.Log/Program.cs"
   },
   {
     "id": "cache",
     "name": "Simple caching",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Cache",
+    "url": "Caravela.Samples.Cache",
     "aspect": "Caravela.Samples.Cache/Aspect.cs",
     "program": "Caravela.Samples.Cache/Program.cs"
   },
   {
     "id": "retry",
     "name": "Auto retry",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.Retry",
+    "url": "Caravela.Samples.Retry",
     "aspect": "Caravela.Samples.Retry/Aspect.cs",
     "program": "Caravela.Samples.Retry/Program.cs"
   },
   {
     "id": "exception-enrich",
     "name": "Exception handling (enriching)",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.ExceptionEnrich",
+    "url": "Caravela.Samples.ExceptionEnrich",
     "aspect": "Caravela.Samples.ExceptionEnrich/Aspect.cs",
     "program": "Caravela.Samples.ExceptionEnrich/Program.cs"
   },
   {
     "id": "autoconfigureawait",
     "name": "Automatically call ConfigureAwait (SDK)",
-    "url": "https://github.com/postsharp/Caravela.Samples/tree/master/Caravela.Samples.AutoConfigureAwait",
+    "url": "Caravela.Samples.AutoConfigureAwait",
     "aspect": "Caravela.Samples.AutoConfigureAwait/Aspect/Aspect.cs",
     "program": "Caravela.Samples.AutoConfigureAwait/Program/Program.cs"
   },
   {
     "id": "autocancellationtoken",
     "name": "Automatically propagate CancellationToken (SDK)",
-    "url": "https://github.com/postsharp/Caravela.Open.AutoCancellationToken",
+    "url": "Caravela.Open.AutoCancellationToken",
     "aspect": "Caravela.Samples.AutoCancellationToken/Aspect/Aspect.cs",
     "program": "Caravela.Samples.AutoCancellationToken/Program/Program.cs"
   }
