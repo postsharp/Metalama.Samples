@@ -10,7 +10,6 @@ public class CacheAttribute : OverrideMethodAspect
     public override dynamic OverrideMethod()
     {
         // Builds the caching string.
-        var parameters = new object[target.Method.Parameters.Count];
         var stringBuilder = compileTime(new StringBuilder());
         stringBuilder.Append(target.Type.ToString());
         stringBuilder.Append('.');
@@ -28,14 +27,13 @@ public class CacheAttribute : OverrideMethodAspect
             else
             {
                 stringBuilder.Append($"{comma}{{{i}}}");
-                parameters[i] = p.Value;
             }
 
             i++;
         }
         stringBuilder.Append(')');
 
-        string cacheKey = string.Format(stringBuilder.ToString(), parameters);
+        string cacheKey = string.Format(stringBuilder.ToString(), target.Parameters.Values.ToArray() );
 
         // Cache lookup.
         if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
