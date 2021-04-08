@@ -12,6 +12,7 @@ class Program
         catch (Exception e)
         {
             Console.WriteLine(e);
+            Console.WriteLine("   with:");
             Console.WriteLine(e.Data["Context"]);
         }
     }

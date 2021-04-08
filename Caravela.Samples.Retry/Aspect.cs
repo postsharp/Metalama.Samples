@@ -17,6 +17,7 @@ public class RetryAttribute : OverrideMethodAspect
             }
             catch (Exception e) when (i < Attempts)
             {
+                Console.WriteLine(e.Message + " Retrying.");
             }
         }
     }

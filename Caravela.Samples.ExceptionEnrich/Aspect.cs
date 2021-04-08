@@ -24,6 +24,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
 
             // Add current context information to the string builder.
 
+            stringBuilder.Append("   > ");
             stringBuilder.Append(target.Type.ToString());
             stringBuilder.Append('.');
             stringBuilder.Append(target.Method.Name);
