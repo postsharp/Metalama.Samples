@@ -9,16 +9,23 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Caravela;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Sdk;
+using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 [AttributeUsage(AttributeTargets.Assembly)]
-public class AutoConfigureAwaitAttribute : Attribute, IAspect { }
+public class AutoConfigureAwaitAttribute : Attribute, IAspect<ICompilation>
+{
+    void IAspect<ICompilation>.Initialize(IAspectBuilder<ICompilation> aspectBuilder)
+    {
+    }
+}
 
 [CompilerPlugin, AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
 class AutoConfigureAwaitWeaver : IAspectWeaver
 {
-    public CSharpCompilation Transform(AspectWeaverContext context) => new Rewriter(context.Compilation).VisitAllTrees(context.Compilation);
+    public CSharpCompilation Transform(AspectWeaverContext context)
+        => new Rewriter(context.Compilation).Visit(context.Compilation);
 
     class Rewriter : CSharpSyntaxRewriter
     {
@@ -49,6 +56,16 @@ class AutoConfigureAwaitWeaver : IAspectWeaver
             }
 
             return awaitExpression;
+        }
+
+        public CSharpCompilation Visit(CSharpCompilation compilation)
+        {
+            foreach (var tree in compilation.SyntaxTrees)
+            {
+                compilation = compilation.ReplaceSyntaxTree(tree, tree.WithRootAndOptions(this.Visit(tree.GetRoot()), tree.Options));
+            }
+
+            return compilation;
         }
     }
 }

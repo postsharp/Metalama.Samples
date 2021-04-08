@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 using static Caravela.Framework.Aspects.TemplateContext;
 
 public class EnrichExceptionAttribute : OverrideMethodAspect
@@ -23,6 +24,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
 
             // Add current context information to the string builder.
 
+            stringBuilder.Append("   > ");
             stringBuilder.Append(target.Type.ToString());
             stringBuilder.Append('.');
             stringBuilder.Append(target.Method.Name);
@@ -32,7 +34,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
             {
                 string comma = i > 0 ? ", " : "";
 
-                if (p.IsOut)
+                if (p.IsOut())
                 {
                     stringBuilder.Append("<out>");
                 }

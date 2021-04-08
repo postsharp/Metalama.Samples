@@ -5,12 +5,11 @@ using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Caravela;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Sdk;
+using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using Caravela.Framework.Code;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
 public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>
@@ -26,13 +25,13 @@ class AutoCancellationTokenWeaver : IAspectWeaver
     public CSharpCompilation Transform(AspectWeaverContext context)
     {
         var compilation = context.Compilation;
-        var instancesNodes = context.AspectInstances.SelectMany(a => a.CodeElement.GetSyntaxNodes());
+        var instancesNodes = context.AspectInstances.SelectMany(a => a.CodeElement.Symbol.DeclaringSyntaxReferences).Select(r=>r.GetSyntax()).Cast<CSharpSyntaxNode>();
         RunRewriter(new AnnotateNodesRewriter(instancesNodes));
         RunRewriter(new AddCancellationTokenToMethodsRewriter(compilation));
         RunRewriter(new AddCancellationTokenToInvocationsRewriter(compilation));
         return compilation;
 
-        void RunRewriter(CSharpSyntaxRewriter rewriter) => compilation = rewriter.VisitAllTrees(compilation);
+        void RunRewriter(RewriterBase rewriter) => compilation = rewriter.Visit(compilation);
     }
 
     abstract class RewriterBase : CSharpSyntaxRewriter
@@ -57,6 +56,16 @@ class AutoCancellationTokenWeaver : IAspectWeaver
         public override SyntaxNode VisitDestructorDeclaration(DestructorDeclarationSyntax node) => node;
 
         protected const string CancellationAttributeName = "Caravela.Open.AutoCancellationToken.AutoCancellationTokenAttribute";
+
+        public CSharpCompilation Visit(CSharpCompilation compilation)
+        {
+            foreach (var tree in compilation.SyntaxTrees)
+            {
+                compilation = compilation.ReplaceSyntaxTree(tree, tree.WithRootAndOptions(this.Visit(tree.GetRoot()), tree.Options));
+            }
+
+            return compilation;
+        }
     }
 
     sealed class AnnotateNodesRewriter : RewriterBase
