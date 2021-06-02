@@ -4,6 +4,28 @@ using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
 using static Caravela.Framework.Aspects.TemplateContext;
 
+public class LogAttribute : OverrideMethodAspect
+{
+    public override dynamic OverrideMethod()
+    {
+        Console.WriteLine(target.Method.ToDisplayString() + " started.");
+
+        try
+        {
+            dynamic result = proceed();
+
+            Console.WriteLine(target.Method.ToDisplayString() + " succeeded.");
+            return result;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(target.Method.ToDisplayString() + " failed: " + e.Message);
+
+            throw;
+        }
+    }
+}
+
 
 public class CacheAttribute : OverrideMethodAspect
 {
@@ -33,22 +55,24 @@ public class CacheAttribute : OverrideMethodAspect
         }
         stringBuilder.Append(')');
 
-        string cacheKey = string.Format(stringBuilder.ToString(), target.Parameters.Values.ToArray() );
+        string cacheKey = string.Format(stringBuilder.ToString(), target.Parameters.Values.ToArray());
 
         // Cache lookup.
         if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
         {
-            // Cache hit.
+            Console.WriteLine("Cache hit.");
             return value;
         }
         else
         {
-            // Cache miss. Go and invoke the method.
-            dynamic result = proceed();
+            Console.WriteLine("Cache miss.");
+
+            // Bug 28455 (lexical conflict with [Log]). 
+            dynamic result2 = proceed();
 
             // Add to cache.
-            SampleCache.Cache.TryAdd(cacheKey, result);
-            return result;
+            SampleCache.Cache.TryAdd(cacheKey, result2);
+            return result2;
         }
     }
 }

@@ -14,6 +14,31 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
         }
         catch (Exception e)
         {
+           
+            // Compile-time code: create a formatting string containing the method name and placeholder for formatting parameters.
+            var methodSignatureBuilder = compileTime(new StringBuilder());
+            methodSignatureBuilder.Append(target.Type.ToString());
+            methodSignatureBuilder.Append('.');
+            methodSignatureBuilder.Append(target.Method.Name);
+            methodSignatureBuilder.Append('(');
+            int i = compileTime(0);
+            foreach (var p in target.Parameters)
+            {
+                string comma = i > 0 ? ", " : "";
+
+                if (p.IsOut())
+                {
+                    methodSignatureBuilder.Append($"{comma}{p.Name} = <out> ");
+                }
+                else
+                {
+                    methodSignatureBuilder.Append($"{comma}{{{i}}}");
+                }
+
+                i++;
+            }
+            methodSignatureBuilder.Append(')');
+
             // Get or create a StringBuilder for the exception where we will add additional context data.
             var stringBuilder = (StringBuilder)e.Data["Context"];
             if (stringBuilder == null)
@@ -23,29 +48,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
             }
 
             // Add current context information to the string builder.
-
-            stringBuilder.Append("   > ");
-            stringBuilder.Append(target.Type.ToString());
-            stringBuilder.Append('.');
-            stringBuilder.Append(target.Method.Name);
-            stringBuilder.Append('(');
-            int i = compileTime(0);
-            foreach (var p in target.Parameters)
-            {
-                string comma = i > 0 ? ", " : "";
-
-                if (p.IsOut())
-                {
-                    stringBuilder.Append("<out>");
-                }
-                else
-                {
-                    stringBuilder.Append(p.Value);
-                }
-
-                i++;
-            }
-            stringBuilder.Append(')');
+            stringBuilder.AppendFormat("  > " + methodSignatureBuilder.ToString(), target.Parameters.Values.ToArray());
             stringBuilder.AppendLine();
 
             throw;

@@ -8,8 +8,7 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
-        // Build a formatting string and the array of parameters.
-        var parameters = new object[target.Method.Parameters.Count + (target.Method.ReturnType.Is(typeof(void)) ? 0 : 1)];
+        // Build a formatting string.
         var stringBuilder = compileTime(new StringBuilder());
         stringBuilder.Append(target.Type.ToDisplayString());
         stringBuilder.Append('.');
@@ -27,7 +26,6 @@ public class LogAttribute : OverrideMethodAspect
             else
             {
                 stringBuilder.Append($"{comma}{p.Name} = {{{i}}}");
-                parameters[i] = p.Value;
             }
 
             i++;
@@ -35,7 +33,8 @@ public class LogAttribute : OverrideMethodAspect
         stringBuilder.Append(')');
 
         // Write entry message.
-        Console.WriteLine(stringBuilder.ToString() + " started", parameters);
+        var arguments = target.Parameters.Values.ToArray();
+        Console.WriteLine(stringBuilder.ToString() + " started", arguments );
 
         try
         {
@@ -43,14 +42,13 @@ public class LogAttribute : OverrideMethodAspect
             dynamic result = proceed();
 
             // Display the success message.
-            parameters[i] = result;
-            Console.WriteLine(stringBuilder.ToString() + " returned {" + i + "}", parameters);
+            Console.WriteLine( string.Format( stringBuilder.ToString(), arguments) + " returned " + result );
             return result;
         }
         catch (Exception e)
         {
             // Display the failure message.
-            Console.WriteLine(stringBuilder + " failed: " + e, parameters);
+            Console.WriteLine(stringBuilder + " failed: " + e, arguments);
             throw;
         }
     }
