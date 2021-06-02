@@ -2,22 +2,21 @@
 using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
-using static Caravela.Framework.Aspects.TemplateContext;
 
 public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
         // Build a formatting string.
-        var stringBuilder = compileTime(new StringBuilder());
-        stringBuilder.Append(target.Type.ToDisplayString());
+        var stringBuilder = meta.CompileTime(new StringBuilder());
+        stringBuilder.Append(meta.Type.ToDisplayString());
         stringBuilder.Append('.');
-        stringBuilder.Append(target.Method.Name);
+        stringBuilder.Append(meta.Method.Name);
         stringBuilder.Append('(');
-        int i = compileTime(0);
-        foreach (var p in target.Parameters)
+        int i = meta.CompileTime(0);
+        foreach (var p in meta.Parameters)
         {
-            string comma = i > 0 ? ", " : "";
+            var comma = i > 0 ? ", " : "";
 
             if (p.IsOut())
             {
@@ -33,13 +32,13 @@ public class LogAttribute : OverrideMethodAspect
         stringBuilder.Append(')');
 
         // Write entry message.
-        var arguments = target.Parameters.Values.ToArray();
+        var arguments = meta.Parameters.Values.ToArray();
         Console.WriteLine(stringBuilder.ToString() + " started", arguments );
 
         try
         {
             // Invoke the method.
-            dynamic result = proceed();
+            dynamic result = meta.Proceed();
 
             // Display the success message.
             Console.WriteLine( string.Format( stringBuilder.ToString(), arguments) + " returned " + result );

@@ -12,27 +12,41 @@ using Caravela.Framework.Sdk;
 using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Caravela.Framework.Eligibility;
 
 [AttributeUsage(AttributeTargets.Assembly)]
 public class AutoConfigureAwaitAttribute : Attribute, IAspect<ICompilation>
 {
-    void IAspect<ICompilation>.Initialize(IAspectBuilder<ICompilation> aspectBuilder)
+    public void BuildAspect(IAspectBuilder<ICompilation> builder)
     {
+        
+    }
+
+    public void BuildAspectClass(IAspectClassBuilder builder)
+    {
+        
+    }
+
+    public void BuildEligibility(IEligibilityBuilder<ICompilation> builder)
+    {
+        
     }
 }
 
 [CompilerPlugin, AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
 class AutoConfigureAwaitWeaver : IAspectWeaver
 {
-    public CSharpCompilation Transform(AspectWeaverContext context)
-        => new Rewriter(context.Compilation).Visit(context.Compilation);
+    public void Transform(AspectWeaverContext context)
+    {
+        context.Compilation = new Rewriter(context.Compilation.Compilation).Visit(context.Compilation);
+    }
 
     class Rewriter : CSharpSyntaxRewriter
     {
-        private readonly CSharpCompilation compilation;
+        private readonly Compilation compilation;
         private readonly ITypeSymbol[] affectedTypes;
 
-        public Rewriter(CSharpCompilation compilation)
+        public Rewriter(Compilation compilation)
         {
             this.compilation = compilation;
 
@@ -58,14 +72,7 @@ class AutoConfigureAwaitWeaver : IAspectWeaver
             return awaitExpression;
         }
 
-        public CSharpCompilation Visit(CSharpCompilation compilation)
-        {
-            foreach (var tree in compilation.SyntaxTrees)
-            {
-                compilation = compilation.ReplaceSyntaxTree(tree, tree.WithRootAndOptions(this.Visit(tree.GetRoot()), tree.Options));
-            }
-
-            return compilation;
-        }
+        public IPartialCompilation Visit(IPartialCompilation compilation)
+            =>  compilation.UpdateSyntaxTrees( ( node, cancellationToken ) => this.Visit(node));
     }
 }

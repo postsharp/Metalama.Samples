@@ -5,6 +5,7 @@ using Caravela.Framework.Aspects;
 
 class Program
 {
+    [Log]
     static void Main()
     {
         try

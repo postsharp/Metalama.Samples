@@ -3,35 +3,42 @@
     "id": "log-parameters",
     "name": "Logging with parameters",
     "url": "Caravela.Samples.LogParameters",
-    "aspect": "Caravela.Samples.LogParameters/Aspect.cs",
+    "aspect": "Caravela.Samples.LogParameters/LogAttribute.cs",
     "program": "Caravela.Samples.LogParameters/Program.cs"
   },
   {
     "id": "log",
     "name": "Simple logging",
     "url": "Caravela.Samples.Log",
-    "aspect": "Caravela.Samples.Log/Aspect.cs",
+    "aspect": "Caravela.Samples.Log/LogAttribute.cs",
     "program": "Caravela.Samples.Log/Program.cs"
   },
   {
     "id": "cache",
     "name": "Simple caching",
     "url": "Caravela.Samples.Cache",
-    "aspect": "Caravela.Samples.Cache/Aspect.cs",
+    "aspect": "Caravela.Samples.Cache/CacheAttribute.cs",
     "program": "Caravela.Samples.Cache/Program.cs"
+  },
+  {
+    "id": "log-and-cache",
+    "name": "Logging and caching",
+    "url": "Caravela.Samples.LodAndCache",
+    "aspect": "Caravela.Samples.LodAndCache/Aspects.cs",
+    "program": "Caravela.Samples.LodAndCache/Program.cs"
   },
   {
     "id": "retry",
     "name": "Auto retry",
     "url": "Caravela.Samples.Retry",
-    "aspect": "Caravela.Samples.Retry/Aspect.cs",
+    "aspect": "Caravela.Samples.Retry/RetryAttribute.cs",
     "program": "Caravela.Samples.Retry/Program.cs"
   },
   {
     "id": "exception-enrich",
     "name": "Exception handling (enriching)",
     "url": "Caravela.Samples.ExceptionEnrich",
-    "aspect": "Caravela.Samples.ExceptionEnrich/Aspect.cs",
+    "aspect": "Caravela.Samples.ExceptionEnrich/EnrichExceptionAttribute.cs",
     "program": "Caravela.Samples.ExceptionEnrich/Program.cs"
   },
   {

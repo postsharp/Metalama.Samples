@@ -3,28 +3,6 @@ using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
 
-public class LogAttribute : OverrideMethodAspect
-{
-    public override dynamic OverrideMethod()
-    {
-        Console.WriteLine(meta.Method.ToDisplayString() + " started.");
-
-        try
-        {
-            dynamic result = meta.Proceed();
-
-            Console.WriteLine(meta.Method.ToDisplayString() + " succeeded.");
-            return result;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(meta.Method.ToDisplayString() + " failed: " + e.Message);
-
-            throw;
-        }
-    }
-}
-
 public class CacheAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
@@ -76,11 +54,13 @@ public class CacheAttribute : OverrideMethodAspect
         stringBuilder.Append(')');
         return stringBuilder.ToString();
     }
-}
+
+ }
 
 // Placeholder implementation of a cache because the hosted try.postsharp.net does not allow for MemoryCache.
-public static class SampleCache
+static class SampleCache
 {
     public static readonly System.Collections.Concurrent.ConcurrentDictionary<string, object> Cache =
         new System.Collections.Concurrent.ConcurrentDictionary<string, object>();
 }
+

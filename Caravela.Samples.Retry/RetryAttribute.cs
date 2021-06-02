@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using Caravela.Framework.Aspects;
-using static Caravela.Framework.Aspects.TemplateContext;
 
 public class RetryAttribute : OverrideMethodAspect
 {
@@ -9,13 +8,13 @@ public class RetryAttribute : OverrideMethodAspect
 
     public override dynamic OverrideMethod()
     {
-        for (int i = 0; ; i++)
+        for (var i = 0; ; i++)
         {
             try
             {
-                return proceed();
+                return meta.Proceed();
             }
-            catch (Exception e) when (i < Attempts)
+            catch (Exception e) when (i < this.Attempts)
             {
                 Console.WriteLine(e.Message + " Retrying.");
             }
