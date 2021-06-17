@@ -34,6 +34,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TryCaravelaOnly", "TryCarav
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogAndCache", "Caravela.Samples.LogAndCache\Caravela.Samples.LogAndCache.csproj", "{54C56B58-2330-4DD7-8424-252E8F4DC94A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.NotifyPropertyChanged", "Caravela.Samples.NotifyPropertyChanged\Caravela.Samples.NotifyPropertyChanged.csproj", "{4C3B7819-14C9-481E-B2DA-0D4743A09F53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.DependencyInjection", "Caravela.Samples.DependencyInjection\Caravela.Samples.DependencyInjection.csproj", "{5554E541-F682-49E1-B6B0-C897601BD343}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.Dirty", "Caravela.Samples.Dirty\Caravela.Samples.Dirty.csproj", "{7E92D830-533E-44A9-A28C-91CCF5CE7101}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.Log.Tests", "Caravela.Samples.Log.Tests\Caravela.Samples.Log.Tests.csproj", "{F1E99AB1-371C-4771-B7F8-2E23726012DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.LogParameters.Tests", "Caravela.Samples.LogParameters.Tests\Caravela.Samples.LogParameters.Tests.csproj", "{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +90,26 @@ Global
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3B7819-14C9-481E-B2DA-0D4743A09F53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3B7819-14C9-481E-B2DA-0D4743A09F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3B7819-14C9-481E-B2DA-0D4743A09F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3B7819-14C9-481E-B2DA-0D4743A09F53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5554E541-F682-49E1-B6B0-C897601BD343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5554E541-F682-49E1-B6B0-C897601BD343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5554E541-F682-49E1-B6B0-C897601BD343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5554E541-F682-49E1-B6B0-C897601BD343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E92D830-533E-44A9-A28C-91CCF5CE7101}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E92D830-533E-44A9-A28C-91CCF5CE7101}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E92D830-533E-44A9-A28C-91CCF5CE7101}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E92D830-533E-44A9-A28C-91CCF5CE7101}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E99AB1-371C-4771-B7F8-2E23726012DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E99AB1-371C-4771-B7F8-2E23726012DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E99AB1-371C-4771-B7F8-2E23726012DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E99AB1-371C-4771-B7F8-2E23726012DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

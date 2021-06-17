@@ -1,7 +1,10 @@
 <Project>
+	<Import Project="..\Caravela\LocalBuildId.props"/>
 	<PropertyGroup>
-		<CaravelaVersion>0.1.4-dev-GaelFraiteur-17301773691795608819</CaravelaVersion>
-		<RestoreAdditionalProjectSources>c:\src\Caravela\artifacts\bin\Debug</RestoreAdditionalProjectSources>
+		<CaravelaVersion>0.1.4-dev-$(UserName)-$(LocalBuildId)</CaravelaVersion>
+		<!--<CaravelaVersion>0.1.4-build-317</CaravelaVersion>-->
+		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
+		<RestoreAdditionalProjectSources>$(MSbuildThisFileDirectory)\..\Caravela\artifacts\bin\Debug</RestoreAdditionalProjectSources>
 	</PropertyGroup>
 
 </Project>
