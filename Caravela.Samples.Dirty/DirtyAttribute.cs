@@ -20,16 +20,18 @@ namespace Caravela.Samples.Dirty
 
         public void BuildAspect(IAspectBuilder<INamedType> aspectBuilder)
         {
-
+            // Implement the IDirty interface.
             if ( !aspectBuilder.TargetDeclaration.ImplementedInterfaces.Any(i => i.Is(typeof(IDirty)) ) )
             {
-                aspectBuilder.AdviceFactory.IntroduceInterface(aspectBuilder.TargetDeclaration, typeof(IDirty));
+                aspectBuilder.AdviceFactory.ImplementInterface(aspectBuilder.TargetDeclaration, typeof(IDirty), OverrideStrategy.Ignore );
             }
             else
             {
                 // If the type already implements IDirty, it must have a protected method called OnDirty, otherwise 
-                // this is a contract violation.
-                var dirtyStateProperty = aspectBuilder.TargetDeclaration.Properties.Where(m => m.Name == nameof(this.DirtyState) && m.Parameters.Count == 0 && m.Type.Is(typeof(DirtyState))).SingleOrDefault();
+                // this is a contract violation, so we report an error.
+                var dirtyStateProperty = aspectBuilder.TargetDeclaration.Properties
+                    .Where(m => m.Name == nameof(this.DirtyState) && m.Parameters.Count == 0 && m.Type.Is(typeof(DirtyState)))
+                    .SingleOrDefault();
 
                 if ( dirtyStateProperty?.Setter == null )
                 {
@@ -41,6 +43,7 @@ namespace Caravela.Samples.Dirty
                 }
             }
 
+            // Override all writable fields and automatic properties.
             var fieldsOrProperties = aspectBuilder.TargetDeclaration.Properties
                 .Cast<IFieldOrProperty>()
                 .Concat(aspectBuilder.TargetDeclaration.Fields)
@@ -58,6 +61,7 @@ namespace Caravela.Samples.Dirty
 
         [InterfaceMember]
         public DirtyState DirtyState { get; protected set; }
+
 
         [Template]
         private void OverrideSetter()
