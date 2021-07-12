@@ -1,10 +1,9 @@
 <Project>
-	<Import Project="..\Caravela\CaravelaVersion.props"/>
+	<Import Project="..\Caravela\CaravelaVersion.props" Condition="Exists('.local')"/>
 	<PropertyGroup>
-		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.0.1</CaravelaVersion>
+		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.3.2-preview</CaravelaVersion>
 		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
 		<DebugCaravelaIde>False</DebugCaravelaIde>
-		<RestoreAdditionalProjectSources>$(MSbuildThisFileDirectory)\..\Caravela\artifacts\bin\Debug</RestoreAdditionalProjectSources>
 	</PropertyGroup>
 
 </Project>
