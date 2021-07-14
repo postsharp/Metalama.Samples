@@ -33,7 +33,7 @@ namespace Caravela.Samples.NotifyPropertyChanged
             if ( value != meta.Property.Value )
             {
                 this.OnPropertyChanged(meta.Property.Name);
-                var __ = meta.Proceed();
+                meta.Proceed();
             }
 
             return value;

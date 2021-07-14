@@ -66,8 +66,7 @@ namespace Caravela.Samples.Dirty
         [Template]
         private void OverrideSetter()
         {
-            // TODO: this syntax is ugly and it will be fix.
-            var __ = meta.Proceed();
+            meta.Proceed();
 
             if (this.DirtyState == DirtyState.Clean)
             {

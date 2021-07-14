@@ -1,5 +1,4 @@
 using System;
-using Caravela.Framework.Aspects;
 
 namespace Caravela.Samples.LogParameters.Tests.Normal
 {
@@ -12,7 +11,7 @@ namespace Caravela.Samples.LogParameters.Tests.Normal
             Console.WriteLine("Caravela.Samples.LogParameters.Tests.Normal.Foo.Bar(a = {0}, b = {1}) started", arguments);
             try
             {
-                __Void result;
+                object result = null;
                 Console.WriteLine(string.Format("Caravela.Samples.LogParameters.Tests.Normal.Foo.Bar(a = {0}, b = {1})", arguments) + " returned " + result);
                 return;
             }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Caravela.Framework.Aspects;
 
 namespace Caravela.Samples.Log.Tests.SimpleMethod
 {
@@ -15,7 +14,7 @@ namespace Caravela.Samples.Log.Tests.SimpleMethod
             Console.WriteLine("Caravela.Samples.Log.Tests.SimpleMethod.Foo.Bar() started.");
             try
             {
-                __Void result;
+                object result = null;
                 Console.WriteLine("Caravela.Samples.Log.Tests.SimpleMethod.Foo.Bar() succeeded.");
                 return;
             }
