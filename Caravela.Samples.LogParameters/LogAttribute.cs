@@ -7,8 +7,6 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
-        meta.DebugBreak();
-
         // Build a formatting string.
         var stringBuilder = meta.CompileTime(new StringBuilder());
         stringBuilder.Append(meta.Type.ToDisplayString());
