@@ -38,8 +38,8 @@
         "id": "dirty",
         "name": "Dirty (IsChanged)",
         "url": "Caravela.Samples.Dirty",
-        "aspect": "Caravela.Samples.Retry/DirtyAttribute.cs",
-        "program": "Caravela.Samples.Retry/Program.cs"
+        "aspect": "Caravela.Samples.Dirty/DirtyAttribute.cs",
+        "program": "Caravela.Samples.Dirty/Program.cs"
     },
     {
         "id": "exception-enrich",
