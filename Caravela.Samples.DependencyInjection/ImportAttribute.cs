@@ -3,19 +3,19 @@ using Caravela.Framework.Aspects;
 
 namespace Caravela.Samples.DependencyInjection
 {
-    internal class ImportFromServiceLocatorAttribute : OverrideFieldOrPropertyAspect
+    internal class ImportAttribute : OverrideFieldOrPropertyAspect
     {
         public override dynamic OverrideProperty 
         { 
             get
             {
                 // Get the property value.
-                object value = meta.Proceed();
+                var value = meta.Proceed();
 
                 if ( value == null )
                 {
                     // Call the service locator.
-                    value = ServiceLocator.ServiceProvider.GetService(meta.Property.Type.ToType() );
+                    value = meta.Cast( meta.FieldOrProperty.Type, ServiceLocator.ServiceProvider.GetService(meta.Property.Type.ToType() ) );
 
                     // Set the field/property to the new value.
                     meta.Property.Value = value

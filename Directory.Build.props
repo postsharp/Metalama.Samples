@@ -4,6 +4,7 @@
 		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.3.2-preview</CaravelaVersion>
 		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
 		<DebugCaravelaIde>False</DebugCaravelaIde>
+		<CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
 	</PropertyGroup>
 
 </Project>

@@ -5,14 +5,31 @@ namespace Caravela.Samples.DependencyInjection
 {
     class Program
     {
-        static void Main(string[] args)
+        [Import]
+        IGreetingService _service { get; set; }
+
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            var program = new Program();
+            program._service.Greet("World");
         }
     }
 
-    static class ServiceLocator
+    interface IGreetingService
     {
-        public static IServiceProvider ServiceProvider;
+        void Greet(string name);
+    }
+
+    class GreetingService : IGreetingService
+    {
+        public void Greet(string name) => Console.WriteLine($"Hello, {name}.");
+    }
+
+    class ServiceLocator : IServiceProvider
+    {
+        public static readonly IServiceProvider ServiceProvider = new ServiceLocator();
+
+        public object GetService(Type serviceType) => new GreetingService();
+        
     }
 }
