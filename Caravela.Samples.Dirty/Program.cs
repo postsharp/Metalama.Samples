@@ -6,11 +6,13 @@ namespace Caravela.Samples.Dirty
     {
         static void Main()
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Instantiating an object.");
             SocialAnimal d = new("Dog", 5);
-            d.Track();
-
             Console.WriteLine($"State={d.DirtyState}");
+            Console.WriteLine("Start tracking changes.");
+            d.Track();
+            Console.WriteLine($"State={d.DirtyState}");
+            Console.WriteLine("Doing a change.");
             d.Name = "Changed";
             Console.WriteLine($"State={d.DirtyState}");
         }
