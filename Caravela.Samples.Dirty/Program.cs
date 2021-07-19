@@ -13,11 +13,6 @@ namespace Caravela.Samples.Dirty
             Console.WriteLine($"State={d.DirtyState}");
             d.Name = "Changed";
             Console.WriteLine($"State={d.DirtyState}");
-
-            Other o = null;
-            Console.WriteLine($"State={o.DirtyState}");
-
-
         }
     }
 
@@ -48,12 +43,6 @@ namespace Caravela.Samples.Dirty
         }
 
         public int Rank { get; set; }
-    }
-
-    [Dirty]
-    public partial class Other 
-    {
-        
     }
 
     public interface IDirty
