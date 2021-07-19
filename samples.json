@@ -63,6 +63,13 @@
         "program": "Caravela.Samples.ToString/Program.cs"
     },
     {
+        "id": "cloneable",
+        "name": "Cloneable",
+        "url": "Caravela.Samples.Clone",
+        "aspect": "Caravela.Samples.Clone/CloneAttribute.cs",
+        "program": "Caravela.Samples.Clone/Program.cs"
+    },
+    {
         "id": "autoconfigureawait",
         "name": "Automatically call ConfigureAwait (SDK)",
         "url": "Caravela.Samples.AutoConfigureAwait",
