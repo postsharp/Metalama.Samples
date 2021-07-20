@@ -10,11 +10,20 @@ using Caravela.Framework.Sdk;
 using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using Caravela.Framework.Eligibility;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
 public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>
 {
-    void IAspect<INamedType>.Initialize(IAspectBuilder<INamedType> aspectBuilder)
+    public void BuildAspect(IAspectBuilder<INamedType> builder)
+    {
+    }
+
+    public void BuildAspectClass(IAspectClassBuilder builder)
+    {
+    }
+
+    public void BuildEligibility(IEligibilityBuilder<INamedType> builder)
     {
     }
 }
@@ -22,14 +31,14 @@ public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>
 [CompilerPlugin, AspectWeaver(typeof(AutoCancellationTokenAttribute))]
 class AutoCancellationTokenWeaver : IAspectWeaver
 {
-    public CSharpCompilation Transform(AspectWeaverContext context)
+    public void Transform(AspectWeaverContext context)
     {
         var compilation = context.Compilation;
-        var instancesNodes = context.AspectInstances.SelectMany(a => a.CodeElement.Symbol.DeclaringSyntaxReferences).Select(r=>r.GetSyntax()).Cast<CSharpSyntaxNode>();
+        var instancesNodes = context.AspectInstances.SelectMany(a => a.TargetDeclaration.GetSymbol().DeclaringSyntaxReferences).Select(r=>r.GetSyntax()).Cast<CSharpSyntaxNode>();
         RunRewriter(new AnnotateNodesRewriter(instancesNodes));
-        RunRewriter(new AddCancellationTokenToMethodsRewriter(compilation));
-        RunRewriter(new AddCancellationTokenToInvocationsRewriter(compilation));
-        return compilation;
+        RunRewriter(new AddCancellationTokenToMethodsRewriter(compilation.Compilation));
+        RunRewriter(new AddCancellationTokenToInvocationsRewriter(compilation.Compilation));
+        context.Compilation = compilation;
 
         void RunRewriter(RewriterBase rewriter) => compilation = rewriter.Visit(compilation);
     }
@@ -57,29 +66,27 @@ class AutoCancellationTokenWeaver : IAspectWeaver
 
         protected const string CancellationAttributeName = "Caravela.Open.AutoCancellationToken.AutoCancellationTokenAttribute";
 
-        public CSharpCompilation Visit(CSharpCompilation compilation)
-        {
-            foreach (var tree in compilation.SyntaxTrees)
-            {
-                compilation = compilation.ReplaceSyntaxTree(tree, tree.WithRootAndOptions(this.Visit(tree.GetRoot()), tree.Options));
-            }
-
-            return compilation;
-        }
+        public IPartialCompilation Visit(IPartialCompilation compilation)
+            => compilation.UpdateSyntaxTrees((root, cancellationToken) => this.Visit(root));
     }
 
     sealed class AnnotateNodesRewriter : RewriterBase
     {
-        private readonly HashSet<CSharpSyntaxNode> instancesNodes;
+        private readonly HashSet<CSharpSyntaxNode> _instancesNodes;
 
-        public AnnotateNodesRewriter(IEnumerable<CSharpSyntaxNode> instancesNodes) => this.instancesNodes = new(instancesNodes);
+        public AnnotateNodesRewriter(IEnumerable<CSharpSyntaxNode> instancesNodes)
+        {
+            this._instancesNodes = new(instancesNodes);
+        }
 
         public static SyntaxAnnotation Annotation { get; } = new SyntaxAnnotation();
 
         protected override T VisitTypeDeclaration<T>(T node, Func<T, SyntaxNode> baseVisit)
         {
-            if (!this.instancesNodes.Contains(node))
+            if (!this._instancesNodes.Contains(node))
+            {
                 return node;
+            }
 
             return node.WithAdditionalAnnotations(Annotation);
         }
@@ -87,26 +94,33 @@ class AutoCancellationTokenWeaver : IAspectWeaver
 
     sealed class AddCancellationTokenToMethodsRewriter : RewriterBase
     {
-        private readonly Compilation compilation;
+        private readonly Compilation _compilation;
 
-        public AddCancellationTokenToMethodsRewriter(Compilation compilation) => this.compilation = compilation;
+        public AddCancellationTokenToMethodsRewriter(Compilation compilation)
+        {
+            this._compilation = compilation;
+        }
 
         protected override T VisitTypeDeclaration<T>(T node, Func<T, SyntaxNode> baseVisit)
         {
             if (!node.HasAnnotation(AnnotateNodesRewriter.Annotation))
+            {
                 return node;
+            }
 
             return (T)baseVisit(node);
         }
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
-            var semanticModel = this.compilation.GetSemanticModel(node.SyntaxTree);
+            var semanticModel = this._compilation.GetSemanticModel(node.SyntaxTree);
 
             var methodSymbol = semanticModel.GetDeclaredSymbol(node);
 
             if (!methodSymbol.IsAsync || methodSymbol.Parameters.Any(IsCancellationToken))
+            {
                 return node;
+            }
 
             return node.AddParameterListParameters(Parameter(
                 default, default, CancellationTokenType, Identifier("cancellationToken"),
@@ -116,16 +130,22 @@ class AutoCancellationTokenWeaver : IAspectWeaver
 
     sealed class AddCancellationTokenToInvocationsRewriter : RewriterBase
     {
-        private readonly Compilation compilation;
+        private readonly Compilation _compilation;
+        private string _cancellationTokenParameterName;
 
-        public AddCancellationTokenToInvocationsRewriter(Compilation compilation) => this.compilation = compilation;
+        public AddCancellationTokenToInvocationsRewriter(Compilation compilation)
+        {
+            this._compilation = compilation;
+        }
 
         protected override T VisitTypeDeclaration<T>(T node, Func<T, SyntaxNode> baseVisit)
         {
             if (!node.HasAnnotation(AnnotateNodesRewriter.Annotation))
+            {
                 return node;
+            }
 
-            var semanticModel = this.compilation.GetSemanticModel(node.SyntaxTree);
+            var semanticModel = this._compilation.GetSemanticModel(node.SyntaxTree);
 
             var symbol = semanticModel.GetDeclaredSymbol(node);
 
@@ -134,23 +154,26 @@ class AutoCancellationTokenWeaver : IAspectWeaver
             return (T)baseVisit(node);
         }
 
-        private string cancellationTokenParameterName;
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
-            var semanticModel = this.compilation.GetSemanticModel(node.SyntaxTree);
+            var semanticModel = this._compilation.GetSemanticModel(node.SyntaxTree);
 
             var methodSymbol = semanticModel.GetDeclaredSymbol(node);
 
             if (!methodSymbol.IsAsync)
+            {
                 return node;
+            }
 
             var cancellationTokenParmeters = methodSymbol.Parameters.Where(IsCancellationToken);
 
             if (cancellationTokenParmeters.Count() != 1)
+            {
                 return node;
+            }
 
-            this.cancellationTokenParameterName = cancellationTokenParmeters.Single().Name;
+            this._cancellationTokenParameterName = cancellationTokenParmeters.Single().Name;
 
             return base.VisitMethodDeclaration(node);
         }
@@ -167,19 +190,21 @@ class AutoCancellationTokenWeaver : IAspectWeaver
         private T VisitFunction<T>(T node, bool isStatic, Func<T, SyntaxNode> baseVisit) where T : SyntaxNode
         {
             if (isStatic)
+            {
                 return node;
+            }
 
             return (T)baseVisit(node);
         }
 
         public override SyntaxNode VisitInvocationExpression(InvocationExpressionSyntax node)
         {
-            bool addCt = false;
+            var addCt = false;
 
-            var semanticModel = this.compilation.GetSemanticModel(node.SyntaxTree);
+            var semanticModel = this._compilation.GetSemanticModel(node.SyntaxTree);
 
             var invocationWithCt = node.AddArgumentListArguments(Argument(DefaultExpression(CancellationTokenType)));
-            int newInvocationArgumentsCount = invocationWithCt.ArgumentList.Arguments.Count;
+            var newInvocationArgumentsCount = invocationWithCt.ArgumentList.Arguments.Count;
 
             var speculativeSymbol = semanticModel.GetSpeculativeSymbolInfo(node.SpanStart, invocationWithCt, default).Symbol as IMethodSymbol;
 
@@ -197,7 +222,9 @@ class AutoCancellationTokenWeaver : IAspectWeaver
             node = (InvocationExpressionSyntax)base.VisitInvocationExpression(node);
 
             if (addCt)
-                node = node.AddArgumentListArguments(Argument(IdentifierName(this.cancellationTokenParameterName)));
+            {
+                node = node.AddArgumentListArguments(Argument(IdentifierName(this._cancellationTokenParameterName)));
+            }
 
             return node;
         }
