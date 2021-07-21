@@ -1,7 +1,7 @@
 <Project>
 	<Import Project="..\Caravela\CaravelaVersion.props" Condition="Exists('.local')"/>
 	<PropertyGroup>
-		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.3.3-preview</CaravelaVersion>
+		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.3.4-preview</CaravelaVersion>
 		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
 		<DebugCaravelaIde>False</DebugCaravelaIde>
 		<CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
