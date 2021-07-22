@@ -2,6 +2,12 @@
 	<Import Project="..\Caravela\CaravelaVersion.props" Condition="Exists('.local')"/>
 	<PropertyGroup>
 		<CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.3.4-preview</CaravelaVersion>
+
+		<RestoreAdditionalProjectSources Condition="'$(IS_POSTSHARP_OWNED)'=='True'">
+			$(RestoreAdditionalProjectSources);
+			https://nuget.postsharp.net/nuget/caravela/
+			</RestoreAdditionalProjectSources>
+
 		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
 		<DebugCaravelaIde>False</DebugCaravelaIde>
 		<CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
