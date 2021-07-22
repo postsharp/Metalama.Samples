@@ -6,7 +6,7 @@
 		<RestoreAdditionalProjectSources Condition="'$(IS_POSTSHARP_OWNED)'=='True'">
 			$(RestoreAdditionalProjectSources);
 			https://nuget.postsharp.net/nuget/caravela/
-			</RestoreAdditionalProjectSources>
+		</RestoreAdditionalProjectSources>
 
 		<DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
 		<DebugCaravelaIde>False</DebugCaravelaIde>
