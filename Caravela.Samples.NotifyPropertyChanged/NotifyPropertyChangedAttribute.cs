@@ -12,9 +12,11 @@ namespace Caravela.Samples.NotifyPropertyChanged
         {
              builder.AdviceFactory.ImplementInterface(builder.TargetDeclaration, typeof(INotifyPropertyChanged));
 
-            foreach (var property in builder.TargetDeclaration.Properties.Where( p => !p.IsAbstract && p.Writeability == Writeability.All ))
+            foreach (var property in builder.TargetDeclaration.Properties.Where(
+                p => !p.IsAbstract && p.Writeability == Writeability.All ))
             {
-                builder.AdviceFactory.OverrideFieldOrPropertyAccessors(property, null, nameof(OverridePropertySetter));
+                builder.AdviceFactory.OverrideFieldOrPropertyAccessors(
+                    property, null, nameof(OverridePropertySetter));
             }
         }
 
@@ -32,8 +34,8 @@ namespace Caravela.Samples.NotifyPropertyChanged
         {
             if ( value != meta.Property.Value )
             {
-                this.OnPropertyChanged(meta.Property.Name);
                 meta.Proceed();
+                this.OnPropertyChanged(meta.Property.Name);
             }
 
             return value;
