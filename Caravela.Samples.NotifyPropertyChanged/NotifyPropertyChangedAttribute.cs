@@ -26,7 +26,7 @@ namespace Caravela.Samples.NotifyPropertyChanged
         [Introduce( WhenExists = OverrideStrategy.Ignore )]
         protected void OnPropertyChanged(string name)
         {
-            meta.This.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs(name));
+            this.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs(name));
         }
 
         [Template]
