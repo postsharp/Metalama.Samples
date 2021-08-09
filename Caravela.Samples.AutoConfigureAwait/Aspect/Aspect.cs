@@ -8,7 +8,8 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Caravela;
 using Caravela.Framework.Aspects;
-using Caravela.Framework.Sdk;
+using Caravela.Framework.Impl.Sdk;
+using Caravela.Framework.Impl.CodeModel;
 using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;

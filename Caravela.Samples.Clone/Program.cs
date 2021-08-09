@@ -29,6 +29,10 @@ namespace Caravela.Samples.Clone
         public int F;
     }
 
+    class Derived : AutomaticallyCloneable
+    {
+        public ManuallyCloneable G { get; private set; }
+    }
 
     class Program
     {
@@ -38,7 +42,7 @@ namespace Caravela.Samples.Clone
             {
                 A = 1,
                 B = new ManuallyCloneable {E = 2 },
-                C = new AutomaticallyCloneable { A = 3 },
+                C = new Derived { A = 3 },
                 D = new NotCloneable {  F = 4 }
             };
 

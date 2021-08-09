@@ -3,43 +3,42 @@ using System.Linq;
 using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
+using Caravela.Framework.Code.Syntax;
 
 namespace Caravela.Samples.ToString
 {
-    public class ToStringAttribute : Attribute, IAspect<INamedType>
+    class ToStringAttribute : Attribute, IAspect<INamedType>
     {
         [Introduce(WhenExists = OverrideStrategy.Override, Name = "ToString")]
         public string IntroducedToString()
         {
-            var formattingString = meta.CompileTime(new StringBuilder());
-            formattingString.Append("{{ ");
-            formattingString.Append(meta.Type.Name);
-            formattingString.Append(" ");
+            var stringBuilder = InterpolatedStringBuilder.Create();
+            stringBuilder.AddText("{{ ");
+            stringBuilder.AddText(meta.Target.Type.Name);
+            stringBuilder.AddText(" ");
+
+            var fields = meta.Target.Type.FieldsAndProperties.Where(f => !f.IsStatic).ToList();
 
             var i = meta.CompileTime(0);
-            var fields = meta.Type.FieldsAndProperties.Where(f => !f.IsStatic).ToList();
 
-            var values = new object[fields.Count];
             foreach (var field in fields)
             {
                 if (i > 0)
                 {
-                    formattingString.Append(", ");
+                    stringBuilder.AddText(", ");
                 }
 
-                formattingString.Append(field.Name);
-                formattingString.Append("={");
-                formattingString.Append(i);
-                formattingString.Append("}");
-                values[i] = field.Invokers.Final.GetValue(meta.This);
+                stringBuilder.AddText(field.Name);
+                stringBuilder.AddText("=");
+                stringBuilder.AddExpression(field.Invokers.Final.GetValue(meta.This));
 
                 i++;
             }
 
-            formattingString.Append(" }}");
+            stringBuilder.AddText(" }}");
 
 
-            return string.Format(formattingString.ToString(), values);
+            return stringBuilder.ToInterpolatedString();
 
         }
     }

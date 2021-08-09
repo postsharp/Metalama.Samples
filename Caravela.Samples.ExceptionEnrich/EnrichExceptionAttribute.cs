@@ -9,12 +9,12 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
     {
         // Compile-time code: create a formatting string containing the method name and placeholder for formatting parameters.
         var methodSignatureBuilder = meta.CompileTime(new StringBuilder());
-        methodSignatureBuilder.Append(meta.Type.ToString());
+        methodSignatureBuilder.Append(meta.Target.Type.ToString());
         methodSignatureBuilder.Append('.');
-        methodSignatureBuilder.Append(meta.Method.Name);
+        methodSignatureBuilder.Append(meta.Target.Method.Name);
         methodSignatureBuilder.Append('(');
         int i = meta.CompileTime(0);
-        foreach (var p in meta.Parameters)
+        foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
@@ -47,7 +47,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
             }
 
             // Add current context information to the string builder.
-            stringBuilder.AppendFormat("  > " + methodSignatureBuilder.ToString(), meta.Parameters.Values.ToArray());
+            stringBuilder.AppendFormat("  > " + methodSignatureBuilder.ToString(), meta.Target.Parameters.Values.ToArray());
             stringBuilder.AppendLine();
 
             throw;

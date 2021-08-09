@@ -21,32 +21,32 @@ namespace Caravela.Samples.Dirty
         public void BuildAspect(IAspectBuilder<INamedType> aspectBuilder)
         {
             // Implement the IDirty interface.
-            if ( !aspectBuilder.TargetDeclaration.ImplementedInterfaces.Any(i => i.Is(typeof(IDirty)) ) )
+            if ( !aspectBuilder.Target.ImplementedInterfaces.Any(i => i.Is(typeof(IDirty)) ) )
             {
-                aspectBuilder.AdviceFactory.ImplementInterface(aspectBuilder.TargetDeclaration, typeof(IDirty), OverrideStrategy.Ignore );
+                aspectBuilder.AdviceFactory.ImplementInterface(aspectBuilder.Target, typeof(IDirty), OverrideStrategy.Ignore );
             }
             else
             {
                 // If the type already implements IDirty, it must have a protected method called OnDirty, otherwise 
                 // this is a contract violation, so we report an error.
-                var dirtyStateProperty = aspectBuilder.TargetDeclaration.Properties
+                var dirtyStateProperty = aspectBuilder.Target.Properties
                     .Where(m => m.Name == nameof(this.DirtyState) && m.Parameters.Count == 0 && m.Type.Is(typeof(DirtyState)))
                     .SingleOrDefault();
 
-                if ( dirtyStateProperty?.Setter == null )
+                if ( dirtyStateProperty?.SetMethod == null )
                 {
-                    aspectBuilder.Diagnostics.Report(_mustHaveDirtyStateSetter, aspectBuilder.TargetDeclaration);
+                    aspectBuilder.Diagnostics.Report(_mustHaveDirtyStateSetter, aspectBuilder.Target);
                 }
-                else if ( dirtyStateProperty.Setter.Accessibility != Accessibility.Protected )
+                else if ( dirtyStateProperty.SetMethod.Accessibility != Accessibility.Protected )
                 {
                     aspectBuilder.Diagnostics.Report(_dirtyStateSetterMustBeProtected, dirtyStateProperty );
                 }
             }
 
             // Override all writable fields and automatic properties.
-            var fieldsOrProperties = aspectBuilder.TargetDeclaration.Properties
+            var fieldsOrProperties = aspectBuilder.Target.Properties
                 .Cast<IFieldOrProperty>()
-                .Concat(aspectBuilder.TargetDeclaration.Fields)
+                .Concat(aspectBuilder.Target.Fields)
                 .Where(f => f.Writeability == Writeability.All);
 
             foreach ( var fieldOrProperty in fieldsOrProperties )

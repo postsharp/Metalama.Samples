@@ -2,13 +2,14 @@
 using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
+using Caravela.Framework.Code.Syntax;
 
 public class CacheAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
         // Builds the caching string.
-        var cacheKey = string.Format(GetCachingKeyFormattingString(), meta.Parameters.Values.ToArray());
+        var cacheKey = GetCachingKeyFormattingString().ToInterpolatedString();
 
         // Cache lookup.
         if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
@@ -27,32 +28,34 @@ public class CacheAttribute : OverrideMethodAspect
         }
     }
 
-    private static string GetCachingKeyFormattingString()
+    private static InterpolatedStringBuilder GetCachingKeyFormattingString()
     {
-        var stringBuilder = meta.CompileTime(new StringBuilder());
-        stringBuilder.Append(meta.Type.ToString());
-        stringBuilder.Append('.');
-        stringBuilder.Append(meta.Method.Name);
-        stringBuilder.Append('(');
+        var stringBuilder = InterpolatedStringBuilder.Create();
+        stringBuilder.AddText(meta.Target.Type.ToString());
+        stringBuilder.AddText(".");
+        stringBuilder.AddText(meta.Target.Method.Name);
+        stringBuilder.AddText("(");
 
         var i = meta.CompileTime(0);
-        foreach (var p in meta.Parameters)
+        foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
             if (p.IsOut())
             {
-                stringBuilder.Append($"{comma}{p.Name} = <out> ");
+                stringBuilder.AddText($"{comma}{p.Name} = <out> ");
             }
             else
             {
-                stringBuilder.Append($"{comma}{{{i}}}");
+                stringBuilder.AddText($"{comma}{{");
+                stringBuilder.AddExpression(p.Value);
+                stringBuilder.AddText("}");
             }
 
             i++;
         }
-        stringBuilder.Append(')');
-        return stringBuilder.ToString();
+        stringBuilder.AddText(")");
+        return stringBuilder;
     }
 
  }

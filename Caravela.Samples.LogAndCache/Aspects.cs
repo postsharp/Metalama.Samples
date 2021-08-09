@@ -7,18 +7,18 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic OverrideMethod()
     {
-        Console.WriteLine(meta.Method.ToDisplayString() + " started.");
+        Console.WriteLine(meta.Target.Method.ToDisplayString() + " started.");
 
         try
         {
             dynamic result = meta.Proceed();
 
-            Console.WriteLine(meta.Method.ToDisplayString() + " succeeded.");
+            Console.WriteLine(meta.Target.Method.ToDisplayString() + " succeeded.");
             return result;
         }
         catch (Exception e)
         {
-            Console.WriteLine(meta.Method.ToDisplayString() + " failed: " + e.Message);
+            Console.WriteLine(meta.Target.Method.ToDisplayString() + " failed: " + e.Message);
 
             throw;
         }
@@ -30,7 +30,7 @@ public class CacheAttribute : OverrideMethodAspect
     public override dynamic OverrideMethod()
     {
         // Builds the caching string.
-        var cacheKey = string.Format(GetCachingKeyFormattingString(), meta.Parameters.Values.ToArray());
+        var cacheKey = string.Format(GetCachingKeyFormattingString(), meta.Target.Parameters.Values.ToArray());
 
         // Cache lookup.
         if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
@@ -52,13 +52,13 @@ public class CacheAttribute : OverrideMethodAspect
     private static string GetCachingKeyFormattingString()
     {
         var stringBuilder = meta.CompileTime(new StringBuilder());
-        stringBuilder.Append(meta.Type.ToString());
+        stringBuilder.Append(meta.Target.Type.ToString());
         stringBuilder.Append('.');
-        stringBuilder.Append(meta.Method.Name);
+        stringBuilder.Append(meta.Target.Method.Name);
         stringBuilder.Append('(');
 
         var i = meta.CompileTime(0);
-        foreach (var p in meta.Parameters)
+        foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
