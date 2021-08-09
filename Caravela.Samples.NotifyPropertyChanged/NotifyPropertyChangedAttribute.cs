@@ -10,9 +10,9 @@ namespace Caravela.Samples.NotifyPropertyChanged
     {
         public void BuildAspect( IAspectBuilder<INamedType> builder )
         {
-             builder.AdviceFactory.ImplementInterface(builder.TargetDeclaration, typeof(INotifyPropertyChanged));
+             builder.AdviceFactory.ImplementInterface(builder.Target, typeof(INotifyPropertyChanged));
 
-            foreach (var property in builder.TargetDeclaration.Properties.Where(
+            foreach (var property in builder.Target.Properties.Where(
                 p => !p.IsAbstract && p.Writeability == Writeability.All ))
             {
                 builder.AdviceFactory.OverrideFieldOrPropertyAccessors(
@@ -32,10 +32,10 @@ namespace Caravela.Samples.NotifyPropertyChanged
         [Template]
         dynamic OverridePropertySetter( dynamic value )
         {
-            if ( value != meta.Property.Value )
+            if ( value != meta.Target.Property.Value )
             {
                 meta.Proceed();
-                this.OnPropertyChanged(meta.Property.Name);
+                this.OnPropertyChanged(meta.Target.Property.Name);
             }
 
             return value;

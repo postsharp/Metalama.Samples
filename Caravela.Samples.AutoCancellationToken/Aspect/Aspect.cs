@@ -6,11 +6,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Caravela.Framework.Aspects;
-using Caravela.Framework.Sdk;
 using Caravela.Framework.Code;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Caravela.Framework.Eligibility;
+using Caravela.Framework.Impl.Sdk;
+using Caravela.Framework.Impl.CodeModel;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
 public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>

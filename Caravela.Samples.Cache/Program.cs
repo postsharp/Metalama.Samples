@@ -5,8 +5,11 @@ class Program
 {
     static void Main()
     {
+        Console.WriteLine("Calling a first time.");
         Add(1, 1);
+        Console.WriteLine("Calling a second time.");
         Add(1, 1);
+        Console.WriteLine("Completed.");
     }
 
     [Cache]
