@@ -3,7 +3,7 @@
 namespace Caravela.Samples.ToString
 {
     [ToString]
-    class MovingVertex
+    internal class MovingVertex
     {
         public double X;
 
@@ -13,13 +13,12 @@ namespace Caravela.Samples.ToString
 
         public double DY { get; set; }
 
-        public double Velocity => Math.Sqrt(this.DX * this.DX + this.DY * this.DY);
-        
+        public double Velocity => Math.Sqrt((this.DX * this.DX) + (this.DY * this.DY));
     }
 
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             var car = new MovingVertex { X = 5, Y = 3, DX = 0.1, DY = 0.3 };
 

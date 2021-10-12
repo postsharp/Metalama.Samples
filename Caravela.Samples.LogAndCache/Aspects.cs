@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public override dynamic OverrideMethod()
+    public override dynamic? OverrideMethod()
     {
         Console.WriteLine(meta.Target.Method.ToDisplayString() + " started.");
 
         try
         {
-            dynamic result = meta.Proceed();
+            var result = meta.Proceed();
 
             Console.WriteLine(meta.Target.Method.ToDisplayString() + " succeeded.");
             return result;
@@ -27,7 +28,7 @@ public class LogAttribute : OverrideMethodAspect
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    public override dynamic OverrideMethod()
+    public override dynamic? OverrideMethod()
     {
         // Builds the caching string.
         var cacheKey = string.Format(GetCachingKeyFormattingString(), meta.Target.Parameters.Values.ToArray());
@@ -41,7 +42,7 @@ public class CacheAttribute : OverrideMethodAspect
         else
         {
             // Cache miss. Go and invoke the method.
-            dynamic result = meta.Proceed();
+            var result = meta.Proceed();
 
             // Add to cache.
             SampleCache.Cache.TryAdd(cacheKey, result);
@@ -62,7 +63,7 @@ public class CacheAttribute : OverrideMethodAspect
         {
             var comma = i > 0 ? ", " : "";
 
-            if (p.IsOut())
+            if (p.RefKind == RefKind.Out)
             {
                 stringBuilder.Append($"{comma}{p.Name} = <out> ");
             }
@@ -73,6 +74,7 @@ public class CacheAttribute : OverrideMethodAspect
 
             i++;
         }
+
         stringBuilder.Append(')');
         return stringBuilder.ToString();
     }
@@ -81,6 +83,6 @@ public class CacheAttribute : OverrideMethodAspect
 // Placeholder implementation of a cache because the hosted try.postsharp.net does not allow for MemoryCache.
 public static class SampleCache
 {
-    public static readonly System.Collections.Concurrent.ConcurrentDictionary<string, object> Cache =
-        new System.Collections.Concurrent.ConcurrentDictionary<string, object>();
+    public static readonly ConcurrentDictionary<string, object> Cache =
+        new();
 }

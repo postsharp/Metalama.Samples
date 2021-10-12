@@ -1,14 +1,12 @@
-﻿using System;
-
-class Program
+﻿internal class Program
 {
-    static void Main()
+    private static void Main()
     {
         Add(1, 1);
     }
 
     [Log]
-    static int Add(int a, int b)
+    private static int Add(int a, int b)
     {
         return a + b;
     }

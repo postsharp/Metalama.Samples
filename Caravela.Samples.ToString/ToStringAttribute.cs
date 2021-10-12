@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
-using Caravela.Framework.Code.Syntax;
+using Caravela.Framework.Code.SyntaxBuilders;
 
 namespace Caravela.Samples.ToString
 {
-    class ToStringAttribute : Attribute, IAspect<INamedType>
+    internal class ToStringAttribute : Attribute, IAspect<INamedType>
     {
         [Introduce(WhenExists = OverrideStrategy.Override, Name = "ToString")]
         public string IntroducedToString()
         {
-            var stringBuilder = InterpolatedStringBuilder.Create();
+            var stringBuilder = new InterpolatedStringBuilder();
             stringBuilder.AddText("{{ ");
             stringBuilder.AddText(meta.Target.Type.Name);
             stringBuilder.AddText(" ");
@@ -38,8 +37,7 @@ namespace Caravela.Samples.ToString
             stringBuilder.AddText(" }}");
 
 
-            return stringBuilder.ToInterpolatedString();
-
+            return stringBuilder.ToValue();
         }
     }
 }

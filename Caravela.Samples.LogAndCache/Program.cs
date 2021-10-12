@@ -3,10 +3,10 @@ using Caravela.Framework.Aspects;
 
 [assembly: AspectOrder(typeof(CacheAttribute), typeof(LogAttribute))]
 
-class Program
+internal class Program
 {
     [Log]
-    static void Main()
+    private static void Main()
     {
         try
         {
@@ -15,13 +15,12 @@ class Program
         }
         catch
         {
-            
         }
     }
 
     [Log]
     [Cache]
-    static int Add(int a, int b)
+    private static int Add(int a, int b)
     {
         Console.WriteLine("Thinking...");
         return a + b;

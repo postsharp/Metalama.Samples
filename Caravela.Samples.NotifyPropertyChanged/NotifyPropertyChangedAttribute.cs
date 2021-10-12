@@ -1,38 +1,38 @@
-﻿using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
-using System;
-using System.Linq;
+﻿using System;
 using System.ComponentModel;
+using System.Linq;
+using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 
 namespace Caravela.Samples.NotifyPropertyChanged
 {
-    class NotifyPropertyChangedAttribute : Attribute, IAspect<INamedType>
+    internal class NotifyPropertyChangedAttribute : Attribute, IAspect<INamedType>
     {
-        public void BuildAspect( IAspectBuilder<INamedType> builder )
+        public void BuildAspect(IAspectBuilder<INamedType> builder)
         {
-             builder.AdviceFactory.ImplementInterface(builder.Target, typeof(INotifyPropertyChanged));
+            builder.Advices.ImplementInterface(builder.Target, typeof(INotifyPropertyChanged));
 
             foreach (var property in builder.Target.Properties.Where(
-                p => !p.IsAbstract && p.Writeability == Writeability.All ))
+                p => !p.IsAbstract && p.Writeability == Writeability.All))
             {
-                builder.AdviceFactory.OverrideFieldOrPropertyAccessors(
+                builder.Advices.OverrideFieldOrPropertyAccessors(
                     property, null, nameof(OverridePropertySetter));
             }
         }
 
-        [InterfaceMember]
-        public event PropertyChangedEventHandler PropertyChanged;
+        [InterfaceMember] 
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        [Introduce( WhenExists = OverrideStrategy.Ignore )]
+        [Introduce(WhenExists = OverrideStrategy.Ignore)]
         protected void OnPropertyChanged(string name)
         {
-            this.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(meta.This, new PropertyChangedEventArgs(name));
         }
 
         [Template]
-        dynamic OverridePropertySetter( dynamic value )
+        private dynamic OverridePropertySetter(dynamic value)
         {
-            if ( value != meta.Target.Property.Value )
+            if (value != meta.Target.Property.Value)
             {
                 meta.Proceed();
                 this.OnPropertyChanged(meta.Target.Property.Name);

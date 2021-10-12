@@ -2,9 +2,8 @@
 
 namespace Caravela.Samples.NotifyPropertyChanged
 {
-
     [NotifyPropertyChanged]
-    partial class MovingVertex
+    internal partial class MovingVertex
     {
         public double X { get; set; }
 
@@ -14,23 +13,20 @@ namespace Caravela.Samples.NotifyPropertyChanged
 
         public double DY { get; set; }
 
-        public double Velocity => Math.Sqrt(this.DX * this.DX + this.DY * this.DY);
+        public double Velocity => Math.Sqrt((this.DX * this.DX) + (this.DY * this.DY));
 
-        public void ApplyTime( double time )
+        public void ApplyTime(double time)
         {
             this.X += this.DX * time;
             this.Y += this.DY * time;
         }
-
     }
 
 
-    class Program
+    internal class Program
     {
-        
-        static void Main()
+        private static void Main()
         {
-
             var car = new MovingVertex { X = 5, Y = 3, DX = 0.1, DY = 0.3 };
             car.PropertyChanged += (_, args) => Console.WriteLine($"{args.PropertyName} has changed");
 

@@ -5,11 +5,11 @@ using Caravela.Framework.Code;
 
 namespace Caravela.Samples.Clone
 {
-      class DeepCloneAttribute : Attribute, IAspect<INamedType>
+    internal class DeepCloneAttribute : Attribute, IAspect<INamedType>
     {
         public void BuildAspect(IAspectBuilder<INamedType> builder)
         {
-            var typedMethod = builder.AdviceFactory.IntroduceMethod(
+            var typedMethod = builder.Advices.IntroduceMethod(
                 builder.Target,
                 nameof(CloneImpl),
                 whenExists: OverrideStrategy.Override);
@@ -17,7 +17,7 @@ namespace Caravela.Samples.Clone
             typedMethod.Name = "Clone";
             typedMethod.ReturnType = builder.Target;
 
-            builder.AdviceFactory.ImplementInterface(
+            builder.Advices.ImplementInterface(
                 builder.Target,
                 typeof(ICloneable),
                 whenExists: OverrideStrategy.Ignore);
@@ -41,34 +41,33 @@ namespace Caravela.Samples.Clone
             }
 
             // Define a local variable of the same type as the target type.
-            var clone = meta.Cast(meta.Target.Type, baseCall);
+            var clone = meta.Cast(meta.Target.Type, baseCall)!;
 
             // Select clonable fields.
             var clonableFields =
                 meta.Target.Type.FieldsAndProperties.Where(
                     f => f.IsAutoPropertyOrField &&
-                    ((f.Type.Is(typeof(ICloneable)) && f.Type.SpecialType != SpecialType.String) ||
-                    (f.Type is INamedType fieldNamedType && fieldNamedType.Aspects<DeepCloneAttribute>().Any())));
+                         ((f.Type.Is(typeof(ICloneable)) && f.Type.SpecialType != SpecialType.String) ||
+                          (f.Type is INamedType fieldNamedType && fieldNamedType.Aspects<DeepCloneAttribute>().Any())));
 
             foreach (var field in clonableFields)
             {
                 // Check if we have a public method 'Clone()' for the type of the field.
                 var fieldType = (INamedType)field.Type;
-                var cloneMethod = fieldType.Methods.OfExactSignature("Clone", 0, Array.Empty<IType>());
+                var cloneMethod = fieldType.Methods.OfExactSignature("Clone", Array.Empty<IType>());
 
                 if (cloneMethod is { Accessibility: Accessibility.Public } ||
-                     fieldType.Aspects<DeepCloneAttribute>().Any())
+                    fieldType.Aspects<DeepCloneAttribute>().Any())
                 {
                     // If yes, call the method without a cast.
-                    field.Invokers.Base.SetValue(
+                    field.Invokers.Base!.SetValue(
                         clone,
                         meta.Cast(fieldType, field.Invokers.Base.GetValue(meta.This)?.Clone()));
-
                 }
                 else
                 {
                     // If no, use the interface.
-                    field.Invokers.Base.SetValue(
+                    field.Invokers.Base!.SetValue(
                         clone,
                         meta.Cast(fieldType, ((ICloneable?)field.Invokers.Base.GetValue(meta.This))?.Clone()));
                 }
@@ -78,7 +77,6 @@ namespace Caravela.Samples.Clone
         }
 
         [InterfaceMember(IsExplicit = true)]
-        object Clone() => meta.This.Clone();
-
+        private object Clone() => meta.This.Clone();
     }
 }

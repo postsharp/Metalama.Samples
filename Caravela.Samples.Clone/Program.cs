@@ -1,9 +1,12 @@
 ﻿using System;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
+
 namespace Caravela.Samples.Clone
 {
     [DeepClone]
-    partial class AutomaticallyCloneable
+    internal partial class AutomaticallyCloneable
     {
         public int A;
 
@@ -14,36 +17,36 @@ namespace Caravela.Samples.Clone
         public NotCloneable D;
     }
 
-    class ManuallyCloneable : ICloneable
+    internal class ManuallyCloneable : ICloneable
     {
         public int E;
 
         public object Clone()
         {
-            return new ManuallyCloneable() { E = this.E };
+            return new ManuallyCloneable() { E = E };
         }
     }
 
-    class NotCloneable
+    internal class NotCloneable
     {
         public int F;
     }
 
-    class Derived : AutomaticallyCloneable
+    internal class Derived : AutomaticallyCloneable
     {
         public ManuallyCloneable G { get; private set; }
     }
 
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var original = new AutomaticallyCloneable
             {
                 A = 1,
-                B = new ManuallyCloneable {E = 2 },
+                B = new ManuallyCloneable { E = 2 },
                 C = new Derived { A = 3 },
-                D = new NotCloneable {  F = 4 }
+                D = new NotCloneable { F = 4 }
             };
 
             Print(original, "original");
@@ -52,7 +55,7 @@ namespace Caravela.Samples.Clone
 
             Print(clone, "   clone");
 
-            void Print( AutomaticallyCloneable o, string name )
+            void Print(AutomaticallyCloneable o, string name)
             {
                 Console.WriteLine($"{name} = {{ A={o.A}, B.D={o.B.E}, C.A={o.C.A}, D.F={o.D.F} }}");
             }

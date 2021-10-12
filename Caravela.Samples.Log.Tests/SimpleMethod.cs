@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Caravela.Samples.Log.Tests.SimpleMethod
+﻿namespace Caravela.Samples.Log.Tests.SimpleMethod
 {
-    class Foo
+    internal class Foo
     {
         [Log]
-        void Bar() { }
+        private void Bar()
+        {
+        }
     }
 }

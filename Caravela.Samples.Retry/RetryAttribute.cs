@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Text;
 using Caravela.Framework.Aspects;
 
 public class RetryAttribute : OverrideMethodAspect
 {
     public int Attempts { get; set; } = 5;
 
-    public override dynamic OverrideMethod()
+    public override dynamic? OverrideMethod()
     {
-        for (var i = 0; ; i++)
+        for (var i = 0;; i++)
         {
             try
             {

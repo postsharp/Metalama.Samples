@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 
 [assembly: AutoConfigureAwait]
 
-class Program
+internal class Program
 {
-    static async Task Main()
+    private static async Task Main()
     {
         var client = new FakeHttpClient();
         Console.WriteLine(await MakeRequest(client));
     }
 
-    private static async Task<string> MakeRequest(FakeHttpClient client) => await client.GetAsync("https://example.org");
+    private static async Task<string> MakeRequest(FakeHttpClient client) =>
+        await client.GetAsync("https://example.org");
 }
 
-class FakeHttpClient
+internal class FakeHttpClient
 {
     public async ValueTask<string> GetAsync(string url)
     {
+        Console.WriteLine($"Pretenting to fetch {url}.");
         await Task.Yield();
         return "<html>";
     }

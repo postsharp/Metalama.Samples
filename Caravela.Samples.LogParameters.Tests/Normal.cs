@@ -1,8 +1,13 @@
-﻿namespace Caravela.Samples.LogParameters.Tests.Normal
+﻿using System;
+
+namespace Caravela.Samples.LogParameters.Tests.Normal
 {
-    class Foo
+    internal class Foo
     {
         [Log]
-        void Bar( int a, string b ) { }
+        private void Bar(int a, string b)
+        {
+            Console.WriteLine($"a={a}, b='{b}'");
+        }
     }
 }

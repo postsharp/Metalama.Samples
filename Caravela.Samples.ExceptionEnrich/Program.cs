@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Text;
 
-class Program
+internal class Program
 {
-    static void Main()
+    private static void Main()
     {
         try
         {
@@ -18,12 +17,13 @@ class Program
     }
 
     [EnrichException]
-    static int Fibonaci(int n)
+    private static int Fibonaci(int n)
     {
         if (n < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(n));
         }
+
         if (n == 0)
         {
             return 0;

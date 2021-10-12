@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Text;
 
-class Program
+internal class Program
 {
-    static void Main()
+    private static void Main()
     {
         Console.WriteLine("Calling a first time.");
         Add(1, 1);
@@ -13,7 +12,7 @@ class Program
     }
 
     [Cache]
-    static int Add(int a, int b)
+    private static int Add(int a, int b)
     {
         Console.WriteLine("Thinking...");
         return a + b;

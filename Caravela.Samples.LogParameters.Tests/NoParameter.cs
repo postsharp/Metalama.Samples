@@ -1,8 +1,10 @@
 ﻿namespace Caravela.Samples.LogParameters.Tests.NoParameter
 {
-    class Foo
+    internal class Foo
     {
         [Log]
-        void Bar() { }
+        private void Bar()
+        {
+        }
     }
 }

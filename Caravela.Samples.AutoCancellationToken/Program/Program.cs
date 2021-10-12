@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-class Program
+internal class Program
 {
-    static async Task Main()
+    private static async Task Main()
     {
         var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1.5));
         try
@@ -20,7 +19,7 @@ class Program
 }
 
 [AutoCancellationToken]
-class C
+internal class C
 {
     public static async Task MakeRequests(CancellationToken ct)
     {
@@ -31,13 +30,15 @@ class C
         Console.WriteLine("request 2 succeeded");
     }
 
-    private static async Task MakeRequest(FakeHttpClient client) => await client.GetAsync("https://httpbin.org/delay/1");
+    private static async Task MakeRequest(FakeHttpClient client) =>
+        await client.GetAsync("https://httpbin.org/delay/1");
 }
 
-class FakeHttpClient
+internal class FakeHttpClient
 {
     public async Task GetAsync(string url, CancellationToken cancellationToken = default)
     {
+        Console.WriteLine($"Pretending to fetch {url}.");
         await Task.Delay(1_000, cancellationToken);
     }
 }

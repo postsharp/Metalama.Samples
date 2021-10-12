@@ -2,9 +2,9 @@
 
 namespace Caravela.Samples.Dirty
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             Console.WriteLine("Instantiating an object.");
             SocialAnimal d = new("Dog", 5);
@@ -33,7 +33,7 @@ namespace Caravela.Samples.Dirty
 
         public string Name { get; set; }
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
     }
 
     [Dirty]

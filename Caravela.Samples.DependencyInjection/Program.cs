@@ -1,35 +1,33 @@
 ﻿using System;
-using Caravela.Framework.Code;
 
 namespace Caravela.Samples.DependencyInjection
 {
-    class Program
+    internal class Program
     {
-        [Import]
-        IGreetingService _service { get; set; }
+        [Import] 
+        private IGreetingService _service { get; set; }
 
-        static void Main()
+        private static void Main()
         {
             var program = new Program();
             program._service.Greet("World");
         }
     }
 
-    interface IGreetingService
+    internal interface IGreetingService
     {
         void Greet(string name);
     }
 
-    class GreetingService : IGreetingService
+    internal class GreetingService : IGreetingService
     {
         public void Greet(string name) => Console.WriteLine($"Hello, {name}.");
     }
 
-    class ServiceLocator : IServiceProvider
+    internal class ServiceLocator : IServiceProvider
     {
         public static readonly IServiceProvider ServiceProvider = new ServiceLocator();
 
         public object GetService(Type serviceType) => new GreetingService();
-        
     }
 }

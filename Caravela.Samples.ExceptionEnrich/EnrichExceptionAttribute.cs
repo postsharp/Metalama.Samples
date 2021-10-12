@@ -5,7 +5,7 @@ using Caravela.Framework.Code;
 
 public class EnrichExceptionAttribute : OverrideMethodAspect
 {
-    public override dynamic OverrideMethod()
+    public override dynamic? OverrideMethod()
     {
         // Compile-time code: create a formatting string containing the method name and placeholder for formatting parameters.
         var methodSignatureBuilder = meta.CompileTime(new StringBuilder());
@@ -13,12 +13,12 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
         methodSignatureBuilder.Append('.');
         methodSignatureBuilder.Append(meta.Target.Method.Name);
         methodSignatureBuilder.Append('(');
-        int i = meta.CompileTime(0);
+        var i = meta.CompileTime(0);
         foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
-            if (p.IsOut())
+            if (p.RefKind == RefKind.Out)
             {
                 methodSignatureBuilder.Append($"{comma}{p.Name} = <out> ");
             }
@@ -29,6 +29,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
 
             i++;
         }
+
         methodSignatureBuilder.Append(')');
 
 
@@ -39,7 +40,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
         catch (Exception e)
         {
             // Get or create a StringBuilder for the exception where we will add additional context data.
-            var stringBuilder = (StringBuilder)e.Data["Context"];
+            var stringBuilder = (StringBuilder?)e.Data["Context"];
             if (stringBuilder == null)
             {
                 stringBuilder = new StringBuilder();
@@ -47,7 +48,8 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
             }
 
             // Add current context information to the string builder.
-            stringBuilder.AppendFormat("  > " + methodSignatureBuilder.ToString(), meta.Target.Parameters.Values.ToArray());
+            stringBuilder.AppendFormat("  > " + methodSignatureBuilder.ToString(),
+                meta.Target.Parameters.Values.ToArray());
             stringBuilder.AppendLine();
 
             throw;

@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Text;
 
-class Program
+internal class Program
 {
-    static int attempts;
-    static void Main()
+    private static int _attempts;
+
+    private static void Main()
     {
         try
         {
@@ -12,15 +12,14 @@ class Program
         }
         catch
         {
-
         }
     }
 
     [Retry(Attempts = 10)]
-    static int Foo()
+    private static int Foo()
     {
-        attempts++;
-        Console.WriteLine($"Just trying for the {attempts}-th time.");
+        _attempts++;
+        Console.WriteLine($"Just trying for the {_attempts}-th time.");
         throw new Exception();
     }
 }

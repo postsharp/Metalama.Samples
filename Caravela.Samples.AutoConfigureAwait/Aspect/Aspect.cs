@@ -1,79 +1,76 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
+using Caravela.Framework.Eligibility;
+using Caravela.Framework.Impl.CodeModel;
+using Caravela.Framework.Impl.Sdk;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Caravela;
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Impl.Sdk;
-using Caravela.Framework.Impl.CodeModel;
-using Caravela.Framework.Code;
-
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using Caravela.Framework.Eligibility;
 
 [AttributeUsage(AttributeTargets.Assembly)]
 public class AutoConfigureAwaitAttribute : Attribute, IAspect<ICompilation>
 {
     public void BuildAspect(IAspectBuilder<ICompilation> builder)
     {
-        
     }
 
     public void BuildAspectClass(IAspectClassBuilder builder)
     {
-        
     }
 
     public void BuildEligibility(IEligibilityBuilder<ICompilation> builder)
     {
-        
     }
 }
 
-[CompilerPlugin, AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
-class AutoConfigureAwaitWeaver : IAspectWeaver
+[CompilerPlugin]
+[AspectWeaver(typeof(AutoConfigureAwaitAttribute))]
+internal class AutoConfigureAwaitWeaver : IAspectWeaver
 {
     public void Transform(AspectWeaverContext context)
     {
         context.Compilation = new Rewriter(context.Compilation.Compilation).Visit(context.Compilation);
     }
 
-    class Rewriter : CSharpSyntaxRewriter
+    private class Rewriter : CSharpSyntaxRewriter
     {
-        private readonly Compilation compilation;
-        private readonly ITypeSymbol[] affectedTypes;
+        private readonly Compilation _compilation;
+        private readonly ITypeSymbol[] _affectedTypes;
 
         public Rewriter(Compilation compilation)
         {
-            this.compilation = compilation;
+            this._compilation = compilation;
 
-            affectedTypes = new[] { typeof(Task), typeof(Task<>), typeof(ValueTask), typeof(ValueTask<>) }
-                .Select(t => compilation.GetTypeByMetadataName(t.FullName)).ToArray();
+            this._affectedTypes = new[] { typeof(Task), typeof(Task<>), typeof(ValueTask), typeof(ValueTask<>) }
+                .Select(t => compilation.GetTypeByMetadataName(t.FullName)!).ToArray();
         }
 
-        public override SyntaxNode VisitAwaitExpression(AwaitExpressionSyntax node)
+        public override SyntaxNode? VisitAwaitExpression(AwaitExpressionSyntax node)
         {
-            var expressionType = compilation.GetSemanticModel(node.SyntaxTree).GetTypeInfo(node.Expression).ConvertedType.OriginalDefinition;
+            var expressionType = this._compilation.GetSemanticModel(node.SyntaxTree)
+                .GetTypeInfo(node.Expression)!
+                .ConvertedType!.OriginalDefinition;
 
-            var awaitExpression = (AwaitExpressionSyntax)base.VisitAwaitExpression(node);
+            var awaitExpression = (AwaitExpressionSyntax)base.VisitAwaitExpression(node)!;
 
-            if (affectedTypes.Contains(expressionType))
+            if (this._affectedTypes.Contains(expressionType, SymbolEqualityComparer.Default))
             {
                 awaitExpression = awaitExpression.WithExpression(
                     // expression.ConfigureAwait(false)
                     InvocationExpression(
-                        MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, awaitExpression.Expression, IdentifierName("ConfigureAwait")))
-                    .AddArgumentListArguments(Argument(LiteralExpression(SyntaxKind.FalseLiteralExpression))));
+                            MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, awaitExpression.Expression,
+                                IdentifierName("ConfigureAwait")))
+                        .AddArgumentListArguments(Argument(LiteralExpression(SyntaxKind.FalseLiteralExpression))));
             }
 
             return awaitExpression;
         }
 
         public IPartialCompilation Visit(IPartialCompilation compilation)
-            =>  compilation.UpdateSyntaxTrees( ( node, cancellationToken ) => this.Visit(node));
+            => compilation.UpdateSyntaxTrees((node, _) => this.Visit(node));
     }
 }
