@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlTypes;
 using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 using Caravela.Framework.Diagnostics;
 
 namespace Caravela.Samples.DependencyInjection
@@ -8,6 +9,18 @@ namespace Caravela.Samples.DependencyInjection
     internal class ImportAttribute : OverrideFieldOrPropertyAspect
     {
         private static readonly SuppressionDefinition _suppressCs8618 = new("CS8618");
+        private static readonly SuppressionDefinition _suppressIde0044 = new("IDE0044");
+
+        public override void BuildAspect(IAspectBuilder<IFieldOrProperty> builder)
+        {
+            base.BuildAspect(builder);
+
+            // Suppress warning CS8618: Non-nullable property '_service' must contain a non-null value when exiting constructor.
+            builder.Diagnostics.Suppress(_suppressCs8618);
+
+            // Suppress warning IDE0044: Make field read-only.
+            builder.Diagnostics.Suppress(_suppressIde0044);
+        }
 
         public override dynamic? OverrideProperty
         {
@@ -27,9 +40,7 @@ namespace Caravela.Samples.DependencyInjection
                                                  ?? throw new InvalidOperationException(
                                                      $"Cannot get a service of type {meta.Target.FieldOrProperty.Type}.");
                 }
-
-                // Suppress warning CS8618: Non-nullable property '_service' must contain a non-null value when exiting constructor.
-                meta.Diagnostics.Suppress(_suppressCs8618);
+              
 
                 return value;
             }

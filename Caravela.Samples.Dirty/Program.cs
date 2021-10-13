@@ -1,5 +1,7 @@
 ﻿using System;
 
+#pragma warning disable CS8618 // See bug #29235.
+
 namespace Caravela.Samples.Dirty
 {
     internal class Program

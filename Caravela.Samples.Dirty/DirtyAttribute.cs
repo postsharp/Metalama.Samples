@@ -6,7 +6,7 @@ using Caravela.Framework.Diagnostics;
 
 namespace Caravela.Samples.Dirty
 {
-    public class DirtyAttribute : Attribute, IAspect<INamedType>
+    public class DirtyAttribute : TypeAspect
     {
         private static readonly DiagnosticDefinition<INamedType> _mustHaveDirtyStateSetter = new
         ("MY001",
@@ -18,7 +18,7 @@ namespace Caravela.Samples.Dirty
             Severity.Error,
             "The setter of the '{0}' property must be have the 'protected' accessibility.");
 
-        public void BuildAspect(IAspectBuilder<INamedType> aspectBuilder)
+        public override void BuildAspect(IAspectBuilder<INamedType> aspectBuilder)
         {
             // Implement the IDirty interface.
             if (!aspectBuilder.Target.ImplementedInterfaces.Any(i => i.Is(typeof(IDirty))))

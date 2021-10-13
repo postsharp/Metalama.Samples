@@ -9,7 +9,7 @@
         </RestoreAdditionalProjectSources>
 
         <DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
-        <DebugCaravelaIde>True</DebugCaravelaIde>
+        <DebugCaravelaIde>False</DebugCaravelaIde>
         <CaravelaDebugTransformedCode>False</CaravelaDebugTransformedCode>
         <Nullable>enable</Nullable>
 

@@ -5,7 +5,7 @@ namespace Caravela.Samples.DependencyInjection
     internal class Program
     {
         [Import] 
-        private IGreetingService _service { get; set; }
+        private IGreetingService _service;
 
         private static void Main()
         {

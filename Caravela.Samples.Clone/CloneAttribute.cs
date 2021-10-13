@@ -5,9 +5,9 @@ using Caravela.Framework.Code;
 
 namespace Caravela.Samples.Clone
 {
-    internal class DeepCloneAttribute : Attribute, IAspect<INamedType>
+    internal class DeepCloneAttribute : TypeAspect
     {
-        public void BuildAspect(IAspectBuilder<INamedType> builder)
+        public override void BuildAspect(IAspectBuilder<INamedType> builder)
         {
             var typedMethod = builder.Advices.IntroduceMethod(
                 builder.Target,

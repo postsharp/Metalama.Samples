@@ -6,9 +6,9 @@ using Caravela.Framework.Code;
 
 namespace Caravela.Samples.NotifyPropertyChanged
 {
-    internal class NotifyPropertyChangedAttribute : Attribute, IAspect<INamedType>
+    internal class NotifyPropertyChangedAttribute : TypeAspect
     {
-        public void BuildAspect(IAspectBuilder<INamedType> builder)
+        public override void BuildAspect(IAspectBuilder<INamedType> builder)
         {
             builder.Advices.ImplementInterface(builder.Target, typeof(INotifyPropertyChanged));
 

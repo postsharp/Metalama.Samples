@@ -6,7 +6,7 @@ using Caravela.Framework.Code.SyntaxBuilders;
 
 namespace Caravela.Samples.ToString
 {
-    internal class ToStringAttribute : Attribute, IAspect<INamedType>
+    internal class ToStringAttribute : TypeAspect
     {
         [Introduce(WhenExists = OverrideStrategy.Override, Name = "ToString")]
         public string IntroducedToString()
