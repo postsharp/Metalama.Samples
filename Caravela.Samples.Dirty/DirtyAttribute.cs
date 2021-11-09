@@ -59,7 +59,8 @@ namespace Caravela.Samples.Dirty
             // but this is not possible in the current version of Caravela.
         }
 
-        [InterfaceMember] public DirtyState DirtyState { get; protected set; }
+        [InterfaceMember] 
+        public DirtyState DirtyState { get; protected set; }
 
 
         [Template]

@@ -12,7 +12,7 @@ namespace Caravela.Samples.ToString
         public string IntroducedToString()
         {
             var stringBuilder = new InterpolatedStringBuilder();
-            stringBuilder.AddText("{{ ");
+            stringBuilder.AddText("{ ");
             stringBuilder.AddText(meta.Target.Type.Name);
             stringBuilder.AddText(" ");
 
@@ -34,7 +34,7 @@ namespace Caravela.Samples.ToString
                 i++;
             }
 
-            stringBuilder.AddText(" }}");
+            stringBuilder.AddText(" }");
 
 
             return stringBuilder.ToValue();

@@ -11,21 +11,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-[AttributeUsage(AttributeTargets.Assembly)]
-public class AutoConfigureAwaitAttribute : Attribute, IAspect<ICompilation>
-{
-    public void BuildAspect(IAspectBuilder<ICompilation> builder)
-    {
-    }
-
-    public void BuildAspectClass(IAspectClassBuilder builder)
-    {
-    }
-
-    public void BuildEligibility(IEligibilityBuilder<ICompilation> builder)
-    {
-    }
-}
+public class AutoConfigureAwaitAttribute : CompilationAspect { }
 
 [CompilerPlugin]
 [AspectWeaver(typeof(AutoConfigureAwaitAttribute))]

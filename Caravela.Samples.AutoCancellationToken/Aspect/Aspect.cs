@@ -13,20 +13,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Interface)]
-public class AutoCancellationTokenAttribute : Attribute, IAspect<INamedType>
-{
-    public void BuildAspect(IAspectBuilder<INamedType> builder)
-    {
-    }
-
-    public void BuildAspectClass(IAspectClassBuilder builder)
-    {
-    }
-
-    public void BuildEligibility(IEligibilityBuilder<INamedType> builder)
-    {
-    }
-}
+public class AutoCancellationTokenAttribute : TypeAspect { }
 
 [CompilerPlugin]
 [AspectWeaver(typeof(AutoCancellationTokenAttribute))]
@@ -35,15 +22,21 @@ internal class AutoCancellationTokenWeaver : IAspectWeaver
     public void Transform(AspectWeaverContext context)
     {
         var compilation = context.Compilation;
-        var instancesNodes = context.AspectInstances.Values
-            .SelectMany(a => a.TargetDeclaration.GetSymbol()!.DeclaringSyntaxReferences).Select(r => r.GetSyntax())
-            .Cast<CSharpSyntaxNode>();
-        RunRewriter(new AnnotateNodesRewriter(instancesNodes));
-        RunRewriter(new AddCancellationTokenToMethodsRewriter(compilation.Compilation));
-        RunRewriter(new AddCancellationTokenToInvocationsRewriter(compilation.Compilation));
-        context.Compilation = compilation;
 
-        void RunRewriter(RewriterBase rewriter) => compilation = rewriter.Visit(compilation);
+        var roslynCompilation = compilation.Compilation;
+        
+        var instancesNodes = context.AspectInstances.Values
+            .SelectMany(a => a.TargetDeclaration.GetSymbol(roslynCompilation)!.DeclaringSyntaxReferences).Select(r => r.GetSyntax())
+            .Cast<CSharpSyntaxNode>();
+
+        // Execute the chain of rewriter. Note that it is not a performance best practice to
+        // create several compilations. It is more efficient to merge all rewrites into a single one.
+        var compilation1 = new AnnotateNodesRewriter(instancesNodes).Visit(compilation);
+        var compilation2 = new AddCancellationTokenToMethodsRewriter(compilation1.Compilation).Visit(compilation1);
+        var compilation3 = new AddCancellationTokenToInvocationsRewriter(compilation2.Compilation).Visit(compilation2);
+        context.Compilation = compilation3;
+
+        
     }
 
     private abstract class RewriterBase : CSharpSyntaxRewriter
@@ -76,8 +69,7 @@ internal class AutoCancellationTokenWeaver : IAspectWeaver
         public override SyntaxNode VisitConstructorDeclaration(ConstructorDeclarationSyntax node) => node;
         public override SyntaxNode VisitDestructorDeclaration(DestructorDeclarationSyntax node) => node;
 
-        protected const string CancellationAttributeName =
-            "Caravela.Open.AutoCancellationToken.AutoCancellationTokenAttribute";
+        protected string CancellationAttributeName { get; } = typeof(AutoCancellationTokenAttribute).FullName;
 
         public IPartialCompilation Visit(IPartialCompilation compilation)
             => compilation.UpdateSyntaxTrees((root, _) => this.Visit(root));
