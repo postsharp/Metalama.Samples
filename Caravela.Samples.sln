@@ -22,14 +22,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.ExceptionE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Retry", "Caravela.Samples.Retry\Caravela.Samples.Retry.csproj", "{8967B55C-2595-4455-9D16-DF144186B36E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoCancellationToken.Aspect", "Caravela.Samples.AutoCancellationToken\Aspect\Caravela.Samples.AutoCancellationToken.Aspect.csproj", "{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoCancellationToken.Program", "Caravela.Samples.AutoCancellationToken\Program\Caravela.Samples.AutoCancellationToken.Program.csproj", "{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait.Aspect", "Caravela.Samples.AutoConfigureAwait\Aspect\Caravela.Samples.AutoConfigureAwait.Aspect.csproj", "{186445F6-5DAA-4721-81AD-9997AC72DF4B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait.Program", "Caravela.Samples.AutoConfigureAwait\Program\Caravela.Samples.AutoConfigureAwait.Program.csproj", "{BB012FB3-A6F3-46C3-81A2-102EF1734394}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TryCaravelaOnly", "TryCaravelaOnly", "{18B75FAE-0E73-4993-BBCA-990A773627FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogAndCache", "Caravela.Samples.LogAndCache\Caravela.Samples.LogAndCache.csproj", "{54C56B58-2330-4DD7-8424-252E8F4DC94A}"
@@ -48,7 +40,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Clone", "C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{69DCF94D-98A9-4374-9329-D1463B8AC850}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.ToString", "Caravela.Samples.ToString\Caravela.Samples.ToString.csproj", "{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.ToString", "Caravela.Samples.ToString\Caravela.Samples.ToString.csproj", "{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.AutoCancellationToken", "Caravela.Samples.AutoCancellationToken\Caravela.Samples.AutoCancellationToken.csproj", "{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Caravela.Samples.AutoConfigureAwait", "Caravela.Samples.AutoConfigureAwait\Caravela.Samples.AutoConfigureAwait.csproj", "{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,22 +72,6 @@ Global
 		{8967B55C-2595-4455-9D16-DF144186B36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8967B55C-2595-4455-9D16-DF144186B36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8967B55C-2595-4455-9D16-DF144186B36E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{186445F6-5DAA-4721-81AD-9997AC72DF4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB012FB3-A6F3-46C3-81A2-102EF1734394}.Release|Any CPU.Build.0 = Release|Any CPU
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54C56B58-2330-4DD7-8424-252E8F4DC94A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -124,17 +104,23 @@ Global
 		{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7CDAA9C8-FC2C-44DB-9305-A0E8D28A2297} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
-		{65E92ED9-48D3-48F4-9D20-883C3FCD1B5E} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
-		{186445F6-5DAA-4721-81AD-9997AC72DF4B} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
-		{BB012FB3-A6F3-46C3-81A2-102EF1734394} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
 		{F1E99AB1-371C-4771-B7F8-2E23726012DD} = {69DCF94D-98A9-4374-9329-D1463B8AC850}
 		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE} = {69DCF94D-98A9-4374-9329-D1463B8AC850}
+		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEE1D071-3DAD-415E-B763-05D3FA08B9F5}
