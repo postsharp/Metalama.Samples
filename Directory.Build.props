@@ -1,5 +1,5 @@
 <Project>
-    <Import Project="..\Caravela\eng\CaravelaVersion.props" Condition="Exists('.local')"/>
+    <Import Project="..\Caravela\artifacts\private\CaravelaVersion.props" Condition="Exists('Caravela.local')"/>
     <PropertyGroup>
         <CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.4.1-preview</CaravelaVersion>
 
@@ -10,7 +10,7 @@
 
         <DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
         <DebugCaravelaIde>False</DebugCaravelaIde>
-        <CaravelaDebugTransformedCode>False</CaravelaDebugTransformedCode>
+        <CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
         <Nullable>enable</Nullable>
 
     </PropertyGroup>
