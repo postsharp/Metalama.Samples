@@ -1,7 +1,10 @@
-﻿using System;
+﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
+// This project is not open source. Please see the LICENSE.md file in the repository root for details.
+
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
 using Caravela.Framework.Code.SyntaxBuilders;
+using System;
 
 public class LogAttribute : OverrideMethodAspect
 {
@@ -12,8 +15,8 @@ public class LogAttribute : OverrideMethodAspect
 
         // Write entry message.
         var entryMessage = methodName.Clone();
-        entryMessage.AddText(" started.");
-        Console.WriteLine(entryMessage.ToValue());
+        entryMessage.AddText( " started." );
+        Console.WriteLine( entryMessage.ToValue() );
 
         try
         {
@@ -22,28 +25,30 @@ public class LogAttribute : OverrideMethodAspect
 
             // Display the success message.
             var successMessage = methodName.Clone();
-            if (meta.Target.Method.ReturnType.Is(typeof(void)))
+
+            if ( meta.Target.Method.ReturnType.Is( typeof(void) ) )
             {
-                successMessage.AddText(" succeeded.");
+                successMessage.AddText( " succeeded." );
             }
             else
             {
-                successMessage.AddText(" returned ");
-                successMessage.AddExpression(result);
-                successMessage.AddText(".");
+                successMessage.AddText( " returned " );
+                successMessage.AddExpression( result );
+                successMessage.AddText( "." );
             }
 
-            Console.WriteLine(successMessage.ToValue());
+            Console.WriteLine( successMessage.ToValue() );
 
             return result;
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
             // Display the failure message.
             var failureMessage = methodName.Clone();
-            failureMessage.AddText(" failed: ");
-            failureMessage.AddExpression(e.Message);
-            Console.WriteLine(failureMessage.ToValue());
+            failureMessage.AddText( " failed: " );
+            failureMessage.AddExpression( e.Message );
+            Console.WriteLine( failureMessage.ToValue() );
+
             throw;
         }
     }
@@ -51,31 +56,31 @@ public class LogAttribute : OverrideMethodAspect
     private static InterpolatedStringBuilder BuildInterpolatedString()
     {
         var stringBuilder = new InterpolatedStringBuilder();
-        stringBuilder.AddText(meta.Target.Type.ToDisplayString(CodeDisplayFormat.MinimallyQualified));
-        stringBuilder.AddText(".");
-        stringBuilder.AddText(meta.Target.Method.Name);
-        stringBuilder.AddText("(");
-        var i = meta.CompileTime(0);
+        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText( "." );
+        stringBuilder.AddText( meta.Target.Method.Name );
+        stringBuilder.AddText( "(" );
+        var i = meta.CompileTime( 0 );
 
-        foreach (var p in meta.Target.Parameters)
+        foreach ( var p in meta.Target.Parameters )
         {
             var comma = i > 0 ? ", " : "";
 
-            if (p.RefKind == RefKind.Out)
+            if ( p.RefKind == RefKind.Out )
             {
-                stringBuilder.AddText($"{comma}{p.Name} = <out> ");
+                stringBuilder.AddText( $"{comma}{p.Name} = <out> " );
             }
             else
             {
-                stringBuilder.AddText($"{comma}{p.Name} = {{");
-                stringBuilder.AddExpression(p.Value);
-                stringBuilder.AddText("}");
+                stringBuilder.AddText( $"{comma}{p.Name} = {{" );
+                stringBuilder.AddExpression( p.Value );
+                stringBuilder.AddText( "}" );
             }
 
             i++;
         }
 
-        stringBuilder.AddText(")");
+        stringBuilder.AddText( ")" );
 
         return stringBuilder;
     }

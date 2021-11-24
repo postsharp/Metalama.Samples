@@ -1,7 +1,6 @@
 <Project>
-    <Import Project="..\Caravela\artifacts\private\CaravelaVersion.props" Condition="Exists('Caravela.local')"/>
+    <Import Project="eng\Versions.props"/>
     <PropertyGroup>
-        <CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.4.1-preview</CaravelaVersion>
 
         <RestoreAdditionalProjectSources Condition="'$(IS_POSTSHARP_OWNED)'=='True'">
             $(RestoreAdditionalProjectSources);

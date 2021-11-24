@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)" />
-        <PackageReference Include="Caravela.Framework.Sdk" Version="$(CaravelaVersion)" />
+        <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)"/>
+        <PackageReference Include="Caravela.Framework.Sdk" Version="$(CaravelaVersion)"/>
     </ItemGroup>
 
 </Project>

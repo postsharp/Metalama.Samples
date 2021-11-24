@@ -1,0 +1,28 @@
+<Project>
+
+    <!-- Set the default version -->
+    <Import Project="MainVersion.props" />
+    
+    <PropertyGroup>
+        <CaravelaSamplesVersion>$(MainVersion)$(PackageVersionSuffix)</CaravelaSamplesVersion>
+        <CaravelaSamplesAssemblyVersion>$(MainVersion)</CaravelaSamplesAssemblyVersion>
+    </PropertyGroup>
+
+    
+    <!-- Versions of dependencies -->
+    <PropertyGroup>
+        <CaravelaVersion>0.4.3-preview</CaravelaVersion>
+    </PropertyGroup>
+
+    <!-- Import overrides for the local build -->
+    <Import Project="../artifacts/private/CaravelaSamplesVersion.props" Condition="Exists('../artifacts/private/CaravelaSamplesVersion.props')" />
+    <Import Project="Dependencies.props" Condition="Exists('Dependencies.props')"/>
+
+    
+
+    <PropertyGroup>
+        <AssemblyVersion>$(CaravelaSamplesAssemblyVersion)</AssemblyVersion>
+        <Version>$(CaravelaSamplesVersion)</Version>
+    </PropertyGroup>
+
+</Project>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
+// This project is not open source. Please see the LICENSE.md file in the repository root for details.
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,14 +9,15 @@ internal class Program
 {
     private static async Task Main()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(1.5));
+        var cts = new CancellationTokenSource( TimeSpan.FromSeconds( 1.5 ) );
+
         try
         {
-            await C.MakeRequests(cts.Token);
+            await C.MakeRequests( cts.Token );
         }
-        catch (Exception ex)
+        catch ( Exception ex )
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine( ex.Message );
         }
     }
 }
@@ -21,24 +25,23 @@ internal class Program
 [AutoCancellationToken]
 internal class C
 {
-    public static async Task MakeRequests(CancellationToken ct)
+    public static async Task MakeRequests( CancellationToken ct )
     {
         var client = new FakeHttpClient();
-        await MakeRequest(client);
-        Console.WriteLine("request 1 succeeded");
-        await MakeRequest(client);
-        Console.WriteLine("request 2 succeeded");
+        await MakeRequest( client );
+        Console.WriteLine( "request 1 succeeded" );
+        await MakeRequest( client );
+        Console.WriteLine( "request 2 succeeded" );
     }
 
-    private static async Task MakeRequest(FakeHttpClient client) =>
-        await client.GetAsync("https://httpbin.org/delay/1");
+    private static async Task MakeRequest( FakeHttpClient client ) => await client.GetAsync( "https://httpbin.org/delay/1" );
 }
 
 internal class FakeHttpClient
 {
-    public async Task GetAsync(string url, CancellationToken cancellationToken = default)
+    public async Task GetAsync( string url, CancellationToken cancellationToken = default )
     {
-        Console.WriteLine($"Pretending to fetch {url}.");
-        await Task.Delay(1_000, cancellationToken);
+        Console.WriteLine( $"Pretending to fetch {url}." );
+        await Task.Delay( 1_000, cancellationToken );
     }
 }
