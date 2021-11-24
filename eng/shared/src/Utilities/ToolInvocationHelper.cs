@@ -15,8 +15,8 @@ namespace PostSharp.Engineering.BuildTools.Utilities
 {
     public static class ToolInvocationHelper
     {
-        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        
+        private static readonly CancellationTokenSource _cancellationTokenSource = new();
+
         static ToolInvocationHelper()
         {
             Console.CancelKeyPress += OnCancel;
@@ -96,11 +96,13 @@ namespace PostSharp.Engineering.BuildTools.Utilities
                     {
                         if ( !string.IsNullOrWhiteSpace( s ) )
                         {
-                            if ( s.Contains( ": warning ", StringComparison.Ordinal ) )
+                            if ( s.Contains( ": warning ", StringComparison.Ordinal ) ||
+                                 s.Contains( "]Warning:[", StringComparison.Ordinal ) /*docfx*/ )
                             {
                                 console.WriteWarning( s );
                             }
-                            else if ( s.Contains( ": error ", StringComparison.Ordinal ) )
+                            else if ( s.Contains( ": error ", StringComparison.Ordinal ) ||
+                                      s.Contains( "]error:[", StringComparison.Ordinal ) /*docfx*/ )
                             {
                                 console.WriteError( s );
                             }

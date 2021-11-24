@@ -44,10 +44,10 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                 {
                     matcher.AddInclude( file );
                 }
-              
             }
-var matchingResult =
-            matcher.Execute( new DirectoryInfoWrapper( new DirectoryInfo( directory ) ) );
+
+            var matchingResult =
+                matcher.Execute( new DirectoryInfoWrapper( new DirectoryInfo( directory ) ) );
 
             if ( !matchingResult.HasMatches )
             {
@@ -61,8 +61,6 @@ var matchingResult =
             return true;
         }
 
-        public override string ToString()
-            => string.Join( " ", this.Items.Select( i => (i.IsExclude ? "-" : "+") + i.Pattern ) );
-        
+        public override string ToString() => string.Join( " ", this.Items.Select( i => (i.IsExclude ? "-" : "+") + i.Pattern ) );
     }
 }

@@ -82,6 +82,7 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                 if ( !publishingTarget.Artifacts.TryGetFiles( privateArtifactsDir, versionInfo, artifacts ) )
                 {
                     context.Console.WriteError( $"The build did not generate the artifacts '{publishingTarget.Artifacts}'." );
+
                     return false;
                 }
             }
@@ -119,9 +120,10 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                 {
                     if ( publishingTarget.SupportsPublicPublishing )
                     {
-                        if ( !publishingTarget.Artifacts.TryGetFiles( privateArtifactsDir, versionInfo, files))
+                        if ( !publishingTarget.Artifacts.TryGetFiles( privateArtifactsDir, versionInfo, files ) )
                         {
                             context.Console.WriteError( $"The pattern '{publishingTarget.Artifacts}' in '{privateArtifactsDir}' did not generate any output." );
+
                             return false;
                         }
                     }
@@ -141,7 +143,7 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                     context.Console.WriteMessage( file.Path );
                     File.Copy( Path.Combine( privateArtifactsDir, file.Path ), targetFile, true );
                 }
-                
+
                 // Verify that public packages have no private dependencies.
                 if ( !VerifyPublicPackageCommand.Execute(
                     context.Console,
@@ -301,28 +303,39 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                         }
                     }
 
-                    if ( solution.IsTestOnly )
+                    switch ( solution.GetBuildMethod() )
                     {
-                        // Never try to pack solutions.
-                        if ( !solution.Build( context, options ) )
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        if ( !solution.CanPack || solution.PackRequiresExplicitBuild && !options.NoDependencies )
-                        {
+                        case BuildMethod.Build:
                             if ( !solution.Build( context, options ) )
                             {
                                 return false;
                             }
-                        }
 
-                        if ( solution.CanPack && !solution.Pack( context, options ) )
-                        {
-                            return false;
-                        }
+                            break;
+
+                        case BuildMethod.Pack:
+                            if ( solution.PackRequiresExplicitBuild && !options.NoDependencies )
+                            {
+                                if ( !solution.Build( context, options ) )
+                                {
+                                    return false;
+                                }
+                            }
+
+                            if ( !solution.Pack( context, options ) )
+                            {
+                                return false;
+                            }
+
+                            break;
+
+                        case BuildMethod.Test:
+                            if ( !solution.Test( context, options ) )
+                            {
+                                return false;
+                            }
+
+                            break;
                     }
 
                     context.Console.WriteSuccess( $"Building {solution.Name} was successful." );
@@ -332,7 +345,7 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
             return true;
         }
 
-        public bool Test( BuildContext context, TestOptions options )
+        public bool Test( BuildContext context, BuildOptions options )
         {
             if ( !options.NoDependencies && !this.Build( context, (BuildOptions) options.WithIncludeTests( true ) ) )
             {
@@ -367,7 +380,7 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
 
                 if ( options.AnalyzeCoverage && solution.SupportsTestCoverage )
                 {
-                    solutionOptions = (TestOptions) options.WithAdditionalProperties( properties ).WithoutConcurrency();
+                    solutionOptions = (BuildOptions) options.WithAdditionalProperties( properties ).WithoutConcurrency();
                 }
 
                 context.Console.WriteHeading( $"Testing {solution.Name}." );
@@ -680,14 +693,13 @@ namespace PostSharp.Engineering.BuildTools.Build.Model
                 {
                     hasTarget = true;
 
-                    if ( !publishingTarget.Artifacts.TryGetFiles( directory, versionFile, files))
+                    if ( !publishingTarget.Artifacts.TryGetFiles( directory, versionFile, files ) )
                     {
                         context.Console.WriteError( $"The pattern '{publishingTarget.Artifacts}' in '{directory}' did not generate any file match." );
+
                         return false;
                     }
-
                 }
-
 
                 foreach ( var file in files )
                 {
