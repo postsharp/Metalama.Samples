@@ -1,10 +1,7 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
+﻿using System.Collections.Concurrent;
 using Caravela.Framework.Aspects;
 using Caravela.Framework.Code;
 using Caravela.Framework.Code.SyntaxBuilders;
-using System.Collections.Concurrent;
 
 public class CacheAttribute : OverrideMethodAspect
 {
@@ -14,7 +11,7 @@ public class CacheAttribute : OverrideMethodAspect
         var cacheKey = GetCachingKeyFormattingString().ToValue();
 
         // Cache lookup.
-        if ( SampleCache.Cache.TryGetValue( cacheKey, out object value ) )
+        if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
         {
             // Cache hit.
             return value;
@@ -25,8 +22,7 @@ public class CacheAttribute : OverrideMethodAspect
             var result = meta.Proceed();
 
             // Add to cache.
-            SampleCache.Cache.TryAdd( cacheKey, result );
-
+            SampleCache.Cache.TryAdd(cacheKey, result);
             return result;
         }
     }
@@ -34,33 +30,31 @@ public class CacheAttribute : OverrideMethodAspect
     private static InterpolatedStringBuilder GetCachingKeyFormattingString()
     {
         var stringBuilder = new InterpolatedStringBuilder();
-        stringBuilder.AddText( meta.Target.Type.ToString() );
-        stringBuilder.AddText( "." );
-        stringBuilder.AddText( meta.Target.Method.Name );
-        stringBuilder.AddText( "(" );
+        stringBuilder.AddText(meta.Target.Type.ToString());
+        stringBuilder.AddText(".");
+        stringBuilder.AddText(meta.Target.Method.Name);
+        stringBuilder.AddText("(");
 
-        var i = meta.CompileTime( 0 );
-
-        foreach ( var p in meta.Target.Parameters )
+        var i = meta.CompileTime(0);
+        foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
-            if ( p.RefKind == RefKind.Out )
+            if (p.RefKind == RefKind.Out)
             {
-                stringBuilder.AddText( $"{comma}{p.Name} = <out> " );
+                stringBuilder.AddText($"{comma}{p.Name} = <out> ");
             }
             else
             {
-                stringBuilder.AddText( $"{comma}{{" );
-                stringBuilder.AddExpression( p.Value );
-                stringBuilder.AddText( "}" );
+                stringBuilder.AddText($"{comma}{{");
+                stringBuilder.AddExpression(p.Value);
+                stringBuilder.AddText("}");
             }
 
             i++;
         }
 
-        stringBuilder.AddText( ")" );
-
+        stringBuilder.AddText(")");
         return stringBuilder;
     }
 }

@@ -1,29 +1,25 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Text;
+using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 
 public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
-        Console.WriteLine( meta.Target.Method.ToDisplayString() + " started." );
+        Console.WriteLine(meta.Target.Method.ToDisplayString() + " started.");
 
         try
         {
             var result = meta.Proceed();
 
-            Console.WriteLine( meta.Target.Method.ToDisplayString() + " succeeded." );
-
+            Console.WriteLine(meta.Target.Method.ToDisplayString() + " succeeded.");
             return result;
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            Console.WriteLine( meta.Target.Method.ToDisplayString() + " failed: " + e.Message );
+            Console.WriteLine(meta.Target.Method.ToDisplayString() + " failed: " + e.Message);
 
             throw;
         }
@@ -35,10 +31,10 @@ public class CacheAttribute : OverrideMethodAspect
     public override dynamic? OverrideMethod()
     {
         // Builds the caching string.
-        var cacheKey = string.Format( GetCachingKeyFormattingString(), meta.Target.Parameters.Values.ToArray() );
+        var cacheKey = string.Format(GetCachingKeyFormattingString(), meta.Target.Parameters.Values.ToArray());
 
         // Cache lookup.
-        if ( SampleCache.Cache.TryGetValue( cacheKey, out object value ) )
+        if (SampleCache.Cache.TryGetValue(cacheKey, out object value))
         {
             // Cache hit.
             return value;
@@ -49,40 +45,37 @@ public class CacheAttribute : OverrideMethodAspect
             var result = meta.Proceed();
 
             // Add to cache.
-            SampleCache.Cache.TryAdd( cacheKey, result );
-
+            SampleCache.Cache.TryAdd(cacheKey, result);
             return result;
         }
     }
 
     private static string GetCachingKeyFormattingString()
     {
-        var stringBuilder = meta.CompileTime( new StringBuilder() );
-        stringBuilder.Append( meta.Target.Type.ToString() );
-        stringBuilder.Append( '.' );
-        stringBuilder.Append( meta.Target.Method.Name );
-        stringBuilder.Append( '(' );
+        var stringBuilder = meta.CompileTime(new StringBuilder());
+        stringBuilder.Append(meta.Target.Type.ToString());
+        stringBuilder.Append('.');
+        stringBuilder.Append(meta.Target.Method.Name);
+        stringBuilder.Append('(');
 
-        var i = meta.CompileTime( 0 );
-
-        foreach ( var p in meta.Target.Parameters )
+        var i = meta.CompileTime(0);
+        foreach (var p in meta.Target.Parameters)
         {
             var comma = i > 0 ? ", " : "";
 
-            if ( p.RefKind == RefKind.Out )
+            if (p.RefKind == RefKind.Out)
             {
-                stringBuilder.Append( $"{comma}{p.Name} = <out> " );
+                stringBuilder.Append($"{comma}{p.Name} = <out> ");
             }
             else
             {
-                stringBuilder.Append( $"{comma}{{{i}}}" );
+                stringBuilder.Append($"{comma}{{{i}}}");
             }
 
             i++;
         }
 
-        stringBuilder.Append( ')' );
-
+        stringBuilder.Append(')');
         return stringBuilder.ToString();
     }
 }

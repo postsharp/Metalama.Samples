@@ -1,46 +1,46 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using Caravela.Framework.Aspects;
+using Caravela.Framework.Code;
 
 namespace Caravela.Samples.NotifyPropertyChanged
 {
     internal class NotifyPropertyChangedAttribute : TypeAspect
     {
-        public override void BuildAspectClass( IAspectClassBuilder builder )
+        public override void BuildAspectClass(IAspectClassBuilder builder)
         {
             builder.IsInherited = true;
         }
 
-        public override void BuildAspect( IAspectBuilder<INamedType> builder )
+        public override void BuildAspect(IAspectBuilder<INamedType> builder)
         {
-            builder.Advices.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged) );
+            builder.Advices.ImplementInterface(builder.Target, typeof(INotifyPropertyChanged));
 
-            foreach ( var property in builder.Target.Properties.Where( p => !p.IsAbstract && p.Writeability == Writeability.All ) )
+            foreach (var property in builder.Target.Properties.Where(
+                p => !p.IsAbstract && p.Writeability == Writeability.All))
             {
-                builder.Advices.OverrideFieldOrPropertyAccessors( property, null, nameof(this.OverridePropertySetter) );
+                builder.Advices.OverrideFieldOrPropertyAccessors(
+                    property, null, nameof(OverridePropertySetter));
             }
         }
 
-        [InterfaceMember]
+        [InterfaceMember] 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        [Introduce( WhenExists = OverrideStrategy.Ignore )]
-        protected void OnPropertyChanged( string name )
+        [Introduce(WhenExists = OverrideStrategy.Ignore)]
+        protected void OnPropertyChanged(string name)
         {
-            this.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs( name ) );
+            PropertyChanged?.Invoke(meta.This, new PropertyChangedEventArgs(name));
         }
 
         [Template]
-        private dynamic OverridePropertySetter( dynamic value )
+        private dynamic OverridePropertySetter(dynamic value)
         {
-            if ( value != meta.Target.Property.Value )
+            if (value != meta.Target.Property.Value)
             {
                 meta.Proceed();
-                this.OnPropertyChanged( meta.Target.Property.Name );
+                this.OnPropertyChanged(meta.Target.Property.Name);
             }
 
             return value;

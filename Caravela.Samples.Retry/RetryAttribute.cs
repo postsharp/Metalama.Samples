@@ -1,8 +1,5 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
+﻿using System;
 using Caravela.Framework.Aspects;
-using System;
 
 public class RetryAttribute : OverrideMethodAspect
 {
@@ -10,15 +7,15 @@ public class RetryAttribute : OverrideMethodAspect
 
     public override dynamic? OverrideMethod()
     {
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return meta.Proceed();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                Console.WriteLine( e.Message + " Retrying." );
+                Console.WriteLine(e.Message + " Retrying.");
             }
         }
     }

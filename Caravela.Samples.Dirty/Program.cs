@@ -1,7 +1,4 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using System;
+﻿using System;
 
 #pragma warning disable CS8618 // See bug #29235.
 
@@ -11,22 +8,22 @@ namespace Caravela.Samples.Dirty
     {
         private static void Main()
         {
-            Console.WriteLine( "Instantiating an object." );
-            SocialAnimal d = new( "Dog", 5 );
-            Console.WriteLine( $"State={d.DirtyState}" );
-            Console.WriteLine( "Start tracking changes." );
+            Console.WriteLine("Instantiating an object.");
+            SocialAnimal d = new("Dog", 5);
+            Console.WriteLine($"State={d.DirtyState}");
+            Console.WriteLine("Start tracking changes.");
             d.Track();
-            Console.WriteLine( $"State={d.DirtyState}" );
-            Console.WriteLine( "Doing a change." );
+            Console.WriteLine($"State={d.DirtyState}");
+            Console.WriteLine("Doing a change.");
             d.Name = "Changed";
-            Console.WriteLine( $"State={d.DirtyState}" );
+            Console.WriteLine($"State={d.DirtyState}");
         }
     }
 
     [Dirty]
     public partial class Animal
     {
-        public Animal( string name )
+        public Animal(string name)
         {
             this.Name = name;
         }
@@ -44,7 +41,7 @@ namespace Caravela.Samples.Dirty
     [Dirty]
     public class SocialAnimal : Animal
     {
-        public SocialAnimal( string name, int rank ) : base( name )
+        public SocialAnimal(string name, int rank) : base(name)
         {
             this.Rank = rank;
         }

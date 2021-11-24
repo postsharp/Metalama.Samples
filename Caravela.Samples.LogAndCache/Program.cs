@@ -1,10 +1,7 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
+﻿using System;
 using Caravela.Framework.Aspects;
-using System;
 
-[assembly: AspectOrder( typeof(CacheAttribute), typeof(LogAttribute) )]
+[assembly: AspectOrder(typeof(CacheAttribute), typeof(LogAttribute))]
 
 internal class Program
 {
@@ -13,18 +10,19 @@ internal class Program
     {
         try
         {
-            Add( 1, 1 );
-            Add( 1, 1 );
+            Add(1, 1);
+            Add(1, 1);
         }
-        catch { }
+        catch
+        {
+        }
     }
 
     [Log]
     [Cache]
-    private static int Add( int a, int b )
+    private static int Add(int a, int b)
     {
-        Console.WriteLine( "Thinking..." );
-
+        Console.WriteLine("Thinking...");
         return a + b;
     }
 }

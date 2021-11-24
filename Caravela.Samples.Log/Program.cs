@@ -1,7 +1,4 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using System;
+﻿using System;
 
 internal class Program
 {
@@ -9,18 +6,20 @@ internal class Program
     {
         try
         {
-            Add( 1, 1 );
-            Add( 0, 1 );
+            Add(1, 1);
+            Add(0, 1);
         }
-        catch { }
+        catch
+        {
+        }
     }
 
     [Log]
-    private static int Add( int a, int b )
+    private static int Add(int a, int b)
     {
-        if ( a == 0 )
+        if (a == 0)
         {
-            throw new ArgumentOutOfRangeException( nameof(a) );
+            throw new ArgumentOutOfRangeException(nameof(a));
         }
 
         return a + b;

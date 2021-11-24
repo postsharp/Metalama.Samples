@@ -1,7 +1,4 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using System;
+﻿using System;
 
 namespace Caravela.Samples.ToString
 {
@@ -16,7 +13,7 @@ namespace Caravela.Samples.ToString
 
         public double DY { get; set; }
 
-        public double Velocity => Math.Sqrt( (this.DX * this.DX) + (this.DY * this.DY) );
+        public double Velocity => Math.Sqrt((this.DX * this.DX) + (this.DY * this.DY));
     }
 
     internal class Program
@@ -25,7 +22,7 @@ namespace Caravela.Samples.ToString
         {
             var car = new MovingVertex { X = 5, Y = 3, DX = 0.1, DY = 0.3 };
 
-            Console.WriteLine( $"car = {car}" );
+            Console.WriteLine($"car = {car}");
         }
     }
 }

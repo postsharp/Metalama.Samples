@@ -1,7 +1,4 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using System;
+﻿using System;
 
 internal class Program
 {
@@ -9,29 +6,28 @@ internal class Program
     {
         try
         {
-            Fibonaci( 5 );
+            Fibonaci(5);
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            Console.WriteLine( e );
-            Console.WriteLine( "   with:" );
-            Console.WriteLine( e.Data["Context"] );
+            Console.WriteLine(e);
+            Console.WriteLine("   with:");
+            Console.WriteLine(e.Data["Context"]);
         }
     }
 
     [EnrichException]
-    private static int Fibonaci( int n )
+    private static int Fibonaci(int n)
     {
-        if ( n < 0 )
+        if (n < 0)
         {
-            throw new ArgumentOutOfRangeException( nameof(n) );
+            throw new ArgumentOutOfRangeException(nameof(n));
         }
 
-        if ( n == 0 )
+        if (n == 0)
         {
             return 0;
         }
-
         // Intentionally ommitting these lines to create an error.
         //else if (n == 1)
         //{
@@ -39,7 +35,7 @@ internal class Program
         //}
         else
         {
-            return Fibonaci( n - 1 ) + Fibonaci( n - 2 );
+            return Fibonaci(n - 1) + Fibonaci(n - 2);
         }
     }
 }

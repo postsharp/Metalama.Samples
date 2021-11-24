@@ -1,9 +1,7 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
-
-using System;
+﻿using System;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 
 namespace Caravela.Samples.Clone
 {
@@ -25,7 +23,7 @@ namespace Caravela.Samples.Clone
 
         public object Clone()
         {
-            return new ManuallyCloneable() { E = this.E };
+            return new ManuallyCloneable() { E = E };
         }
     }
 
@@ -43,17 +41,23 @@ namespace Caravela.Samples.Clone
     {
         private static void Main()
         {
-            var original = new AutomaticallyCloneable { A = 1, B = new ManuallyCloneable { E = 2 }, C = new Derived { A = 3 }, D = new NotCloneable { F = 4 } };
+            var original = new AutomaticallyCloneable
+            {
+                A = 1,
+                B = new ManuallyCloneable { E = 2 },
+                C = new Derived { A = 3 },
+                D = new NotCloneable { F = 4 }
+            };
 
-            Print( original, "original" );
+            Print(original, "original");
 
             var clone = original.Clone();
 
-            Print( clone, "   clone" );
+            Print(clone, "   clone");
 
-            void Print( AutomaticallyCloneable o, string name )
+            void Print(AutomaticallyCloneable o, string name)
             {
-                Console.WriteLine( $"{name} = {{ A={o.A}, B.D={o.B.E}, C.A={o.C.A}, D.F={o.D.F} }}" );
+                Console.WriteLine($"{name} = {{ A={o.A}, B.D={o.B.E}, C.A={o.C.A}, D.F={o.D.F} }}");
             }
         }
     }
