@@ -11,14 +11,13 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <MetalamaVersion>0.4.3-preview</MetalamaVersion>
+        <PostSharpEngineeringVersion>1.0.22-preview</PostSharpEngineeringVersion>
+        <!-- TODO: Set public version before merging to master. -->
+        <MetalamaVersion>branch:master</MetalamaVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->
-    <Import Project="../artifacts/private/MetalamaSamplesVersion.props" Condition="Exists('../artifacts/private/MetalamaSamplesVersion.props')" />
-    <Import Project="Dependencies.props" Condition="Exists('Dependencies.props')"/>
-
-    
+    <Import Project="Versions.g.props" Condition="Exists('Versions.g.props')" />    
 
     <PropertyGroup>
         <AssemblyVersion>$(MetalamaSamplesAssemblyVersion)</AssemblyVersion>
