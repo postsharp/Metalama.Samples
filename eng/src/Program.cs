@@ -15,10 +15,10 @@ namespace Build
            
             var product = new Product
             {
-                ProductName = "Caravela.Samples",
+                ProductName = "Metalama.Samples",
                 Solutions = ImmutableArray.Create<Solution>(
-                    new DotNetSolution( "Caravela.Samples.sln" ) { CanFormatCode = true, CanPack = false } ),
-                Dependencies = ImmutableArray.Create( new ProductDependency( "Caravela" ) )
+                    new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, CanPack = false } ),
+                Dependencies = ImmutableArray.Create( new ProductDependency( "Metalama" ) )
             };
 
             var commandApp = new CommandApp();

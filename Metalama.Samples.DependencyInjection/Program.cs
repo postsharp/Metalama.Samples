@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Caravela.Samples.DependencyInjection
+namespace Metalama.Samples.DependencyInjection
 {
     internal class Program
     {

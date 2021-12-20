@@ -1,12 +1,12 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
 // This project is not open source. Please see the LICENSE.md file in the repository root for details.
 
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
-using Caravela.Framework.Diagnostics;
+using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
+using Metalama.Framework.Diagnostics;
 using System.Linq;
 
-namespace Caravela.Samples.Dirty
+namespace Metalama.Samples.Dirty
 {
     public class DirtyAttribute : TypeAspect
     {
@@ -58,7 +58,7 @@ namespace Caravela.Samples.Dirty
             }
 
             // TODO: This aspect is not complete. We should normally not set DirtyState to Clean after the object has been initialized,
-            // but this is not possible in the current version of Caravela.
+            // but this is not possible in the current version of Metalama.
         }
 
         [InterfaceMember]

@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
 		<PackageReference Include="xunit" Version="2.4.1" />
-		<PackageReference Include="Caravela.TestFramework" Version="$(CaravelaVersion)" />
+		<PackageReference Include="Metalama.TestFramework" Version="$(MetalamaVersion)" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Caravela.Samples.Clone\Caravela.Samples.Clone.csproj" />
+		<ProjectReference Include="..\Metalama.Samples.Clone\Metalama.Samples.Clone.csproj" />
 	</ItemGroup>
 
 </Project>

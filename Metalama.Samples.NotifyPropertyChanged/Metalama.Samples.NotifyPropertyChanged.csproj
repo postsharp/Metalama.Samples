@@ -7,7 +7,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)"/>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
     </ItemGroup>
 
 

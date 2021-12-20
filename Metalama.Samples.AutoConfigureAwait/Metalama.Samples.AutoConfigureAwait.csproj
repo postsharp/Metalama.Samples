@@ -3,13 +3,13 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>9.0</LangVersion>
-        <RootNamespace>Caravela.Samples.AutoConfigureAwait.Aspect</RootNamespace>
+        <RootNamespace>Metalama.Samples.AutoConfigureAwait.Aspect</RootNamespace>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)"/>
-        <PackageReference Include="Caravela.Framework.Sdk" Version="$(CaravelaVersion)"/>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)"/>
     </ItemGroup>
 
 </Project>

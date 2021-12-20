@@ -11,39 +11,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		samples.json = samples.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogParameters", "Caravela.Samples.LogParameters\Caravela.Samples.LogParameters.csproj", "{C3E39A09-B14C-4447-B695-003B54D07D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.LogParameters", "Metalama.Samples.LogParameters\Metalama.Samples.LogParameters.csproj", "{C3E39A09-B14C-4447-B695-003B54D07D24}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Log", "Caravela.Samples.Log\Caravela.Samples.Log.csproj", "{CD066924-DA11-4FFB-9C89-5EAB619E2847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log", "Metalama.Samples.Log\Metalama.Samples.Log.csproj", "{CD066924-DA11-4FFB-9C89-5EAB619E2847}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Cache", "Caravela.Samples.Cache\Caravela.Samples.Cache.csproj", "{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache", "Metalama.Samples.Cache\Metalama.Samples.Cache.csproj", "{3581C05C-A6B2-4D1A-B120-DF8DA46FC1EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.ExceptionEnrich", "Caravela.Samples.ExceptionEnrich\Caravela.Samples.ExceptionEnrich.csproj", "{A4352C61-E9B2-4736-B1C7-F87F3882B61F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ExceptionEnrich", "Metalama.Samples.ExceptionEnrich\Metalama.Samples.ExceptionEnrich.csproj", "{A4352C61-E9B2-4736-B1C7-F87F3882B61F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Retry", "Caravela.Samples.Retry\Caravela.Samples.Retry.csproj", "{8967B55C-2595-4455-9D16-DF144186B36E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry", "Metalama.Samples.Retry\Metalama.Samples.Retry.csproj", "{8967B55C-2595-4455-9D16-DF144186B36E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TryCaravelaOnly", "TryCaravelaOnly", "{18B75FAE-0E73-4993-BBCA-990A773627FB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TryMetalamaOnly", "TryMetalamaOnly", "{18B75FAE-0E73-4993-BBCA-990A773627FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogAndCache", "Caravela.Samples.LogAndCache\Caravela.Samples.LogAndCache.csproj", "{54C56B58-2330-4DD7-8424-252E8F4DC94A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.LogAndCache", "Metalama.Samples.LogAndCache\Metalama.Samples.LogAndCache.csproj", "{54C56B58-2330-4DD7-8424-252E8F4DC94A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.NotifyPropertyChanged", "Caravela.Samples.NotifyPropertyChanged\Caravela.Samples.NotifyPropertyChanged.csproj", "{4C3B7819-14C9-481E-B2DA-0D4743A09F53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.NotifyPropertyChanged", "Metalama.Samples.NotifyPropertyChanged\Metalama.Samples.NotifyPropertyChanged.csproj", "{4C3B7819-14C9-481E-B2DA-0D4743A09F53}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.DependencyInjection", "Caravela.Samples.DependencyInjection\Caravela.Samples.DependencyInjection.csproj", "{5554E541-F682-49E1-B6B0-C897601BD343}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.DependencyInjection", "Metalama.Samples.DependencyInjection\Metalama.Samples.DependencyInjection.csproj", "{5554E541-F682-49E1-B6B0-C897601BD343}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Log.Tests", "Caravela.Samples.Log.Tests\Caravela.Samples.Log.Tests.csproj", "{F1E99AB1-371C-4771-B7F8-2E23726012DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log.Tests", "Metalama.Samples.Log.Tests\Metalama.Samples.Log.Tests.csproj", "{F1E99AB1-371C-4771-B7F8-2E23726012DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.LogParameters.Tests", "Caravela.Samples.LogParameters.Tests\Caravela.Samples.LogParameters.Tests.csproj", "{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.LogParameters.Tests", "Metalama.Samples.LogParameters.Tests\Metalama.Samples.LogParameters.Tests.csproj", "{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Dirty", "Caravela.Samples.Dirty\Caravela.Samples.Dirty.csproj", "{416E879B-C871-4F4A-8A85-32BAE50A1556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Dirty", "Metalama.Samples.Dirty\Metalama.Samples.Dirty.csproj", "{416E879B-C871-4F4A-8A85-32BAE50A1556}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.Clone", "Caravela.Samples.Clone\Caravela.Samples.Clone.csproj", "{928B94E1-9CA1-4EED-9A5B-F85A678A83D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone", "Metalama.Samples.Clone\Metalama.Samples.Clone.csproj", "{928B94E1-9CA1-4EED-9A5B-F85A678A83D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{69DCF94D-98A9-4374-9329-D1463B8AC850}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.ToString", "Caravela.Samples.ToString\Caravela.Samples.ToString.csproj", "{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToString", "Metalama.Samples.ToString\Metalama.Samples.ToString.csproj", "{8FC92530-5E6F-4093-9BC1-68A887B9CAC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoCancellationToken", "Caravela.Samples.AutoCancellationToken\Caravela.Samples.AutoCancellationToken.csproj", "{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoCancellationToken", "Metalama.Samples.AutoCancellationToken\Metalama.Samples.AutoCancellationToken.csproj", "{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Caravela.Samples.AutoConfigureAwait", "Caravela.Samples.AutoConfigureAwait\Caravela.Samples.AutoConfigureAwait.csproj", "{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoConfigureAwait", "Metalama.Samples.AutoConfigureAwait\Metalama.Samples.AutoConfigureAwait.csproj", "{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

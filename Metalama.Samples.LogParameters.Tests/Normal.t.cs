@@ -1,6 +1,6 @@
 using System;
 
-namespace Caravela.Samples.LogParameters.Tests.Normal
+namespace Metalama.Samples.LogParameters.Tests.Normal
 {
     internal class Foo
     {

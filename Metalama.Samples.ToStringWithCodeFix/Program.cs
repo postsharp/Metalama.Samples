@@ -1,7 +1,7 @@
 ﻿using System;
-using Caravela.Samples.ToString;
+using Metalama.Samples.ToString;
 
-namespace Caravela.Samples.ToString
+namespace Metalama.Samples.ToString
 {
     internal class MovingVertex
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Caravela.Samples.Log.Tests.SimpleMethod
+namespace Metalama.Samples.Log.Tests.SimpleMethod
 {
     internal class Foo
     {

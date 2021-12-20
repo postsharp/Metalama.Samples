@@ -1,6 +1,6 @@
 using System;
 
-namespace Caravela.Samples.LogParameters.Tests.NoParameter
+namespace Metalama.Samples.LogParameters.Tests.NoParameter
 {
     internal class Foo
     {

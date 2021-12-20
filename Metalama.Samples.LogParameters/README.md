@@ -1,1 +1,1 @@
-Try this example online: https://try.postsharp.net#log-parameters.
+Try this example online: https://try.metalama.net#log-parameters.

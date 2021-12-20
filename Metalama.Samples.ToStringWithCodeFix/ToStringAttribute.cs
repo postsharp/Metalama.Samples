@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
-using Caravela.Framework.Code.SyntaxBuilders;
-using Caravela.Framework.CodeFixes;
-using Caravela.Framework.Diagnostics;
+using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
+using Metalama.Framework.Code.SyntaxBuilders;
+using Metalama.Framework.CodeFixes;
+using Metalama.Framework.Diagnostics;
 
-namespace Caravela.Samples.ToString
+namespace Metalama.Samples.ToString
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [CompileTime] // TODO: should not be necessary to add [CompileTime]

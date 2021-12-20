@@ -1,8 +1,8 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
 // This project is not open source. Please see the LICENSE.md file in the repository root for details.
 
-using Caravela.Framework.Aspects;
-using Caravela.Framework.Code;
+using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
 using System;
 using System.Collections.Concurrent;
 using System.Text;
@@ -87,7 +87,7 @@ public class CacheAttribute : OverrideMethodAspect
     }
 }
 
-// Placeholder implementation of a cache because the hosted try.postsharp.net does not allow for MemoryCache.
+// Placeholder implementation of a cache because the hosted try.metalama.net does not allow for MemoryCache.
 public static class SampleCache
 {
     public static readonly ConcurrentDictionary<string, object> Cache =

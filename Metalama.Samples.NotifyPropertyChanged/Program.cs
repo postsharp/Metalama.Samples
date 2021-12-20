@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Caravela.Samples.NotifyPropertyChanged
+namespace Metalama.Samples.NotifyPropertyChanged
 {
     [NotifyPropertyChanged]
     internal partial class MovingVertex

@@ -1,1 +1,1 @@
-Try this example online: https://try.postsharp.net#retry.
+Try this example online: https://try.metalama.net#retry.

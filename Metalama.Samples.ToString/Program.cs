@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Caravela.Samples.ToString
+namespace Metalama.Samples.ToString
 {
     [ToString]
     internal class MovingVertex

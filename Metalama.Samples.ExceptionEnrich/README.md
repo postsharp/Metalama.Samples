@@ -1,1 +1,1 @@
-Try this example online: https://try.postsharp.net#exception-enrich.
+Try this example online: https://try.metalama.net#exception-enrich.

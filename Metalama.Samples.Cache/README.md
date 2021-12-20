@@ -1,1 +1,1 @@
-Try this example online: https://try.postsharp.net#cache.
+Try this example online: https://try.metalama.net#cache.

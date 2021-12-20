@@ -2,85 +2,85 @@
   {
     "id": "log-parameters",
     "name": "Logging with parameters",
-    "url": "Caravela.Samples.LogParameters",
-    "aspect": "Caravela.Samples.LogParameters/LogAttribute.cs",
-    "program": "Caravela.Samples.LogParameters/Program.cs"
+    "url": "Metalama.Samples.LogParameters",
+    "aspect": "Metalama.Samples.LogParameters/LogAttribute.cs",
+    "program": "Metalama.Samples.LogParameters/Program.cs"
   },
   {
     "id": "log",
     "name": "Simple logging",
-    "url": "Caravela.Samples.Log",
-    "aspect": "Caravela.Samples.Log/LogAttribute.cs",
-    "program": "Caravela.Samples.Log/Program.cs"
+    "url": "Metalama.Samples.Log",
+    "aspect": "Metalama.Samples.Log/LogAttribute.cs",
+    "program": "Metalama.Samples.Log/Program.cs"
   },
   {
     "id": "cache",
     "name": "Simple caching",
-    "url": "Caravela.Samples.Cache",
-    "aspect": "Caravela.Samples.Cache/CacheAttribute.cs",
-    "program": "Caravela.Samples.Cache/Program.cs"
+    "url": "Metalama.Samples.Cache",
+    "aspect": "Metalama.Samples.Cache/CacheAttribute.cs",
+    "program": "Metalama.Samples.Cache/Program.cs"
   },
   {
     "id": "log-and-cache",
     "name": "Logging and caching",
-    "url": "Caravela.Samples.LogAndCache",
-    "aspect": "Caravela.Samples.LogAndCache/Aspects.cs",
-    "program": "Caravela.Samples.LogAndCache/Program.cs"
+    "url": "Metalama.Samples.LogAndCache",
+    "aspect": "Metalama.Samples.LogAndCache/Aspects.cs",
+    "program": "Metalama.Samples.LogAndCache/Program.cs"
   },
   {
     "id": "retry",
     "name": "Auto retry",
-    "url": "Caravela.Samples.Retry",
-    "aspect": "Caravela.Samples.Retry/RetryAttribute.cs",
-    "program": "Caravela.Samples.Retry/Program.cs"
+    "url": "Metalama.Samples.Retry",
+    "aspect": "Metalama.Samples.Retry/RetryAttribute.cs",
+    "program": "Metalama.Samples.Retry/Program.cs"
   },
   {
     "id": "dirty",
     "name": "Dirty (IsChanged)",
-    "url": "Caravela.Samples.Dirty",
-    "aspect": "Caravela.Samples.Dirty/DirtyAttribute.cs",
-    "program": "Caravela.Samples.Dirty/Program.cs"
+    "url": "Metalama.Samples.Dirty",
+    "aspect": "Metalama.Samples.Dirty/DirtyAttribute.cs",
+    "program": "Metalama.Samples.Dirty/Program.cs"
   },
   {
     "id": "exception-enrich",
     "name": "Exception handling (enriching)",
-    "url": "Caravela.Samples.ExceptionEnrich",
-    "aspect": "Caravela.Samples.ExceptionEnrich/EnrichExceptionAttribute.cs",
-    "program": "Caravela.Samples.ExceptionEnrich/Program.cs"
+    "url": "Metalama.Samples.ExceptionEnrich",
+    "aspect": "Metalama.Samples.ExceptionEnrich/EnrichExceptionAttribute.cs",
+    "program": "Metalama.Samples.ExceptionEnrich/Program.cs"
   },
   {
     "id": "inpc",
     "name": "INotifyPropertyChanged",
-    "url": "Caravela.Samples.NotifyPropertyChanged",
-    "aspect": "Caravela.Samples.NotifyPropertyChanged/NotifyPropertyChangedAttribute.cs",
-    "program": "Caravela.Samples.NotifyPropertyChanged/Program.cs"
+    "url": "Metalama.Samples.NotifyPropertyChanged",
+    "aspect": "Metalama.Samples.NotifyPropertyChanged/NotifyPropertyChangedAttribute.cs",
+    "program": "Metalama.Samples.NotifyPropertyChanged/Program.cs"
   },
   {
     "id": "tostring",
     "name": "ToString",
-    "url": "Caravela.Samples.ToString",
-    "aspect": "Caravela.Samples.ToString/ToStringAttribute.cs",
-    "program": "Caravela.Samples.ToString/Program.cs"
+    "url": "Metalama.Samples.ToString",
+    "aspect": "Metalama.Samples.ToString/ToStringAttribute.cs",
+    "program": "Metalama.Samples.ToString/Program.cs"
   },
   {
     "id": "cloneable",
     "name": "Cloneable",
-    "url": "Caravela.Samples.Clone",
-    "aspect": "Caravela.Samples.Clone/CloneAttribute.cs",
-    "program": "Caravela.Samples.Clone/Program.cs"
+    "url": "Metalama.Samples.Clone",
+    "aspect": "Metalama.Samples.Clone/CloneAttribute.cs",
+    "program": "Metalama.Samples.Clone/Program.cs"
   },
   {
     "id": "autoconfigureawait",
     "name": "Automatically call ConfigureAwait (SDK)",
-    "url": "Caravela.Samples.AutoConfigureAwait",
-    "aspect": "Caravela.Samples.AutoConfigureAwait/Aspect.cs",
-    "program": "Caravela.Samples.AutoConfigureAwait/Program.cs"
+    "url": "Metalama.Samples.AutoConfigureAwait",
+    "aspect": "Metalama.Samples.AutoConfigureAwait/Aspect.cs",
+    "program": "Metalama.Samples.AutoConfigureAwait/Program.cs"
   },
   {
     "id": "autocancellationtoken",
     "name": "Automatically propagate CancellationToken (SDK)",
-    "url": "Caravela.Open.AutoCancellationToken",
-    "aspect": "Caravela.Samples.AutoCancellationToken/Aspect.cs",
-    "program": "Caravela.Samples.AutoCancellationToken/Program.cs"
+    "url": "Metalama.Open.AutoCancellationToken",
+    "aspect": "Metalama.Samples.AutoCancellationToken/Aspect.cs",
+    "program": "Metalama.Samples.AutoCancellationToken/Program.cs"
   }
 ]

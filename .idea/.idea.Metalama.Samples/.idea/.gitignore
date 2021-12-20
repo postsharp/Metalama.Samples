@@ -5,9 +5,9 @@
 /contentModel.xml
 /modules.xml
 /projectSettingsUpdater.xml
-/.idea.Caravela.Samples.iml
+/.idea.Metalama.Samples.iml
 # Datasource local storage ignored files
-/../../../../../../:\src\Caravela.Samples\.idea\.idea.Caravela.Samples\.idea/dataSources/
+/../../../../../../:\src\Metalama.Samples\.idea\.idea.Metalama.Samples\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/

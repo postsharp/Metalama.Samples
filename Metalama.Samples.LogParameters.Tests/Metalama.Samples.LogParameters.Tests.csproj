@@ -17,12 +17,12 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Caravela.TestFramework" Version="$(CaravelaVersion)"/>
+        <PackageReference Include="Metalama.TestFramework" Version="$(MetalamaVersion)"/>
     </ItemGroup>
 
 
     <ItemGroup>
-        <ProjectReference Include="..\Caravela.Samples.LogParameters\Caravela.Samples.LogParameters.csproj"/>
+        <ProjectReference Include="..\Metalama.Samples.LogParameters\Metalama.Samples.LogParameters.csproj"/>
     </ItemGroup>
 
 </Project>

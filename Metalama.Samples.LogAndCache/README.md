@@ -1,1 +1,1 @@
-Try this example online: https://try.postsharp.net#log-and-cache.
+Try this example online: https://try.metalama.net#log-and-cache.

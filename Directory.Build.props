@@ -7,9 +7,9 @@
             https://nuget.postsharp.net/nuget/caravela/
         </RestoreAdditionalProjectSources>
 
-        <DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
-        <DebugCaravelaIde>False</DebugCaravelaIde>
-        <CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
+        <DebugMetalamaAnalyzer>False</DebugMetalamaAnalyzer>
+        <DebugMetalamaIde>False</DebugMetalamaIde>
+        <MetalamaDebugTransformedCode>True</MetalamaDebugTransformedCode>
         <Nullable>enable</Nullable>
 
     </PropertyGroup>

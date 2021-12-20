@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Caravela.Framework" Version="$(CaravelaVersion)"/>
-        <PackageReference Include="Caravela.Framework.Sdk" Version="$(CaravelaVersion)"/>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)"/>
     </ItemGroup>
 
 </Project>

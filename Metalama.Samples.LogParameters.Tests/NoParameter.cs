@@ -1,7 +1,7 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
 // This project is not open source. Please see the LICENSE.md file in the repository root for details.
 
-namespace Caravela.Samples.LogParameters.Tests.NoParameter
+namespace Metalama.Samples.LogParameters.Tests.NoParameter
 {
     internal class Foo
     {
