@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Dirty", "Metalama.Samples.Dirty.csproj", "{204A803D-F563-4CF4-987F-1622885691D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{204A803D-F563-4CF4-987F-1622885691D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{204A803D-F563-4CF4-987F-1622885691D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{204A803D-F563-4CF4-987F-1622885691D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{204A803D-F563-4CF4-987F-1622885691D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC199EBA-009D-4E35-BF75-C46D71634807}
+	EndGlobalSection
+EndGlobal

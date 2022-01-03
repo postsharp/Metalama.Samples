@@ -5,3 +5,5 @@ obj/
 *.user
 *.local
 artifacts/
+*.g.props
+/Metalama.Samples.Import.props
