@@ -5,10 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4C96CB6C-EF40-494A-B4ED-EADEC2D5BD94}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Build.props = Directory.Build.props
+		Directory.Build.props = ..\Directory.Build.props
 		.github\workflows\main.yml = .github\workflows\main.yml
-		README.md = README.md
-		samples.json = samples.json
+		README.md = ..\README.md
+		samples.json = ..\samples.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.LogParameters", "Metalama.Samples.LogParameters\Metalama.Samples.LogParameters.csproj", "{C3E39A09-B14C-4447-B695-003B54D07D24}"

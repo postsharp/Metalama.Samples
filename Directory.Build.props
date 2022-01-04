@@ -8,12 +8,10 @@
     <Import Project="eng\Versions.props"/>
 
     <PropertyGroup>
-
         <DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
         <DebugCaravelaIde>False</DebugCaravelaIde>
         <CaravelaDebugTransformedCode>True</CaravelaDebugTransformedCode>
         <Nullable>enable</Nullable>
-
     </PropertyGroup>
 
 </Project>

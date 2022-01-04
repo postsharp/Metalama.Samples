@@ -1,9 +1,6 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
+﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
 using System;
-
-#pragma warning disable CS8618 // See bug #29235.
 
 namespace Metalama.Samples.Dirty
 {
