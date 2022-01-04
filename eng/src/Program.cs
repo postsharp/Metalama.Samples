@@ -11,7 +11,7 @@ var product = new Product
 {
     ProductName = "Metalama.Samples",
     Solutions = ImmutableArray.Create<Solution>(
-        new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } ),
+        new DotNetSolution( "src\\Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } ),
     Dependencies = ImmutableArray.Create(
         Dependencies.PostSharpEngineering,
         Dependencies.Metalama )
