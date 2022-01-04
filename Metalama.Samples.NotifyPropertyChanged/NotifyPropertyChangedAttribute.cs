@@ -8,13 +8,9 @@ using System.Linq;
 
 namespace Metalama.Samples.NotifyPropertyChanged
 {
+    [Inherited]
     internal class NotifyPropertyChangedAttribute : TypeAspect
     {
-        public override void BuildAspectClass( IAspectClassBuilder builder )
-        {
-            builder.IsInherited = true;
-        }
-
         public override void BuildAspect( IAspectBuilder<INamedType> builder )
         {
             builder.Advices.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged) );

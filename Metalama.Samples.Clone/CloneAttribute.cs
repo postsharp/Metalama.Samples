@@ -8,14 +8,10 @@ using System.Linq;
 
 namespace Metalama.Samples.Clone
 {
+    [Inherited]
+    [LiveTemplate]
     internal class DeepCloneAttribute : TypeAspect
     {
-        public override void BuildAspectClass( IAspectClassBuilder builder )
-        {
-            builder.IsInherited = true;
-            builder.IsLiveTemplate = true;
-        }
-
         public override void BuildAspect( IAspectBuilder<INamedType> builder )
         {
             var typedMethod = builder.Advices.IntroduceMethod(
