@@ -10,11 +10,8 @@ using System.Collections.Immutable;
 var product = new Product
 {
     ProductName = "Metalama.Samples",
-    Solutions = ImmutableArray.Create<Solution>(
-        new DotNetSolution( "src\\Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } ),
-    Dependencies = ImmutableArray.Create(
-        Dependencies.PostSharpEngineering,
-        Dependencies.Metalama )
+    Solutions = new[]{ new DotNetSolution( "src\\Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
+    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
 };
 
 var commandApp = new CommandApp();
