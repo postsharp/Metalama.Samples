@@ -21,6 +21,6 @@ internal class Program
         _attempts++;
         Console.WriteLine( $"Just trying for the {_attempts}-th time." );
 
-        throw new Exception();
+        throw new InvalidOperationException();
     }
 }

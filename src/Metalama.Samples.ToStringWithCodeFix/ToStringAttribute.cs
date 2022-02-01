@@ -1,20 +1,20 @@
-﻿using System;
+﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
+
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.CodeFixes;
-using Metalama.Framework.Diagnostics;
 
 namespace Metalama.Samples.ToString
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     [CompileTime] // TODO: should not be necessary to add [CompileTime]
-    public  class NotToStringAttribute : Attribute
-    {
-    }
+    public  class NotToStringAttribute : Attribute { }
 
+    [LiveTemplate]
     public class ToStringAttribute : TypeAspect
     {
         
