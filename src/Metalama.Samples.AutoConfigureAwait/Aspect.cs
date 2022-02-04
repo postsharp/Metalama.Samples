@@ -1,8 +1,9 @@
 ﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
+using Metalama.Compiler;
 using Metalama.Framework.Aspects;
+using Metalama.Framework.Engine.AspectWeavers;
 using Metalama.Framework.Engine.CodeModel;
-using Metalama.Framework.Engine.Sdk;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -12,7 +13,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 public class AutoConfigureAwaitAttribute : CompilationAspect { }
 
-[CompilerPlugin]
+[MetalamaPlugIn]
 [AspectWeaver( typeof(AutoConfigureAwaitAttribute) )]
 internal class AutoConfigureAwaitWeaver : IAspectWeaver
 {

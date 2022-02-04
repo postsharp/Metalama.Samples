@@ -27,7 +27,7 @@ namespace Metalama.Samples.ToString
             {
                 if (!field.Attributes.Any(a => a.Type.Is(typeof(NotToStringAttribute))))
                 {
-                    builder.Diagnostics.Suggest( field, CodeFix.AddAttribute( field, typeof(NotToStringAttribute), "Exclude from [ToString]") );
+                    builder.Diagnostics.Suggest( field, CodeFixFactory.AddAttribute( field, typeof(NotToStringAttribute), "Exclude from [ToString]") );
                 }
             }
 
@@ -35,8 +35,8 @@ namespace Metalama.Samples.ToString
             if ( builder.AspectInstance.Predecessors[0].Instance is IAttribute attribute  )
             {
                 builder.Diagnostics.Suggest(
-                    attribute, 
-                    CodeFix.Create( codeFixBuilder => this.ImplementManually(codeFixBuilder, builder.Target), "Switch to manual implementation") );
+                    attribute,
+                    CodeFixFactory.CreateCustomCodeFix( codeFixBuilder => this.ImplementManually(codeFixBuilder, builder.Target), "Switch to manual implementation") );
             }
         }
 
