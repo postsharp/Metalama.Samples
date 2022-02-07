@@ -17,10 +17,10 @@ namespace Metalama.Samples.DependencyInjection
             base.BuildAspect( builder );
 
             // Suppress warning CS8618: Non-nullable property '_service' must contain a non-null value when exiting constructor.
-            builder.Diagnostics.Suppress( builder.Target, _suppressCs8618 );
+            builder.Diagnostics.Suppress( _suppressCs8618, builder.Target );
 
             // Suppress warning IDE0044: Make field read-only.
-            builder.Diagnostics.Suppress( builder.Target, _suppressIde0044 );
+            builder.Diagnostics.Suppress( _suppressIde0044, builder.Target );
         }
 
         public override dynamic? OverrideProperty

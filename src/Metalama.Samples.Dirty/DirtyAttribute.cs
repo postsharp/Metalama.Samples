@@ -37,11 +37,11 @@ namespace Metalama.Samples.Dirty
 
                 if ( dirtyStateProperty?.SetMethod == null )
                 {
-                    _mustHaveDirtyStateSetter.WithArguments( builder.Target ).ReportTo( builder.Diagnostics );
+                    builder.Diagnostics.Report( _mustHaveDirtyStateSetter.WithArguments( builder.Target ) );
                 }
                 else if ( dirtyStateProperty.SetMethod.Accessibility != Accessibility.Protected )
                 {
-                    _dirtyStateSetterMustBeProtected.WithArguments( dirtyStateProperty ).ReportTo( builder.Diagnostics );
+                    builder.Diagnostics.Report( _dirtyStateSetterMustBeProtected.WithArguments( dirtyStateProperty ) );
                 }
             }
 
