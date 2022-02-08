@@ -1,0 +1,27 @@
+<Project>
+
+    <!-- Set the default version -->
+    <Import Project="MainVersion.props" />
+    
+    <PropertyGroup>
+        <MetalamaSamplesVersion>$(MainVersion)$(PackageVersionSuffix)</MetalamaSamplesVersion>
+        <MetalamaSamplesAssemblyVersion>$(MainVersion)</MetalamaSamplesAssemblyVersion>
+    </PropertyGroup>
+
+    
+    <!-- Versions of dependencies -->
+    <PropertyGroup>
+        <PostSharpEngineeringVersion>1.0.39-preview</PostSharpEngineeringVersion>
+        <MetalamaVersion>0.5.0-preview</MetalamaVersion>
+        <MetalamaVersion Condition="$(VcsBranch.StartsWith('dev'))">branch:master</MetalamaVersion>
+    </PropertyGroup>
+
+    <!-- Import overrides for the local build -->
+    <Import Project="Versions.g.props" Condition="Exists('Versions.g.props')" />    
+
+    <PropertyGroup>
+        <AssemblyVersion>$(MetalamaSamplesAssemblyVersion)</AssemblyVersion>
+        <Version>$(MetalamaSamplesVersion)</Version>
+    </PropertyGroup>
+
+</Project>

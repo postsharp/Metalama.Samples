@@ -3,4 +3,8 @@
 bin/
 obj/
 *.user
-.local
+*.local
+artifacts/
+*.g.props
+/Metalama.Samples.Import.props
+eng/tools

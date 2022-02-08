@@ -1,18 +1,16 @@
 <Project>
-    <Import Project="..\Caravela\eng\CaravelaVersion.props" Condition="Exists('.local')"/>
+
     <PropertyGroup>
-        <CaravelaVersion Condition="'$(CaravelaVersion)'==''">0.4.1-preview</CaravelaVersion>
+        <RepoDirectory>$(MSBuildThisFileDirectory)</RepoDirectory>
+        <RepoKind>GitHub</RepoKind>
+    </PropertyGroup>
 
-        <RestoreAdditionalProjectSources Condition="'$(IS_POSTSHARP_OWNED)'=='True'">
-            $(RestoreAdditionalProjectSources);
-            https://nuget.postsharp.net/nuget/caravela/
-        </RestoreAdditionalProjectSources>
+    <Import Project="eng\Versions.props"/>
 
-        <DebugCaravelaAnalyzer>False</DebugCaravelaAnalyzer>
-        <DebugCaravelaIde>False</DebugCaravelaIde>
-        <CaravelaDebugTransformedCode>False</CaravelaDebugTransformedCode>
+    <PropertyGroup>
+        <MetalamaLicense>110989-ZE228QQQZEAEQCRCE4UW3UFEB4URXMHRB8KQBJJSB64LX7YQTE6CXMSRR4UMNTJS6CUMXUGFS8KYQYE49YDMDL7VTXZNTJK6V7ETRC73VNJLEQ2QAEEECFD7B6CNFKQPBZKM3X3CS8X6UGFAQTWWGKRZATP4Q8USJG4X6P2</MetalamaLicense>
         <Nullable>enable</Nullable>
-
+        <IsPackable>False</IsPackable>
     </PropertyGroup>
 
 </Project>

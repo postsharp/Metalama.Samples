@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>9.0</LangVersion>
+        <RootNamespace>Metalama.Samples.AutoConfigureAwait.Aspect</RootNamespace>
+        <OutputType>Exe</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)"/>
+    </ItemGroup>
+
+</Project>

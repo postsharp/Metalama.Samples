@@ -1,0 +1,7 @@
+[*.cs]
+
+# File header
+file_header_template = This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
+
+[*.{cs,vb}]
+dotnet_diagnostic.CA1822.severity=silent
