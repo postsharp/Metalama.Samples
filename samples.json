@@ -1,17 +1,17 @@
 ﻿[
   {
-    "id": "log-parameters",
-    "name": "Logging with parameters",
-    "url": "src/Metalama.Samples.LogParameters",
-    "aspect": "src/Metalama.Samples.LogParameters/LogAttribute.cs",
-    "program": "src/Metalama.Samples.LogParameters/Program.cs"
-  },
-  {
     "id": "log",
     "name": "Simple logging",
     "url": "src/Metalama.Samples.Log",
     "aspect": "src/Metalama.Samples.Log/LogAttribute.cs",
     "program": "src/Metalama.Samples.Log/Program.cs"
+  },
+  {
+    "id": "retry",
+    "name": "Auto retry",
+    "url": "src/Metalama.Samples.Retry",
+    "aspect": "src/Metalama.Samples.Retry/RetryAttribute.cs",
+    "program": "src/Metalama.Samples.Retry/Program.cs"
   },
   {
     "id": "cache",
@@ -21,18 +21,18 @@
     "program": "src/Metalama.Samples.Cache/Program.cs"
   },
   {
+    "id": "log-parameters",
+    "name": "Logging with parameters",
+    "url": "src/Metalama.Samples.LogParameters",
+    "aspect": "src/Metalama.Samples.LogParameters/LogAttribute.cs",
+    "program": "src/Metalama.Samples.LogParameters/Program.cs"
+  },
+  {
     "id": "log-and-cache",
     "name": "Logging and caching",
     "url": "src/Metalama.Samples.LogAndCache",
     "aspect": "src/Metalama.Samples.LogAndCache/Aspects.cs",
     "program": "src/Metalama.Samples.LogAndCache/Program.cs"
-  },
-  {
-    "id": "retry",
-    "name": "Auto retry",
-    "url": "src/Metalama.Samples.Retry",
-    "aspect": "src/Metalama.Samples.Retry/RetryAttribute.cs",
-    "program": "src/Metalama.Samples.Retry/Program.cs"
   },
   {
     "id": "dirty",
