@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -40,6 +39,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoConfigureAwait", "src\Metalama.Samples.AutoConfigureAwait\Metalama.Samples.AutoConfigureAwait.csproj", "{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToStringWithCodeFix", "src\Metalama.Samples.ToStringWithCodeFix\Metalama.Samples.ToStringWithCodeFix.csproj", "{5E185E84-FCC0-41B8-A4A8-50D1D3EB964D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoCancellationToken.Aspect", "src\Metalama.Samples.AutoCancellationToken.Aspect\Metalama.Samples.AutoCancellationToken.Aspect.csproj", "{8F19B407-DE4D-4D57-B374-E6E189621EB5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoConfigureAwait.Aspect", "src\Metalama.Samples.AutoConfigureAwait.Aspect\Metalama.Samples.AutoConfigureAwait.Aspect.csproj", "{500F7A73-1419-4ABF-AB40-70029C979DB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -111,6 +114,14 @@ Global
 		{5E185E84-FCC0-41B8-A4A8-50D1D3EB964D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E185E84-FCC0-41B8-A4A8-50D1D3EB964D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E185E84-FCC0-41B8-A4A8-50D1D3EB964D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F19B407-DE4D-4D57-B374-E6E189621EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F19B407-DE4D-4D57-B374-E6E189621EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F19B407-DE4D-4D57-B374-E6E189621EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F19B407-DE4D-4D57-B374-E6E189621EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{500F7A73-1419-4ABF-AB40-70029C979DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500F7A73-1419-4ABF-AB40-70029C979DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500F7A73-1419-4ABF-AB40-70029C979DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500F7A73-1419-4ABF-AB40-70029C979DB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +131,8 @@ Global
 		{C3AD8D7D-E2F8-4ED5-BA03-DE1B5D5C2ECE} = {69DCF94D-98A9-4374-9329-D1463B8AC850}
 		{B83A2DB7-48BD-4562-8BA2-A23E5A9D7E97} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
 		{9DF8820B-1B0A-454F-ABA9-B541FEFF4EF1} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{8F19B407-DE4D-4D57-B374-E6E189621EB5} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
+		{500F7A73-1419-4ABF-AB40-70029C979DB1} = {18B75FAE-0E73-4993-BBCA-990A773627FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BEE1D071-3DAD-415E-B763-05D3FA08B9F5}
