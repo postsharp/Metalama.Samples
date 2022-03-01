@@ -70,6 +70,13 @@
     "program": "src/Metalama.Samples.Clone/Program.cs"
   },
   {
+    "id": "enumviewmodel",
+    "name": "Enum View-Model",
+    "url": "src/Metalama.Samples.EnumViewModel",
+    "aspect": "src/Metalama.Samples.EnumViewModel/EnumViewModelAttribute.cs",
+    "program": "src/Metalama.Samples.EnumViewModel/Program.cs"
+  },
+  {
     "id": "autoconfigureawait",
     "name": "Automatically call ConfigureAwait (SDK)",
     "url": "src/Metalama.Samples.AutoConfigureAwait",
