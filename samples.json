@@ -77,6 +77,13 @@
     "program": "src/Metalama.Samples.EnumViewModel/Program.cs"
   },
   {
+    "id": "dependency-injection",
+    "name": "Dependency Injection",
+    "url": "src/Metalama.Samples.DependencyInjection",
+    "aspect": "src/Metalama.Samples.DependencyInjection/InjectAttribute.cs",
+    "program": "src/Metalama.Samples.DependencyInjection/Program.cs"
+  },
+  {
     "id": "autoconfigureawait",
     "name": "Automatically call ConfigureAwait (SDK)",
     "url": "src/Metalama.Samples.AutoConfigureAwait",

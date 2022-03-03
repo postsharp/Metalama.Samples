@@ -7,7 +7,7 @@ using System;
 
 namespace Metalama.Samples.DependencyInjection
 {
-    internal class ImportAttribute : OverrideFieldOrPropertyAspect
+    internal class InjectAttribute : OverrideFieldOrPropertyAspect
     {
         private static readonly SuppressionDefinition _suppressCs8618 = new( "CS8618" );
         private static readonly SuppressionDefinition _suppressIde0044 = new( "IDE0044" );

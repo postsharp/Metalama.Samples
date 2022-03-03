@@ -6,7 +6,7 @@ namespace Metalama.Samples.DependencyInjection
 {
     internal class Program
     {
-        [Import]
+        [Inject]
         private IGreetingService _service;
 
         private static void Main()

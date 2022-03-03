@@ -50,6 +50,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.AutoConfig
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.EnumViewModel", "src\Metalama.Samples.EnumViewModel\Metalama.Samples.EnumViewModel.csproj", "{0FD30C2D-49B2-4993-A2C3-50EEE97926AB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.IgnoreValues", "src\Metalama.Samples.IgnoreValues\Metalama.Samples.IgnoreValues.csproj", "{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.OptionalValue", "Metalama.Samples.OptionalValue\Metalama.Samples.OptionalValue.csproj", "{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -132,6 +136,14 @@ Global
 		{0FD30C2D-49B2-4993-A2C3-50EEE97926AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FD30C2D-49B2-4993-A2C3-50EEE97926AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FD30C2D-49B2-4993-A2C3-50EEE97926AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
