@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
     </ItemGroup>
 
 </Project>
