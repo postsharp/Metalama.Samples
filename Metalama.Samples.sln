@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.EnumViewMo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.IgnoreValues", "src\Metalama.Samples.IgnoreValues\Metalama.Samples.IgnoreValues.csproj", "{FC6280C6-7EB2-4C17-8A1A-5324DCB9C182}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.OptionalValue", "Metalama.Samples.OptionalValue\Metalama.Samples.OptionalValue.csproj", "{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.OptionalValue", "src\Metalama.Samples.OptionalValue\Metalama.Samples.OptionalValue.csproj", "{5B6F7E71-4114-4FE6-9F6E-08FA42F26F01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
