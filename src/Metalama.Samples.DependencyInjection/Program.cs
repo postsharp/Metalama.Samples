@@ -27,7 +27,7 @@ namespace Metalama.Samples.DependencyInjection
         [Inject]
         private IConsole _console;
 
-        public void Greet() => _console.WriteLine("Hello, world.");
+        public void Greet() => this._console.WriteLine("Hello, world.");
 
 
     }

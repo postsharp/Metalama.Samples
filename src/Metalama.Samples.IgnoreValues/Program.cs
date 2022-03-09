@@ -2,12 +2,17 @@
 
 using System;
 
-var author = new Author { Name = "Antoine" };
+var author = new Author("Antoine" );
 author.Name = "";
 Console.WriteLine( $"Author's name: '{author.Name}." );
 
-class Author
+internal class Author
 {
-    [IgnoreValues("\"\"")]
+    [IgnoreValues("", null)]
     public string Name { get; set; }
+
+    public Author( string name )
+    {
+        this.Name = name;
+    }
 }

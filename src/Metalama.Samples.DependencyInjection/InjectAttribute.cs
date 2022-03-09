@@ -24,13 +24,13 @@ namespace Metalama.Samples.DependencyInjection
             base.BuildAspect( builder );
 
             // Suppress warnings.
-            builder.Diagnostics.Suppress( _suppressCs8618, builder.Target );
-            builder.Diagnostics.Suppress(_suppressCs0649, builder.Target);
-            builder.Diagnostics.Suppress( _suppressIde0044, builder.Target );
+            builder.Diagnostics.Suppress( _suppressCs8618 );
+            builder.Diagnostics.Suppress( _suppressCs0649 );
+            builder.Diagnostics.Suppress( _suppressIde0044 );
         }
 
         [Introduce( WhenExists =OverrideStrategy.Ignore )]
-        private IServiceProvider _serviceProvider = ServiceLocator.Current;
+        private readonly IServiceProvider _serviceProvider = ServiceLocator.Current;
 
         public override dynamic? OverrideProperty
         {
@@ -61,7 +61,7 @@ namespace Metalama.Samples.DependencyInjection
     internal class ServiceLocator
     {
 
-        private static AsyncLocal<IServiceProvider?> _current = new();
+        private static readonly AsyncLocal<IServiceProvider?> _current = new();
 
         public static IServiceProvider Current
         {

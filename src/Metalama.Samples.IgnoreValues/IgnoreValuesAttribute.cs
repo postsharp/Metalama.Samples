@@ -4,9 +4,9 @@ using Metalama.Framework.Aspects;
 
 internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
 {
-    private readonly dynamic[] _ignoredValues;
+    private readonly dynamic?[] _ignoredValues;
 
-    public IgnoreValuesAttribute( params object[] values )
+    public IgnoreValuesAttribute( params object?[] values )
     {
         this._ignoredValues = values;
     }
