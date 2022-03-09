@@ -3,6 +3,7 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
+using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Diagnostics;
 using System.Linq;
 
@@ -26,7 +27,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
 
         // Introduce a property in the main type to store the Optional object.
-        var optionalValuesProperty = builder.Advices.IntroduceProperty( builder.Target, nameof( OptionalValues ) );
+        var optionalValuesProperty = builder.Advices.IntroduceProperty( builder.Target, nameof( this.OptionalValues ) );
         optionalValuesProperty.Type = nestedType;
         optionalValuesProperty.InitializerExpression = meta.ParseExpression( $"new {nestedType.Name}()" );
 
@@ -36,14 +37,14 @@ internal class OptionalValueTypeAttribute : TypeAspect
         foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField ) )
         {
             // Add a property of the same name, but of type OptionalValue<T>, in the nested type.
-            var propertyBuilder = builder.Advices.IntroduceProperty( nestedType, nameof( OptionalPropertyTemplate ) );
+            var propertyBuilder = builder.Advices.IntroduceProperty( nestedType, nameof( this.OptionalPropertyTemplate ) );
             propertyBuilder.Name = property.Name;
             propertyBuilder.Type = optionalValueType.ConstructGenericInstance( property.Type );
 
             // Override the property in the target type so that it is forwarded to the nested type.
             builder.Advices.OverrideFieldOrProperty(
                 property,
-                nameof( OverridePropertyTemplate ),
+                nameof( this.OverridePropertyTemplate ),
                 tags: new TagDictionary { ["optionalProperty"] = propertyBuilder } );
         }
     }
