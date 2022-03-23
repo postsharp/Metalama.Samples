@@ -22,14 +22,12 @@ namespace Metalama.Samples.DependencyInjection
             
     }
 
-    internal class Greeter
+    internal partial class Greeter
     {
         [Inject]
         private IConsole _console;
 
         public void Greet() => _console.WriteLine("Hello, world.");
-
-
     }
 
     internal interface IConsole
