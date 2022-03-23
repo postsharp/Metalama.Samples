@@ -1,35 +1,45 @@
 ﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
+using Microsoft.Extensions.DependencyInjection;
 using System;
 
 namespace Metalama.Samples.DependencyInjection
 {
     internal class Program
     {
-        [Import]
-        private IGreetingService _service;
 
         private static void Main()
         {
-            var program = new Program();
-            program._service.Greet( "World" );
+            // Configure the service container.
+            var services = new ServiceCollection();
+            services.AddSingleton<IConsole>(new ConsoleService());
+            ServiceLocator.Current = services.BuildServiceProvider();
+
+            // Use the service.
+            var greeter = new Greeter();
+            greeter.Greet();
         }
+            
     }
 
-    internal interface IGreetingService
+    internal class Greeter
     {
-        void Greet( string name );
+        [Inject]
+        private IConsole _console;
+
+        public void Greet() => this._console.WriteLine("Hello, world.");
+
+
     }
 
-    internal class GreetingService : IGreetingService
+    internal interface IConsole
     {
-        public void Greet( string name ) => Console.WriteLine( $"Hello, {name}." );
+        void WriteLine(string text);
     }
 
-    internal class ServiceLocator : IServiceProvider
+    internal class ConsoleService : IConsole
     {
-        public static readonly IServiceProvider ServiceProvider = new ServiceLocator();
-
-        public object GetService( Type serviceType ) => new GreetingService();
+        public void WriteLine(string text) => Console.WriteLine(text);
     }
+
 }

@@ -70,6 +70,34 @@
     "program": "src/Metalama.Samples.Clone/Program.cs"
   },
   {
+    "id": "dependency-injection",
+    "name": "Dependency Injection",
+    "url": "src/Metalama.Samples.DependencyInjection",
+    "aspect": "src/Metalama.Samples.DependencyInjection/InjectAttribute.cs",
+    "program": "src/Metalama.Samples.DependencyInjection/Program.cs"
+  },
+  {
+    "id": "enumviewmodel",
+    "name": "Enum View-Model",
+    "url": "src/Metalama.Samples.EnumViewModel",
+    "aspect": "src/Metalama.Samples.EnumViewModel/EnumViewModelAttribute.cs",
+    "program": "src/Metalama.Samples.EnumViewModel/Program.cs"
+  },
+  {
+    "id": "ignorevalues",
+    "name": "Ignore Values",
+    "url": "src/Metalama.Samples.IgnoreValues",
+    "aspect": "src/Metalama.Samples.IgnoreValues/IgnoreValuesAttribute.cs",
+    "program": "src/Metalama.Samples.IgnoreValues/Program.cs"
+  },
+  {
+    "id": "optionalvalue",
+    "name": "Optional Value",
+    "url": "src/Metalama.Samples.OptionalValue",
+    "aspect": "src/Metalama.Samples.OptionalValue/OptionalValueTypeAttribute.cs",
+    "program": "src/Metalama.Samples.OptionalValue/Program.cs"
+  },
+  {
     "id": "autoconfigureawait",
     "name": "Automatically call ConfigureAwait (SDK)",
     "url": "src/Metalama.Samples.AutoConfigureAwait",

@@ -50,7 +50,7 @@ namespace Metalama.Samples.Clone
 
             Print( clone, "   clone" );
 
-            void Print( AutomaticallyCloneable o, string name )
+            static void Print( AutomaticallyCloneable o, string name )
             {
                 Console.WriteLine( $"{name} = {{ A={o.A}, B.D={o.B.E}, C.A={o.C.A}, D.F={o.D.F} }}" );
             }

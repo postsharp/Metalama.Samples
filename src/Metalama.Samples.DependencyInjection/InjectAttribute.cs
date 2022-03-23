@@ -4,24 +4,33 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
 using System;
+using System.Threading;
 
 namespace Metalama.Samples.DependencyInjection
 {
-    internal class ImportAttribute : OverrideFieldOrPropertyAspect
+    internal class InjectAttribute : OverrideFieldOrPropertyAspect
     {
+        //  Non-nullable property 'X' must contain a non-null value when exiting constructor.
         private static readonly SuppressionDefinition _suppressCs8618 = new( "CS8618" );
+
+        //  Field 'X' is never assigned to, and will always have its default value null.
+        private static readonly SuppressionDefinition _suppressCs0649 = new("CS0649");
+
+        //  Make field read-only.
         private static readonly SuppressionDefinition _suppressIde0044 = new( "IDE0044" );
 
         public override void BuildAspect( IAspectBuilder<IFieldOrProperty> builder )
         {
             base.BuildAspect( builder );
 
-            // Suppress warning CS8618: Non-nullable property '_service' must contain a non-null value when exiting constructor.
-            builder.Diagnostics.Suppress( _suppressCs8618, builder.Target );
-
-            // Suppress warning IDE0044: Make field read-only.
-            builder.Diagnostics.Suppress( _suppressIde0044, builder.Target );
+            // Suppress warnings.
+            builder.Diagnostics.Suppress( _suppressCs8618 );
+            builder.Diagnostics.Suppress( _suppressCs0649 );
+            builder.Diagnostics.Suppress( _suppressIde0044 );
         }
+
+        [Introduce( WhenExists =OverrideStrategy.Ignore )]
+        private readonly IServiceProvider _serviceProvider = ServiceLocator.Current;
 
         public override dynamic? OverrideProperty
         {
@@ -35,7 +44,7 @@ namespace Metalama.Samples.DependencyInjection
                     // Call the service locator.
                     value = meta.Cast(
                         meta.Target.FieldOrProperty.Type,
-                        ServiceLocator.ServiceProvider.GetService( meta.Target.FieldOrProperty.Type.ToType() ) );
+                        this._serviceProvider.GetService( meta.Target.FieldOrProperty.Type.ToType() ) );
 
                     // Set the field/property to the new value.
                     meta.Target.Property.Value = value
@@ -44,7 +53,20 @@ namespace Metalama.Samples.DependencyInjection
 
                 return value;
             }
-            set => meta.Proceed();
+            set => throw new NotSupportedException();
+        }
+    }
+
+
+    internal class ServiceLocator
+    {
+
+        private static readonly AsyncLocal<IServiceProvider?> _current = new();
+
+        public static IServiceProvider Current
+        {
+            get => _current.Value ?? throw new InvalidOperationException();
+            set => _current.Value = value;
         }
     }
 }
