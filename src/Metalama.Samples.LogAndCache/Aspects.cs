@@ -54,7 +54,7 @@ public class CacheAttribute : OverrideMethodAspect
         }
     }
 
-    [CompileTimeOnly]
+    [CompileTime]
     private static string GetCachingKeyFormattingString()
     {
         var stringBuilder = meta.CompileTime( new StringBuilder() );

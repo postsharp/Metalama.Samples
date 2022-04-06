@@ -40,7 +40,7 @@ namespace Metalama.Samples.ToString
             }
         }
 
-        [CompileTimeOnly]
+        [CompileTime]
         private async Task ImplementManually(ICodeActionBuilder builder, INamedType targetType)
         {
             await builder.ApplyAspectAsync(targetType, this);
