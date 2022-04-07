@@ -11,7 +11,8 @@ var product = new Product
 {
     ProductName = "Metalama.Samples",
     Solutions = new[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
-    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama }
+    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
+	VcsProvider = VcsProvider.GitHub
 };
 
 var commandApp = new CommandApp();
