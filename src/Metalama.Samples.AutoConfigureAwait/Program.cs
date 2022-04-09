@@ -10,7 +10,8 @@ internal class Program
         Console.WriteLine( await MakeRequest( client ) );
     }
 
-    private static async Task<string> MakeRequest( FakeHttpClient client ) => await client.GetAsync( "https://example.org" );
+    private static async Task<string> MakeRequest( FakeHttpClient client ) 
+        => await client.GetAsync( "https://example.org" );
 }
 
 internal class FakeHttpClient
