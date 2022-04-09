@@ -1,7 +1,5 @@
 ﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Metalama.Samples.DependencyInjection
 {
     internal class Program
@@ -21,6 +19,7 @@ namespace Metalama.Samples.DependencyInjection
             
     }
 
+    // Some class consuming a service.
     internal partial class Greeter
     {
         [Inject]
@@ -30,14 +29,39 @@ namespace Metalama.Samples.DependencyInjection
 
     }
 
+    // Service interface.
     internal interface IConsole
     {
         void WriteLine(string text);
     }
 
+    // Service implementation.
     internal class ConsoleService : IConsole
     {
         public void WriteLine(string text) => Console.WriteLine(text);
+    }
+
+
+    // This class emulates the standard ServiceCollection. 
+    // We intentionally use the system one so that this sample can load in https://try.metalama.net.
+    internal class ServiceCollection : IServiceProvider
+    {
+        private readonly Dictionary<Type, object> _services = new();
+
+        public object? GetService( Type serviceType )
+        {
+            this._services.TryGetValue( serviceType, out var value);
+            return value;
+        }
+
+        internal void AddSingleton<T>( T service ) 
+            where T : notnull
+        {
+            this._services[typeof(T)] = service;
+        }
+
+        internal IServiceProvider BuildServiceProvider() => this;
+       
     }
 
 }

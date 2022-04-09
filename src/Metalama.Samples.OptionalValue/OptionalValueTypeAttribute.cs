@@ -5,7 +5,6 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Diagnostics;
-using System.Linq;
 
 internal class OptionalValueTypeAttribute : TypeAspect
 {
