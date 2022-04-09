@@ -9,7 +9,9 @@
 
     <PropertyGroup>
         <MetalamaLicense>110989-ZE228QQQZEAEQCRCE4UW3UFEB4URXMHRB8KQBJJSB64LX7YQTE6CXMSRR4UMNTJS6CUMXUGFS8KYQYE49YDMDL7VTXZNTJK6V7ETRC73VNJLEQ2QAEEECFD7B6CNFKQPBZKM3X3CS8X6UGFAQTWWGKRZATP4Q8USJG4X6P2</MetalamaLicense>
+        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>False</IsPackable>
     </PropertyGroup>
 
