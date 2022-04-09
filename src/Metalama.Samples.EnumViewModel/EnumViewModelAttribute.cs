@@ -3,8 +3,6 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
-using System;
-using System.Linq;
 
 public class EnumViewModelAttribute : TypeAspect
 {

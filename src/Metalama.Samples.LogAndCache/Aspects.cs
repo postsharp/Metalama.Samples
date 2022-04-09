@@ -2,9 +2,10 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using System;
 using System.Collections.Concurrent;
 using System.Text;
+
+#pragma warning disable CA1305 // Specify IFormatProvider
 
 public class LogAttribute : OverrideMethodAspect
 {

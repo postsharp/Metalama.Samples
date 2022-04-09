@@ -1,7 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System;
-
 var viewModel = new VisibilityViewModel( Visibility.Collapsed );
 Console.WriteLine( $"IsCollapsed={viewModel.IsCollapsed}" );
 

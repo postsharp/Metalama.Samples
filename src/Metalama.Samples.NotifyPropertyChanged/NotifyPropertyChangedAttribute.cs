@@ -3,7 +3,6 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Metalama.Samples.NotifyPropertyChanged
 {
