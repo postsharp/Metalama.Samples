@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
 var viewModel = new VisibilityViewModel( Visibility.Collapsed );
 Console.WriteLine( $"IsCollapsed={viewModel.IsCollapsed}" );
@@ -19,6 +19,9 @@ internal enum StringOptions
     RemoveSpace = 2,
     Trim = 4
 }
+
+// Some boilerplate is still necessary with this version of Metalama because
+// we cannot generate new types and constructors yet.
 
 [EnumViewModel]
 internal partial class VisibilityViewModel 

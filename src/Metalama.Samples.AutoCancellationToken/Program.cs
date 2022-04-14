@@ -29,7 +29,8 @@ internal class C
         Console.WriteLine( "request 2 succeeded" );
     }
 
-    private static async Task MakeRequest( FakeHttpClient client ) => await client.GetAsync( "https://httpbin.org/delay/1" );
+    private static async Task MakeRequest( FakeHttpClient client ) 
+        => await client.GetAsync( "https://httpbin.org/delay/1" );
 }
 
 internal class FakeHttpClient
