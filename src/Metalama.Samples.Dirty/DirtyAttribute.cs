@@ -31,7 +31,7 @@ namespace Metalama.Samples.Dirty
                 // this is a contract violation, so we report an error.
                 var dirtyStateProperty = builder.Target.Properties
                     .SingleOrDefault(
-                        m => m.Name == nameof(this.DirtyState) && m.Parameters.Count == 0 &&
+                        m => m.Name == nameof(this.DirtyState) &&
                              m.Type.Is( typeof(DirtyState) ) );
 
                 if ( dirtyStateProperty?.SetMethod == null )
@@ -52,7 +52,7 @@ namespace Metalama.Samples.Dirty
 
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advices.OverrideFieldOrPropertyAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+                builder.Advices.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
             }
 
             // TODO: This aspect is not complete. We should normally not set DirtyState to Clean after the object has been initialized,
