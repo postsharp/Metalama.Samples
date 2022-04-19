@@ -1,9 +1,5 @@
 ﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 internal class Program
 {
     private static async Task Main()
@@ -33,7 +29,8 @@ internal class C
         Console.WriteLine( "request 2 succeeded" );
     }
 
-    private static async Task MakeRequest( FakeHttpClient client ) => await client.GetAsync( "https://httpbin.org/delay/1" );
+    private static async Task MakeRequest( FakeHttpClient client ) 
+        => await client.GetAsync( "https://httpbin.org/delay/1" );
 }
 
 internal class FakeHttpClient

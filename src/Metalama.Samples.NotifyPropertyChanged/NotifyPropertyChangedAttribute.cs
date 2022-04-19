@@ -3,7 +3,6 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Metalama.Samples.NotifyPropertyChanged
 {
@@ -16,7 +15,7 @@ namespace Metalama.Samples.NotifyPropertyChanged
 
             foreach ( var property in builder.Target.Properties.Where( p => !p.IsAbstract && p.Writeability == Writeability.All ) )
             {
-                builder.Advices.OverrideFieldOrPropertyAccessors( property, null, nameof(this.OverridePropertySetter) );
+                builder.Advices.OverrideAccessors( property, null, nameof(this.OverridePropertySetter) );
             }
         }
 
