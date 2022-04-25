@@ -37,7 +37,7 @@ public class EnumViewModelAttribute : TypeAspect
             var propertyBuilder = builder.Advices.IntroduceProperty(
                 builder.Target,
                 template, 
-                tags: new() { ["member"] = member } );
+                tags: new { member = member } );
             propertyBuilder.Name = "Is" + member.Name;
         }
     }

@@ -41,10 +41,10 @@ internal class OptionalValueTypeAttribute : TypeAspect
             propertyBuilder.Type = optionalValueType.ConstructGenericInstance( property.Type );
 
             // Override the property in the target type so that it is forwarded to the nested type.
-            builder.Advices.OverrideFieldOrProperty(
+            builder.Advices.Override(
                 property,
                 nameof( this.OverridePropertyTemplate ),
-                tags: new TagDictionary { ["optionalProperty"] = propertyBuilder } );
+                tags: new { optionalProperty = propertyBuilder } );
         }
     }
 
