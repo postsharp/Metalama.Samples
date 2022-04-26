@@ -11,7 +11,7 @@ namespace Metalama.Samples.Clone
     {
         public override void BuildAspect( IAspectBuilder<INamedType> builder )
         {
-            var typedMethod = builder.Advices.IntroduceMethod(
+            var typedMethod = builder.Advice.IntroduceMethod(
                 builder.Target,
                 nameof(this.CloneImpl),
                 whenExists: OverrideStrategy.Override );
@@ -19,7 +19,7 @@ namespace Metalama.Samples.Clone
             typedMethod.Name = "Clone";
             typedMethod.ReturnType = builder.Target;
 
-            builder.Advices.ImplementInterface(
+            builder.Advice.ImplementInterface(
                 builder.Target,
                 typeof(ICloneable),
                 whenExists: OverrideStrategy.Ignore );

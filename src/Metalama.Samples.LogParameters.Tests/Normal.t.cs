@@ -1,5 +1,3 @@
-using System;
-
 namespace Metalama.Samples.LogParameters.Tests.Normal
 {
     internal class Foo

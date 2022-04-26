@@ -23,7 +23,7 @@ namespace Metalama.Samples.Dirty
             // Implement the IDirty interface.
             if ( !builder.Target.ImplementedInterfaces.Any( i => i.Is( typeof(IDirty) ) ) )
             {
-                builder.Advices.ImplementInterface( builder.Target, typeof(IDirty), OverrideStrategy.Ignore );
+                builder.Advice.ImplementInterface( builder.Target, typeof(IDirty), OverrideStrategy.Ignore );
             }
             else
             {
@@ -52,7 +52,7 @@ namespace Metalama.Samples.Dirty
 
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advices.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+                builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
             }
 
             // TODO: This aspect is not complete. We should normally not set DirtyState to Clean after the object has been initialized,
