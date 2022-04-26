@@ -1,5 +1,3 @@
-using System;
-
 namespace Metalama.Samples.Log.Tests.SimpleMethod
 {
     internal class Foo

@@ -1,5 +1,3 @@
-using System;
-
 namespace Metalama.Samples.LogParameters.Tests.NoParameter
 {
     internal class Foo
