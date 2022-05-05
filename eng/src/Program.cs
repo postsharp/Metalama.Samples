@@ -9,7 +9,6 @@ using Spectre.Console.Cli;
 
 var product = new Product( Dependencies.MetalamaSamples )
 {
-    ProductName = "Metalama.Samples",
     Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
     RequiresBranchMerging = true
