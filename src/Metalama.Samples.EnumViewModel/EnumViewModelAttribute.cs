@@ -34,10 +34,10 @@ public class EnumViewModelAttribute : TypeAspect
         // Introduce a property into the view-model type for each enum member.
         foreach ( var member in enumType.Fields )
         {
-            var propertyBuilder = builder.Advices.IntroduceProperty(
+            var propertyBuilder = builder.Advice.IntroduceProperty(
                 builder.Target,
                 template, 
-                tags: new() { ["member"] = member } );
+                tags: new { member = member } );
             propertyBuilder.Name = "Is" + member.Name;
         }
     }

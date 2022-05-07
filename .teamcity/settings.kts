@@ -62,7 +62,7 @@ object DebugBuild : BuildType({
 
     }
 
-  dependencies {
+    dependencies {
 
         snapshot(AbsoluteId("Metalama_Metalama_DebugBuild")) {
                      onDependencyFailure = FailureAction.FAIL_TO_START
@@ -103,7 +103,7 @@ object ReleaseBuild : BuildType({
         }
     }
 
-  dependencies {
+    dependencies {
 
         snapshot(AbsoluteId("Metalama_Metalama_ReleaseBuild")) {
                      onDependencyFailure = FailureAction.FAIL_TO_START
@@ -144,7 +144,7 @@ object PublicBuild : BuildType({
         }
     }
 
-  dependencies {
+    dependencies {
 
         snapshot(AbsoluteId("Metalama_Metalama_PublicBuild")) {
                      onDependencyFailure = FailureAction.FAIL_TO_START
@@ -184,12 +184,12 @@ object PublicDeployment : BuildType({
             verbose = true
         }
         sshAgent {
-            // By convention, the SSH key name is the same as the product name.
-            teamcitySshKey = "Metalama.Samples"
+            // By convention, the SSH key name is always PostSharp.Engineering for all repositories using SSH to connect.
+            teamcitySshKey = "PostSharp.Engineering"
         }
     }
 
-  dependencies {
+    dependencies {
 
         dependency(PublicBuild) {
             snapshot {

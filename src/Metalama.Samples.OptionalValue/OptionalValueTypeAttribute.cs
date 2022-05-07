@@ -26,25 +26,25 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
 
         // Introduce a property in the main type to store the Optional object.
-        var optionalValuesProperty = builder.Advices.IntroduceProperty( builder.Target, nameof( this.OptionalValues ) );
+        var optionalValuesProperty = builder.Advice.IntroduceProperty( builder.Target, nameof( this.OptionalValues ) );
         optionalValuesProperty.Type = nestedType;
-        optionalValuesProperty.InitializerExpression = meta.ParseExpression( $"new {nestedType.Name}()" );
+        optionalValuesProperty.InitializerExpression = ExpressionFactory.Parse( $"new {nestedType.Name}()" );
 
-        var optionalValueType = (INamedType) builder.Target.Compilation.TypeFactory.GetTypeByReflectionType( typeof( OptionalValue<> ) );
+        var optionalValueType = (INamedType) TypeFactory.GetType( typeof( OptionalValue<> ) );
 
         // For all automatic properties of the target type.
         foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField ) )
         {
             // Add a property of the same name, but of type OptionalValue<T>, in the nested type.
-            var propertyBuilder = builder.Advices.IntroduceProperty( nestedType, nameof( this.OptionalPropertyTemplate ) );
+            var propertyBuilder = builder.Advice.IntroduceProperty( nestedType, nameof( this.OptionalPropertyTemplate ) );
             propertyBuilder.Name = property.Name;
             propertyBuilder.Type = optionalValueType.ConstructGenericInstance( property.Type );
 
             // Override the property in the target type so that it is forwarded to the nested type.
-            builder.Advices.OverrideFieldOrProperty(
+            builder.Advice.Override(
                 property,
                 nameof( this.OverridePropertyTemplate ),
-                tags: new TagDictionary { ["optionalProperty"] = propertyBuilder } );
+                tags: new { optionalProperty = propertyBuilder } );
         }
     }
 

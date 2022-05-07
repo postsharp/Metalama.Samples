@@ -7,12 +7,11 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Model;
 using Spectre.Console.Cli;
 
-var product = new Product
+var product = new Product( Dependencies.MetalamaSamples )
 {
-    ProductName = "Metalama.Samples",
-    Solutions = new[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
+    Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
     Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
-	VcsProvider = VcsProvider.GitHub
+    RequiresBranchMerging = true
 };
 
 var commandApp = new CommandApp();
