@@ -14,7 +14,8 @@ namespace Metalama.Samples.Clone
             var typedMethod = builder.Advice.IntroduceMethod(
                 builder.Target,
                 nameof(this.CloneImpl),
-                whenExists: OverrideStrategy.Override );
+                whenExists: OverrideStrategy.Override,
+                args: new { T = builder.Target } );
 
             typedMethod.Name = "Clone";
             typedMethod.ReturnType = builder.Target;
@@ -26,7 +27,7 @@ namespace Metalama.Samples.Clone
         }
 
         [Template( IsVirtual = true )]
-        public virtual dynamic CloneImpl()
+        public T CloneImpl<[CompileTime] T>()
         {
             // This compile-time variable will receive the expression representing the base call.
             // If we have a public Clone method, we will use it (this is the chaining pattern). Otherwise,
@@ -43,7 +44,7 @@ namespace Metalama.Samples.Clone
             }
 
             // Define a local variable of the same type as the target type.
-            var clone = meta.Cast( meta.Target.Type, baseCall )!;
+            var clone = (T) baseCall.Value!;
 
             // Select clonable fields.
             var clonableFields =

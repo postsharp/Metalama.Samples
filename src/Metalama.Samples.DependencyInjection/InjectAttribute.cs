@@ -6,7 +6,7 @@ using Metalama.Framework.Diagnostics;
 
 namespace Metalama.Samples.DependencyInjection
 {
-    internal class InjectAttribute : OverrideFieldOrPropertyAspect
+    internal class InjectAttribute : FieldOrPropertyAspect
     {
         //  Non-nullable property 'X' must contain a non-null value when exiting constructor.
         private static readonly SuppressionDefinition _suppressCs8618 = new( "CS8618" );
@@ -19,7 +19,7 @@ namespace Metalama.Samples.DependencyInjection
 
         public override void BuildAspect( IAspectBuilder<IFieldOrProperty> builder )
         {
-            base.BuildAspect( builder );
+            builder.Advice.OverrideAccessors( builder.Target, nameof( OverrideGet), args: new { T = builder.Target.Type } );
 
             // Suppress warnings.
             builder.Diagnostics.Suppress( _suppressCs8618 );
@@ -30,28 +30,23 @@ namespace Metalama.Samples.DependencyInjection
         [Introduce( WhenExists =OverrideStrategy.Ignore )]
         private readonly IServiceProvider _serviceProvider = ServiceLocator.Current;
 
-        public override dynamic? OverrideProperty
+        [Template]
+        public T OverrideGet<[CompileTime] T>()
         {
-            get
+            // Get the property value.
+            var value = meta.Proceed();
+
+            if ( value == null )
             {
-                // Get the property value.
-                var value = meta.Proceed();
+                // Call the service locator.
+                value = (T?) this._serviceProvider.GetService( typeof(T) );
 
-                if ( value == null )
-                {
-                    // Call the service locator.
-                    value = meta.Cast(
-                        meta.Target.FieldOrProperty.Type,
-                        this._serviceProvider.GetService( meta.Target.FieldOrProperty.Type.ToType() ) );
-
-                    // Set the field/property to the new value.
-                    meta.Target.Property.Value = value
-                                                 ?? throw new InvalidOperationException( $"Cannot get a service of type {meta.Target.FieldOrProperty.Type}." );
-                }
-
-                return value;
+                // Set the field/property to the new value.
+                meta.Target.Property.Value = value
+                                                ?? throw new InvalidOperationException( $"Cannot get a service of type {typeof(T)}." );
             }
-            set => throw new NotSupportedException();
+
+            return value;
         }
     }
 
