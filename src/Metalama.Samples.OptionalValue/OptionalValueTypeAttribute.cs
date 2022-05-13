@@ -52,7 +52,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
     public dynamic? OptionalValues { get; private set; }
 
     [Template]
-    public dynamic? OptionalPropertyTemplate { get; private set; }
+    public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate
