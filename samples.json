@@ -96,19 +96,5 @@
     "url": "src/Metalama.Samples.OptionalValue",
     "aspect": "src/Metalama.Samples.OptionalValue/OptionalValueTypeAttribute.cs",
     "program": "src/Metalama.Samples.OptionalValue/Program.cs"
-  },
-  {
-    "id": "autoconfigureawait",
-    "name": "Automatically call ConfigureAwait (SDK)",
-    "url": "src/Metalama.Samples.AutoConfigureAwait",
-    "aspect": "src/Metalama.Samples.AutoConfigureAwait.Aspect/Aspect.cs",
-    "program": "src/Metalama.Samples.AutoConfigureAwait/Program.cs"
-  },
-  {
-    "id": "autocancellationtoken",
-    "name": "Automatically propagate CancellationToken (SDK)",
-    "url": "src/Metalama.Open.AutoCancellationToken",
-    "aspect": "src/Metalama.Samples.AutoCancellationToken.Aspect/Aspect.cs",
-    "program": "src/Metalama.Samples.AutoCancellationToken/Program.cs"
   }
 ]
