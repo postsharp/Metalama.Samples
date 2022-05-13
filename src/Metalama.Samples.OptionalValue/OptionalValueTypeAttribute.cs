@@ -1,5 +1,4 @@
-﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
-// This project is not open source. Please see the LICENSE.md file in the repository root for details.
+﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
@@ -52,7 +51,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
     public dynamic? OptionalValues { get; private set; }
 
     [Template]
-    public dynamic? OptionalPropertyTemplate { get; private set; }
+    public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate
