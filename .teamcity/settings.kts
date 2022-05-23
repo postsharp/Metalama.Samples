@@ -14,10 +14,9 @@ version = "2021.2"
 project {
 
    buildType(DebugBuild)
-   buildType(ReleaseBuild)
    buildType(PublicBuild)
    buildType(PublicDeployment)
-   buildTypesOrder = arrayListOf(DebugBuild,ReleaseBuild,PublicBuild,PublicDeployment)
+   buildTypesOrder = arrayListOf(DebugBuild,PublicBuild,PublicDeployment)
 }
 
 object DebugBuild : BuildType({
@@ -65,47 +64,6 @@ object DebugBuild : BuildType({
     dependencies {
 
         snapshot(AbsoluteId("Metalama_Metalama_DebugBuild")) {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-                }
-
-     }
-
-})
-
-object ReleaseBuild : BuildType({
-
-    name = "Build [Release]"
-
-    artifactRules = "+:artifacts/publish/public/**/*=>artifacts/publish/public\n+:artifacts/publish/private/**/*=>artifacts/publish/private"
-
-    vcs {
-        root(DslContext.settingsRoot)
-    }
-
-    steps {
-        powerShell {
-            scriptMode = file {
-                path = "Build.ps1"
-            }
-            noProfile = false
-            param("jetbrains_powershell_scriptArguments", "test --configuration Release --buildNumber %build.number%")
-        }
-    }
-
-    requirements {
-        equals("env.BuildAgentType", "caravela02")
-    }
-
-    features {
-        swabra {
-            lockingProcesses = Swabra.LockingProcessPolicy.KILL
-            verbose = true
-        }
-    }
-
-    dependencies {
-
-        snapshot(AbsoluteId("Metalama_Metalama_ReleaseBuild")) {
                      onDependencyFailure = FailureAction.FAIL_TO_START
                 }
 
