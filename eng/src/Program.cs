@@ -18,7 +18,7 @@ var product = new Product( Dependencies.MetalamaSamples )
         BuildConfiguration.Public, new BuildConfigurationInfo(
             MSBuildName: "Release",
             PublicPublishers: new Publisher[] {
-                new MergePublisher( Pattern.Create( ".empty" ) )
+                new MergePublisher()
             } )
         )
 };
