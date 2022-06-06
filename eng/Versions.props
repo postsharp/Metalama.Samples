@@ -11,8 +11,8 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>1.0.68-preview</PostSharpEngineeringVersion>
-        <MetalamaVersion>0.5.18-preview</MetalamaVersion>
+        <PostSharpEngineeringVersion>1.0.70-preview</PostSharpEngineeringVersion>
+        <MetalamaVersion>0.5.22-preview</MetalamaVersion>
         <MetalamaVersion Condition="$(VcsBranch.StartsWith('dev'))">branch:master</MetalamaVersion>
     </PropertyGroup>
 
