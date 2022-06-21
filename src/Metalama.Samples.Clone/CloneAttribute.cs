@@ -2,6 +2,7 @@
 
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
+using Metalama.Framework.Code.SyntaxBuilders;
 
 namespace Metalama.Samples.Clone
 {
@@ -11,14 +12,16 @@ namespace Metalama.Samples.Clone
     {
         public override void BuildAspect( IAspectBuilder<INamedType> builder )
         {
-            var typedMethod = builder.Advice.IntroduceMethod(
+            builder.Advice.IntroduceMethod(
                 builder.Target,
                 nameof(this.CloneImpl),
                 whenExists: OverrideStrategy.Override,
-                args: new { T = builder.Target } );
-
-            typedMethod.Name = "Clone";
-            typedMethod.ReturnType = builder.Target;
+                args: new { T = builder.Target },
+                buildMethod: m =>
+                {
+                    m.Name = "Clone";
+                    m.ReturnType = builder.Target;
+                } );
 
             builder.Advice.ImplementInterface(
                 builder.Target,
@@ -65,14 +68,14 @@ namespace Metalama.Samples.Clone
                     // If yes, call the method without a cast.
                     field.Invokers.Base!.SetValue(
                         clone,
-                        meta.Cast( fieldType, field.Invokers.Base.GetValue( meta.This )?.Clone() ) );
+                        meta.Cast( fieldType, field.ToExpression().Value?.Clone() ) );
                 }
                 else
                 {
                     // If no, use the interface.
                     field.Invokers.Base!.SetValue(
                         clone,
-                        meta.Cast( fieldType, ((ICloneable?) field.Invokers.Base.GetValue( meta.This ))?.Clone() ) );
+                        meta.Cast( fieldType, ((ICloneable?) field.ToExpression().Value)?.Clone() ) );
                 }
             }
 
