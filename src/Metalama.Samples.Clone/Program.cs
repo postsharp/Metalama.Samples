@@ -32,7 +32,7 @@ namespace Metalama.Samples.Clone
         public int F;
     }
 
-    internal class Derived : AutomaticallyCloneable
+    internal partial class Derived : AutomaticallyCloneable
     {
         public ManuallyCloneable G { get; private set; }
     }
