@@ -1,6 +1,4 @@
-﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
-
-namespace Metalama.Samples.Dirty
+﻿namespace Metalama.Samples.Dirty
 {
     internal class Program
     {

@@ -1,6 +1,4 @@
-﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
-
-var author = new Author("Antoine" );
+﻿var author = new Author("Antoine" );
 author.Name = "";
 Console.WriteLine( $"Author's name: '{author.Name}'." );
 

@@ -1,6 +1,4 @@
-﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
-
-var viewModel = new VisibilityViewModel( Visibility.Collapsed );
+﻿var viewModel = new VisibilityViewModel( Visibility.Collapsed );
 Console.WriteLine( $"IsCollapsed={viewModel.IsCollapsed}" );
 
 internal enum Visibility
