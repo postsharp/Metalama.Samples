@@ -1,6 +1,4 @@
-﻿// This is an open-source Metalama example. See https://github.com/postsharp/Metalama.Samples for more.
-
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 
 [assembly: AspectOrder( typeof( CacheAttribute ), typeof( LogAttribute ) )]
 

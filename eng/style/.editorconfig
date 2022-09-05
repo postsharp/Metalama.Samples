@@ -6,9 +6,6 @@ root = true
 
 #### Core EditorConfig Options ####
 
-# File header
-file_header_template = Copyright (c) SharpCrafters s.r.o. All rights reserved.\nThis project is not open source. Please see the LICENSE.md file in the repository root for details.
-
 # Indentation and spacing
 indent_size = 4
 indent_style = space
@@ -258,6 +255,10 @@ dotnet_diagnostic.SA1309.severity = none
 # SA1633: File should have header
 dotnet_diagnostic.SA1633.severity = none
 
+# SA1636: File header should be correct
+dotnet_diagnostic.SA1636.severity = none
+
+
 # SA1200: Using directives should be placed within namespace
 dotnet_diagnostic.SA1200.severity = none
 
@@ -342,7 +343,7 @@ dotnet_diagnostic.CA1725.severity = warning
 dotnet_diagnostic.CA1805.severity = warning
 
 # CA1822: Member can be marked as static
-dotnet_diagnostic.CA1822.severity = warning
+dotnet_diagnostic.CA1822.severity = silent
 
 # CA1829: Use the Count property instead of Enumerable.Count()
 dotnet_diagnostic.CA1829.severity = warning
