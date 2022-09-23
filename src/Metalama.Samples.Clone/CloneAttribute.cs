@@ -39,13 +39,13 @@ namespace Metalama.Samples.Clone
 
             if ( meta.Target.Method.IsOverride )
             {
-                meta.DefineExpression( meta.Base.Clone(), out baseCall );
+                ExpressionFactory.Capture( meta.Base.Clone(), out baseCall );
             }
             else
             {
-                meta.DefineExpression( meta.Base.MemberwiseClone(), out baseCall );
+                ExpressionFactory.Capture( meta.Base.MemberwiseClone(), out baseCall );
             }
-
+            
             // Define a local variable of the same type as the target type.
             var clone = (T) baseCall.Value!;
 
