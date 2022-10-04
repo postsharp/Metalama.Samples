@@ -20,7 +20,8 @@ var product = new Product( Dependencies.MetalamaSamples )
             PublicPublishers: new Publisher[] {
                 new MergePublisher()
             } )
-        )
+        ),
+    BuildAgentType = "caravela03"
 };
 
 var commandApp = new CommandApp();
