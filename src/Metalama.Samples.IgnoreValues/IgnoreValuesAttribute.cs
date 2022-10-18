@@ -16,7 +16,7 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
         {
             foreach ( var ignoredValue in this._ignoredValues )
             {
-                if ( value == ignoredValue )
+                if ( value == meta.RunTime( ignoredValue ) )
                 {
                     return;
                 }

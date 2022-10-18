@@ -34,7 +34,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
         var optionalValueType = (INamedType) TypeFactory.GetType( typeof( OptionalValue<> ) );
 
         // For all automatic properties of the target type.
-        foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField ) )
+        foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField.GetValueOrDefault() ) )
         {
             // Add a property of the same name, but of type OptionalValue<T>, in the nested type.
             var propertyBuilder = builder.Advice.IntroduceProperty( nestedType, nameof( this.OptionalPropertyTemplate ),

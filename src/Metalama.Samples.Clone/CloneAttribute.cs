@@ -50,7 +50,7 @@ namespace Metalama.Samples.Clone
             // Select clonable fields.
             var clonableFields =
                 meta.Target.Type.FieldsAndProperties.Where(
-                    f => f.IsAutoPropertyOrField &&
+                    f => f.IsAutoPropertyOrField.GetValueOrDefault() &&
                          ((f.Type.Is( typeof(ICloneable) ) && f.Type.SpecialType != SpecialType.String) ||
                           (f.Type is INamedType fieldNamedType && fieldNamedType.Aspects<DeepCloneAttribute>().Any())) );
 
