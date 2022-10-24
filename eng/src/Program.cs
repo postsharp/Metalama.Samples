@@ -21,7 +21,8 @@ var product = new Product( Dependencies.MetalamaSamples )
                 new MergePublisher()
             } )
         ),
-    BuildAgentType = "caravela03"
+    BuildAgentType = "caravela03",
+    PublishTestResults = true
 };
 
 var commandApp = new CommandApp();
