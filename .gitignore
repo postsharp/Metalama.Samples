@@ -8,3 +8,5 @@ artifacts/
 *.g.props
 /Metalama.Samples.Import.props
 eng/tools
+*.log
+*.binlog
