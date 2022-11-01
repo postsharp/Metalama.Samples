@@ -43,10 +43,8 @@ namespace Metalama.Samples.Dirty
             }
 
             // Override all writable fields and automatic properties.
-            var fieldsOrProperties = builder.Target.Properties
-                .Cast<IFieldOrProperty>()
-                .Concat( builder.Target.Fields )
-                .Where( f => f.Writeability == Writeability.All );
+            var fieldsOrProperties = builder.Target.FieldsAndProperties
+                .Where( f => !f.IsImplicitlyDeclared && f.Writeability == Writeability.All );
 
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
