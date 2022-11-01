@@ -1,4 +1,4 @@
-
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
 
     <!-- Set the default version -->
@@ -12,9 +12,9 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>1.0.100-preview</PostSharpEngineeringVersion>
-        <MetalamaVersion>0.5.53-preview</MetalamaVersion>
-        <MetalamaVersion Condition="$(VcsBranch.StartsWith('dev'))">branch:master</MetalamaVersion>
+        <PostSharpEngineeringVersion>1.0.101-preview</PostSharpEngineeringVersion>
+        <MetalamaVersion>branch:master</MetalamaVersion>
+		<MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.53-preview</MetalamaVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->
