@@ -13,8 +13,8 @@
     <!-- Versions of dependencies -->
     <PropertyGroup>
         <PostSharpEngineeringVersion>1.0.100-preview</PostSharpEngineeringVersion>
-        <MetalamaVersion>0.5.52-preview</MetalamaVersion>
-        <MetalamaVersion Condition="$(VcsBranch.StartsWith('dev'))">branch:master</MetalamaVersion>
+        <MetalamaVersion Condition="$(VcsBranch.StartsWith('master'))">0.5.52-preview</MetalamaVersion>
+        <MetalamaVersion>branch:master</MetalamaVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->
