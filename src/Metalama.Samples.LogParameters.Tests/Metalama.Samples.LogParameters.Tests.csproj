@@ -19,7 +19,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Metalama.TestFramework" Version="$(MetalamaVersion)" />
+        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
     </ItemGroup>
 
 

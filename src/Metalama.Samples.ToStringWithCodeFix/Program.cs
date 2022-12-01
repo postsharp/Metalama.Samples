@@ -1,5 +1,7 @@
-﻿namespace Metalama.Samples.ToString
+﻿using Metalama.Samples.ToString;
+namespace Metalama.Samples.ToString
 {
+    [ToString]
     internal class MovingVertex
     {
         public double X;
@@ -11,13 +13,8 @@
         public double DY { get; set; }
 
         public double Velocity => Math.Sqrt((this.DX * this.DX) + (this.DY * this.DY));
-
-
-        public override string ToString()
-        {
-            return $"{{ MovingVertex X={this.X}, Y={this.Y}, DX={this.DX}, DY={this.DY}, Velocity={this.Velocity} }}";
-        }
-    }
+        //
+       }
 
     internal class Program
     {
