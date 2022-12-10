@@ -5,7 +5,7 @@ using Metalama.Framework.Code.SyntaxBuilders;
 namespace Metalama.Samples.Clone
 {
     [Inherited]
-    [LiveTemplate]
+    [EditorExperience(SuggestAsLiveTemplate = true)]
     internal class DeepCloneAttribute : TypeAspect
     {
         public override void BuildAspect( IAspectBuilder<INamedType> builder )
@@ -53,7 +53,7 @@ namespace Metalama.Samples.Clone
                     f => f.IsAutoPropertyOrField.GetValueOrDefault() &&
                          !f.IsImplicitlyDeclared &&
                          ((f.Type.Is( typeof(ICloneable) ) && f.Type.SpecialType != SpecialType.String) ||
-                          (f.Type is INamedType fieldNamedType && fieldNamedType.Aspects<DeepCloneAttribute>().Any())) );
+                          (f.Type is INamedType fieldNamedType && fieldNamedType.Enhancements().HasAspect<DeepCloneAttribute>() )));
 
             foreach ( var field in clonableFields )
             {
@@ -62,7 +62,7 @@ namespace Metalama.Samples.Clone
                 var cloneMethod = fieldType.Methods.OfExactSignature( "Clone", Array.Empty<IType>() );
 
                 if ( cloneMethod is { Accessibility: Accessibility.Public } ||
-                     fieldType.Aspects<DeepCloneAttribute>().Any() )
+                     fieldType.Enhancements().HasAspect<DeepCloneAttribute>() )
                 {
                     // If yes, call the method without a cast.
                     field.Invokers.Base!.SetValue(

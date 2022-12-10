@@ -6,10 +6,9 @@ using Metalama.Framework.CodeFixes;
 namespace Metalama.Samples.ToString
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    [CompileTime] // TODO: should not be necessary to add [CompileTime]
     public  class NotToStringAttribute : Attribute { }
 
-    [LiveTemplate]
+    [EditorExperience(SuggestAsLiveTemplate = true)]
     public class ToStringAttribute : TypeAspect
     {
         
