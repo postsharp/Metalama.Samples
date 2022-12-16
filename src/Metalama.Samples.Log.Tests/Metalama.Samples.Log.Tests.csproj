@@ -4,8 +4,6 @@
         <TargetFramework>net6.0</TargetFramework>
 
         <IsPackable>false</IsPackable>
-
-        <Configurations>Debug;Release;LamaDebug</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
