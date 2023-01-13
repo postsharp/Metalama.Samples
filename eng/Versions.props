@@ -12,9 +12,9 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>1.0.100-preview</PostSharpEngineeringVersion>
+        <PostSharpEngineeringVersion>1.0.113-preview</PostSharpEngineeringVersion>
         <MetalamaVersion>0.5.79-preview</MetalamaVersion>
-        <MetalamaVersion Condition="$(VcsBranch.StartsWith('dev'))">branch:master</MetalamaVersion>
+        <MetalamaVersion Condition="$(VcsBranch)!=''">branch:master</MetalamaVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->
