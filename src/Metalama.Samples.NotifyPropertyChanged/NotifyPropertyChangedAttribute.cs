@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Metalama.Samples.NotifyPropertyChanged
 {
-    [Inherited]
+    [Inheritable]
     internal class NotifyPropertyChangedAttribute : TypeAspect
     {
         public override void BuildAspect( IAspectBuilder<INamedType> builder )

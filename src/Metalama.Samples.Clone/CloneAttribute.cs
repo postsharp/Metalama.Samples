@@ -4,7 +4,7 @@ using Metalama.Framework.Code.SyntaxBuilders;
 
 namespace Metalama.Samples.Clone
 {
-    [Inherited]
+    [Inheritable]
     [EditorExperience(SuggestAsLiveTemplate = true)]
     internal class DeepCloneAttribute : TypeAspect
     {

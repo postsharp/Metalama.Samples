@@ -1,5 +1,4 @@
-﻿using Metalama.Samples.ToString;
-namespace Metalama.Samples.ToString
+﻿namespace Metalama.Samples.ToString
 {
     [ToString]
     internal class MovingVertex
