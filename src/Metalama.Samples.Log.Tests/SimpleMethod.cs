@@ -1,8 +1,18 @@
-﻿namespace Metalama.Samples.Log.Tests.SimpleMethod
+﻿namespace Metalama.Samples.Log.Tests.SimpleMethod;
+
+internal static class Program
 {
-    internal class Foo
+    [Log]
+    public static void Main()
     {
-        [Log]
-        private void Bar() { }
+        SayHello();
+    }
+
+    [Log]
+    private static int SayHello()
+    {
+        Console.WriteLine( "Hello, world." );
+
+        return 5;
     }
 }

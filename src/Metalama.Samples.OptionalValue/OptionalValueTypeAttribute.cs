@@ -8,7 +8,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
     private static readonly DiagnosticDefinition<INamedType> _missingNestedTypeError = new(
         "OPT001",
         Severity.Error,
-        "The [OptionalValueType] aspect requires '{0}' to contain a nested type named 'Optional'" );
+        "The [OptionalValueType] aspect requires '{0}' to contain a nested type named 'Optional'");
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
@@ -23,41 +23,39 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
 
         // Introduce a property in the main type to store the Optional object.
-        var optionalValuesProperty = builder.Advice.IntroduceProperty( builder.Target, nameof( this.OptionalValues ),
+        var optionalValuesProperty = builder.Advice.IntroduceProperty( builder.Target, nameof(this.OptionalValues),
             buildProperty: p =>
             {
                 p.Type = nestedType;
                 p.InitializerExpression = ExpressionFactory.Parse( $"new {nestedType.Name}()" );
             } ).Declaration;
-        
 
-        var optionalValueType = (INamedType) TypeFactory.GetType( typeof( OptionalValue<> ) );
+
+        var optionalValueType = (INamedType) TypeFactory.GetType( typeof(OptionalValue<>) );
 
         // For all automatic properties of the target type.
         foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField.GetValueOrDefault() ) )
         {
             // Add a property of the same name, but of type OptionalValue<T>, in the nested type.
-            var propertyBuilder = builder.Advice.IntroduceProperty( nestedType, nameof( this.OptionalPropertyTemplate ),
+            var propertyBuilder = builder.Advice.IntroduceProperty( nestedType, nameof(this.OptionalPropertyTemplate),
                 buildProperty: p =>
                 {
                     p.Name = property.Name;
                     p.Type = optionalValueType.WithTypeArguments( property.Type );
                 } ).Declaration;
-           
+
 
             // Override the property in the target type so that it is forwarded to the nested type.
             builder.Advice.Override(
                 property,
-                nameof( this.OverridePropertyTemplate ),
-                tags: new { optionalProperty = propertyBuilder } );
+                nameof(this.OverridePropertyTemplate),
+                new { optionalProperty = propertyBuilder } );
         }
     }
 
-    [Template]
-    public dynamic? OptionalValues { get; private set; }
+    [Template] public dynamic? OptionalValues { get; private set; }
 
-    [Template]
-    public dynamic? OptionalPropertyTemplate { get; set; }
+    [Template] public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate
@@ -92,5 +90,4 @@ public struct OptionalValue<T>
         this.Value = value;
         this.IsSpecified = true;
     }
-
 }

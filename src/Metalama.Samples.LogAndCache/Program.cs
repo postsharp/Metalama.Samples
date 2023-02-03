@@ -1,6 +1,6 @@
 ﻿using Metalama.Framework.Aspects;
 
-[assembly: AspectOrder( typeof( CacheAttribute ), typeof( LogAttribute ) )]
+[assembly: AspectOrder( typeof(CacheAttribute), typeof(LogAttribute) )]
 
 internal class Program
 {

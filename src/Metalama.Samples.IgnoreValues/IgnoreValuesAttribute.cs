@@ -20,7 +20,6 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
                 {
                     return;
                 }
-
             }
 
             meta.Proceed();

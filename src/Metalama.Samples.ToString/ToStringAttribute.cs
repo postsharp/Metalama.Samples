@@ -1,39 +1,38 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code.SyntaxBuilders;
 
-namespace Metalama.Samples.ToString
+namespace Metalama.Samples.ToString;
+
+internal class ToStringAttribute : TypeAspect
 {
-    internal class ToStringAttribute : TypeAspect
+    [Introduce( WhenExists = OverrideStrategy.Override, Name = "ToString" )]
+    public string IntroducedToString()
     {
-        [Introduce( WhenExists = OverrideStrategy.Override, Name = "ToString" )]
-        public string IntroducedToString()
+        var stringBuilder = new InterpolatedStringBuilder();
+        stringBuilder.AddText( "{ " );
+        stringBuilder.AddText( meta.Target.Type.Name );
+        stringBuilder.AddText( " " );
+
+        var fields = meta.Target.Type.FieldsAndProperties.Where( f => !f.IsStatic && !f.IsImplicitlyDeclared ).ToList();
+
+        var i = meta.CompileTime( 0 );
+
+        foreach ( var field in fields )
         {
-            var stringBuilder = new InterpolatedStringBuilder();
-            stringBuilder.AddText( "{ " );
-            stringBuilder.AddText( meta.Target.Type.Name );
-            stringBuilder.AddText( " " );
-
-            var fields = meta.Target.Type.FieldsAndProperties.Where( f => !f.IsStatic && !f.IsImplicitlyDeclared ).ToList();
-
-            var i = meta.CompileTime( 0 );
-
-            foreach ( var field in fields )
+            if ( i > 0 )
             {
-                if ( i > 0 )
-                {
-                    stringBuilder.AddText( ", " );
-                }
-
-                stringBuilder.AddText( field.Name );
-                stringBuilder.AddText( "=" );
-                stringBuilder.AddExpression( field.Invokers.Final.GetValue( meta.This ) );
-
-                i++;
+                stringBuilder.AddText( ", " );
             }
 
-            stringBuilder.AddText( " }" );
+            stringBuilder.AddText( field.Name );
+            stringBuilder.AddText( "=" );
+            stringBuilder.AddExpression( field.Invokers.Final.GetValue( meta.This ) );
 
-            return stringBuilder.ToValue();
+            i++;
         }
+
+        stringBuilder.AddText( " }" );
+
+        return stringBuilder.ToValue();
     }
 }

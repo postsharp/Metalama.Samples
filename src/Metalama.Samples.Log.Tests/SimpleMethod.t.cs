@@ -1,22 +1,39 @@
-namespace Metalama.Samples.Log.Tests.SimpleMethod
+namespace Metalama.Samples.Log.Tests.SimpleMethod;
+internal static class Program
 {
-    internal class Foo
+  [Log]
+  public static void Main()
+  {
+    Console.WriteLine("Program.Main() started.");
+    try
     {
-        [Log]
-        private void Bar()
-        {
-            Console.WriteLine("Foo.Bar() started.");
-            try
-            {
-                object result = null;
-                Console.WriteLine("Foo.Bar() succeeded.");
-                return;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Foo.Bar() failed: " + e.Message);
-                throw;
-            }
-        }
+      SayHello();
+      object result = null;
+      Console.WriteLine("Program.Main() succeeded.");
+      return;
     }
+    catch (Exception e)
+    {
+      Console.WriteLine("Program.Main() failed: " + e.Message);
+      throw;
+    }
+  }
+  [Log]
+  private static int SayHello()
+  {
+    Console.WriteLine("Program.SayHello() started.");
+    try
+    {
+      int result;
+      Console.WriteLine("Hello, world.");
+      result = 5;
+      Console.WriteLine("Program.SayHello() succeeded.");
+      return result;
+    }
+    catch (Exception e)
+    {
+      Console.WriteLine("Program.SayHello() failed: " + e.Message);
+      throw;
+    }
+  }
 }

@@ -6,7 +6,6 @@ internal enum Visibility
     Visible,
     Hidden,
     Collapsed
-
 }
 
 [Flags]
@@ -22,7 +21,7 @@ internal enum StringOptions
 // we cannot generate new types and constructors yet.
 
 [EnumViewModel]
-internal partial class VisibilityViewModel 
+internal partial class VisibilityViewModel
 {
     private readonly Visibility _value;
 
@@ -42,4 +41,3 @@ internal partial class StringOptionsViewModel
         this._value = value;
     }
 }
-

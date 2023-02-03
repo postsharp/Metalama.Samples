@@ -9,5 +9,7 @@ internal partial class Account
 
     public Account? Parent { get; set; }
 
-    public partial class Optional { }
+    public partial class Optional
+    {
+    }
 }

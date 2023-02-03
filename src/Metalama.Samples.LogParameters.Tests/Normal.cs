@@ -1,11 +1,7 @@
-﻿namespace Metalama.Samples.LogParameters.Tests.Normal
+﻿namespace Metalama.Samples.LogParameters.Tests.Normal;
+
+internal class Foo
 {
-    internal class Foo
-    {
-        [Log]
-        private void Bar( int a, string b )
-        {
-            Console.WriteLine( $"a={a}, b='{b}'" );
-        }
-    }
+    [Log]
+    private void Bar( int a, string b ) => Console.WriteLine( $"a={a}, b='{b}'" );
 }

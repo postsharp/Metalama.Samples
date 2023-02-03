@@ -1,8 +1,7 @@
-﻿namespace Metalama.Samples.LogParameters.Tests.NoParameter
+﻿namespace Metalama.Samples.LogParameters.Tests.NoParameter;
+
+internal class Foo
 {
-    internal class Foo
-    {
-        [Log]
-        private void Bar() { }
-    }
+    [Log]
+    private void Bar() { }
 }

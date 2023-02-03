@@ -4,11 +4,12 @@ using Metalama.Framework.Diagnostics;
 
 public class EnumViewModelAttribute : TypeAspect
 {
-    private static readonly DiagnosticDefinition<INamedType> _missingFieldError = 
-        new DiagnosticDefinition<INamedType>( "ENUM01", Severity.Error, "The [EnumViewModel] aspect requires the type '{0}' to have a field named '_value'." );
+    private static readonly DiagnosticDefinition<INamedType> _missingFieldError =
+        new("ENUM01", Severity.Error,
+            "The [EnumViewModel] aspect requires the type '{0}' to have a field named '_value'.");
 
-    private static readonly SuppressionDefinition _suppression = new( "IDE0052" );
-    
+    private static readonly SuppressionDefinition _suppression = new("IDE0052");
+
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         var valueField = builder.Target.Fields.OfName( "_value" ).FirstOrDefault();
@@ -26,24 +27,24 @@ public class EnumViewModelAttribute : TypeAspect
 
         // Get the field type and decides the template.
         var enumType = (INamedType) valueField.Type;
-        var isFlags = enumType.Attributes.Any( a => a.Type.Is( typeof( FlagsAttribute ) ) );
-        var template = isFlags ? nameof( this.IsFlagTemplate ) : nameof( this.IsMemberTemplate );
+        var isFlags = enumType.Attributes.Any( a => a.Type.Is( typeof(FlagsAttribute) ) );
+        var template = isFlags ? nameof(this.IsFlagTemplate) : nameof(this.IsMemberTemplate);
 
         // Introduce a property into the view-model type for each enum member.
         foreach ( var member in enumType.Fields )
         {
             var propertyBuilder = builder.Advice.IntroduceProperty(
                 builder.Target,
-                template, 
+                template,
                 tags: new { member = member },
-                buildProperty: p=> p.Name = "Is" + member.Name );
+                buildProperty: p => p.Name = "Is" + member.Name );
             ;
         }
     }
 
     // Template for the non-flags enum member.
     [Template]
-    public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null);
+    public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null );
 
     // Template for a flag enum member.
     [Template]
@@ -55,7 +56,8 @@ public class EnumViewModelAttribute : TypeAspect
 
             // Note that the next line does not work for the "zero" flag, but currently Metalama does not expose the constant value of the enum
             // member so we cannot test its value at compile time.
-            return (meta.This._value & field.Invokers.Final.GetValue( null )) == ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null );
+            return (meta.This._value & field.Invokers.Final.GetValue( null )) ==
+                   ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null );
         }
     }
 }
