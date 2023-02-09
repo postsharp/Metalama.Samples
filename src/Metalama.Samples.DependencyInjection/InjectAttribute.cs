@@ -41,7 +41,7 @@ internal class InjectAttribute : FieldOrPropertyAspect
             value = (T?) this._serviceProvider.GetService( typeof(T) );
 
             // Set the field/property to the new value.
-            meta.Target.Property.Value = value
+            meta.Target.FieldOrProperty.Value = value
                                          ?? throw new InvalidOperationException(
                                              $"Cannot get a service of type {typeof(T)}." );
         }

@@ -66,16 +66,12 @@ internal class DeepCloneAttribute : TypeAspect
                  fieldType.Enhancements().HasAspect<DeepCloneAttribute>() )
             {
                 // If yes, call the method without a cast.
-                field.Invokers.Base!.SetValue(
-                    clone,
-                    meta.Cast( fieldType, field.ToExpression().Value?.Clone() ) );
+                field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
             }
             else
             {
                 // If no, use the interface.
-                field.Invokers.Base!.SetValue(
-                    clone,
-                    meta.Cast( fieldType, ((ICloneable?) field.ToExpression().Value)?.Clone() ) );
+                field.With( clone ).Value = meta.Cast( fieldType, ((ICloneable?) field.Value)?.Clone() );
             }
         }
 

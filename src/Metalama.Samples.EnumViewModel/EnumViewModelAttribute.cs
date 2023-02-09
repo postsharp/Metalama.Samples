@@ -44,7 +44,7 @@ public class EnumViewModelAttribute : TypeAspect
 
     // Template for the non-flags enum member.
     [Template]
-    public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null );
+    public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Value;
 
     // Template for a flag enum member.
     [Template]
@@ -56,8 +56,7 @@ public class EnumViewModelAttribute : TypeAspect
 
             // Note that the next line does not work for the "zero" flag, but currently Metalama does not expose the constant value of the enum
             // member so we cannot test its value at compile time.
-            return (meta.This._value & field.Invokers.Final.GetValue( null )) ==
-                   ((IField) meta.Tags["member"]!).Invokers.Final.GetValue( null );
+            return (meta.This._value & field.Value) == ((IField) meta.Tags["member"]!).Value;
         }
     }
 }
