@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Project>
 
     <!-- Set the default version -->
@@ -13,7 +13,7 @@
     <!-- Versions of dependencies -->
     <PropertyGroup>
         <PostSharpEngineeringVersion>1.0.118-preview</PostSharpEngineeringVersion>
-        <MetalamaVersion>2023.0.101-rc</MetalamaVersion>
+        <MetalamaVersion>2023.0.102-rc</MetalamaVersion>
         <MetalamaVersion Condition="$(VcsBranch)!=''">branch:master</MetalamaVersion>
     </PropertyGroup>
 
