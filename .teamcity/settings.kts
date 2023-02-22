@@ -253,6 +253,14 @@ object PublicDeployment : BuildType({
 
         }
 
+        dependency(AbsoluteId("Metalama_Metalama_PublicDeployment")) {
+            snapshot {
+                     onDependencyFailure = FailureAction.FAIL_TO_START
+            }
+
+
+        }
+
         dependency(AbsoluteId("Metalama_MetalamaBackstage_PublicBuild")) {
             snapshot {
                      onDependencyFailure = FailureAction.FAIL_TO_START
