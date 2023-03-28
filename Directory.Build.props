@@ -12,6 +12,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>False</IsPackable>
+        <MetalamaWriteHtml>True</MetalamaWriteHtml>
     </PropertyGroup>
 
 </Project>

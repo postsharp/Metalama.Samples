@@ -1,1 +1,5 @@
-Try this example online: https://try.metalama.net#log-and-cache.
+---
+uid: sample-logAndCache
+---
+
+# Sample: Logging and Caching Combined
