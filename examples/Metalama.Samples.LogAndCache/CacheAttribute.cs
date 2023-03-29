@@ -1,13 +1,13 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Metalama.Framework.Code.SyntaxBuilders;
+using System.Text;
 
 public class CacheAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
         // Builds the caching string.
-        var cacheKey = GetCachingKeyFormattingString().ToValue();
+        var cacheKey = string.Format( GetCachingKeyFormattingString(), meta.Target.Parameters.ToValueArray() );
 
         // Cache lookup.
         if ( SampleCache.Cache.TryGetValue( cacheKey, out object value ) )
@@ -27,13 +27,14 @@ public class CacheAttribute : OverrideMethodAspect
         }
     }
 
-    private static InterpolatedStringBuilder GetCachingKeyFormattingString()
+    [CompileTime]
+    private static string GetCachingKeyFormattingString()
     {
-        var stringBuilder = new InterpolatedStringBuilder();
-        stringBuilder.AddText( meta.Target.Type.ToString() );
-        stringBuilder.AddText( "." );
-        stringBuilder.AddText( meta.Target.Method.Name );
-        stringBuilder.AddText( "(" );
+        var stringBuilder = meta.CompileTime( new StringBuilder() );
+        stringBuilder.Append( meta.Target.Type.ToString() );
+        stringBuilder.Append( '.' );
+        stringBuilder.Append( meta.Target.Method.Name );
+        stringBuilder.Append( '(' );
 
         var i = meta.CompileTime( 0 );
 
@@ -43,20 +44,18 @@ public class CacheAttribute : OverrideMethodAspect
 
             if ( p.RefKind == RefKind.Out )
             {
-                stringBuilder.AddText( $"{comma}{p.Name} = <out> " );
+                stringBuilder.Append( $"{comma}{p.Name} = <out> " );
             }
             else
             {
-                stringBuilder.AddText( $"{comma}{{" );
-                stringBuilder.AddExpression( p.Value );
-                stringBuilder.AddText( "}" );
+                stringBuilder.Append( $"{comma}{{{i}}}" );
             }
 
             i++;
         }
 
-        stringBuilder.AddText( ")" );
+        stringBuilder.Append( ')' );
 
-        return stringBuilder;
+        return stringBuilder.ToString();
     }
 }

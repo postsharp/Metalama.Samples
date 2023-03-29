@@ -10,7 +10,9 @@ So far, our logging aspect writes messages that include _constant_ text and _com
 
 Here is the code transformed by the new aspect:
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Calculator.cs ]
+
+## Implementation
 
 The aspect at work is the following:
 

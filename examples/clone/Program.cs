@@ -2,35 +2,6 @@
 
 namespace Metalama.Samples.Clone;
 
-[DeepClone]
-internal partial class AutomaticallyCloneable
-{
-    public int A;
-
-    public ManuallyCloneable B;
-
-    public AutomaticallyCloneable C;
-
-    public NotCloneable D;
-}
-
-internal class ManuallyCloneable : ICloneable
-{
-    public int E;
-
-    public object Clone() => new ManuallyCloneable() { E = this.E };
-}
-
-internal class NotCloneable
-{
-    public int F;
-}
-
-internal partial class Derived : AutomaticallyCloneable
-{
-    public ManuallyCloneable G { get; private set; }
-}
-
 internal class Program
 {
     private static void Main()

@@ -6,4 +6,4 @@ uid: sample-enrich-exception
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Program.cs ]

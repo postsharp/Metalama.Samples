@@ -6,4 +6,4 @@ uid: sample-enum-viewmodel
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare StringOptionsViewModel.cs ]

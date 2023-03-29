@@ -6,4 +6,4 @@ uid: sample-tostring-101
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare MovingVertex.cs ]

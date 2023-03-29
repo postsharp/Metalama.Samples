@@ -6,4 +6,4 @@ uid: sample-clone
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare AutomaticallyCloneable.cs ]

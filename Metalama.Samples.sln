@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.LogAndCach
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notifypropertychanged", "notifypropertychanged", "{B0ADBBD1-23B8-4910-8B76-FF58A34A5E92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.NotifyPropertyChanged", "examples\notifypropertychanged\Metalama.Samples.NotifyPropertyChanged\Metalama.Samples.NotifyPropertyChanged.csproj", "{C8C6D9A7-231E-4044-B343-9B4AA5E8130E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.NotifyPropertyChanged", "examples\notifypropertychanged\Metalama.Samples.NotifyPropertyChanged.csproj", "{C8C6D9A7-231E-4044-B343-9B4AA5E8130E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.OptionalValue", "examples\optional-value\Metalama.Samples.OptionalValue.csproj", "{893C3BB2-4E44-480B-9750-934E92768027}"
 EndProject

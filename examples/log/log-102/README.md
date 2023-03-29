@@ -10,7 +10,9 @@ In the previous example, the aspect logged a generic message when a method start
 
 The logging aspect now generates the _green_ code in the following snippet:
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Calculator.cs ]
+
+## Implementation
 
 The aspect at work is the following:
 

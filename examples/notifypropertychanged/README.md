@@ -6,4 +6,4 @@ uid: sample-notifypropertychanged
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare MovingVertex.cs ]

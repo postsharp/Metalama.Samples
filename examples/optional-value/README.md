@@ -6,4 +6,4 @@ uid: sample-optionalvalue
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Account.cs ]

@@ -6,4 +6,4 @@ uid: sample-dirty
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Animal.cs ]

@@ -1,7 +1,14 @@
 ﻿internal class Program
 {
-    private static void Main() => Add( 1, 1 );
+    private static void Main()
+    {
+        try
+        {
+            Calculator.Add( 1, 1 );
+            Calculator.Add( 0, 1 );
+        }
+        catch { }
+    }
 
-    [Log]
-    private static int Add( int a, int b ) => a + b;
+   
 }

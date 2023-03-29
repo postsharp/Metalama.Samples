@@ -6,4 +6,4 @@ uid: sample-ignore-value
 
 [!metalama-project-buttons .]
 
-[!metalama-file Program.cs transformed]
+[!metalama-compare Author.cs ]
