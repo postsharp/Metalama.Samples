@@ -1,3 +1,0 @@
----
-uid: sample-clone
----

@@ -1,6 +1,2 @@
----
-uid: samples
----
-
 ## Metalama.Samples
 
