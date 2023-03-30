@@ -1,6 +1,9 @@
 ﻿// Copyright (c) SharpCrafters s.r.o. All rights reserved.
 // This project is not open source. Please see the LICENSE.md file in the repository root for details.
 
+using Microsoft.Build.Globbing;
+using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build;
 using PostSharp.Engineering.BuildTools.Build.Model;
@@ -23,8 +26,34 @@ var product = new Product( Dependencies.MetalamaSamples )
         )
 };
 
+product.BuildCompleted += OnBuildCompleted ;
+
 var commandApp = new CommandApp();
 
 commandApp.AddProductCommands( product );
 
 return commandApp.Run( args );
+
+
+void OnBuildCompleted( BuildCompletedEventArgs args )
+{
+    var targetDirectory = Path.Combine( args.PrivateArtifactsDirectory, "html" );
+    var sourceDirectory = Path.Combine( args.Context.RepoDirectory, "examples" );
+    Directory.CreateDirectory( targetDirectory );
+    
+    var matcher = new Matcher();
+    matcher.AddInclude("**/*.html");
+    var matches = matcher.Execute(new DirectoryInfoWrapper( new DirectoryInfo( sourceDirectory ) ));
+
+// Copy each matched file to the destination directory
+    foreach (var match in matches.Files)
+    {
+        var sourceFile = Path.Combine( sourceDirectory, match.Path );
+        var targetFile = Path.Combine( targetDirectory, match.Path );
+        var targetSubdirectory = Path.GetDirectoryName( targetFile );
+        Directory.CreateDirectory( targetSubdirectory );
+        
+        
+        File.Copy(sourceFile, targetFile, true);
+    }
+}
