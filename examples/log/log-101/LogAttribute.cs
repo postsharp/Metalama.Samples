@@ -8,6 +8,7 @@ public class LogAttribute : OverrideMethodAspect
 
         try
         {
+            // Invoke the method and stores the return value in a variable.
             var result = meta.Proceed();
 
             Console.WriteLine( "Method succeeded." );

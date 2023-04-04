@@ -1,49 +1,63 @@
-﻿using Metalama.Framework.Aspects;
+﻿using Metalama.Extensions.DependencyInjection;
+using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
+using Microsoft.Extensions.Logging;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    public override dynamic? OverrideMethod()
+
+    [IntroduceDependency]
+    private readonly ILogger _logger;
+
+    public override dynamic? OverrideMethod(  )
     {
+        // Determine if tracing is enabled.
+        var isTracingEnabled = this._logger.IsEnabled( LogLevel.Trace );
         
         // Write entry message.
-        var entryMessage = BuildInterpolatedString(false);
-        entryMessage.AddText( " started." );
-        Console.WriteLine( entryMessage.ToValue() );
+        if ( isTracingEnabled )
+        {
+            var entryMessage = BuildInterpolatedString( false );
+            entryMessage.AddText( " started." );
+            this._logger.LogTrace( (string) entryMessage.ToValue() );
+        }
 
         try
         {
             // Invoke the method and store the result in a variable.
             var result = meta.Proceed();
 
-            // Display the success message. The message is different when the method is void.
-            var successMessage = BuildInterpolatedString(true);
-
-            if ( meta.Target.Method.ReturnType.Is( typeof(void) ) )
+            if ( isTracingEnabled )
             {
-                // When the method is void, display a constant text.
-                successMessage.AddText( " succeeded." );
-            }
-            else
-            {
-                // When the method has a return value, add it to the message.
-                successMessage.AddText( " returned " );
-                successMessage.AddExpression( result );
-                successMessage.AddText( "." );
-            }
+                // Display the success message. The message is different when the method is void.
+                var successMessage = BuildInterpolatedString( true );
 
-            Console.WriteLine( successMessage.ToValue() );
+                if ( meta.Target.Method.ReturnType.Is( typeof(void) ) )
+                {
+                    // When the method is void, display a constant text.
+                    successMessage.AddText( " succeeded." );
+                }
+                else
+                {
+                    // When the method has a return value, add it to the message.
+                    successMessage.AddText( " returned " );
+                    successMessage.AddExpression( result );
+                    successMessage.AddText( "." );
+                }
+
+                this._logger.LogTrace( (string) successMessage.ToValue() );
+            }
 
             return result;
         }
-        catch ( Exception e )
+        catch ( Exception e ) when ( this._logger.IsEnabled( LogLevel.Warning ) ) 
         {
             // Display the failure message.
             var failureMessage = BuildInterpolatedString(false);
             failureMessage.AddText( " failed: " );
             failureMessage.AddExpression( e.Message );
-            Console.WriteLine( failureMessage.ToValue() );
+            this._logger.LogWarning( (string) failureMessage.ToValue() );
 
             throw;
         }

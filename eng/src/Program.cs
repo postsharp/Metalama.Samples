@@ -15,7 +15,7 @@ using Spectre.Console.Cli;
 var product = new Product( Dependencies.MetalamaSamples )
 {
     Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
-    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
+    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.MetalamaExtensions },
     Configurations = Product.DefaultConfigurations
         .WithValue(
         BuildConfiguration.Public, new BuildConfigurationInfo(
@@ -23,7 +23,8 @@ var product = new Product( Dependencies.MetalamaSamples )
             PublicPublishers: new Publisher[] {
                 new MergePublisher()
             } )
-        )
+        ),
+    TestOnBuild = true
 };
 
 product.BuildCompleted += OnBuildCompleted ;

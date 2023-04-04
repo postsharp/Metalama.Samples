@@ -14,6 +14,7 @@
     <PropertyGroup>
         <PostSharpEngineeringVersion>1.0.135-preview</PostSharpEngineeringVersion>
         <MetalamaVersion>2023.0.102-rc</MetalamaVersion>
+        <MetalamaExtensionsVersion>2023.0.102-rc</MetalamaExtensionsVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->

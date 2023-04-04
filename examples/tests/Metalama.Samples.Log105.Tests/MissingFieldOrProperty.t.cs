@@ -1,0 +1,1 @@
+// Error LOG01 on `Bar`: `The type 'Foo' must have a field 'ILogger _logger' or a property 'ILogger Logger'.`
