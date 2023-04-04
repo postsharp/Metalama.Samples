@@ -16,3 +16,5 @@ uid: samples
 | [ToString](tostring/README.md) | Implements the <xref:System.Object.ToString*> method.
 | [Enum View-Model](enum-viewmodel/README.md) | Creates a view-model class to wrap an enum value.
 | [Optional Value Type](optional-value/README.md) | Transforms automatic properties of a type to make them store and represent a flag indicating whether they have been set, or if they are still at their default value.
+
+If you developed an original aspect, consider [contributing](contributing.md) to this list.
