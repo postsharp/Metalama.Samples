@@ -1,8 +1,9 @@
 ---
-uid: sample-log-101
+uid: sample-log-1
+level: 200
 ---
 
-# Example: The simplest logging
+# Example: Trivial logging
 
 [!metalama-project-buttons .]
 
@@ -16,16 +17,17 @@ Let's look at the aspect that generates this code:
 
 [!metalama-file LogAttribute.cs]
 
-This aspect is probably the most basic. It has however a few points of interest:
+This aspect is probably the most basic. It has, however, a few points of interest:
 
 * The `LogAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `LogAttribute` a custom attribute.
 
-* The `LogAttribute` class implements the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method. This method acts like a _template_. Most of the code in this template is injected into the target method, i.e. to the method to which we add the `[Log]` custom attribute.
+* The `LogAttribute` class implements the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method. This method acts like a _template_. Most of the code in this template is injected into the target method, i.e., the method to which we add the `[Log]` custom attribute.
 
 * Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a very special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, with a few syntactic changes to capture the return value.
   
-  To remind you that `meta.Proceed()` has a special meaning, it is colored differently than the rest of the code. If you are using Metalama Tools for Visual Studio, you will also enjoy syntax highlighting in this IDE.
+  To remind you that `meta.Proceed()` has a special meaning, it is colored differently than the rest of the code. If you use Metalama Tools for Visual Studio, you will also enjoy syntax highlighting in this IDE.
 
 > [!div class="see-also"]
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
+  

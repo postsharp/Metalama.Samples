@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace><!--Intentionally empty--></RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaExtensionsVersion)" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    </ItemGroup>
+
+</Project>

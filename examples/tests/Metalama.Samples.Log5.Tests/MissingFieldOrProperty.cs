@@ -1,4 +1,4 @@
-﻿namespace Metalama.Samples.Log104.Tests.MissingFieldOrProperty
+﻿namespace Metalama.Samples.Log4.Tests.MissingFieldOrProperty
 {
     internal class Foo
     {

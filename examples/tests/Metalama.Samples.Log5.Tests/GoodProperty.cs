@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.Extensions.Logging;
 
-namespace Metalama.Samples.Log104.Tests.GoodField
+namespace Metalama.Samples.Log4.Tests.GoodProperty
 {
     internal class Foo
     {

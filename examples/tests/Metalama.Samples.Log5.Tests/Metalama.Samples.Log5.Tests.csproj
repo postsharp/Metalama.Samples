@@ -22,7 +22,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\log\log-103\Metalama.Samples.Log103.csproj" />
+        <ProjectReference Include="..\..\log\log-5\Metalama.Samples.Log5.csproj" />
     </ItemGroup>
 
 </Project>

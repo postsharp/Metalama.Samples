@@ -1,6 +1,6 @@
 ﻿#pragma warning disable CS8618
 
-namespace Metalama.Samples.Log104.Tests.FieldOrWrongType
+namespace Metalama.Samples.Log4.Tests.FieldOrWrongType
 {
     internal class Foo
     {

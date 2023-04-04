@@ -5,16 +5,18 @@ items:
     - name: Logging
       topicUid: sample-log
       items: 
-        - name: Logging 101
-          topicUid: sample-log-101
+        - name: Trivial logging
+          topicUid: sample-log-1
         - name: Adding the method name
-          topicUid: sample-log-102
+          topicUid: sample-log-2
         - name: Adding parameter values
-          topicUid: sample-log-103
+          topicUid: sample-log-3
         - name: Using ILogger
-          topicUid: sample-log-104
+          topicUid: sample-log-4
         - name: Using ILogger without DI
-          topicUid: sample-log-105
+          topicUid: sample-log-5
+        - name: Adding logging to many methods
+          topicUid: sample-log-6
     - name: Retry
       topicUid: sample-retry
     - name: Enrich Exception
