@@ -3,7 +3,7 @@ uid: sample-retry-2
 level: 200
 ---
 
-# Example: Handling async methods
+# Retry Example: Handling async methods
 
 [!metalama-project-buttons .]
 

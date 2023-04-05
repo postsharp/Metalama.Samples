@@ -21,4 +21,5 @@ We start from the most trivial implementation and progressively add features:
 | <xref:sample-retry-1> | This is the most basic retry aspect. |
 | <xref:sample-retry-2> | In this example, we add support for `async` methods and call `await Task.Delay` instead of `Thread.Sleep`. |
 | <xref:sample-retry-3> | Here, we add support for `CancellationToken` parameters, and pass it to `Task.Delay` when we have some. |
-| <xref:sample-retry-4> | Finally, we add proper logging using `ILogger` and dependency injection. |
+| <xref:sample-retry-4> | We now add proper logging using `ILogger` and dependency injection. |
+| <xref:sample-retry-5> | Finally, show how to use Polly instead of our custom and naive implemention of the retry logic. |

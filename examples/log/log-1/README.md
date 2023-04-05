@@ -3,7 +3,7 @@ uid: sample-log-1
 level: 200
 ---
 
-# Example: Trivial logging
+# Logging Example: Getting started
 
 [!metalama-project-buttons .]
 

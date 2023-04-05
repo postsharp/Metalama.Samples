@@ -3,7 +3,7 @@ uid: sample-retry-4
 level: 300
 ---
 
-# Example: Adding logging to retry
+# Retry Example: Adding logging
 
 [!metalama-project-buttons .]
 

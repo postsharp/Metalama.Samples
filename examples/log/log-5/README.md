@@ -3,7 +3,7 @@ uid: sample-log-5
 level: 300
 ---
 
-# Example: ILogger without dependency injection
+# Logging Example: ILogger without dependency injection
 
 [!metalama-project-buttons .]
 

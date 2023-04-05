@@ -5,7 +5,7 @@ items:
     - name: Logging
       topicUid: sample-log
       items: 
-        - name: Trivial logging
+        - name: Getting started
           topicUid: sample-log-1
         - name: Adding the method name
           topicUid: sample-log-2
@@ -20,7 +20,7 @@ items:
     - name: Retry
       topicUid: sample-retry
       items:
-        - name: Trivial retry
+        - name: Getting started
           topicUid: sample-retry-1
         - name: Handling async methods
           topicUid: sample-retry-2
@@ -28,6 +28,8 @@ items:
           topicUid: sample-retry-3          
         - name: Adding logging to retry
           topicUid: sample-retry-4
+        - name: Using Polly
+          topicUid: sample-retry-5          
     - name: Enrich Exception
       topicUid: sample-enrich-exception
     - name: Caching

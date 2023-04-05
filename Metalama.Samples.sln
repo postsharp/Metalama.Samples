@@ -67,6 +67,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry3", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry4", "examples\retry\retry-4\Metalama.Samples.Retry4.csproj", "{9E47D1B7-CD6B-4917-AD85-554B069680A0}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry5", "examples\retry\retry-5\Metalama.Samples.Retry5.csproj", "{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -224,6 +226,12 @@ Global
 		{9E47D1B7-CD6B-4917-AD85-554B069680A0}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{9E47D1B7-CD6B-4917-AD85-554B069680A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E47D1B7-CD6B-4917-AD85-554B069680A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,6 +267,7 @@ Global
 		{0FD5314D-9680-4AFA-B6DA-22C3D38F1FF9} = {47451698-A2B9-4D25-8E05-FDBCABC1ACDA}
 		{96AD489A-EAD6-4C4C-ACA9-5124DC06A013} = {47451698-A2B9-4D25-8E05-FDBCABC1ACDA}
 		{9E47D1B7-CD6B-4917-AD85-554B069680A0} = {47451698-A2B9-4D25-8E05-FDBCABC1ACDA}
+		{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA} = {47451698-A2B9-4D25-8E05-FDBCABC1ACDA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}

@@ -3,7 +3,7 @@ uid: sample-retry-1
 level: 200
 ---
 
-# Example: The simplest retry
+# Retry Example: Getting started
 
 [!metalama-project-buttons .]
 

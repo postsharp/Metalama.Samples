@@ -3,7 +3,7 @@ uid: sample-log-3
 level: 250
 ---
 
-# Example: Logging parameters values
+# Logging Example: Adding parameters values
 
 [!metalama-project-buttons .]
 
