@@ -1,0 +1,1 @@
+// Error LAMA0037 on `Log`: `The aspect 'Log' cannot be applied to the method 'Foo.StaticBar()' because 'Foo.StaticBar()' must not be static.`

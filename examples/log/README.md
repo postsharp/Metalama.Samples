@@ -4,10 +4,28 @@ uid: sample-log
 
 # Example: Logging
 
-This series of examples have a single goal: to build an aspect that writes a message before and after any targeted method is executed.
+Logging is a key aspect of application development, enabling developers to understand the execution flow and identify bottlenecks. By providing detailed insights into system interactions, tracing helps optimize performance, pinpoint issues, and improve user experience. It plays a significant role in ensuring efficient and reliable software.
+
+## Objective
+
+This series of examples shows how to build an aspect that automatically writes a log record when a method execution starts, completes, or fails.
+
+The objective is to transform the code as in the following example. If the generated code does not entirely fit your taste, don't worry, you will see how to bend it to your preferences.
+
+[!metalama-compare log-4/Calculator.cs ]
+
+## In this series
 
 We start from the most trivial implementation and progressively add features:
 
-1. [Logging a constant message](log-101/README.md)
-2. [Adding the method name](log-102/README.md)
-3. [Adding the parameter values](log-103/README.md)
+| Article | Description |
+|--------|-------------|
+| [Logging a constant message](log-1/README.md) | This is the simplest possible implementation of logging. |
+| [Adding the method name](log-2/README.md) | Instead of logging a constant, generic message, we now include the method name in the message. |
+| [Adding the parameter values](log-3/README.md) | We now add the parameter values and the return value to the message. |
+| [Using to ILogger](log-4/README.md) | Instead of using `Console.WriteLine`, we inject an `ILogger` into the target type using dependency injection. |
+| [ILogger without dependency injection](log-5/README.md) | Instead of using dependency injection, we expect the source code to contain an `ILogger` field and report errors if it does not. |
+| [Adding logging to many methods](log-5/README.md) | So far, we have manually added a custom attribute to each method. In this example, we show how to target several methods programmatically using compile-time code queries.
+  
+
+  

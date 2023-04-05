@@ -5,20 +5,37 @@ items:
     - name: Logging
       topicUid: sample-log
       items: 
-        - name: Logging 101
-          topicUid: sample-log-101
+        - name: Getting started
+          topicUid: sample-log-1
         - name: Adding the method name
-          topicUid: sample-log-102
+          topicUid: sample-log-2
         - name: Adding parameter values
-          topicUid: sample-log-103
-    - name: Caching
-      topicUid: sample-cache
+          topicUid: sample-log-3
+        - name: Using ILogger
+          topicUid: sample-log-4
+        - name: Using ILogger without DI
+          topicUid: sample-log-5
+        - name: Adding logging to many methods
+          topicUid: sample-log-6
     - name: Retry
       topicUid: sample-retry
-    - name: Ignore Values
-      topicUid: sample-ignore-value
+      items:
+        - name: Getting started
+          topicUid: sample-retry-1
+        - name: Handling async methods
+          topicUid: sample-retry-2
+        - name: Handling cancellation tokens
+          topicUid: sample-retry-3          
+        - name: Adding logging to retry
+          topicUid: sample-retry-4
+        - name: Using Polly
+          topicUid: sample-retry-5          
     - name: Enrich Exception
       topicUid: sample-enrich-exception
+    - name: Caching
+      topicUid: sample-cache
+    - name: Ignore Values
+      topicUid: sample-ignore-value
     - name: NotifyPropertyChanged
       topicUid: sample-notifypropertychanged
     - name: Dirty
@@ -36,4 +53,6 @@ items:
       topicUid: sample-enum-viewmodel
     - name: Optional Value Type
       topicUid: sample-optionalvalue
+    - name: Contributing
+      topicUid: samples-contributing
     

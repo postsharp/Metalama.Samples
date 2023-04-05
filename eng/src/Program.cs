@@ -15,7 +15,7 @@ using Spectre.Console.Cli;
 var product = new Product( Dependencies.MetalamaSamples )
 {
     Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
-    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.Metalama },
+    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.MetalamaExtensions },
     Configurations = Product.DefaultConfigurations
         .WithValue(
         BuildConfiguration.Public, new BuildConfigurationInfo(
@@ -23,10 +23,11 @@ var product = new Product( Dependencies.MetalamaSamples )
             PublicPublishers: new Publisher[] {
                 new MergePublisher()
             } )
-        )
+        ),
+    TestOnBuild = true
 };
 
-product.BuildCompleted += OnBuildCompleted ;
+product.TestCompleted += OnTestCompleted ;
 
 var commandApp = new CommandApp();
 
@@ -35,7 +36,7 @@ commandApp.AddProductCommands( product );
 return commandApp.Run( args );
 
 
-void OnBuildCompleted( BuildCompletedEventArgs args )
+void OnTestCompleted( BuildCompletedEventArgs args )
 {
     var targetDirectory = Path.Combine( args.PrivateArtifactsDirectory, "html" );
     var sourceDirectory = Path.Combine( args.Context.RepoDirectory, "examples" );

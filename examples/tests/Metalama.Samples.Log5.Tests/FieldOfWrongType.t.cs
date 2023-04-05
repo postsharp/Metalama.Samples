@@ -1,0 +1,1 @@
+// Error LOG02 on `Bar`: `The type 'Foo._logger' must be of type ILogger.`
