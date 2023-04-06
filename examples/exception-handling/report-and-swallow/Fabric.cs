@@ -10,6 +10,6 @@ internal class Fabric : ProjectFabric
             .Where( type => type.Accessibility == Accessibility.Public )
             .SelectMany( type => type.Methods )
             .Where( method => method.Accessibility == Accessibility.Public && method.Name != "ToString" )
-            .AddAspectIfEligible<LogAttribute>();
+            .AddAspectIfEligible<ReportAndSwallowExceptionsAttribute>();
     }
 }

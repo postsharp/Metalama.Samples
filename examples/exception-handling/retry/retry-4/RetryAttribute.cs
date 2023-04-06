@@ -33,8 +33,22 @@ public class RetryAttribute : OverrideMethodAspect
             catch ( Exception e ) when ( i < this.Attempts )
             {
                 var delay = this.Delay * Math.Pow( 2, i + 1 );
-                Console.WriteLine( e.Message + $" Waiting {delay} ms." );
+
+                var waitMessage = LoggingHelper.BuildInterpolatedString( false );
+                waitMessage.AddText( " has failed: " );
+                waitMessage.AddExpression( e.Message );
+                waitMessage.AddText( " Retrying in " );
+                waitMessage.AddExpression( delay );
+                waitMessage.AddText( " ms." );
+
+                this._logger.LogWarning( (string) waitMessage.ToValue() );
+
                 Thread.Sleep( (int) delay );
+
+                var retryingMessage = LoggingHelper.BuildInterpolatedString( false );
+                retryingMessage.AddText( ": retrying now." );
+
+                this._logger.LogTrace( (string) retryingMessage.ToValue() );
             }
         }
     }
@@ -42,7 +56,7 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for async methods.
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
-        var cancellationTokenParameter 
+        var cancellationTokenParameter
             = meta.Target.Parameters.Where( p => p.Type.Is( typeof( CancellationToken ) ) ).LastOrDefault();
 
         for ( var i = 0; ; i++ )
@@ -54,7 +68,15 @@ public class RetryAttribute : OverrideMethodAspect
             catch ( Exception e ) when ( i < this.Attempts )
             {
                 var delay = this.Delay * Math.Pow( 2, i + 1 );
-                Console.WriteLine( e.Message + $" Waiting {delay} ms." );
+
+                var waitMessage = LoggingHelper.BuildInterpolatedString( false );
+                waitMessage.AddText( " has failed: " );
+                waitMessage.AddExpression( e.Message );
+                waitMessage.AddText( " Retrying in " );
+                waitMessage.AddExpression( delay );
+                waitMessage.AddText( " ms." );
+
+                this._logger.LogWarning( (string) waitMessage.ToValue() );
 
                 if ( cancellationTokenParameter != null )
                 {
@@ -64,6 +86,11 @@ public class RetryAttribute : OverrideMethodAspect
                 {
                     await Task.Delay( (int) delay );
                 }
+
+                var retryingMessage = LoggingHelper.BuildInterpolatedString( false );
+                retryingMessage.AddText( ": retrying now." );
+
+                this._logger.LogTrace( (string) retryingMessage.ToValue() );
             }
         }
     }

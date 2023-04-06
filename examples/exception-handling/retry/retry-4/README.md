@@ -35,6 +35,10 @@ Trying for the 4-th time.
 Succeeded
 ```
 
+> [!WARNING]
+> Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be cautious when adding parameter values to logs and avoid exposing sensitive data.
+> To remove sensitive information from the logs, see <xref:sample-log-7>
+
 ## Implementation
 
 The first improvement is that the logging message now includes the method name and the parameter values. The logic is hidden in the `LoggingHelper.BuildInterpolatedString` method. To learn about how we built this method, read <xref:sample-log-2> and <xref:sample-log-3>.

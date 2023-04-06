@@ -7,7 +7,9 @@ level: 300
 
 [!metalama-project-buttons .]
 
-In the previous steps, we used the `Console.WriteLine` method to write the trace message. In most production scenarios, you will want to write messages into a logging framework instead. In this example, we will use the `Microsoft.Extensions.Logging` abstraction, the standard logging abstraction of .NET Core. We will use the `Microsoft.Extensions.DependencyInjection` namespace to inject the dependency.
+In the previous steps, we used the `Console.WriteLine` method to write the trace message. We will now write messages to <xref:Microsoft.Extensions.Logging.ILogger> from the `Microsoft.Extensions.Logging` namespace, and use dependency injection to get the <xref:Microsoft.Extensions.Logging.ILogger>.
+
+Utilizing dependency injection to obtain an `ILogger` instance, rather than directly writing to `Console.WriteLine`, offers increased flexibility, maintainability, and testability. This approach allows seamless swapping of logging implementations, promotes a clean separation of concerns, simplifies configuration management, and enables effective unit testing by substituting real loggers with mock objects during testing.
 
 Let's look at how the new aspect transforms code.
 

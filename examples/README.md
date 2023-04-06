@@ -8,8 +8,7 @@ uid: samples
 |--------|--------------|
 | [Logging](log/README.md) | Shows several logging aspects, adding complexity at every step. |
 | [Caching](cache/README.md) | Caches the method return value as a function of its parameters. |
-| [Retry](retry/README.md) | Automatically retries the execution of the target method when an exception occurs. |
-| [Enrich Exception](enrich-exception/README.md) | Adds the parameter values to the <xref:System.Exception> object so that they can be later included in the crash report. |
+| [Exception Handling](exception-handling/README.md) | Several exception-handling strategies: retry (including the use of Poly), add parameter values for richer report. |
 | [INotifyPropertyChanged](notifypropertychanged/README.md) | Automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface and instrument properties. |
 | [Dirty](dirty/README.md) | Adds an `IsDirty` property to the type and sets whenever a field or property is modified. |
 | [Clone](clone/README.md) | Implements the _deep clone_ pattern.

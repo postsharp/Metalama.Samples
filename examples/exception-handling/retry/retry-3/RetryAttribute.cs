@@ -1,7 +1,6 @@
 ﻿using Metalama.Extensions.DependencyInjection;
 using Metalama.Framework.Aspects;
-using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Samples.Retry2;
+using Metalama.Framework.Code;
 using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
@@ -41,6 +40,9 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for async methods.
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
+        var cancellationTokenParameter 
+            = meta.Target.Parameters.Where( p => p.Type.Is( typeof( CancellationToken ) ) ).LastOrDefault();
+
         for ( var i = 0; ; i++ )
         {
             try
@@ -52,7 +54,14 @@ public class RetryAttribute : OverrideMethodAspect
                 var delay = this.Delay * Math.Pow( 2, i + 1 );
                 Console.WriteLine( e.Message + $" Waiting {delay} ms." );
 
-                await Task.Delay( (int) delay );
+                if ( cancellationTokenParameter != null )
+                {
+                    await Task.Delay( (int) delay, cancellationTokenParameter.Value );
+                }
+                else
+                {
+                    await Task.Delay( (int) delay );
+                }
             }
         }
     }

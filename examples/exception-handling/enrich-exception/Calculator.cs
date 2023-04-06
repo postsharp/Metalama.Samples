@@ -1,7 +1,6 @@
 ﻿public static class Calculator
 {
 
-    [EnrichException]
     public static int Fibonaci( int n )
     {
         if ( n < 0 )

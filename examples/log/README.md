@@ -25,5 +25,6 @@ We start from the most trivial implementation and progressively add features:
 | [Adding the parameter values](log-3/README.md) | We now add the parameter values and the return value to the message. |
 | [Using to ILogger](log-4/README.md) | Instead of using `Console.WriteLine`, we inject an `ILogger` into the target type using dependency injection. |
 | [ILogger without dependency injection](log-5/README.md) | Instead of using dependency injection, we expect the source code to contain an `ILogger` field and report errors if it does not. |
-| [Adding logging to many methods](log-5/README.md) | So far, we have manually added a custom attribute to each method. In this example, we show how to target several methods programmatically using compile-time code queries.
-  
+| [Adding logging to many methods](log-6/README.md) | So far, we have manually added a custom attribute to each method. In this example, we show how to target several methods programmatically using compile-time code queries.
+| [Redacting sensitive data](log-7/README.md) | Passwords and other sensitive data are excluded from the log. |
+| [Avoiding infinite recursions](log-8/README.md) | Adds a recursion guard to avoid infinite recursions due to logging. |

@@ -7,11 +7,17 @@ level: 250
 
 [!metalama-project-buttons .]
 
-So far, our logging aspect writes messages that include _constant_ text and _compile-time_ expressions. Let's now add the values of parameters and the method return value, which are not known at compile time. We want our aspect to generate an _interpolated string_ that includes parameter values.
+So far, our logging aspect writes messages that include _constant_ text and _compile-time_ expressions. Let's now add the values of parameters and the method return value.
+
+Including parameter values in traces is important because it provides essential context to help developers understand the application's state during execution. Parameter values give insights into how data flows through the system, allowing developers to identify potential issues more efficiently. By having this contextual information, developers can more easily diagnose and debug problems, reducing the time spent recreating issues and tracing through code paths, ultimately resulting in a more stable and reliable application.
 
 Here is the code transformed by the new aspect:
 
 [!metalama-compare Calculator.cs ]
+
+> [!WARNING]
+> Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be cautious when adding parameter values to logs and avoid exposing sensitive data.
+> To remove sensitive information from the logs, see <xref:sample-log-7>
 
 ## Implementation
 

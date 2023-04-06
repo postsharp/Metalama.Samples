@@ -41,7 +41,7 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
         }
         catch ( Exception e )
         {
-            EnrichExceptionHelper.AppendContextFrame( e, methodSignatureBuilder.ToValue() );
+            e.AppendContextFrame( (string) methodSignatureBuilder.ToValue() );
 
             throw;
         }
