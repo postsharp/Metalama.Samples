@@ -5,6 +5,8 @@ public class CacheKeyMemberAttribute : FieldOrPropertyAspect
 {
     public override void BuildAspect( IAspectBuilder<IFieldOrProperty> builder )
     {
-        builder.Outbound.Select( f => f.DeclaringType ).RequireAspect<GenerateCacheKeyAttribute>();
+        // Require the declaring type to have GenerateCacheKeyAspect.
+
+        builder.Outbound.Select( f => f.DeclaringType ).RequireAspect<GenerateCacheKeyAspect>();
     }
 }

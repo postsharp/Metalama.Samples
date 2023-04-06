@@ -2,18 +2,23 @@
 using Metalama.Framework.Code;
 using System.Text;
 
-public class GenerateCacheKeyAttribute : TypeAspect
+/// <summary>
+/// Implements the <see cref="ICacheKey"/> interface based on <see cref="CacheKeyMemberAttribute"/> 
+/// aspects on fields and properties. This aspect is implicitly added by <see cref="CacheKeyMemberAttribute"/> aspects.
+/// It should never be added explicitly.
+/// </summary>
+[EditorExperience( SuggestAsAddAttribute = false )]
+internal class GenerateCacheKeyAspect : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey), whenExists: OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof( ICacheKey ), whenExists: OverrideStrategy.Ignore );
     }
 
-    [Introduce( WhenExists = OverrideStrategy.Override)]
+    [Introduce( WhenExists = OverrideStrategy.Override )]
     protected virtual void BuildCacheKey( StringBuilder stringBuilder )
     {
         // Call the base method, if any.
-
         if ( meta.Target.Method.IsOverride )
         {
             meta.Proceed();
@@ -30,9 +35,9 @@ public class GenerateCacheKeyAttribute : TypeAspect
 
         // This is how we define a compile-time variable of value 0.
 
-        var i = meta.CompileTime(0);
+        var i = meta.CompileTime( 0 );
         foreach ( var member in members )
-        {            
+        {
             if ( i > 0 )
             {
                 stringBuilder.Append( ", " );
@@ -40,8 +45,10 @@ public class GenerateCacheKeyAttribute : TypeAspect
 
             i++;
 
-            if ( member.Type.Is( typeof( ICacheKey ) ) || (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAttribute>()) )
+            // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
+            if ( member.Type.Is( typeof( ICacheKey ) ) || (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
+                // If the parameter is ICacheKey, use it.
                 if ( member.Type.IsNullable == false )
                 {
                     stringBuilder.Append( member.Value!.ToCacheKey() );
@@ -66,15 +73,14 @@ public class GenerateCacheKeyAttribute : TypeAspect
 
     }
 
+    // Implementation of ICacheKey.ToCacheKey.
     [InterfaceMember]
     public string ToCacheKey()
     {
         var stringBuilder = new StringBuilder();
         this.BuildCacheKey( stringBuilder );
-        
+
 
         return stringBuilder.ToString();
-
-
     }
 }

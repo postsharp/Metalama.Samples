@@ -4,14 +4,19 @@ using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Eligibility;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 public class CacheAttribute : OverrideMethodAspect
 {
+    // The ICache service is pulled from the dependency injection container. 
+    // If needed, the aspect will add the field to the target class and pull it from
+    // the constructor.
     [IntroduceDependency]
     private readonly ICache _cache;
 
     public override dynamic? OverrideMethod()
     {
-        // Builds the caching string.
+        #region Build the caching key
         var stringBuilder = new InterpolatedStringBuilder();
         stringBuilder.AddText( meta.Target.Type.ToString() );
         stringBuilder.AddText( "." );
@@ -33,11 +38,13 @@ public class CacheAttribute : OverrideMethodAspect
 
             stringBuilder.AddText( "{" );
 
-            if ( p.Type.Is( typeof( ICacheKey ) ) || (p.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAttribute>()) )
+            // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
+            if ( p.Type.Is( typeof( ICacheKey ) ) || (p.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
+                // If the parameter is ICacheKey, use it.
                 if ( p.Type.IsNullable == false )
                 {
-                    stringBuilder.AddExpression( p.Value!.ToCacheKey()  );
+                    stringBuilder.AddExpression( p.Value!.ToCacheKey() );
                 }
                 else
                 {
@@ -46,6 +53,7 @@ public class CacheAttribute : OverrideMethodAspect
             }
             else
             {
+                // Otherwise, fallback to ToString.
                 if ( p.Type.IsNullable == false )
                 {
                     stringBuilder.AddExpression( p.Value );
@@ -63,6 +71,7 @@ public class CacheAttribute : OverrideMethodAspect
         stringBuilder.AddText( ")" );
 
         var cacheKey = (string) stringBuilder.ToValue();
+        #endregion
 
         // Cache lookup.
         if ( this._cache.TryGetValue( cacheKey, out var value ) )
@@ -81,10 +90,12 @@ public class CacheAttribute : OverrideMethodAspect
             return result;
         }
     }
-    
+
     public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )
     {
-        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void");
-        builder.MustSatisfy( m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref), m => $"{m} cannot have out or ref parameter");
+        // Do not allow or offer the aspect to be used on void methods or methods with out/ref parameters.
+
+        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void" );
+        builder.MustSatisfy( m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ), m => $"{m} cannot have out or ref parameter" );
     }
 }
