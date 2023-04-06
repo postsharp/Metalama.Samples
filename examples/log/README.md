@@ -27,5 +27,3 @@ We start from the most trivial implementation and progressively add features:
 | [ILogger without dependency injection](log-5/README.md) | Instead of using dependency injection, we expect the source code to contain an `ILogger` field and report errors if it does not. |
 | [Adding logging to many methods](log-5/README.md) | So far, we have manually added a custom attribute to each method. In this example, we show how to target several methods programmatically using compile-time code queries.
   
-
-  

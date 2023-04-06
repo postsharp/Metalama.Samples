@@ -30,7 +30,7 @@ Succeeded
 
 The aspect is implemented by the `RetryAttribute` class.
 
-[!metalama-compare RetryAttribute.cs ]
+[!metalama-file RetryAttribute.cs ]
 
 The `RetryAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `RetryAttribute` a custom attribute. 
 

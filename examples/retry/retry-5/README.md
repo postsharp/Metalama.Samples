@@ -7,7 +7,7 @@ level: 300
 
 If you had the feeling that we were reinventing the wheel in the previous Retry examples, you were partially right. Indeed, libraries like [Polly](https://github.com/App-vNext/Polly) have far more advanced and configurable retry policies. However, even Polly requires some boilerplate because the whole method body must be wrapped in a delegate call. Adding proper logging with parameter values requires even more boilerplate, which we can completely avoid with a Metalama aspect.
 
-## Infrastructure
+## Infrastructure code
 
 Before jumping into the implementation, let's think a minute about the architecture and the infrastructure code.
 
