@@ -43,6 +43,13 @@ items:
         topicUid: sample-report-and-swallow
     - name: Caching
       topicUid: sample-cache
+      items:
+        - name: Getting started
+          topicUid: sample-cache-1
+        - name: Enforcing eligibility
+          topicUid: sample-cache-2
+        - name: Building the cache key
+          topicUid: sample-cache-3
     - name: Ignore Values
       topicUid: sample-ignore-value
     - name: NotifyPropertyChanged

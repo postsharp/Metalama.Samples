@@ -4,6 +4,8 @@ root = true
 # C# files
 [*.cs]
 
+resharper_check_namespace_highlighting = none
+
 #### Core EditorConfig Options ####
 
 # Indentation and spacing

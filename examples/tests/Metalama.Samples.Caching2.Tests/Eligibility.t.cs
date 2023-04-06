@@ -1,0 +1,2 @@
+// Error LAMA0037 on `Cache`: `The aspect 'Cache' cannot be applied to the method 'Calculator.SetValue(int)' because 'Calculator.SetValue(int)' cannot be void.`
+// Error LAMA0037 on `Cache`: `The aspect 'Cache' cannot be applied to the method 'Calculator.TryGetValue(out int?)' because 'Calculator.TryGetValue(out int?)' cannot have out or ref parameter.`

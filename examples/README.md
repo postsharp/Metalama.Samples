@@ -7,7 +7,7 @@ uid: samples
 | Example | Description |
 |--------|--------------|
 | [Logging](log/README.md) | Shows several logging aspects, adding complexity at every step. |
-| [Caching](cache/README.md) | Caches the method return value as a function of its parameters. |
+| [Caching](caching/README.md) | Caches the method return value as a function of its parameters. |
 | [Exception Handling](exception-handling/README.md) | Several exception-handling strategies: retry (including the use of Poly), add parameter values for richer report. |
 | [INotifyPropertyChanged](notifypropertychanged/README.md) | Automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface and instrument properties. |
 | [Dirty](dirty/README.md) | Adds an `IsDirty` property to the type and sets whenever a field or property is modified. |

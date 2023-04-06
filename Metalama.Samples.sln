@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache", "examples\cache\Metalama.Samples.Cache.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache", "examples\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone", "examples\clone\Metalama.Samples.Clone.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
 EndProject
@@ -72,6 +72,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log8", "examples\log\log-8\Metalama.Samples.Log8.csproj", "{E0F5A200-1A06-4277-A64D-E8DE12685403}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ReportAndSwallow", "examples\exception-handling\report-and-swallow\Metalama.Samples.ReportAndSwallow.csproj", "{453269BA-65F7-4D4F-BE0A-1D5455926608}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "caching", "caching", "{77C66C48-66C7-4D6C-8816-D27CA316ED56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Cache2", "examples\caching\caching-2\Metalama.Samples.Cache2.csproj", "{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Caching2.Tests", "examples\tests\Metalama.Samples.Caching2.Tests\Metalama.Samples.Caching2.Tests.csproj", "{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Cache3", "examples\caching\caching-3\Metalama.Samples.Cache3.csproj", "{1D0C6ABB-3703-4315-AD44-23807E73BA01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -254,11 +262,30 @@ Global
 		{453269BA-65F7-4D4F-BE0A-1D5455926608}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{453269BA-65F7-4D4F-BE0A-1D5455926608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{453269BA-65F7-4D4F-BE0A-1D5455926608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.LamaDebug|Any CPU.ActiveCfg = LamaDebug|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.LamaDebug|Any CPU.Build.0 = LamaDebug|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
 		{A9A5F335-9830-44B5-AF77-B052203D7557} = {76F98450-261F-470C-903F-17ED0BB00357}
 		{CD11C312-1F1B-43FE-AA68-5DB7C5A291A9} = {DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}
 		{FD3EE653-84FB-4104-8022-04EBCDC3CF51} = {DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}
@@ -282,6 +309,9 @@ Global
 		{422540C0-B083-4031-B796-271B0B69A2E5} = {DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}
 		{E0F5A200-1A06-4277-A64D-E8DE12685403} = {DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}
 		{453269BA-65F7-4D4F-BE0A-1D5455926608} = {76F98450-261F-470C-903F-17ED0BB00357}
+		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
+		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45} = {4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}
+		{1D0C6ABB-3703-4315-AD44-23807E73BA01} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}
