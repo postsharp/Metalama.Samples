@@ -50,6 +50,8 @@ items:
           topicUid: sample-cache-2
         - name: Building the cache key
           topicUid: sample-cache-3
+        - name: Supporting external types
+          topicUid: sample-cache-4
     - name: Ignore Values
       topicUid: sample-ignore-value
     - name: NotifyPropertyChanged

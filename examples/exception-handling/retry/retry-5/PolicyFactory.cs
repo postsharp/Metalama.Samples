@@ -1,6 +1,5 @@
 ﻿using Polly;
 using Polly.Retry;
-using System.Reflection;
 
 namespace Metalama.Samples.Retry5
 {

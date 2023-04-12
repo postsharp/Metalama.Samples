@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache", "examples\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache1", "examples\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone", "examples\clone\Metalama.Samples.Clone.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
 EndProject
@@ -75,11 +75,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ReportAndS
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "caching", "caching", "{77C66C48-66C7-4D6C-8816-D27CA316ED56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Cache2", "examples\caching\caching-2\Metalama.Samples.Cache2.csproj", "{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache2", "examples\caching\caching-2\Metalama.Samples.Cache2.csproj", "{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Caching2.Tests", "examples\tests\Metalama.Samples.Caching2.Tests\Metalama.Samples.Caching2.Tests.csproj", "{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Caching2.Tests", "examples\tests\Metalama.Samples.Caching2.Tests\Metalama.Samples.Caching2.Tests.csproj", "{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Cache3", "examples\caching\caching-3\Metalama.Samples.Cache3.csproj", "{1D0C6ABB-3703-4315-AD44-23807E73BA01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache3", "examples\caching\caching-3\Metalama.Samples.Cache3.csproj", "{1D0C6ABB-3703-4315-AD44-23807E73BA01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache4", "examples\caching\caching-4\Metalama.Samples.Cache4.csproj", "{3B95178C-0455-4115-B533-69C09CEA8C1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -280,6 +282,12 @@ Global
 		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D0C6ABB-3703-4315-AD44-23807E73BA01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B95178C-0455-4115-B533-69C09CEA8C1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -312,6 +320,7 @@ Global
 		{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
 		{B5EB9D3F-0925-44D1-984D-67F5CC38ED45} = {4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}
 		{1D0C6ABB-3703-4315-AD44-23807E73BA01} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
+		{3B95178C-0455-4115-B533-69C09CEA8C1D} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}

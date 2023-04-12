@@ -16,3 +16,4 @@ One of the major challenges of caching is to reliably generate the unique cache 
 | [Getting started](caching-1/README.md) | A first working version of the caching aspect. |
 | [Enforcing eligibility](caching-2/README.md) | Makes the aspect report an error when used on `void` method or a method with `out` or `ref` parameters. |
 | [Building the cache key](caching-3/README.md) | Adds an aspect `[CacheKeyMember]` that makes the field or property part of the cache key for that type. |
+| [Supporting external types](caching-4/README.md) | Makes it possible to build a caching key that include external types |

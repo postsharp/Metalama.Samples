@@ -1,8 +1,6 @@
 ﻿using Metalama.Extensions.DependencyInjection;
 using Metalama.Framework.Aspects;
-using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Framework.Eligibility;
 
 public class CacheAttribute : OverrideMethodAspect
 {

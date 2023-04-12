@@ -60,3 +60,13 @@ Then, the thing `BuildCacheKey` iterates through the members and emits a call to
 Finally, the `CacheAttribute` aspect needs to be updated to take the `ICacheKey` interface into account. The same four cases must be taken into account.
 
 [!metalama-file CacheAttribute.cs]
+
+## Ordering of aspects
+
+We now have three aspects in our solution. Because they are interdependent, their execution needs to be properly ordered using a global <xref:Metalama.Framework.Aspects.AspectOrderAttribute>:
+
+[!metalama-file MetalamaInfo.cs]
+
+> [!div class="see-also"]
+> <xref:child-aspects>
+> <xref:ordering-aspects>
