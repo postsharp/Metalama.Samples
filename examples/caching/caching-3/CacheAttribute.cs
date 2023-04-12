@@ -39,7 +39,8 @@ public class CacheAttribute : OverrideMethodAspect
             stringBuilder.AddText( "{" );
 
             // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
-            if ( p.Type.Is( typeof( ICacheKey ) ) || (p.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+            if ( p.Type.Is( typeof( ICacheKey ) ) || (p.Type is INamedType namedType &&
+                namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
                 // If the parameter is ICacheKey, use it.
                 if ( p.Type.IsNullable == false )
@@ -96,6 +97,9 @@ public class CacheAttribute : OverrideMethodAspect
         // Do not allow or offer the aspect to be used on void methods or methods with out/ref parameters.
 
         builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void" );
-        builder.MustSatisfy( m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ), m => $"{m} cannot have out or ref parameter" );
+
+        builder.MustSatisfy( 
+            m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ),
+            m => $"{m} cannot have out or ref parameter" );
     }
 }

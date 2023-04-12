@@ -12,9 +12,9 @@ In the previous example, we have created a simple but mighty caching aspect. It 
 
 ## Aspect code
 
+To report an error when your aspect is used on an invalid target declaration, you must implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. Additionally to reporting error messages, implementing this method also ensures that the aspect will not be suggested from the code refactoring menu of your IDE for these declarations.
 
-[!metalama-file CacheAttribute.cs]
-
-
+[!metalama-file CacheAttribute.cs from="Start" to="End"]
 
 > [!div class="see-also"]
+> <xref:eligibility>

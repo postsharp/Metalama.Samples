@@ -15,6 +15,19 @@ internal class GenerateCacheKeyAspect : TypeAspect
         builder.Advice.ImplementInterface( builder.Target, typeof( ICacheKey ), whenExists: OverrideStrategy.Ignore );
     }
 
+
+    // Implementation of ICacheKey.ToCacheKey.
+    [InterfaceMember]
+    public string ToCacheKey()
+    {
+        var stringBuilder = new StringBuilder();
+        this.BuildCacheKey( stringBuilder );
+
+
+        return stringBuilder.ToString();
+    }
+
+
     [Introduce( WhenExists = OverrideStrategy.Override )]
     protected virtual void BuildCacheKey( StringBuilder stringBuilder )
     {
@@ -46,7 +59,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
             i++;
 
             // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
-            if ( member.Type.Is( typeof( ICacheKey ) ) || (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+            if ( member.Type.Is( typeof( ICacheKey ) ) || 
+                (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
                 // If the parameter is ICacheKey, use it.
                 if ( member.Type.IsNullable == false )
@@ -73,14 +87,4 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
     }
 
-    // Implementation of ICacheKey.ToCacheKey.
-    [InterfaceMember]
-    public string ToCacheKey()
-    {
-        var stringBuilder = new StringBuilder();
-        this.BuildCacheKey( stringBuilder );
-
-
-        return stringBuilder.ToString();
-    }
 }
