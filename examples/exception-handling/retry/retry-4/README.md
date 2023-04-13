@@ -7,9 +7,9 @@ level: 300
 
 [!metalama-project-buttons .]
 
-Let's now add real-world logging to the retry aspect. We have covered logging extensively in <xref:sample-log>, so we will not go into great detail in this article.
+In this article, we will add real-world logging to the retry aspect. To learn more about logging, please refer to <xref:sample-log>.
 
-The code transformation is now the following:
+Below is the updated code transformation:
 
 [!metalama-compare RemoteCalculator.cs ]
 
@@ -36,21 +36,20 @@ Succeeded
 ```
 
 > [!WARNING]
-> Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be cautious when adding parameter values to logs and avoid exposing sensitive data.
-> To remove sensitive information from the logs, see <xref:sample-log-7>
+> Be careful when including sensitive information (e.g., user credentials, personal data, etc.) in logs as they can pose a security risk. Avoid exposing sensitive data and remove them from logs using techniques such as <xref:sample-log-7>.
 
 ## Implementation
 
-The first improvement is that the logging message now includes the method name and the parameter values. The logic is hidden in the `LoggingHelper.BuildInterpolatedString` method. To learn about how we built this method, read <xref:sample-log-2> and <xref:sample-log-3>.
+To improve logging, we included the method name and parameter values in the logging message using the `LoggingHelper.BuildInterpolatedString` method. For more information about the method, refer to <xref:sample-log-2> and <xref:sample-log-3>.
 
-Then, we replaced `Console.WriteLine` by `ILogger` and we are using dependency injection to pull the `ILogger` into the target class. For details, see <xref:sample-log-4>.
+To substitute `Console.WriteLine` with `ILogger` and inject the `ILogger` into the target class, we used dependency injection. Refer to <xref:sample-log-4> for details.
 
-The aspect code is now the following:
+Below is the aspect code update:
 
 [!metalama-file RetryAttribute.cs ]
 
 
-We will address these limitations in the next examples.
+We will address any limitations in the next examples.
 
 > [!div class="see-also"]
 > <xref:sample-log-2>
@@ -60,5 +59,3 @@ We will address these limitations in the next examples.
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
 > <xref:template-dynamic-code>
-    
-  

@@ -14,10 +14,8 @@ To achieve this, we will implement the <xref:Metalama.Framework.Eligibility.IEli
 [!metalama-file CacheAttribute.cs from="Start" to="End"]
 
 An error is now reported when the user tries to apply the aspect to an unsupported method:
+
 [!metalama-file ../../tests/Metalama.Samples.Caching2.Tests/Eligibility.cs]
 
 > [!div class="see-also"]
 > <xref:eligibility>
-
-
-

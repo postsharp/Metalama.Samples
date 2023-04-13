@@ -6,17 +6,18 @@ uid: sample-cache-4
 
 [!metalama-project-buttons .]
 
-In the previous article, we designed a pattern whereby custom types could be included in a cache key if they implemented the `ICacheKey` interface. We created an aspect that automatically implemented this interface for all fields or properties annotated with the `[CacheKeyMember]` custom attribute.
+In the preceding article, we introduced the concept of generating cache keys for custom types by implementing the `ICacheKey` interface. We created an aspect that implements this interface automatically for all the fields or properties of a custom class annotated with the `[CacheKeyMember]` attribute.
 
-However, there are still two issues with this design. First, how can we handle types for which we don't have the source code? Second, we would like our aspect to report an error when the user of the aspect tries to include an item whose type is not supported. That is, the default behavior with unsupported types should be to report an error instead of using the `ToString` method.
+However, two issues remain with this approach. Firstly, how do we handle types for which we don't have the source code? Secondly, what if the user of this aspect tries to include an item whose type is not supported? We would like our aspect to report an error in such scenarios, instead of using the `ToString` method.
 
 ## ICacheKeyBuilder
 
-To support external types, we use a new concept of cache key builder: an object that can build a cache key for another object. We define the `ICacheKeyBuilder` interface as follows:
+To address these challenges, we have introduced the concept of _cache key builders_ - objects capable of building a cache key for another object. We define the `ICacheKeyBuilder` interface as follows: 
 
 [!metalama-file ICacheKeyBuilder.cs]
 
-The generic parameter of the interface corresponds to the supported type of objects. The benefit of using a generic parameter is that we can generate the cache key without casting value-typed values into an `object`.
+
+The generic type parameter in the interface represents the relevant object type. A benefit of using a generic parameter is that we can generate the cache key without casting value-typed values into an `object`.
 
 For instance, here is an implementation for `byte[]`:
 
@@ -24,75 +25,75 @@ For instance, here is an implementation for `byte[]`:
 
 ## Compile-time API
 
-To be able to report errors at compile time when someone attempts to include an unsupported type in the cache key, we need a compile-time API to configure the caching aspects. We accomplish this through a concept named _project extension_, which is explained in <xref:exposing-configuration>. We define a new compile-time class named `CachingOptions` that stores the mapping between types and their builders. We also store a list of types for which we want to use `ToString`.
+To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a compile-time configuration API for the caching aspects. We accomplish this via a concept named a `project extension`, which is explained in more detail in <xref:exposing-configuration>. We define a new compile-time class, `CachingOptions`, to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
 
 [!metalama-file CachingOptions.cs]
 
-Furthermore, we define an extension method to ease access to caching options:
+We define an extension method that simplifies access to caching options:
 
 [!metalama-file CachingProjectExtensions.cs]
 
-It's easy to configure the caching API using a fabric:
+Configuring the caching API using a fabric is straightforward:
 
 [!metalama-file Fabric.cs]
 
-In case you haven't heard of it yet, fabrics are compile-time types whose `AmendProject` method is executed before any aspect. The `AmendProject` method is like a compile-time entry point. It's executed for the sole reason that it exists, just like the `Program.Main`, but at compile-time. For more information, see <xref:fabrics>.
+For those unfamiliar with the term, fabrics are compile-time types whose `AmendProject` method executes before any aspect. The `AmendProject` method acts as a compile-time entry point, triggered solely by its existence, much like `Program.Main`, but at compile time. Refer to <xref:fabrics> for additional information.
 
 ## ICacheKeyBuilderProvider
 
-At runtime, it's useful to abstract the process of getting `ICacheKeyBuilder` instances under a provider pattern. Hence we define the `ICacheKeyBuilderProvider` interface.
+At runtime, it is convenient to abstract the process of obtaining `ICacheKeyBuilder` instances with a provider pattern. We can achieve this by defining the `ICacheKeyBuilderProvider` interface.
 
 [!metalama-file ICacheKeyBuilderProvider.cs]
 
 Note that the `new()` constraint on the generic parameter allows for a trivial implementation of the class.
 
-The implementation of `ICacheKeyBuilderProvider` needs to be pulled from the dependency injection container.
-
-To avoid cache key objects from being instantiated from the dependency injection container, we update the `ICacheKey` interface to receive the provider from the caller:
+The implementation of `ICacheKeyBuilderProvider` should be pulled from the dependency injection container. To allow cache key objects to be instantiated independently from the dependency container, we update the `ICacheKey` interface to receive the provider from the caller:
 
 [!metalama-file ICacheKey.cs]
 
 ## Generating the cache key item expression
 
-The logic to generate the expression that gets the cache key of an object has now grown in complexity, with support for three cases, plus null handling.
+The logic to generate the expression that gets the cache key of an object has now grown in complexity.  It now includes support for three cases plus null-handling.
 
 * Implicit call to `ToString`.
 * Call to `ICacheKeyBuilderProvider.GetCacheKeyBuilder`.
 * Call to `ICacheKey.ToCacheKey`.
 
-Building the expression as a string is now easier than using a T# template. We have moved this logic to `CachingOptions`:
+It is now easier to build the expression with <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> rather than with a template. We have moved this logic to `CachingOptions`.
 
 [!metalama-file CachingOptions.Internals.cs from="TryGetCacheKeyExpression:Start" to="TryGetCacheKeyExpression:End"]
 
-This code uses the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class, which is essentially a wrapper over a `StringBuilder`. You can do whatever you want to an <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>, as long as it can be parsed back to a valid C# expression.
+The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>class essentially acts as a `StringBuilder` wrapper. We can add any text to an `ExpressionBuilder`, as long as it can be parsed back into a valid C# expression.
 
 ## Reporting errors for unsupported types
 
-We want to report an error whenever an unsupported type is being used for a parameter of a cached method or as a type for a field or property annotated with `[CacheKeyMember]`.
+We report an error whenever an unsupported type is used as a parameter of a cached method, or when it is used as a type for a field or property annotated with `[CacheKeyMember]`.
 
-To detect unsupported types, we add the following code to `CachingOptions`:
+To achieve this, we add the following code to `CachingOptions`:
 
-The first line defines an error kind. Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to be defined in a static field or property. Then, if the type of the `expression` is invalid, this error is reported for that property or parameter. To learn more about reporting errors, see <xref:diagnostics>.
 
 [!metalama-file CachingOptions.Internals.cs from="VerifyCacheKeyMember:Start" to="VerifyCacheKeyMember:End"]
 
-This method needs to be reported from the `BuildAspect` method of the `CacheAttribute` and `GenerateCacheKeyAspect` aspect classes. Errors can't be reported from template methods because templates typically aren't executed at design time, except when using the _preview_ feature.
+
+
+The first line defines an error kind. Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to be defined in a static field or property. Then, if the type of the `expression` is invalid, this error is reported for that property or parameter. To learn more about reporting errors, see <xref:diagnostics>.
+
+This method needs to be reported from the `BuildAspect` method of the `CacheAttribute` and `GenerateCacheKeyAspect` aspect classes. We cannot report errors from template methods because templates are typically not executed at design time unless we are using the _preview_ feature.
 
 However, a limitation prevents us from detecting unsupported types at design time. When Metalama runs inside the editor, at design time, it doesn't execute all aspects for all files at every keystroke, but only does so for the files that have been edited and their dependencies. Therefore, at design time, your aspect receives a _partial_ compilation. It can still see all the types in the project, but it doesn't see the aspects that have been applied to these types.
 
-So, when `CachingOptions.VerifyCacheKeyMember` evaluates `Enhancements().HasAspect<GenerateCacheKeyAspect>()` at design time, the expression doesn't return an accurate result. Therefore, we can only run this method when we have a _complete_ compilation, i.e., at compile time.
+So, when `CachingOptions.VerifyCacheKeyMember` evaluates `Enhancements().HasAspect<GenerateCacheKeyAspect>()` at design time, the expression does not yield an accurate result. Therefore, we can only run this method when we have a complete compilation, i.e., at compile time.
 
-To verify attributes, we need to add this code to the `CacheAttribute` aspect class:
+To verify attributes, we need to include this code in the `CacheAttribute` aspect class:
 
 [!metalama-file CacheAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
 
 
 ## Aspects in action
 
-Finally, we can apply these aspects to some business code:
+The aspects can be applied to some business code as follows:
 
 [!metalama-files BlobId.cs DatabaseFrontend.cs links="false"]
-
 > [!div class="see-also"]
 > <xref:exposing-configuration>
 > <xref:fabrics>

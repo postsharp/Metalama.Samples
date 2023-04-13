@@ -4,22 +4,20 @@ uid: sample-retry
 
 # Sample: retry
 
-Retrying failed methods is crucial for ensuring reliability and efficiency in systems like database transactions or online services. Temporary issues such as network congestion, hardware hiccups, or software glitches can cause initial failures. By implementing retries with exponential backoff, we can increase the chances of success, minimize data loss, and provide a seamless user experience despite transient obstacles. Ultimately, retry mechanisms contribute to resilient and dependable systems.
+Retrying failed methods is crucial for ensuring reliability and efficiency in systems such as database transactions or online services. As temporary faults such as network congestion, hardware issues, or software glitches can cause initial failures, it is important to implement retry mechanisms with exponential backoff to increase the probability of success, minimize data loss, and provide a seamless user experience in the face of transient obstacles. Retry mechanisms enable systems to be dependable and resilient.
 
-In this series of articles, we describe how to build an aspect that automatically retries the execution of a method when it fails.
+This series of articles describes how to construct an aspect that automatically retries a failed method. This aspect modifies a method in the following way:
 
-For instance, it may perform the following transformation to a method:
-
-[!metalama-compare retry-4/RemoteCalculator.cs ]
+[!metalama-compare retry-4/RemoteCalculator.cs]
 
 ## In this series
 
-We start from the most trivial implementation and progressively add features:
+We start with the most basic implementation and add features progressively.
 
 | Description | Article |
-|-----------|-----------|
+|-------------|---------|
 | <xref:sample-retry-1> | This is the most basic retry aspect. |
 | <xref:sample-retry-2> | In this example, we add support for `async` methods and call `await Task.Delay` instead of `Thread.Sleep`. |
-| <xref:sample-retry-3> | Here, we add support for `CancellationToken` parameters, and pass it to `Task.Delay` when we have some. |
+| <xref:sample-retry-3> | Here, we add support for `CancellationToken` parameters, which we pass to `Task.Delay`. |
 | <xref:sample-retry-4> | We now add proper logging using `ILogger` and dependency injection. |
-| <xref:sample-retry-5> | Finally, show how to use Polly instead of our custom and naive implemention of the retry logic. |
+| <xref:sample-retry-5> | Finally, we show how to use Polly instead of our custom and naïve implementation of the retry logic. |

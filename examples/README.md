@@ -4,16 +4,18 @@ uid: samples
 
 # Examples
 
-| Example | Description |
-|--------|--------------|
-| [Logging](log/README.md) | Shows several logging aspects, adding complexity at every step. |
-| [Caching](caching/README.md) | Caches the method return value as a function of its parameters. |
-| [Exception Handling](exception-handling/README.md) | Several exception-handling strategies: retry (including the use of Poly), add parameter values for richer report. |
-| [INotifyPropertyChanged](notifypropertychanged/README.md) | Automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface and instrument properties. |
-| [Dirty](dirty/README.md) | Adds an `IsDirty` property to the type and sets whenever a field or property is modified. |
-| [Clone](clone/README.md) | Implements the _deep clone_ pattern.
-| [ToString](tostring/README.md) | Implements the <xref:System.Object.ToString*> method.
-| [Enum View-Model](enum-viewmodel/README.md) | Creates a view-model class to wrap an enum value.
-| [Optional Value Type](optional-value/README.md) | Transforms automatic properties of a type to make them store and represent a flag indicating whether they have been set, or if they are still at their default value.
+The following table shows some examples that demonstrate how to use Metalama.
 
-If you developed an original aspect, consider [contributing](contributing.md) to this list.
+| Example                               | Description                                                                                                     |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| [Logging](log/README.md)              | Shows several logging aspects, adding complexity at every step.                                                |
+| [Caching](caching/README.md)          | Caches the method return value as a function of its parameters.                                                 |
+| [Exception Handling](exception-handling/README.md) | Demonstrates several exception-handling strategies including retry, [Poly](https://github.com/App-vNext/Polly), and adding parameter values for richer reports. |
+| [INotifyPropertyChanged](notifypropertychanged/README.md) | Automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface and instruments properties. |
+| [Dirty](dirty/README.md)              | Adds an `IsDirty` property to the type and sets it whenever a field or property is modified.                      |
+| [Clone](clone/README.md)              | Implements the _deep clone_ pattern.                                                                             |
+| [ToString](tostring/README.md)        | Implements the <xref:System.Object.ToString*> method.                                                           |
+| [Enum View-Model](enum-viewmodel/README.md) | Creates a view-model class to wrap an enum value.                                                                |
+| [Optional Value Type](optional-value/README.md) | Transforms automatic properties of a type to make them store and represent a flag indicating whether they have been set or they are still at their default value. |
+
+If you have developed an original aspect with Metalama, consider [contributing](contributing.md) to this list.

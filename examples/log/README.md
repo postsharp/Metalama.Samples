@@ -10,13 +10,13 @@ Logging is a key aspect of application development, enabling developers to under
 
 This series of examples shows how to build an aspect that automatically writes a log record when a method execution starts, completes, or fails.
 
-The objective is to transform the code as in the following example. If the generated code does not entirely fit your taste, don't worry, you will see how to bend it to your preferences.
+The objective is to transform the code as illustrated in the following example. If the generated code does not fit entirely to your preferences, do not worry, learn how to personalize it.
 
-[!metalama-compare log-4/Calculator.cs ]
+[!metalama-compare log-4/Calculator.cs]
 
 ## In this series
 
-We start from the most trivial implementation and progressively add features:
+We start with the most trivial implementation and progressively add new features:
 
 | Article | Description |
 |--------|-------------|

@@ -6,7 +6,7 @@ uid: sample-cache-3
 
 [!metalama-project-buttons .]
 
-In the previous implementation of the aspect, the cache key came from an interpolated string that implicitly called the `ToString` method for all parameters of the cached method. This approach is simplistic because it assumes that all parameters have a suitable implementation of the `ToString` method, i.e., one that returns a distinct string for each equivalent object.
+In the previous implementation of the aspect, the cache key came from an interpolated string that implicitly called the `ToString` method for all parameters of the cached method. This approach is simplistic because it assumes that all parameters have a suitable implementation of the `ToString` method. It means that it returns a distinct string for each equivalent object.
 
 To alleviate this limitation, our objective is to make it sufficient for users of our framework to mark with a `[CacheKeyMember]` custom attribute all fields or properties that should be part of the cache key. This is not a trivial goal so let's first think about the design.
 
@@ -26,7 +26,7 @@ Each implementation of `BuildCacheKey` would first call the base implementation 
 
 ## Example code
 
-To see the pattern in action, let's consider four classes `EntityKey`, `Entity`, `Invoice` and `InvoiceVersion` that can be part of a cache key, and a cacheable API `DatabaseFrontend`.
+To see the pattern in action, let's consider four classes `EntityKey`, `Entity`, `Invoice`, and `InvoiceVersion` that can be part of a cache key, and a cacheable API `DatabaseFrontend`.
 
 [!metalama-files EntityKey.cs Entity.cs Invoice.cs InvoiceVersion.cs DatabaseFrontend.cs links="false"]
 
@@ -40,7 +40,6 @@ The only action of the `CacheKeyMemberAttribute` aspect is then to provide the `
 
 [!metalama-file CacheKeyMemberAttribute.cs]
 
-
 The `BuildAspect` method of `CacheKeyMemberAttribute` calls the <xref:Metalama.Framework.Aspects.IAspectReceiver`1.RequireAspect*> method for the declaring type. This method adds an instance of the `GenerateCacheKeyAspect` if none has been added yet, so that if a class has several properties marked with `[CacheKeyMember]`, a single instance of the `GenerateCacheKeyAspect` aspect will be added.
 
 Let's now look at the implementation of `GenerateCacheKeyAspect`:
@@ -49,9 +48,9 @@ Let's now look at the implementation of `GenerateCacheKeyAspect`:
 
 The `BuildAspect` method of `GenerateCacheKeyAspect` calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the `ICacheKey` interface to the target type. The `whenExists` parameter is set to `Ignore`, which means that this call will just be ignored if the target type or a base type already implements the interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be implemented by the aspect class and to be annotated with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only member is `ToCacheKey`, which instantiates a `StringBuilder` and calls the `BuildCacheKey` method.
 
-The `BuildCacheKey` aspect method is marked with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute, which means that Metalama will add the method to the target type. The <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property specifies what should happen when the type, or a base type, already defines the member: we choose to override the existing implementation.
+The `BuildCacheKey` aspect method is marked with the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> custom attribute, which means that Metalama will add the method to the target type. The <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property specifies what should happen when the type or a base type already defines the member: we choose to override the existing implementation.
 
-The first thing `BuildCacheKey` does is to execute the existing implementation, if any, thanks to a call to `meta.Proceed()`.
+The first thing `BuildCacheKey` does is to execute the existing implementation if any, thanks to a call to `meta.Proceed()`.
 
 Secondly, the method finds all members that have the `CacheKeyMemberAttribute` aspect. Note that we are using `property.Enhancements().HasAspect<CacheKeyMemberAttribute>()` and not `f.Attributes.OfAttributeType(typeof(CacheKeyMemberAttribute)).Any()`. The first expression looks for aspects, while the second one looks for custom attributes. What is the difference, if `CacheKeyMemberAttribute` is an aspect, anyway? If the `CacheKeyMemberAttribute` aspect is programmatically added, using fabrics, for instance, then `Enhancements().HasAspect` will see these new instances, while the `Attributes` collections will not.
 

@@ -7,44 +7,44 @@ level: 250
 
 [!metalama-project-buttons .]
 
-So far, our logging aspect writes messages that include _constant_ text and _compile-time_ expressions. Let's now add the values of parameters and the method return value.
+Up until now, our logging aspect writes messages that include _constant_ text and _compile-time_ expressions. Let's now introduce the values of parameters and the method return value.
 
-Including parameter values in traces is important because it provides essential context to help developers understand the application's state during execution. Parameter values give insights into how data flows through the system, allowing developers to identify potential issues more efficiently. By having this contextual information, developers can more easily diagnose and debug problems, reducing the time spent recreating issues and tracing through code paths, ultimately resulting in a more stable and reliable application.
+It's important to include parameter values in traces because they offer valuable context to help developers comprehend the application's state during execution. With this contextual information, you can diagnose and debug problems more easily, decreasing the time spent recreating issues and tracing through code paths, resulting in a more stable and reliable application.
 
-Here is the code transformed by the new aspect:
+
+The code with the transformation from the new aspect can be seen below:
 
 [!metalama-compare Calculator.cs ]
 
 > [!WARNING]
-> Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be cautious when adding parameter values to logs and avoid exposing sensitive data.
+> Adding sensitive information such as user credentials, personal data, etc., to logs can pose a security risk. Exercise caution when adding parameter values to logs and avoid exposing sensitive data.
 > To remove sensitive information from the logs, see <xref:sample-log-7>
 
 ## Implementation
 
-The aspect at work is the following:
+The aspect is as follows:
 
 [!metalama-file LogAttribute.cs]
 
-As you can see, the aspect's code is much more difficult.
+As you can see, the aspect's code is much more complex.
 
-To create an interpolated string from an aspect, the most straightforward approach is to use the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class, and to add literal parts, known at compile time and constant at run time, and run-time expressions, unknown at compile time.
+The most straightforward approach to establish an interpolated string from an aspect is to use the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class and to add literal parts, known at compile time and constant at run time, and run-time expressions, unknown at compile time.
 
-The `BuildInterpolatedString` method of the aspect class is responsible for creating the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>. Note that `BuildInterpolatedString` is _not_ a template method. It is a method that is wholly executed at compile time. It has an `includeOutParameters` parameter that determines whether the values of the `out` parameters are available at the point where the interpolated string is used.
+The `BuildInterpolatedString` method of the aspect class is responsible for constructing the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>. Please note that `BuildInterpolatedString` is _not_ a template method. It is a method that executes entirely at compile time. It has an `includeOutParameters` parameter that determines if the values of the `out` parameters are available when the interpolated string is in use.
 
-* First, `BuildInterpolatedString` appends the name of the current type and method using the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddText*> method. Then, it iterates through the collection of parameters of the current method. This collection is available on the `meta.Target.Parameters` expression. 
+* Firstly, `BuildInterpolatedString` appends the name of the current type and method using the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddText*> method. Then, it iterates through the collection of parameters of the current method. This collection is available on the expression `meta.Target.Parameters`.
 
-* In the `foreach` loop, the `BuildInterpolatedString` method checks if the parameter is `out`. If the `includeOutParameters` parameter is `false`, the method appends a constant text. But if the parameter can be read, the method appends an expression using the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddExpression*> method.
+* In the `foreach` loop, `BuildInterpolatedString` method checks if the parameter is `out`. If `includeOutParameters` parameter is `false`, the method appends a constant text. However, if the parameter can be read, the method adds an expression using the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddExpression*> method.
 
-Let's now look at the `OverrideMethod` method. As in previous examples, this method is a template containing both run-time and compile-time code.
+Below is the `OverrideMethod` method. As with previous examples, this method is a template containing both run-time and compile-time code.
 
-* First, `OverrideMethod` calls `BuildInterpolatedString` to get the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>. Note that the interpolated string built by `BuildInterpolatedString` only includes the name and parameters of the method. We still want to append more information to these strings, such as the text `started`, `succeeded`, `returned` or `failed`. 
+* Firstly, `OverrideMethod` calls `BuildInterpolatedString` to get the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>. Note that the interpolated string created by `BuildInterpolatedString` only includes the name and parameters of the method. We still want to append more information to the strings, such as the text `started`, `succeeded`, `returned` or `failed`.
 
 * <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> is a compile-time object. To generate the interpolated string from it, we call the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method. To be precise, the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method does not generate an interpolated string but returns a run-time object of `dynamic` type representing the interpolated string.
 
-* Note that `BuildInterpolatedString` writes a different message when the method is `void` than when it returns a value. We implement this choice with the `if` in the method. Because the `if` condition, `meta.Target.Method.ReturnType.Is( typeof(void) )`, is a compile-time expression, Metalama interprets the whole `if` at compile time. Notice that the compile-time has a particular background color.
+* Please note that `BuildInterpolatedString` writes a different message when the method is `void` than when it returns a value. We implement this choice with the `if` in the method. As the `if` condition `meta.Target.Method.ReturnType.Is(typeof(void))` is a compile-time expression, Metalama interprets the entire `if` at compile time. Notice the specific background color of the compile-time.
 
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
 > <xref:template-dynamic-code>
-  
