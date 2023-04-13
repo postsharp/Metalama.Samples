@@ -6,17 +6,18 @@ uid: sample-cache-2
 
 [!metalama-project-buttons .]
 
-In this example, we will build upon the previous example where we created a caching aspect. This aspect has proven to be simple yet powerful. However, it has certain limitations. One significant shortcoming which requires addressing is that the aspect does not support `void` methods or methods with `out` or `ref` parameters. Attempting to apply the aspect to such methods results in invalid code, often causing confusion to the user. This time, we will address these shortfalls by asking the aspect to notify users of the invalid target declaration by reporting an error.
+In this example, we will enhance the caching aspect created in the previous example. Although powerful, it has certain limitations. A significant shortcoming we aim to address now is that the aspect generates invalid code when applied to `void` methods or methods with `out` or `ref` parameter, causing user confusion. To prevent this, we will update the aspect to report an error to the user when an invalid method is targeted.
 
-[!metalama-file ../../tests/Metalama.Samples.Caching2.Tests/Eligibility.cs]
+To achieve this, we will implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. This method not only checks for errors but also ensures that such declarations will no longer recommend the aspect in the code refactoring menu of your IDE.
 
-## Aspect Code
-
-To report an error when the aspect is applied to an invalid target declaration, we implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. Implementing this method does more than check for errors.  It ensures that these declarations will no longer recommend the aspect from the code refactoring menu of your Integrated Development Environment (IDE).
 
 [!metalama-file CacheAttribute.cs from="Start" to="End"]
 
+An error is now reported when the user tries to apply the aspect to an unsupported method:
+[!metalama-file ../../tests/Metalama.Samples.Caching2.Tests/Eligibility.cs]
+
 > [!div class="see-also"]
 > <xref:eligibility>
+
 
 
