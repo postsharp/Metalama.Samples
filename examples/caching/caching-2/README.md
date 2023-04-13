@@ -6,15 +6,17 @@ uid: sample-cache-2
 
 [!metalama-project-buttons .]
 
-In the previous example, we have created a simple but mighty caching aspect. It has however a few limitations: it does not support `void` methods or methods with `out` or `ref` parameters. If the aspect is applied to such methods, the aspect will generate invalid code, and the user will be left confused. In this example, we will ask the aspect to report an error when applied to such methods.
+In this example, we will build upon the previous example where we created a caching aspect. This aspect has proven to be simple yet powerful. However, it has certain limitations. One significant shortcoming which requires addressing is that the aspect does not support `void` methods or methods with `out` or `ref` parameters. Attempting to apply the aspect to such methods results in invalid code, often causing confusion to the user. This time, we will address these shortfalls by asking the aspect to notify users of the invalid target declaration by reporting an error.
 
 [!metalama-file ../../tests/Metalama.Samples.Caching2.Tests/Eligibility.cs]
 
-## Aspect code
+## Aspect Code
 
-To report an error when your aspect is used on an invalid target declaration, you must implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. Additionally to reporting error messages, implementing this method also ensures that the aspect will not be suggested from the code refactoring menu of your IDE for these declarations.
+To report an error when the aspect is applied to an invalid target declaration, we implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. Implementing this method does more than check for errors.  It ensures that these declarations will no longer recommend the aspect from the code refactoring menu of your Integrated Development Environment (IDE).
 
 [!metalama-file CacheAttribute.cs from="Start" to="End"]
 
 > [!div class="see-also"]
 > <xref:eligibility>
+
+

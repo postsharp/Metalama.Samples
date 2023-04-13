@@ -6,19 +6,17 @@ uid: sample-cache-1
 
 [!metalama-project-buttons .]
 
-At first sight, caching is simple. Our aspect first generates the cache key. It then performs a cache lookup. If the method result is present in the cache, this cached result is returned. Otherwise, the method is executed and the return value is stored in the cache.
-
-This is illustrated in the following example, which compares the source code to the transformed code.
+On the surface, caching seems simple. The aspect first generates the cache key, performs a cache lookup, and returns the cached result if it exists. Otherwise, the method runs, and the return value gets stored in the cache. See below example which compares the source code, without caching logic, to the transformed code, with caching logic.
 
 [!metalama-compare Calculator.cs]
 
 ## Infrastructure code
 
-The aspect relies on the `ICache` interface, which just has the two methods used by the aspect.
+The aspect relies on the `ICache` interface, which has only two methods used by the aspect.
 
 [!metalama-file ICache.cs]
 
-A typical implementation of this interface would use <xref:System.Runtime.Caching.MemoryCache>.
+A typical implementation of this interface would utilize <xref:System.Runtime.Caching.MemoryCache>.
 
 ## Aspect code
 
@@ -26,15 +24,15 @@ The aspect itself is rather simple:
 
 [!metalama-file CacheAttribute.cs]
 
-As usual, our aspect class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `CacheAttribute` a custom attribute. The <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method acts like a _template_. Most of the code in this template is injected into the target method, i.e., the method to which we add the `[ReportAndSwallowExceptionsAttribute]` custom attribute. Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a very special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, with a few syntactic changes to capture the return value.
+As usual, our aspect class inherits the abstract class <xref:Metalama.Framework.Aspects.OverrideMethodAspect> which, in turn, derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `CacheAttribute` a custom attribute. The <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method acts like a _template_, with most of its code being injected into the target method. i.e., the method to which we add the `[ReportAndSwallowExceptionsAttribute]` custom attribute. Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a unique meaning. When the aspect is applied to the target, the call to `meta.Proceed()` stands in for the original implementation, with a few syntactic alterations that capture the return value.
 
-The complexity of building the caching key is hidden in the `CacheKeyBuilder` class. It is a compile-time class.
+The `CacheKeyBuilder` class hides the complexity of creating the caching key. It is a compile-time class.
 
 [!metalama-file CacheKeyBuilder.cs]
 
-The <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class, as its name indicates, is a compile-time class that helps building interpolated strings. The `meta.Target` property exposes the context into which the template is applied. So, `meta.Target.Type` is the current type, `meta.Target.Method` is the current method, and so on. The `GetCachingKey` method builds an interpolated string for the current context. Parameters are represented at compile time by the <xref:Metalama.Framework.Code.IParameter> interface. The <xref:Metalama.Framework.Code.IExpression.Value?text=parameter.Value> expression, when it is evaluated at compile time, returns an object of `dynamic` type representing a _run-time_ expression, in this case, the name of the parameter.
+As its name suggests, the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class helps build interpolated strings. The `meta.Target` property exposes the context into which the template applied;  `meta.Target.Type` is the current type, `meta.Target.Method` is the current method, and so on. The `GetCachingKey` method creates an interpolated string for the current context. Parameters are represented at compile time by the <xref:Metalama.Framework.Code.IParameter> interface. The <xref:Metalama.Framework.Code.IExpression.Value?text=parameter.Value> expression returns a `dynamic` object representing a _run-time_ expression, in this case, the name of the parameter.
 
-When the aspect receives the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> instance from the `CacheKeyBuilder` class, it converts it to a run-time interpolated string by calling the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method. This method returns an object of `dynamic` representing the interpolated string, which can be cast to a `string` and used as the caching key.
+Upon receiving the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> instance from the `CacheKeyBuilder` class, the aspect converts it to a run-time interpolated string by calling the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method. This method returns a `dynamic` object representing the interpolated string, which can be cast to a `string` and used as the caching key.
 
 
 > [!div class="see-also"]
