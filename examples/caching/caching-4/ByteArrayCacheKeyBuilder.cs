@@ -6,7 +6,7 @@
         {
             return null;
         }
+
         return string.Join( ' ', value );
     }
-
 }

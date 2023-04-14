@@ -10,10 +10,8 @@ using System.Text;
 [EditorExperience( SuggestAsAddAttribute = false )]
 internal class GenerateCacheKeyAspect : TypeAspect
 {
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
-    {
-        builder.Advice.ImplementInterface( builder.Target, typeof( ICacheKey ), whenExists: OverrideStrategy.Ignore );
-    }
+    public override void BuildAspect( IAspectBuilder<INamedType> builder ) =>
+        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey), OverrideStrategy.Ignore );
 
 
     // Implementation of ICacheKey.ToCacheKey.
@@ -59,8 +57,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
             i++;
 
             // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
-            if ( member.Type.Is( typeof( ICacheKey ) ) || 
-                (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+            if ( member.Type.Is( typeof(ICacheKey) ) ||
+                 (member.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
                 // If the parameter is ICacheKey, use it.
                 if ( member.Type.IsNullable == false )
@@ -84,7 +82,5 @@ internal class GenerateCacheKeyAspect : TypeAspect
                 }
             }
         }
-
     }
-
 }

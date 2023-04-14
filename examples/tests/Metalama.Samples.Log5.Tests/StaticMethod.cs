@@ -1,9 +1,7 @@
-﻿namespace Metalama.Samples.Log4.Tests.StaticMethod
+﻿namespace Metalama.Samples.Log4.Tests.StaticMethod;
+
+internal class Foo
 {
-    internal class Foo
-    {
- 
-        [Log]
-        public static void StaticBar() { }
-    }
+    [Log]
+    public static void StaticBar() { }
 }

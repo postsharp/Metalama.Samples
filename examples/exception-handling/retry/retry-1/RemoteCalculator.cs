@@ -24,7 +24,7 @@
     }
 
     [Retry( Attempts = 5 )]
-    public async static Task<int> AddAsync( int a, int b )
+    public static async Task<int> AddAsync( int a, int b )
     {
         // Let's pretend this method executes remotely
         // and can fail for network reasons.

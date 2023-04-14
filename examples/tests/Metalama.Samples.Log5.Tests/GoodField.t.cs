@@ -1,36 +1,34 @@
 using Microsoft.Extensions.Logging;
-namespace Metalama.Samples.Log4.Tests.GoodField
+namespace Metalama.Samples.Log4.Tests.GoodField;
+internal class Foo
 {
-  internal class Foo
+  private readonly ILogger _logger;
+  public Foo(ILogger logger)
   {
-    private readonly ILogger _logger;
-    public Foo(ILogger logger)
+    this._logger = logger;
+  }
+  [Log]
+  public void Method()
+  {
+    var logger = this._logger;
+    var isTracingEnabled = logger.IsEnabled(LogLevel.Trace);
+    if (isTracingEnabled)
     {
-      this._logger = logger;
+      LoggerExtensions.LogTrace(logger, $"Foo.Method() started.");
     }
-    [Log]
-    public void Method()
+    try
     {
-      var logger = this._logger;
-      var isTracingEnabled = logger.IsEnabled(LogLevel.Trace);
+      object result = null;
       if (isTracingEnabled)
       {
-        LoggerExtensions.LogTrace(logger, $"Foo.Method() started.");
+        LoggerExtensions.LogTrace(logger, $"Foo.Method() succeeded.");
       }
-      try
-      {
-        object result = null;
-        if (isTracingEnabled)
-        {
-          LoggerExtensions.LogTrace(logger, $"Foo.Method() succeeded.");
-        }
-        return;
-      }
-      catch (Exception e)when (logger.IsEnabled(LogLevel.Warning))
-      {
-        LoggerExtensions.LogWarning(logger, $"Foo.Method() failed: {e.Message}");
-        throw;
-      }
+      return;
+    }
+    catch (Exception e)when (logger.IsEnabled(LogLevel.Warning))
+    {
+      LoggerExtensions.LogWarning(logger, $"Foo.Method() failed: {e.Message}");
+      throw;
     }
   }
 }

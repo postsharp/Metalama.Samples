@@ -11,7 +11,7 @@ internal partial class MovingVertex
 
     public double DY { get; set; }
 
-    public double Velocity 
+    public double Velocity
         => Math.Sqrt( (this.DX * this.DX) + (this.DY * this.DY) );
 
     public void ApplyTime( double time )

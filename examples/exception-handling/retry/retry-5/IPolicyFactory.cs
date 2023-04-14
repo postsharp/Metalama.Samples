@@ -1,10 +1,9 @@
 ﻿using Polly;
 
-namespace Metalama.Samples.Retry5
+namespace Metalama.Samples.Retry5;
+
+public interface IPolicyFactory
 {
-    public interface IPolicyFactory
-    {
-        Policy GetPolicy( PolicyKind policyKind );
-        AsyncPolicy GetAsyncPolicy( PolicyKind policyKind );
-    }
+    Policy GetPolicy( PolicyKind policyKind );
+    AsyncPolicy GetAsyncPolicy( PolicyKind policyKind );
 }

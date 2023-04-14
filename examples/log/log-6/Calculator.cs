@@ -1,7 +1,4 @@
 public class Calculator
 {
-    public double Add( double a, double b )
-    {
-        return a + b;
-    }
+    public double Add( double a, double b ) => a + b;
 }

@@ -6,22 +6,23 @@ using System.Diagnostics.CodeAnalysis;
 
 public partial class CachingOptions : ProjectExtension
 {
-    private static DiagnosticDefinition<IType> _error = new( "CACHE01", Severity.Error,                     /*[VerifyCacheKeyMember:Start]*/
-        "The type '{0}' cannot be a part of a cache key. Implement ICacheKey, use [CacheKeyMember] or register a cache key builder." );
+    private static DiagnosticDefinition<IType> _error = new("CACHE01", Severity.Error, /*[VerifyCacheKeyMember:Start]*/
+        "The type '{0}' cannot be a part of a cache key. Implement ICacheKey, use [CacheKeyMember] or register a cache key builder.");
 
-    internal bool VerifyCacheKeyMember<T>( T expression, IDiagnosticSink diagnosticSink )                     
+    internal bool VerifyCacheKeyMember<T>( T expression, IDiagnosticSink diagnosticSink )
         where T : IExpression, IDeclaration
     {
-        if ( this._toStringTypes.Contains( expression.Type )  )
+        if ( this._toStringTypes.Contains( expression.Type ) )
         {
             return true;
         }
-        else if (  this._externalCacheBuilderTypes.ContainsKey( expression.Type ) )
+        else if ( this._externalCacheBuilderTypes.ContainsKey( expression.Type ) )
         {
             return true;
         }
-        else if ( expression.Type.Is( typeof( ICacheKey ) ) ||
-                (expression.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+        else if ( expression.Type.Is( typeof(ICacheKey) ) ||
+                  (expression.Type is INamedType namedType &&
+                   namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
         {
             return true;
         }
@@ -29,14 +30,15 @@ public partial class CachingOptions : ProjectExtension
         {
             diagnosticSink.Report( _error.WithArguments( expression.Type ), expression );
             return false;
-        }                                                                                                       /*[VerifyCacheKeyMember:End]*/
+        } /*[VerifyCacheKeyMember:End]*/
     }
 
-    internal bool TryGetCacheKeyExpression( IExpression expression, IExpression cacheKeyBuilderProvider,        /*[TryGetCacheKeyExpression:Start]*/
-        [NotNullWhen(true)] out IExpression? cacheKeyExpression )
+    internal bool TryGetCacheKeyExpression( IExpression expression,
+        IExpression cacheKeyBuilderProvider, /*[TryGetCacheKeyExpression:Start]*/
+        [NotNullWhen( true )] out IExpression? cacheKeyExpression )
     {
         var expressionBuilder = new ExpressionBuilder();
-        
+
         if ( this._toStringTypes.Contains( expression.Type ) )
         {
             expressionBuilder.AppendExpression( expression );
@@ -62,8 +64,9 @@ public partial class CachingOptions : ProjectExtension
                 expressionBuilder.AppendVerbatim( "?? \"null\"" );
             }
         }
-        else if ( expression.Type.Is( typeof( ICacheKey ) ) ||
-                (expression.Type is INamedType namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+        else if ( expression.Type.Is( typeof(ICacheKey) ) ||
+                  (expression.Type is INamedType namedType &&
+                   namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
         {
             expressionBuilder.AppendExpression( expression );
             expressionBuilder.AppendVerbatim( ".ToCacheKey(" );
@@ -81,9 +84,8 @@ public partial class CachingOptions : ProjectExtension
             return false;
         }
 
-    
 
         cacheKeyExpression = expressionBuilder.ToExpression();
-            return true;
-    }                                                               /*[TryGetCacheKeyExpression:End]*/
+        return true;
+    } /*[TryGetCacheKeyExpression:End]*/
 }

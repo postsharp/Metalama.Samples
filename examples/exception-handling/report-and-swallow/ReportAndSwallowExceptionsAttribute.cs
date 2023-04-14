@@ -3,7 +3,7 @@ using Metalama.Framework.Aspects;
 
 public class ReportAndSwallowExceptionsAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency( IsRequired = false)]
+    [IntroduceDependency( IsRequired = false )]
     private readonly ILastChanceExceptionHandler? _exceptionHandler;
 
     public override dynamic? OverrideMethod()

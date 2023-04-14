@@ -14,7 +14,7 @@ internal class GenerateCacheKeyAspect : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ICacheKey interface.        
-        builder.Advice.ImplementInterface( builder.Target, typeof( ICacheKey ), whenExists: OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey), OverrideStrategy.Ignore );
 
         // Verify that all cache key members have a valid type.
         if ( !builder.Target.Compilation.IsPartial )
@@ -30,7 +30,7 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
     // Implementation of ICacheKey.ToCacheKey.
     [InterfaceMember]
-    public string ToCacheKey( ICacheKeyBuilderProvider  provider )
+    public string ToCacheKey( ICacheKeyBuilderProvider provider )
     {
         var stringBuilder = new StringBuilder();
         this.BuildCacheKey( stringBuilder, provider );
@@ -39,14 +39,14 @@ internal class GenerateCacheKeyAspect : TypeAspect
         return stringBuilder.ToString();
     }
 
-    private IEnumerable<IFieldOrProperty> GetMembers( INamedType type)
+    private IEnumerable<IFieldOrProperty> GetMembers( INamedType type )
         => type.FieldsAndProperties
-                .Where( f => f.Enhancements().HasAspect<CacheKeyMemberAttribute>() )
-                .OrderBy( f => f.Name );
+            .Where( f => f.Enhancements().HasAspect<CacheKeyMemberAttribute>() )
+            .OrderBy( f => f.Name );
 
 
     [Introduce( WhenExists = OverrideStrategy.Override )]
-    protected virtual void BuildCacheKey( StringBuilder stringBuilder, ICacheKeyBuilderProvider  provider)
+    protected virtual void BuildCacheKey( StringBuilder stringBuilder, ICacheKeyBuilderProvider provider )
     {
         // Call the base method, if any.
         if ( meta.Target.Method.IsOverride )
@@ -57,7 +57,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
         if ( meta.Target.Compilation.IsPartial )
         {
-            meta.InsertComment( "Design-time preview code may be different that compile-time code because of unresolved cache key builders." );
+            meta.InsertComment(
+                "Design-time preview code may be different that compile-time code because of unresolved cache key builders." );
         }
 
         var cachingOptions = meta.Target.Project.CachingOptions();
@@ -73,8 +74,9 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
             i++;
 
-            
-            if ( cachingOptions.TryGetCacheKeyExpression( member, ExpressionFactory.Parse( nameof( provider ) ), out var cacheKeyExpression ) )
+
+            if ( cachingOptions.TryGetCacheKeyExpression( member, ExpressionFactory.Parse( nameof(provider) ),
+                    out var cacheKeyExpression ) )
             {
                 stringBuilder.Append( cacheKeyExpression.Value );
             }
@@ -84,9 +86,6 @@ internal class GenerateCacheKeyAspect : TypeAspect
                 // does not contain the aspects on other types.
                 stringBuilder.Append( $"<unresolved:{member.Name}>" );
             }
-           
         }
-
     }
-
 }

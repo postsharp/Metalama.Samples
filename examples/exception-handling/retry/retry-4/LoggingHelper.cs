@@ -2,47 +2,46 @@
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Code;
 
-namespace Metalama.Samples.Retry2
+namespace Metalama.Samples.Retry2;
+
+[CompileTime]
+internal static class LoggingHelper
 {
-    [CompileTime]
-    internal static class LoggingHelper
+    // Builds an InterpolatedStringBuilder with the beginning of the message.
+    public static InterpolatedStringBuilder BuildInterpolatedString( bool includeOutParameters )
     {
-        // Builds an InterpolatedStringBuilder with the beginning of the message.
-        public static InterpolatedStringBuilder BuildInterpolatedString( bool includeOutParameters )
+        var stringBuilder = new InterpolatedStringBuilder();
+
+        // Include the type and method name.
+        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText( "." );
+        stringBuilder.AddText( meta.Target.Method.Name );
+        stringBuilder.AddText( "(" );
+        var i = meta.CompileTime( 0 );
+
+        // Include a placeholder for each parameter.
+        foreach ( var p in meta.Target.Parameters )
         {
-            var stringBuilder = new InterpolatedStringBuilder();
+            var comma = i > 0 ? ", " : "";
 
-            // Include the type and method name.
-            stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
-            stringBuilder.AddText( "." );
-            stringBuilder.AddText( meta.Target.Method.Name );
-            stringBuilder.AddText( "(" );
-            var i = meta.CompileTime( 0 );
-
-            // Include a placeholder for each parameter.
-            foreach ( var p in meta.Target.Parameters )
+            if ( p.RefKind == RefKind.Out && !includeOutParameters )
             {
-                var comma = i > 0 ? ", " : "";
-
-                if ( p.RefKind == RefKind.Out && !includeOutParameters )
-                {
-                    // When the parameter is 'out', we cannot read the value.
-                    stringBuilder.AddText( $"{comma}{p.Name} = <out> " );
-                }
-                else
-                {
-                    // Otherwise, add the parameter value.
-                    stringBuilder.AddText( $"{comma}{p.Name} = {{" );
-                    stringBuilder.AddExpression( p.Value );
-                    stringBuilder.AddText( "}" );
-                }
-
-                i++;
+                // When the parameter is 'out', we cannot read the value.
+                stringBuilder.AddText( $"{comma}{p.Name} = <out> " );
+            }
+            else
+            {
+                // Otherwise, add the parameter value.
+                stringBuilder.AddText( $"{comma}{p.Name} = {{" );
+                stringBuilder.AddExpression( p.Value );
+                stringBuilder.AddText( "}" );
             }
 
-            stringBuilder.AddText( ")" );
-
-            return stringBuilder;
+            i++;
         }
+
+        stringBuilder.AddText( ")" );
+
+        return stringBuilder;
     }
 }

@@ -11,14 +11,14 @@ internal static class CacheKeyBuilder
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );
-        
+
         foreach ( var p in meta.Target.Parameters )
         {
             if ( p.Index > 0 )
             {
                 stringBuilder.AddText( ", " );
             }
-            
+
             // We have to add the parameter type to avoid ambiguities
             // between different overloads of the same method.
             stringBuilder.AddText( "(" );
@@ -28,7 +28,6 @@ internal static class CacheKeyBuilder
             stringBuilder.AddText( "{" );
             stringBuilder.AddExpression( p.Value );
             stringBuilder.AddText( "}" );
-            
         }
 
         stringBuilder.AddText( ")" );

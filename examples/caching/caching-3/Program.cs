@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+
 internal class Program
 {
     private static void Main()
     {
-        
         var serviceProvider = new ServiceCollection()
             .AddSingleton<ICache, Cache>()
             .AddSingleton<DatabaseFrontend>()
@@ -21,7 +21,5 @@ internal class Program
         db.GetEntity( new EntityKey( "Invoice", 2 ) );
 
         Console.WriteLine( $"Total database operations: {db.DatabaseCalls}" );
-
     }
-    
 }

@@ -1,8 +1,7 @@
-﻿namespace Metalama.Samples.Log4.Tests.MissingFieldOrProperty
+﻿namespace Metalama.Samples.Log4.Tests.MissingFieldOrProperty;
+
+internal class Foo
 {
-    internal class Foo
-    {
-        [Log]
-        public void Bar() { }
-    }
+    [Log]
+    public void Bar() { }
 }

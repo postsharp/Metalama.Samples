@@ -11,11 +11,9 @@ using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ILogger _logger;
+    [IntroduceDependency] private readonly ILogger _logger;
 
-    [IntroduceDependency]
-    private readonly IPolicyFactory _policyFactory;
+    [IntroduceDependency] private readonly IPolicyFactory _policyFactory;
 
     public PolicyKind Kind { get; }
 
@@ -34,7 +32,7 @@ public class RetryAttribute : OverrideMethodAspect
             {
                 return meta.Proceed();
             }
-            catch ( Exception e ) 
+            catch ( Exception e )
             {
                 var messageBuilder = LoggingHelper.BuildInterpolatedString( false );
                 messageBuilder.AddText( " has failed: " );
@@ -52,7 +50,7 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for async methods.
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
-        async Task<object?> ExecuteCoreAsync(CancellationToken cancellationToken)
+        async Task<object?> ExecuteCoreAsync( CancellationToken cancellationToken )
         {
             try
             {
@@ -70,9 +68,12 @@ public class RetryAttribute : OverrideMethodAspect
         }
 
         var cancellationTokenParameter
-          = meta.Target.Parameters.Where( p => p.Type.Is( typeof( CancellationToken ) ) ).LastOrDefault();
+            = meta.Target.Parameters.Where( p => p.Type.Is( typeof(CancellationToken) ) ).LastOrDefault();
 
         var policy = this._policyFactory.GetAsyncPolicy( this.Kind );
-        return await policy.ExecuteAsync( ExecuteCoreAsync, cancellationTokenParameter != null ? (CancellationToken) cancellationTokenParameter.Value : CancellationToken.None );
+        return await policy.ExecuteAsync( ExecuteCoreAsync,
+            cancellationTokenParameter != null
+                ? (CancellationToken) cancellationTokenParameter.Value
+                : CancellationToken.None );
     }
 }

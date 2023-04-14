@@ -6,7 +6,7 @@
     [Cache]
     public Entity GetEntity( EntityKey entityKey )
     {
-        Console.WriteLine("Executing GetEntity...");
+        Console.WriteLine( "Executing GetEntity..." );
         this.DatabaseCalls++;
 
         return new Entity( entityKey );
@@ -20,5 +20,4 @@
 
         return "some details";
     }
- 
 }

@@ -6,9 +6,8 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
-        
         // Write entry message.
-        var entryMessage = BuildInterpolatedString(false);
+        var entryMessage = BuildInterpolatedString( false );
         entryMessage.AddText( " started." );
         Console.WriteLine( entryMessage.ToValue() );
 
@@ -18,7 +17,7 @@ public class LogAttribute : OverrideMethodAspect
             var result = meta.Proceed();
 
             // Display the success message. The message is different when the method is void.
-            var successMessage = BuildInterpolatedString(true);
+            var successMessage = BuildInterpolatedString( true );
 
             if ( meta.Target.Method.ReturnType.Is( typeof(void) ) )
             {
@@ -40,7 +39,7 @@ public class LogAttribute : OverrideMethodAspect
         catch ( Exception e )
         {
             // Display the failure message.
-            var failureMessage = BuildInterpolatedString(false);
+            var failureMessage = BuildInterpolatedString( false );
             failureMessage.AddText( " failed: " );
             failureMessage.AddExpression( e.Message );
             Console.WriteLine( failureMessage.ToValue() );
@@ -53,7 +52,7 @@ public class LogAttribute : OverrideMethodAspect
     private static InterpolatedStringBuilder BuildInterpolatedString( bool includeOutParameters )
     {
         var stringBuilder = new InterpolatedStringBuilder();
-        
+
         // Include the type and method name.
         stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );

@@ -8,8 +8,8 @@
             // to the crash report server.
             Console.WriteLine( e.ToString() );
         }
-        catch 
-        { 
+        catch
+        {
             // Crashes in the crash reporting process should crash the host process,
             // so they should be swallowed.
         }

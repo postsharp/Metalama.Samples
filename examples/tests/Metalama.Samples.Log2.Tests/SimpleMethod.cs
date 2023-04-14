@@ -3,10 +3,7 @@
 internal static class Program
 {
     [Log]
-    public static void Main()
-    {
-        SayHello();
-    }
+    public static void Main() => SayHello();
 
     [Log]
     private static int SayHello()

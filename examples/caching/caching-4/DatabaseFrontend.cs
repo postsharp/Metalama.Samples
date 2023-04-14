@@ -20,5 +20,4 @@
 
         return new byte[] { 0, 1, 2 };
     }
-
 }

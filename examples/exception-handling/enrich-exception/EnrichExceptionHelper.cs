@@ -5,7 +5,7 @@ public static class EnrichExceptionHelper
 {
     private const string _slotName = "Context";
 
-    [ExcludeAspect( typeof( EnrichExceptionAttribute ) )]
+    [ExcludeAspect( typeof(EnrichExceptionAttribute) )]
     public static void AppendContextFrame( this Exception e, string frame )
     {
         // Get or create a StringBuilder for the exception where we will add additional context data.

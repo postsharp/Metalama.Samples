@@ -13,8 +13,5 @@ internal static class Program
         var service = serviceProvider.GetService<LoginService>()!;
         service.GetSaltedHash( "adam", "eva", "saltzburg" );
         service.VerifyPassword( "adam", "eva" );
-        
     }
-
-   
 }

@@ -7,8 +7,7 @@ using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ILogger _logger;
+    [IntroduceDependency] private readonly ILogger _logger;
 
     /// <summary>
     /// Gets or sets the maximum number of times that the method should be executed.
@@ -24,7 +23,7 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for non-async methods.
     public override dynamic? OverrideMethod()
     {
-        for ( var i = 0; ; i++ )
+        for ( var i = 0;; i++ )
         {
             try
             {
@@ -57,9 +56,9 @@ public class RetryAttribute : OverrideMethodAspect
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
         var cancellationTokenParameter
-            = meta.Target.Parameters.Where( p => p.Type.Is( typeof( CancellationToken ) ) ).LastOrDefault();
+            = meta.Target.Parameters.Where( p => p.Type.Is( typeof(CancellationToken) ) ).LastOrDefault();
 
-        for ( var i = 0; ; i++ )
+        for ( var i = 0;; i++ )
         {
             try
             {

@@ -8,14 +8,14 @@ internal static class SensitiveParameterFilter
 
     public static bool IsSensitive( IParameter parameter )
     {
-        if ( parameter.Attributes.OfAttributeType( typeof( NotLoggedAttribute ) ).Any() )
-        { 
-            return true; 
+        if ( parameter.Attributes.OfAttributeType( typeof(NotLoggedAttribute) ).Any() )
+        {
+            return true;
         }
 
         if ( _sensitiveNames.Any( n => parameter.Name.ToLowerInvariant().Contains( n ) ) )
-        { 
-            return true; 
+        {
+            return true;
         }
 
         return false;

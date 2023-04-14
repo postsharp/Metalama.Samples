@@ -1,5 +1,4 @@
-﻿
-// Some boilerplate is still necessary with this version of Metalama because
+﻿// Some boilerplate is still necessary with this version of Metalama because
 // we cannot generate new types and constructors yet.
 
 [EnumViewModel]

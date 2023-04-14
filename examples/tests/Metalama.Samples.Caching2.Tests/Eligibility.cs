@@ -3,7 +3,7 @@
 public class Calculator
 {
     private int? _value;
-    
+
     // Eligible.
     [Cache]
     public int Add( int a, int b ) => a + b;
@@ -19,6 +19,4 @@ public class Calculator
         value = this._value;
         return value.HasValue;
     }
-    
-
 }

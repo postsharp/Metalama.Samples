@@ -23,7 +23,7 @@ public class RetryAttribute : OverrideMethodAspect
             }
             catch ( Exception e ) when ( i < this.Attempts )
             {
-                var delay = this.Delay * Math.Pow( 2, i+1 );
+                var delay = this.Delay * Math.Pow( 2, i + 1 );
                 Console.WriteLine( e.Message + $" Waiting {delay} ms." );
                 Thread.Sleep( (int) delay );
             }

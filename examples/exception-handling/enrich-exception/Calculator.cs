@@ -1,11 +1,10 @@
 ﻿public static class Calculator
 {
-
     public static int Fibonaci( int n )
     {
         if ( n < 0 )
         {
-            throw new ArgumentOutOfRangeException( nameof( n ) );
+            throw new ArgumentOutOfRangeException( nameof(n) );
         }
 
         if ( n == 0 )

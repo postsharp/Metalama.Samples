@@ -6,15 +6,13 @@ using Microsoft.Extensions.Logging;
 
 public class LogAttribute : OverrideMethodAspect
 {
+    [IntroduceDependency] private readonly ILogger _logger;
 
-    [IntroduceDependency]
-    private readonly ILogger _logger;
-
-    public override dynamic? OverrideMethod(  )
+    public override dynamic? OverrideMethod()
     {
         // Determine if tracing is enabled.
         var isTracingEnabled = this._logger.IsEnabled( LogLevel.Trace );
-        
+
         // Write entry message.
         if ( isTracingEnabled )
         {
@@ -51,6 +49,7 @@ public class LogAttribute : OverrideMethodAspect
                     {
                         successMessage.AddExpression( result );
                     }
+
                     successMessage.AddText( "." );
                 }
 
@@ -59,10 +58,10 @@ public class LogAttribute : OverrideMethodAspect
 
             return result;
         }
-        catch ( Exception e ) when ( this._logger.IsEnabled( LogLevel.Warning ) ) 
+        catch ( Exception e ) when ( this._logger.IsEnabled( LogLevel.Warning ) )
         {
             // Display the failure message.
-            var failureMessage = BuildInterpolatedString(false);
+            var failureMessage = BuildInterpolatedString( false );
             failureMessage.AddText( " failed: " );
             failureMessage.AddExpression( e.Message );
             this._logger.LogWarning( (string) failureMessage.ToValue() );
@@ -75,7 +74,7 @@ public class LogAttribute : OverrideMethodAspect
     private static InterpolatedStringBuilder BuildInterpolatedString( bool includeOutParameters )
     {
         var stringBuilder = new InterpolatedStringBuilder();
-        
+
         // Include the type and method name.
         stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
@@ -92,7 +91,7 @@ public class LogAttribute : OverrideMethodAspect
             {
                 // Do not log sensitive parameters.
                 stringBuilder.AddText( $"{comma}{p.Name} = <redacted> " );
-            } 
+            }
             else if ( p.RefKind == RefKind.Out && !includeOutParameters )
             {
                 // When the parameter is 'out', we cannot read the value.

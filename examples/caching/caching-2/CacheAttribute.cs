@@ -6,8 +6,8 @@ using Metalama.Framework.Eligibility;
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ICache _cache;
+    [IntroduceDependency] private readonly ICache _cache;
+
     public override dynamic? OverrideMethod()
     {
         // Builds the caching string.
@@ -30,12 +30,12 @@ public class CacheAttribute : OverrideMethodAspect
             return result;
         }
     }
-    
-    public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )                                               /*[Start]*/
+
+    public override void BuildEligibility( IEligibilityBuilder<IMethod> builder ) /*[Start]*/
     {
-        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void");
+        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void" );
         builder.MustSatisfy(
-            m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref), 
-            m => $"{m} cannot have out or ref parameter");
-    }                                                                                                                           /*[End]*/
+            m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ),
+            m => $"{m} cannot have out or ref parameter" );
+    } /*[End]*/
 }

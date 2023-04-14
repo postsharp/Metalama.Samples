@@ -1,6 +1,5 @@
 ﻿namespace Metalama.Samples.NotifyPropertyChanged;
 
-
 internal class Program
 {
     private static void Main()

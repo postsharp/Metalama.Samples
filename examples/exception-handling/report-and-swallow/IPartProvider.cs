@@ -1,4 +1,4 @@
 ﻿public interface IPartProvider
 {
-    string GetPart(string name);
+    string GetPart( string name );
 }

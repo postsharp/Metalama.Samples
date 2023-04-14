@@ -11,13 +11,11 @@ internal static class Program
             .BuildServiceProvider();
 
         var calculator = serviceProvider.GetService<Calculator>()!;
-        
+
         try
         {
             calculator.Add( 1, 1 );
         }
         catch { }
     }
-
-   
 }

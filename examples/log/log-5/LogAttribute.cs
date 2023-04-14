@@ -8,38 +8,42 @@ using Microsoft.Extensions.Logging;
 public class LogAttribute : MethodAspect
 {
     private static readonly DiagnosticDefinition<INamedType> _missingLoggerFieldError =
-        new("LOG01", Severity.Error, "The type '{0}' must have a field 'ILogger _logger' or a property 'ILogger Logger'.");
+        new("LOG01", Severity.Error,
+            "The type '{0}' must have a field 'ILogger _logger' or a property 'ILogger Logger'.");
 
-    private static readonly DiagnosticDefinition<( DeclarationKind, IFieldOrProperty)> _loggerFieldOrIncorrectTypeError =
-        new("LOG02", Severity.Error, "The {0} '{1}' must be of type ILogger.");
+    private static readonly DiagnosticDefinition<( DeclarationKind, IFieldOrProperty)>
+        _loggerFieldOrIncorrectTypeError =
+            new("LOG02", Severity.Error, "The {0} '{1}' must be of type ILogger.");
 
     public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {
         var declaringType = builder.Target.DeclaringType;
-        
+
         // Finds a field named '_logger' or a property named 'Property'.
         var loggerFieldOrProperty = (IFieldOrProperty?) declaringType.AllFields.OfName( "_logger" ).SingleOrDefault() ??
-                          declaringType.AllProperties.OfName( "Logger" ).SingleOrDefault();
+                                    declaringType.AllProperties.OfName( "Logger" ).SingleOrDefault();
 
         // Report an error if the field or property does not exist.
         if ( loggerFieldOrProperty == null )
         {
             builder.Diagnostics.Report( _missingLoggerFieldError.WithArguments( declaringType ) );
-            
+
             return;
         }
 
         // Verify the type of the logger field or property.
         if ( !loggerFieldOrProperty.Type.Is( typeof(ILogger) ) )
         {
-            builder.Diagnostics.Report( _loggerFieldOrIncorrectTypeError.WithArguments( ( declaringType.DeclarationKind, loggerFieldOrProperty ) ) );
-            
+            builder.Diagnostics.Report(
+                _loggerFieldOrIncorrectTypeError.WithArguments( (declaringType.DeclarationKind,
+                    loggerFieldOrProperty) ) );
+
             return;
         }
 
         // Override the target method with our template. Pass the logger field or property to the template.
         builder.Advice.Override( builder.Target, nameof(this.OverrideMethod),
-            args: new { loggerFieldOrProperty = loggerFieldOrProperty } );
+            new { loggerFieldOrProperty = loggerFieldOrProperty } );
     }
 
     public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )
@@ -59,7 +63,7 @@ public class LogAttribute : MethodAspect
 
         // Determine if tracing is enabled.
         var isTracingEnabled = logger.IsEnabled( LogLevel.Trace );
-        
+
         // Write entry message.
         if ( isTracingEnabled )
         {
@@ -90,16 +94,16 @@ public class LogAttribute : MethodAspect
                     successMessage.AddExpression( result );
                     successMessage.AddText( "." );
                 }
-                
+
                 LoggerExtensions.LogTrace( logger, successMessage.ToValue() );
             }
 
             return result;
         }
-        catch ( Exception e ) when ( logger.IsEnabled( LogLevel.Warning ) ) 
+        catch ( Exception e ) when ( logger.IsEnabled( LogLevel.Warning ) )
         {
             // Display the failure message.
-            var failureMessage = BuildInterpolatedString(false);
+            var failureMessage = BuildInterpolatedString( false );
             failureMessage.AddText( " failed: " );
             failureMessage.AddExpression( e.Message );
             LoggerExtensions.LogWarning( logger, failureMessage.ToValue() );
@@ -112,7 +116,7 @@ public class LogAttribute : MethodAspect
     private static InterpolatedStringBuilder BuildInterpolatedString( bool includeOutParameters )
     {
         var stringBuilder = new InterpolatedStringBuilder();
-        
+
         // Include the type and method name.
         stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
