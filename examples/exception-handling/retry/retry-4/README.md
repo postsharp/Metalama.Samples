@@ -3,7 +3,7 @@ uid: sample-retry-4
 level: 300
 ---
 
-# Retry Example: Adding logging
+# Retry example, step 4: Adding logging
 
 [!metalama-project-buttons .]
 
@@ -47,9 +47,6 @@ To substitute `Console.WriteLine` with `ILogger` and inject the `ILogger` into t
 Below is the aspect code update:
 
 [!metalama-file RetryAttribute.cs ]
-
-
-We will address any limitations in the next examples.
 
 > [!div class="see-also"]
 > <xref:sample-log-2>

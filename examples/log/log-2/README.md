@@ -3,7 +3,7 @@ uid: sample-log-2
 level: 200
 ---
 
-# Logging Example: Adding the method name
+# Logging example, step 2: Adding the method name
 
 [!metalama-project-buttons .]
 

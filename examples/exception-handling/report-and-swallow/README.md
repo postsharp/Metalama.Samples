@@ -7,7 +7,7 @@ level: 200
 
 [!metalama-project-buttons .]
 
-_Report and swallow_ is a _last-chance_ exception-handling strategy, i.e. a strategy for exceptions that could be handled deeper in the call stack. In general, swallowing a last-chance exception is not a good idea because it may leave your application in an invalid state. Also, using an aspect to implement a last-chance exception handler is generally not a good idea because it is better to use the <xref:System.AppDomain.UnhandledException?text=AppDomain.CurrentDomain.UnhandledException> event.
+_Report and swallow_ is a _last-chance_ exception-handling strategy, i.e. a strategy for exceptions that could not be handled deeper in the call stack. In general, swallowing a last-chance exception is not a good idea because it may leave your application in an invalid state. Also, using an aspect to implement a last-chance exception handler is generally not a good idea because it is simpler to use the <xref:System.AppDomain.UnhandledException?text=AppDomain.CurrentDomain.UnhandledException> event.
 
 However, there are some cases where you need to handle last-chance exceptions with a `try...catch` block. For instance, when your code is a _plug-in_ in some host application like Office or Visual Studio, exceptions that are not handled by Visual Studio Extensions have a chance to crash the whole Visual Studio without any error message.
 
@@ -37,9 +37,9 @@ The `ReportAndSwallowExceptionsAttribute` aspect is rather simple:
 
 [!metalama-file ReportAndSwallowExceptionsAttribute.cs]
 
-If you have read the following examples, the following notes will be redundant.
+If you have read the previous examples, the following notes should be redundant.
 
-The `ReportAndSwallowExceptionsAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `LogAttribute` a custom attribute.
+The `ReportAndSwallowExceptionsAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `ReportAndSwallowExceptionsAttribute` a custom attribute.
 
 The `ReportAndSwallowExceptionsAttribute` class implements the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method. This method acts like a _template_. Most of the code in this template is injected into the target method, i.e., the method to which we add the `[ReportAndSwallowExceptionsAttribute]` custom attribute.
 

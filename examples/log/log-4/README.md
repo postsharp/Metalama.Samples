@@ -3,7 +3,7 @@ uid: sample-log-4
 level: 300
 ---
 
-# Logging Example: Using ILogger
+# Logging example, step 4: Using ILogger
 
 [!metalama-project-buttons .]
 

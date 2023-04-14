@@ -2,7 +2,7 @@
 uid: sample-cache-1
 ---
 
-# Caching example: getting started
+# Caching example, step 1: getting started
 
 [!metalama-project-buttons .]
 

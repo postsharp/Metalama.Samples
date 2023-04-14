@@ -3,7 +3,7 @@ uid: sample-log-7
 level: 300
 ---
 
-# Logging Example: Removing sensitive data
+# Logging example, step 7: Removing sensitive data
 
 [!metalama-project-buttons .]
 
@@ -28,7 +28,7 @@ The `LogAttribute` aspect has been modified to call `SensitiveParameterFilter.Is
 [!metalama-file LogAttribute.cs]
 
 > [!WARNING]
-> This approach does not guarantee that there will be no leak of sensitive data to logs because it relies on manual identification of parameters by you, the aspect's developer, which is subject to human error. To verify that you have not forgotten anything, consider the following strategies:
+> This approach does not guarantee that there will be no leak of sensitive data to logs because it relies on manual identification of parameters by you, the aspect's developer, or by the aspect's users, which is subject to human error. To verify that you have not forgotten anything, consider the following strategies:
 >
 >  * Do not pass sensitive data in strings, but wrap them into an object and do not expose sensitive data in the implementation of the `ToString` method of this wrapping class.
 >  * Perform tests by injecting well-known strings as values for sensitive parameters (e.g., `p@ssw0rd`), enable logging to the maximum verbosity, and verify that the logs do not contain any of the well-known values. These tests must have complete coverage to be accurate.

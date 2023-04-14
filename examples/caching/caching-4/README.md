@@ -2,22 +2,24 @@
 uid: sample-cache-4
 ---
 
-# Caching example: cache key for external types
+# Caching example, step 4: cache key for external types
 
 [!metalama-project-buttons .]
 
 In the preceding article, we introduced the concept of generating cache keys for custom types by implementing the `ICacheKey` interface. We created an aspect that implements this interface automatically for all the fields or properties of a custom class annotated with the `[CacheKeyMember]` attribute.
 
-However, two issues remain with this approach. Firstly, how do we handle types for which we don't have the source code? Secondly, what if the user of this aspect tries to include an item whose type is not supported? We would like our aspect to report an error in such scenarios, instead of using the `ToString` method.
+However, two issues remain with this approach. Firstly, how do we handle types for which we don't have the source code? Secondly, what if the user of this aspect tries to include an item whose type is not supported? We are now adding two requirements to our aspect:
+
+1. Add a mechanism to generate a cache key for externally-defined types, and
+2. Report an error when the aspect's user attempts to include an unsupported type in the cache key.
 
 ## ICacheKeyBuilder
 
-To address these challenges, we have introduced the concept of _cache key builders_ - objects capable of building a cache key for another object. We define the `ICacheKeyBuilder` interface as follows: 
+To address these challenges, we have introduced the concept of _cache key builders_ -- objects capable of building a cache key for another object. We define the `ICacheKeyBuilder` interface as follows: 
 
 [!metalama-file ICacheKeyBuilder.cs]
 
-
-The generic type parameter in the interface represents the relevant object type. A benefit of using a generic parameter is that we can generate the cache key without casting value-typed values into an `object`.
+The generic type parameter in the interface represents the relevant object type. The benefit of using a generic parameter is performance: we can generate the cache key without boxing value-typed values into an `object`.
 
 For instance, here is an implementation for `byte[]`:
 
@@ -25,7 +27,7 @@ For instance, here is an implementation for `byte[]`:
 
 ## Compile-time API
 
-To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a compile-time configuration API for the caching aspects. We accomplish this via a concept named a `project extension`, which is explained in more detail in <xref:exposing-configuration>. We define a new compile-time class, `CachingOptions`, to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
+To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a compile-time configuration API for the caching aspects. We accomplish this via a concept named a _project extension_, which is explained in more detail in <xref:exposing-configuration>. We define a new compile-time class, `CachingOptions`, to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
 
 [!metalama-file CachingOptions.cs]
 
@@ -41,7 +43,7 @@ For those unfamiliar with the term, fabrics are compile-time types whose `AmendP
 
 ## ICacheKeyBuilderProvider
 
-At runtime, it is convenient to abstract the process of obtaining `ICacheKeyBuilder` instances with a provider pattern. We can achieve this by defining the `ICacheKeyBuilderProvider` interface.
+At run time, it is convenient to abstract the process of obtaining `ICacheKeyBuilder` instances with a provider pattern. We can achieve this by defining the `ICacheKeyBuilderProvider` interface.
 
 [!metalama-file ICacheKeyBuilderProvider.cs]
 
@@ -53,7 +55,7 @@ The implementation of `ICacheKeyBuilderProvider` should be pulled from the depen
 
 ## Generating the cache key item expression
 
-The logic to generate the expression that gets the cache key of an object has now grown in complexity.  It now includes support for three cases plus null-handling.
+The logic to generate the expression that gets the cache key of an object has now grown in complexity.  It includes support for three cases plus null-handling.
 
 * Implicit call to `ToString`.
 * Call to `ICacheKeyBuilderProvider.GetCacheKeyBuilder`.
@@ -63,7 +65,7 @@ It is now easier to build the expression with <xref:Metalama.Framework.Code.Synt
 
 [!metalama-file CachingOptions.Internals.cs from="TryGetCacheKeyExpression:Start" to="TryGetCacheKeyExpression:End"]
 
-The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder>class essentially acts as a `StringBuilder` wrapper. We can add any text to an `ExpressionBuilder`, as long as it can be parsed back into a valid C# expression.
+The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class essentially acts as a `StringBuilder` wrapper. We can add any text to an `ExpressionBuilder`, as long as it can be parsed back into a valid C# expression.
 
 ## Reporting errors for unsupported types
 
@@ -80,11 +82,11 @@ The first line defines an error kind. Metalama requires the <xref:Metalama.Frame
 
 This method needs to be reported from the `BuildAspect` method of the `CacheAttribute` and `GenerateCacheKeyAspect` aspect classes. We cannot report errors from template methods because templates are typically not executed at design time unless we are using the _preview_ feature.
 
-However, a limitation prevents us from detecting unsupported types at design time. When Metalama runs inside the editor, at design time, it doesn't execute all aspects for all files at every keystroke, but only does so for the files that have been edited and their dependencies. Therefore, at design time, your aspect receives a _partial_ compilation. It can still see all the types in the project, but it doesn't see the aspects that have been applied to these types.
+However, a limitation prevents us from detecting unsupported types at design time. When Metalama runs inside the editor, at design time, it doesn't execute all aspects for all files at every keystroke, but only does so for the files that have been edited, plus all files containing the ancestor types. Therefore, at design time, your aspect receives a _partial_ compilation. It can still see all the types in the project, but it doesn't see the aspects that have been applied to these types.
 
 So, when `CachingOptions.VerifyCacheKeyMember` evaluates `Enhancements().HasAspect<GenerateCacheKeyAspect>()` at design time, the expression does not yield an accurate result. Therefore, we can only run this method when we have a complete compilation, i.e., at compile time.
 
-To verify attributes, we need to include this code in the `CacheAttribute` aspect class:
+To verify parameters, we need to include this code in the `CacheAttribute` aspect class:
 
 [!metalama-file CacheAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
 

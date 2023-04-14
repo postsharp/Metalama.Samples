@@ -3,22 +3,21 @@ uid: sample-log-5
 level: 300
 ---
 
-# Logging Example: ILogger without dependency injection
+# Logging example, step 5: ILogger without dependency injection
 
 [!metalama-project-buttons .]
 
-Let's take a step back. In the previous example, we used the heavy magic of the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute?text=[IntroduceDependency]> custom attribute. What if you want your aspect to rely on an _existing_ `ILogger` field and report errors if the field does not exist?
+Let's take a step back. In the previous example, we used the heavy magic of the <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute?text=[IntroduceDependency]> custom attribute. In this new aspect, the aspect will require an _existing_ `ILogger` field to exist and will report errors if the target type does not meet expectations.
 
-[!metalama-compare Calculator.cs]
-
-Unlike the previous example, the source code now contains an `ILogger` field, initialized from the constructor. However, we must ensure that the aspect reports helpful error messages when the field is missing or has an incorrect type.
-
+In the following code snippet, you can see that the aspect reports an error when the field or property is missing.
 
 [!metalama-file ../../tests/Metalama.Samples.Log5.Tests/MissingFieldOrProperty.cs]
 
+The aspect also reports an error when the field or property is not of the expected type.
+
 [!metalama-file ../../tests/Metalama.Samples.Log5.Tests/FieldOfWrongType.cs]
 
-Additionally, the aspect must report an error when applied to a static method.
+Finally, the aspect must report an error when applied to a static method.
 
 [!metalama-file ../../tests/Metalama.Samples.Log5.Tests/StaticMethod.cs]
 

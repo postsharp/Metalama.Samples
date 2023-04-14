@@ -3,7 +3,7 @@ uid: sample-log-6
 level: 300
 ---
 
-# Logging Example: Adding the aspect programmatically
+# Logging example, step 6: Adding the aspect programmatically
 
 [!metalama-project-buttons .]
 

@@ -3,7 +3,7 @@ uid: sample-retry-5
 level: 300
 ---
 
-# Retry Example: Using Polly
+# Retry example, step 5: Using Polly
 
 If you had the feeling that we were reinventing the wheel in the previous Retry examples, you were partially right. Libraries like [Polly](https://github.com/App-vNext/Polly) offer more advanced and configurable retry policies, but even Polly requires some boilerplate code. Wrapping the whole method body in a delegate call and adding proper logging with parameter values entails boilerplate. With a Metalama aspect, we can completely avoid this boilerplate.
 

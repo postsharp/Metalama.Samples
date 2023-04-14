@@ -3,7 +3,7 @@ uid: sample-retry-3
 level: 200
 ---
 
-# Retry Example: Handling cancellation tokens
+# Retry example, step 3: Handling cancellation tokens
 
 [!metalama-project-buttons .]
 

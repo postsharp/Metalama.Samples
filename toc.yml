@@ -5,21 +5,21 @@ items:
     - name: Logging
       topicUid: sample-log
       items: 
-        - name: Getting started
+        - name: Step 1. Getting started
           topicUid: sample-log-1
-        - name: Adding the method name
+        - name: Step 2. Adding the method name
           topicUid: sample-log-2
-        - name: Adding parameter values
+        - name: Step 3. Adding parameter values
           topicUid: sample-log-3
-        - name: Using ILogger
+        - name: Step 4. Using ILogger
           topicUid: sample-log-4
-        - name: Using ILogger without DI
+        - name: Step 5. Using ILogger without DI
           topicUid: sample-log-5
-        - name: Adding logging to many methods
+        - name: Step 6. Adding logging to many methods
           topicUid: sample-log-6
-        - name: Removing sensitive information
+        - name: Step 7. Removing sensitive information
           topicUid: sample-log-7
-        - name: Avoiding infinite recursions
+        - name: Step 8. Avoiding infinite recursions
           topicUid: sample-log-8
     - name: Exception Handling
       topicUid: samples-exception-handling
@@ -27,15 +27,15 @@ items:
       - name: Retry
         topicUid: sample-retry
         items:
-          - name: Getting started
+          - name: Step 1. Getting started
             topicUid: sample-retry-1
-          - name: Handling async methods
+          - name: Step 2. Handling async methods
             topicUid: sample-retry-2
-          - name: Handling cancellation tokens
+          - name: Step 3. Handling cancellation tokens
             topicUid: sample-retry-3          
-          - name: Adding logging to retry
+          - name: Step 4. Adding logging to retry
             topicUid: sample-retry-4
-          - name: Using Polly
+          - name: Step 5. Using Polly
             topicUid: sample-retry-5          
       - name: Enrich with parameter values
         topicUid: sample-enrich-exception
@@ -44,13 +44,13 @@ items:
     - name: Caching
       topicUid: sample-cache
       items:
-        - name: Getting started
+        - name: Step 1. Getting started
           topicUid: sample-cache-1
-        - name: Enforcing eligibility
+        - name: Step 2. Enforcing eligibility
           topicUid: sample-cache-2
-        - name: Building the cache key
+        - name: Step 3. Building the cache key
           topicUid: sample-cache-3
-        - name: Supporting external types
+        - name: Step 4. Supporting external types
           topicUid: sample-cache-4
     - name: Ignore Values
       topicUid: sample-ignore-value
