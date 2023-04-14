@@ -1,5 +1,6 @@
 ---
 uid: sample-cache-4
+level: 300
 ---
 
 # Caching example, step 4: cache key for external types

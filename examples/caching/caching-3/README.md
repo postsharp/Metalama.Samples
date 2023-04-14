@@ -1,5 +1,6 @@
 ---
 uid: sample-cache-3
+level: 300
 ---
 
 # Caching example, step 3: building the cache key

@@ -1,5 +1,6 @@
 ---
 uid: sample-cache-1
+level: 250
 ---
 
 # Caching example, step 1: getting started

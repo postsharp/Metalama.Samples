@@ -1,5 +1,6 @@
 ---
 uid: sample-cache-2
+level: 250
 ---
 
 # Caching example, step 2: adding eligibility
