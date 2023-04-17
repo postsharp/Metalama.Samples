@@ -64,7 +64,7 @@ The logic to generate the expression that gets the cache key of an object has no
 
 It is now easier to build the expression with <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> rather than with a template. We have moved this logic to `CachingOptions`.
 
-[!metalama-file CachingOptions.Internals.cs from="TryGetCacheKeyExpression:Start" to="TryGetCacheKeyExpression:End"]
+[!metalama-file CachingOptions.Internals.cs member="CachingOptions.TryGetCacheKeyExpression"]
 
 The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class essentially acts as a `StringBuilder` wrapper. We can add any text to an `ExpressionBuilder`, as long as it can be parsed back into a valid C# expression.
 
@@ -75,7 +75,7 @@ We report an error whenever an unsupported type is used as a parameter of a cach
 To achieve this, we add the following code to `CachingOptions`:
 
 
-[!metalama-file CachingOptions.Internals.cs from="VerifyCacheKeyMember:Start" to="VerifyCacheKeyMember:End"]
+[!metalama-file CachingOptions.Internals.cs member="CachingOptions.VerifyCacheKeyMember"]
 
 
 
@@ -89,7 +89,7 @@ So, when `CachingOptions.VerifyCacheKeyMember` evaluates `Enhancements().HasAspe
 
 To verify parameters, we need to include this code in the `CacheAttribute` aspect class:
 
-[!metalama-file CacheAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
+[!metalama-file CacheAttribute.cs member="CacheAttribute.BuildAspect"]
 
 
 ## Aspects in action
@@ -97,6 +97,7 @@ To verify parameters, we need to include this code in the `CacheAttribute` aspec
 The aspects can be applied to some business code as follows:
 
 [!metalama-files BlobId.cs DatabaseFrontend.cs links="false"]
+
 > [!div class="see-also"]
 > <xref:exposing-configuration>
 > <xref:fabrics>

@@ -12,7 +12,7 @@ In this example, we will enhance the caching aspect created in the previous exam
 To achieve this, we will implement the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method. This method not only checks for errors but also ensures that such declarations will no longer recommend the aspect in the code refactoring menu of your IDE.
 
 
-[!metalama-file CacheAttribute.cs from="Start" to="End"]
+[!metalama-file CacheAttribute.cs member="CacheAttribute.BuildEligibility"]
 
 An error is now reported when the user tries to apply the aspect to an unsupported method:
 

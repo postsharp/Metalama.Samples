@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 public partial class CachingOptions : ProjectExtension
 {
-    private static DiagnosticDefinition<IType> _error = new("CACHE01", Severity.Error, /*[VerifyCacheKeyMember:Start]*/
+    private static DiagnosticDefinition<IType> _error = new("CACHE01", Severity.Error,
         "The type '{0}' cannot be a part of a cache key. Implement ICacheKey, use [CacheKeyMember] or register a cache key builder.");
 
     internal bool VerifyCacheKeyMember<T>( T expression, IDiagnosticSink diagnosticSink )
@@ -30,11 +30,11 @@ public partial class CachingOptions : ProjectExtension
         {
             diagnosticSink.Report( _error.WithArguments( expression.Type ), expression );
             return false;
-        } /*[VerifyCacheKeyMember:End]*/
+        } 
     }
 
     internal bool TryGetCacheKeyExpression( IExpression expression,
-        IExpression cacheKeyBuilderProvider, /*[TryGetCacheKeyExpression:Start]*/
+        IExpression cacheKeyBuilderProvider, 
         [NotNullWhen( true )] out IExpression? cacheKeyExpression )
     {
         var expressionBuilder = new ExpressionBuilder();
@@ -87,5 +87,5 @@ public partial class CachingOptions : ProjectExtension
 
         cacheKeyExpression = expressionBuilder.ToExpression();
         return true;
-    } /*[TryGetCacheKeyExpression:End]*/
+    } 
 }

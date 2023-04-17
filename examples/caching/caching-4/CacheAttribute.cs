@@ -15,7 +15,7 @@ public class CacheAttribute : OverrideMethodAspect
 
     [IntroduceDependency] private readonly ICacheKeyBuilderProvider _cacheBuilderProvider;
 
-    public override void BuildAspect( IAspectBuilder<IMethod> builder ) /*[BuildAspect:Start]*/
+    public override void BuildAspect( IAspectBuilder<IMethod> builder ) 
     {
         base.BuildAspect( builder );
 
@@ -28,7 +28,7 @@ public class CacheAttribute : OverrideMethodAspect
                 cachingOptions.VerifyCacheKeyMember( parameter, builder.Diagnostics );
             }
         }
-    } /*[BuildAspect:End]*/
+    } 
 
     public override dynamic? OverrideMethod()
     {
