@@ -23,39 +23,39 @@ In this example, we will explain the simplest possible implementation of the `No
 3. The aspect will override the setter of all properties and call `OnPropertyChanged`.
 4. The aspect will automatically propagate from the base class to derived classes.
 
-Note that this is a basic implementation. Specifically, it does not take into account _dependent properties_ i.e. properties that depend on other properties.
+Note that this is a basic implementation. Specifically, it does not take into account _dependent properties_, i.e. properties that depend on other properties.
 
-Here is the code of this aspect.
+Here's the code for this aspect.
 
 [!metalama-file NotifyPropertyChangedAttribute.cs]
 
-As you can see, the `NotifyPropertyChangedAttribute` class inherits the <xref:Metalama.Framework.Aspects.TypeAspect> because this is an aspect that applies to types. 
+As can be seen from the code, the `NotifyPropertyChangedAttribute` class inherits the <xref:Metalama.Framework.Aspects.TypeAspect> because this is an aspect that applies to types.
 
-The <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> custom attribute on the top of the class means that the aspect must be inherited from the base class to derived classes. For details, see <xref:aspect-inheritance>.
+The <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> at the top of the class indicates that the aspect should be inherited from the base class to derived classes. For further details, see <xref:aspect-inheritance>.
 
-Let's look in detail to the implementation of the `BuildAspect` method.
+Let's examine the implementation section of the `BuildAspect` method.
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.BuildAspect"]
 
-The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the <xref:System.ComponentModel.INotifyPropertyChanged> interface to the target type. The `whenExists` parameter is set to `Ignore`, which means that this call will just be ignored if the target type or a base type already implements the interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be implemented by the aspect class and to be annotated with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only member is the `PropertyChanged` event:
+The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the <xref:System.ComponentModel.INotifyPropertyChanged> interface to the target type. The `whenExists` parameter is set to `Ignore`, indicating that this call will just be ignored if the target type or a base type already implements the interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be implemented by the aspect class and to be annotated with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only member is the `PropertyChanged` event:
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.PropertyChanged"]
 
 To read more about this, see <xref: implementing-interfaces>.
 
-Note that the `OnPropertyChanged` method is not a part of the <xref:System.ComponentModel.INotifyPropertyChanged> interface, so we do not introduce it using the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute but using <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]>. Again, we specify the <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property to `Ignore`, so we skip this step if the target type already contains this method.
+Note that the `OnPropertyChanged` method is not a part of the [System.ComponentModel.INotifyPropertyChanged](xref:System.ComponentModel.INotifyPropertyChanged) interface. So we introduce it not by using the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute but by using the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> attribute. We again assign the `Ignore` value to the <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property, so we skip this step if the target type already contains this method.
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.OnPropertyChanged"]
 
-`OnPropertyChanged` invokes the `PropertyChanged` event. Note that the expression `meta.This` is translated into simply `this` by Metalama. For more detail about adding methods, see <xref:introducing-members>.
+The `OnPropertyChanged` method invokes the `PropertyChanged` event. Note that the expression `meta.This` is translated into simply `this` by Metalama. For further details about adding members, see <xref:introducing-members>.
 
-Let's go back to the `BuildAspect` method. The second thing it does it to iterate through all properties that have a setter. It calls the <xref:Metalama.Framework.Advising.IAdviceFactory.OverrideAccessors*> and supplies `OverridePropertySetter` as a template for the new property setter. For details, see <xref:overriding-fields-or-properties>.
+Now, moving back to the `BuildAspect` method. The next action it performs is to iterate through all properties that have a setter. It does this by calling the <xref:Metalama.Framework.Advising.IAdviceFactory.OverrideAccessors*> using `OverridePropertySetter` as a template for the new property setter. For further details, see <xref:overriding-fields-or-properties>..
 
-Let's look at this template:
+Let's have a look at this template:
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.OverridePropertySetter"]
 
-The expression `meta.Target.Property.Value` gives us the current value of the property. When Metalama applies the aspect to an automatic property, it turns it into a field-backed property, and this expression resolves to the backing field.
+The expression `meta.Target.Property.Value` gives the current value of the property. When Metalama applies the aspect to an automatic property, it turns it into a field-backed property, and this expression resolves the backing field.
 
 `meta.Proceed()` invokes the original implementation of the property. In the case of an automatic property, this means that the backing field is set to the `value` parameter.
 
@@ -63,12 +63,12 @@ Finally, the template calls the `OnPropertyChanged` method. `meta.Target.Propert
 
 ## Limitations
 
-This implementation has some important limitations and it's good to be aware of them.
+This implementation has limitations that you should be aware of.
 
-* Dependent properties are silently ignored. For instance, in the following code, no notification would be raised for the `FullName` property:
+* Dependent properties are silently ignored. For instance, the following code won't raise notification for the `FullName` property:
 
     ```csharp
-    class Person 
+    class Person
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -78,7 +78,7 @@ This implementation has some important limitations and it's good to be aware of 
     }
     ```
 
-    Currently Metalama does not allow you to analyze dependent properties. We will be working on this in a next version.
+    Currently, Metalama doesn't provide any way to analyze dependent properties.
 
 * The `PropertyChanged` event may be raised when class invariants are invalid. Consider for instance the following code:
 
@@ -98,12 +98,13 @@ This implementation has some important limitations and it's good to be aware of 
             this.TotalPrice = unitPrice * units;
         }
     }
-
     ```
 
-    This class has an invariant `TotalPrice = UnitPrice * Units`. However, the `PropertyChanged` events will be raised in the middle of the `Update` class, when class invariants are invalid. A proper implementation would buffer the events and raise them at the end of the `Update` method, when all invariants are valid.
+    This class has an invariant `TotalPrice = UnitPrice * Units`. 
 
-    Contrarily to the first limitation, it is possible to address this one.
+    The `PropertyChanged` event will be raised in the middle of the `Update` class at a moment when class invariants are invalid. A listener that would process the event synchronously would see the `InvoiceLine` object in an invalid state. A proper implementation would buffer the events and raise them at the end of the `Update` method when all invariants are valid.
+
+    Contrarily to the first limitation, it's possible to address this limitation.
 
 > [!div class="see-also"]
 > <xref:aspect-inheritance>
