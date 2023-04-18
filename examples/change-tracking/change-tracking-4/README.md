@@ -1,24 +1,51 @@
 ---
-uid: sample-dirty-3
+uid: sample-dirty-4
 ---
 
-# Dirty Flag example, step 3: integrate with INotifyPropertyChanged
+# Change Tracking example, step 4: reverting changes
 
 [!metalama-project-buttons .]
 
+In this article, we will implement the ability to revert the object to the last-accepted version. In the .NET Framework, this ability is exposed as the <xref:System.ComponentModel.IRevertibleChangeTracking> interface. It adds a new <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method. This method must revert any changes done since the last call to <xref:System.ComponentModel.IChangeTracking.AcceptChanges*>  method. 
+
+To implement this pattern, we need duplicate each field or automatic property: one copy will contain the _current_ value, and the second value the _accepted_ value. The <xref:System.ComponentModel.IChangeTracking.AcceptChanges*>  method copies the current values to the accepted values, while the <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method the accepted values to the current value.
+
+Let's see this pattern in action:
+
+[!metalama-files Comment.cs ModeratedComment.cs]
+
 ## Aspect implementation
+
+Here is the complete code of the new version of the `TrackChanges` aspect:
 
 [!metalama-file TrackChangesAttribute.cs]
 
-The first thing we add to the `TrackChangesAttribute` is two static fields to _define_ the errors:
+The first difference is the new property `IsRevertible`:
 
-[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute._mustHaveOnChangeMethod"]
-[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute._onChangeMethodMustBeProtected"]
+[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute.IsRevertible"]
 
-Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to be defined in a static field or property. To learn more about reporting errors, see <xref:diagnostics>.
+When this property is `false`, the aspect behaves as before.
 
-Then, we add this code to the `BuildAspect` method:
+Let's focus on the following part of the `BuildAspect` method at the moment. 
 
-[!metalama-file TrackChangesAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
+[!metalama-file TrackChangesAttribute.cs from="BuildDictionary:Start" to="BuildDictionary:End"]
 
-As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore`  <xref:Metalama.Framework.Aspects.OverrideStrategy>.  This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that type, or any base type, already implements the `IChangeTracking` interface. In this case, we check that the type contains a parameterless method named `OnChange` and we verify its accessibility.
+First, the method introduces new fields into the type for each mutable field or automatic property using the  <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceField*> method. For details about this practice, see <xref:introducing-members>.
+
+Note that we are building the `introducedFields` dictionary, which maps the current-value field or property to the accepted-value field. This dictionary will be passed to <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> call as a _tag_. The collection of tags is an anonymous object. For more details about this technique, see <xref:sharing-state-with-advice>.
+
+Lower in the `BuildAspect` method, we add the <xref:System.ComponentModel.IRevertibleChangeTracking> interface to the target type. We also pass the dictionary to the _tags_ parameter.
+
+[!metalama-file TrackChangesAttribute.cs from="IRevertibleChangeTracking:Start" to="IRevertibleChangeTracking:End"]
+
+The field dictionary is read from the implementation of `AcceptChanges` and `RejectChanges`:
+
+[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute.AcceptChanges"]
+
+[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute.RejectChanges"]
+
+As you can see, the `(Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]` expression gets the `IntroducedFields` tag, which was passed to the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method. We cast it back to its original type and iterate it. We use the <xref:Metalama.Framework.Code.IExpression.Value> property to generate the run-time expression that represents the field or property. In the `AcceptChanges` method, we copy the current values to the accepted values, and we do the opposite in the `RejectChanges` method.
+
+> [!div class="see-also"]
+> <xref:introducing-members>
+> <xref:sharing-state-with-advice>

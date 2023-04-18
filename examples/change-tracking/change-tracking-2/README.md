@@ -2,7 +2,7 @@
 uid: sample-dirty-2
 ---
 
-# Dirty Flag example, step 2: verifying manual code
+# Change Tracking example, step 2: verifying manual code
 
 [!metalama-project-buttons .]
 
@@ -12,9 +12,9 @@ In this example, we will enhance the aspect and report a nice error if the `ICha
 
 The result of this aspect will be two new errors:
 
-[!metalama-test ../../tests/Metalama.Samples.Dirty2.Tests/MissingOnChangeMethod.cs]
+[!metalama-test ../../tests/Metalama.Samples.ChangeTracking2.Tests/MissingOnChangeMethod.cs]
 
-[!metalama-test ../../tests/Metalama.Samples.Dirty2.Tests/OnChangeMethodNotProtected.cs]
+[!metalama-test ../../tests/Metalama.Samples.ChangeTracking2.Tests/OnChangeMethodNotProtected.cs]
 
 ## Aspect implementation
 
@@ -32,3 +32,6 @@ Then, we add this code to the `BuildAspect` method:
 [!metalama-file TrackChangesAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
 
 As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore`  <xref:Metalama.Framework.Aspects.OverrideStrategy>.  This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that type, or any base type, already implements the `IChangeTracking` interface. In this case, we check that the type contains a parameterless method named `OnChange` and we verify its accessibility.
+
+> [!div class="see-also"]
+> <xref:diagnostics>

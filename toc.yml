@@ -1,5 +1,5 @@
 items:
- - name: Examples
+ - name: Commented Examples
    topicUid: samples
    items:
     - name: Logging
@@ -52,17 +52,21 @@ items:
           topicUid: sample-cache-3
         - name: Step 4. Supporting external types
           topicUid: sample-cache-4
-    - name: Ignore Values
-      topicUid: sample-ignore-value
     - name: NotifyPropertyChanged
       topicUid: sample-notifypropertychanged
-    - name: Dirty
+    - name: Change Tracking
       topicUid: sample-dirty
       items:
         - name: Step 1. Getting started
           topicUid: sample-dirty-1
         - name: Step 2. Verifying manual code
           topicUid: sample-dirty-2
+        - name: Step 3. Integrating with INotifyPropertyChanged
+          topicUid: sample-dirty-3
+        - name: Step 4. Reverting changes
+          topicUid: sample-dirty-4
+        - name: Limitations
+          topicUid: sample-dirty-limitations
     - name: Clone
       topicUid: sample-clone
     - name: ToString

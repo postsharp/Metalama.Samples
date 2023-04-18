@@ -2,9 +2,9 @@
 uid: samples
 ---
 
-# Examples
+# Commented Examples
 
-The following table shows some examples that demonstrate how to use Metalama.
+This chapter shows a few examples that demonstrate how to use Metalama. Each of them is designed as a tutorial, progressively introducing features of growing complexity. You can use these examples to support your learning process. 
 
 | Example                               | Description                                                                                                     |
 |---------------------------------------|-----------------------------------------------------------------------------------------------------------------|
@@ -12,7 +12,7 @@ The following table shows some examples that demonstrate how to use Metalama.
 | [Caching](caching/README.md)          | Caches the method return value as a function of its parameters.                                                 |
 | [Exception Handling](exception-handling/README.md) | Demonstrates several exception-handling strategies including retry, [Poly](https://github.com/App-vNext/Polly), and adding parameter values for richer reports. |
 | [INotifyPropertyChanged](notifypropertychanged/README.md) | Automatically implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface and instruments properties. |
-| [Dirty](dirty/README.md)              | Adds an `IsDirty` property to the type and sets it whenever a field or property is modified.                      |
+| [Change Tracking](change-tracking/README.md)              | Automatically implements the <xref:System.ComponentModel.IChangeTracking> or <xref:System.ComponentModel.IRevertibleChangeTracking> interface  interface and instruments fields and properties accordingly.                      |
 | [Clone](clone/README.md)              | Implements the _deep clone_ pattern.                                                                             |
 | [ToString](tostring/README.md)        | Implements the <xref:System.Object.ToString*> method.                                                           |
 | [Enum View-Model](enum-viewmodel/README.md) | Creates a view-model class to wrap an enum value.                                                                |

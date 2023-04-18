@@ -2,7 +2,7 @@
 uid: sample-dirty-1
 ---
 
-# Dirty Flag example, step 1: getting started
+# Change Tracking example, step 1: getting started
 
 [!metalama-project-buttons .]
 

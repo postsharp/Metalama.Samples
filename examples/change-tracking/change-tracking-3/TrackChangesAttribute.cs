@@ -60,6 +60,13 @@ public class TrackChangesAttribute : TypeAspect
         }
     }
 
+
+    private IMethod? GetOnPropertyChangedMethod( INamedType type )
+        => type.AllMethods
+                .OfName( "OnPropertyChanged" )
+                .Where( m => m.Parameters.Count == 1 )
+                .SingleOrDefault();
+
     [InterfaceMember]
     public bool IsChanged { get; private set; }
 
@@ -91,12 +98,6 @@ public class TrackChangesAttribute : TypeAspect
     {
         this.IsChanged = false;
     }
-
-    private IMethod? GetOnPropertyChangedMethod( INamedType type )
-        => type.AllMethods
-                .OfName( "OnPropertyChanged" )
-                .Where( m => m.Parameters.Count == 1 )
-                .SingleOrDefault();
 
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]

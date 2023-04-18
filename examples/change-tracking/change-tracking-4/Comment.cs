@@ -1,6 +1,6 @@
 ﻿namespace Metalama.Samples.Dirty;
 
-[TrackChanges( IsReversible = true )]
+[TrackChanges( IsRevertible = true )]
 // [NotifyPropertyChanged]
 public partial class Comment
 {

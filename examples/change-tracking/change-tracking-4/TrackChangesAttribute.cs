@@ -19,7 +19,7 @@ public class TrackChangesAttribute : TypeAspect
         Severity.Error,
         $"The '{nameof( OnChange )}()' method must be have the 'protected' accessibility." );
 
-    public bool IsReversible { get; set; }
+    public bool IsRevertible { get; set; }
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
@@ -28,10 +28,9 @@ public class TrackChangesAttribute : TypeAspect
         .Where( f => !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
 
 
-        var introducedFields = new Dictionary<IFieldOrProperty, IField>();
+        var introducedFields = new Dictionary<IFieldOrProperty, IField>();   /*[BuildDictionary:Start]*/
 
-
-        if ( this.IsReversible )
+        if ( this.IsRevertible )
         {
          
             // Create a field for each mutable field or property. These fields
@@ -43,11 +42,11 @@ public class TrackChangesAttribute : TypeAspect
                 var acceptedField = builder.Advice.IntroduceField( builder.Target, "_accepted" + upperCaseName, fieldOrProperty.Type );
                 introducedFields[fieldOrProperty] = acceptedField.Declaration;
             }
-        }
+        } 
 
         // Implement the ISwitchableChangeTracking interface.         
         var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target, typeof( ISwitchableChangeTracking ), OverrideStrategy.Ignore,
-            tags: new { IntroducedFields = introducedFields } );
+            tags: new { IntroducedFields = introducedFields } ); /*[BuildDictionary:End]*/
 
         // If the type already implements ISwitchableChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
@@ -65,11 +64,11 @@ public class TrackChangesAttribute : TypeAspect
             }
         }
 
-        if ( this.IsReversible )
+        if ( this.IsRevertible ) /*[IRevertibleChangeTracking:Start]*/
         {
             builder.Advice.ImplementInterface( builder.Target, typeof(IRevertibleChangeTracking), OverrideStrategy.Ignore,
             tags: new { IntroducedFields = introducedFields } );
-        }
+        }  /*[IRevertibleChangeTracking:End]*/
 
         // Override all writable fields and automatic properties.
         // If the type has an OnPropertyChanged method, we assume that all properties
@@ -88,11 +87,12 @@ public class TrackChangesAttribute : TypeAspect
 
     }
 
-    [InterfaceMember]
-    public bool IsChanged { get; private set; }
-
     [Introduce]
     private bool _isTrackingChanges;
+
+
+    [InterfaceMember]
+    public bool IsChanged { get; private set; }
 
     [InterfaceMember]
     public bool IsTrackingChanges
@@ -117,7 +117,7 @@ public class TrackChangesAttribute : TypeAspect
     [InterfaceMember]
     public void AcceptChanges()
     {
-        if ( this.IsReversible )
+        if ( this.IsRevertible )
         {
 
             var introducedFields = (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
