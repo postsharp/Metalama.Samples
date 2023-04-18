@@ -11,11 +11,13 @@ public class CacheAttribute : OverrideMethodAspect
     // The ICache service is pulled from the dependency injection container. 
     // If needed, the aspect will add the field to the target class and pull it from
     // the constructor.
-    [IntroduceDependency] private readonly ICache _cache;
+    [IntroduceDependency]
+    private readonly ICache _cache;
 
-    [IntroduceDependency] private readonly ICacheKeyBuilderProvider _cacheBuilderProvider;
+    [IntroduceDependency]
+    private readonly ICacheKeyBuilderProvider _cacheBuilderProvider;
 
-    public override void BuildAspect( IAspectBuilder<IMethod> builder ) 
+    public override void BuildAspect( IAspectBuilder<IMethod> builder )
     {
         base.BuildAspect( builder );
 
@@ -28,7 +30,7 @@ public class CacheAttribute : OverrideMethodAspect
                 cachingOptions.VerifyCacheKeyMember( parameter, builder.Diagnostics );
             }
         }
-    } 
+    }
 
     public override dynamic? OverrideMethod()
     {

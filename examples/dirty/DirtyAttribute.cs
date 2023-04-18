@@ -55,7 +55,8 @@ public class DirtyAttribute : TypeAspect
         // but this is not possible in the current version of Metalama.
     }
 
-    [InterfaceMember] public DirtyState DirtyState { get; protected set; }
+    [InterfaceMember]
+    public DirtyState DirtyState { get; protected set; }
 
     [Template]
     private void OverrideSetter()

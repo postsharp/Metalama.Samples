@@ -11,9 +11,11 @@ using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency] private readonly ILogger _logger;
+    [IntroduceDependency]
+    private readonly ILogger _logger;
 
-    [IntroduceDependency] private readonly IPolicyFactory _policyFactory;
+    [IntroduceDependency]
+    private readonly IPolicyFactory _policyFactory;
 
     public PolicyKind Kind { get; }
 

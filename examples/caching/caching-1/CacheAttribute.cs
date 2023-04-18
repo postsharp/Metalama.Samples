@@ -4,7 +4,8 @@ using Metalama.Framework.Code.SyntaxBuilders;
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency] private readonly ICache _cache;
+    [IntroduceDependency]
+    private readonly ICache _cache;
 
     public override dynamic? OverrideMethod()
     {

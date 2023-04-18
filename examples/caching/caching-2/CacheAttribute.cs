@@ -6,7 +6,8 @@ using Metalama.Framework.Eligibility;
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency] private readonly ICache _cache;
+    [IntroduceDependency]
+    private readonly ICache _cache;
 
     public override dynamic? OverrideMethod()
     {
@@ -37,5 +38,5 @@ public class CacheAttribute : OverrideMethodAspect
         builder.MustSatisfy(
             m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ),
             m => $"{m} cannot have out or ref parameter" );
-    } 
+    }
 }

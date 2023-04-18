@@ -6,7 +6,8 @@ using Microsoft.Extensions.Logging;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency] private readonly ILogger _logger;
+    [IntroduceDependency]
+    private readonly ILogger _logger;
 
     public override dynamic? OverrideMethod()
     {

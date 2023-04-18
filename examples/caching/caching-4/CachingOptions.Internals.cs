@@ -30,11 +30,11 @@ public partial class CachingOptions : ProjectExtension
         {
             diagnosticSink.Report( _error.WithArguments( expression.Type ), expression );
             return false;
-        } 
+        }
     }
 
     internal bool TryGetCacheKeyExpression( IExpression expression,
-        IExpression cacheKeyBuilderProvider, 
+        IExpression cacheKeyBuilderProvider,
         [NotNullWhen( true )] out IExpression? cacheKeyExpression )
     {
         var expressionBuilder = new ExpressionBuilder();
@@ -87,5 +87,5 @@ public partial class CachingOptions : ProjectExtension
 
         cacheKeyExpression = expressionBuilder.ToExpression();
         return true;
-    } 
+    }
 }

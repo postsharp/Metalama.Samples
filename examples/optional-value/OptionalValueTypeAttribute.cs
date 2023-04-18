@@ -53,9 +53,11 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
     }
 
-    [Template] public dynamic? OptionalValues { get; private set; }
+    [Template]
+    public dynamic? OptionalValues { get; private set; }
 
-    [Template] public dynamic? OptionalPropertyTemplate { get; set; }
+    [Template]
+    public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate

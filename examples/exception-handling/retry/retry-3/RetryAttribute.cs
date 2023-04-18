@@ -5,7 +5,8 @@ using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency] private readonly ILogger _logger;
+    [IntroduceDependency]
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Gets or sets the maximum number of times that the method should be executed.

@@ -1,6 +1,7 @@
 ﻿internal static class LoggingRecursionGuard
 {
-    [ThreadStatic] public static bool _isLogging;
+    [ThreadStatic]
+    public static bool _isLogging;
 
     public static DisposeCookie Begin()
     {
