@@ -58,6 +58,11 @@ items:
       topicUid: sample-notifypropertychanged
     - name: Dirty
       topicUid: sample-dirty
+      items:
+        - name: Step 1. Getting started
+          topicUid: sample-dirty-1
+        - name: Step 2. Verifying manual code
+          topicUid: sample-dirty-2
     - name: Clone
       topicUid: sample-clone
     - name: ToString
