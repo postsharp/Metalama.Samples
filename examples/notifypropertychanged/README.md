@@ -33,11 +33,11 @@ As can be seen from the code, the `NotifyPropertyChangedAttribute` class inherit
 
 The <xref:Metalama.Framework.Aspects.InheritableAttribute?text=[Inheritable]> at the top of the class indicates that the aspect should be inherited from the base class to derived classes. For further details, see <xref:aspect-inheritance>.
 
-Let's examine the implementation section of the `BuildAspect` method.
+Let's examine the implementation of the `BuildAspect` method.
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.BuildAspect"]
 
-The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the <xref:System.ComponentModel.INotifyPropertyChanged> interface to the target type. The `whenExists` parameter is set to `Ignore`, indicating that this call will just be ignored if the target type or a base type already implements the interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be implemented by the aspect class and to be annotated with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only member is the `PropertyChanged` event:
+The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the <xref:System.ComponentModel.INotifyPropertyChanged> interface to the target type. The `whenExists` parameter is set to `Ignore`, indicating that this call will just be ignored if the target type or any base type already implements the interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be implemented by the aspect class and to be annotated with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only member is the `PropertyChanged` event:
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.PropertyChanged"]
 
@@ -47,7 +47,7 @@ Note that the `OnPropertyChanged` method is not a part of the [System.ComponentM
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.OnPropertyChanged"]
 
-The `OnPropertyChanged` method invokes the `PropertyChanged` event. Note that the expression `meta.This` is translated into simply `this` by Metalama. For further details about adding members, see <xref:introducing-members>.
+The `OnPropertyChanged` method invokes the `PropertyChanged` event. Note that the expression `meta.This` is translated into simply `this` by Metalama. It represents the _run-time_ object, while the `this` keyword in the aspect would represent the aspect itself. For further details about adding members, see <xref:introducing-members>.
 
 Now, moving back to the `BuildAspect` method. The next action it performs is to iterate through all properties that have a setter. It does this by calling the <xref:Metalama.Framework.Advising.IAdviceFactory.OverrideAccessors*> using `OverridePropertySetter` as a template for the new property setter. For further details, see <xref:overriding-fields-or-properties>..
 
