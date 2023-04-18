@@ -63,51 +63,59 @@ Finally, the template calls the `OnPropertyChanged` method. `meta.Target.Propert
 
 ## Limitations
 
-This implementation has limitations that you should be aware of.
+This implementation has limitations that you should be aware of. Note that all trivial implementations of <xref:System.ComponentModel.INotifyPropertyChanged> suffer from the same limitations. The only robust implementation we know about is the one of [PostSharp](https://doc.postsharp.net/model/notifypropertychanged/inotifypropertychanged).
 
-* Dependent properties are silently ignored. For instance, the following code won't raise notification for the `FullName` property:
+### Limitation 1. Dependent properties
 
-    ```csharp
-    class Person
+The first limitation of our implementation is that dependent properties are silently ignored. For instance, the following code won't raise any notification for the `FullName` property:
+
+```csharp
+class Person
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    // Notification never raised!
+    public string FullName => $"{FirstName} {LastName}"
+}
+```
+
+Currently, Metalama doesn't provide any way to analyze dependent properties. This will be remediated in a future version.
+
+### Limitation 2. Timing of notifications
+
+The second limitation is more subtle. When you have a method that modifies several properties, the notifications with the current implementation will raise notification in the middle of the modifications, as individual properties are being modified, but a correct implementation would need to raise the notifications at the end, after all properties have been modified.
+
+Consider for instance the following code:
+
+```csharp
+class InvoiceLine
+{
+    public decimal UnitPrice {get; private set; }
+    public decimal Units {get; private set; }
+    public decimal TotalPrice { get; private set; }
+
+    public void Update( decimal unitPrice, decimal totalPrice )
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-
-        // Notification never raised!
-        public string FullName => $"{FirstName} {LastName}"
+        this.UnitPrice = unitPrice;
+        // PropertyChanged raised with broken invariants.
+        this.Units = units;
+        // PropertyChanged raised with broken invariants.
+        this.TotalPrice = unitPrice * units;
     }
-    ```
+}
+```
 
-    Currently, Metalama doesn't provide any way to analyze dependent properties.
+This class has an invariant `TotalPrice = UnitPrice * Units`. The `PropertyChanged` event will be raised in the middle of the `Update` class at a moment when class invariants are invalid. A listener that would process the event synchronously would see the `InvoiceLine` object in an invalid state. A proper implementation would buffer the events and raise them at the end of the `Update` method when all invariants are valid.
 
-* The `PropertyChanged` event may be raised when class invariants are invalid. Consider for instance the following code:
-
-    ```csharp
-    class InvoiceLine
-    {
-        public decimal UnitPrice {get; private set; }
-        public decimal Units {get; private set; }
-        public decimal TotalPrice { get; private set; }
-
-        public void Update( decimal unitPrice, decimal totalPrice )
-        {
-            this.UnitPrice = unitPrice;
-            // PropertyChanged raised with broken invariants.
-            this.Units = units;
-            // PropertyChanged raised with broken invariants.
-            this.TotalPrice = unitPrice * units;
-        }
-    }
-    ```
-
-    This class has an invariant `TotalPrice = UnitPrice * Units`. 
-
-    The `PropertyChanged` event will be raised in the middle of the `Update` class at a moment when class invariants are invalid. A listener that would process the event synchronously would see the `InvoiceLine` object in an invalid state. A proper implementation would buffer the events and raise them at the end of the `Update` method when all invariants are valid.
-
-    Contrarily to the first limitation, it's possible to address this limitation.
+Contrarily to the first limitation, it's possible to address this limitation, but this is quite complex.
 
 > [!div class="see-also"]
 > <xref:aspect-inheritance>
 > <xref:implementing-interfaces>
 > <xref:overriding-fields-or-properties>
 > <xref:introducing-members>
+
+### Limitation 3. Insufficient precondition checking
+
+If the target type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface but does _not_ implement the `OnPropertyChanged` method, the aspect will generate invalid code. This limitation can be easily addressed with Metalama.
