@@ -1,6 +1,4 @@
-﻿namespace Metalama.Samples.Dirty;
-
-internal class Program
+﻿internal class Program
 {
     private static void Main()
     {

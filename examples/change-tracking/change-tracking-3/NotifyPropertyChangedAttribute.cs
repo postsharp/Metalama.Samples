@@ -2,8 +2,6 @@
 using Metalama.Framework.Code;
 using System.ComponentModel;
 
-namespace Metalama.Samples.NotifyPropertyChanged;
-
 [Inheritable]
 internal class NotifyPropertyChangedAttribute : TypeAspect
 {
@@ -22,7 +20,7 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
     public event PropertyChangedEventHandler? PropertyChanged;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
-    protected void OnPropertyChanged( string name ) =>
+    protected virtual void OnPropertyChanged( string name ) =>
         this.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs( name ) );
 
     [Template]

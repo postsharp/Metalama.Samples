@@ -1,7 +1,5 @@
-﻿namespace Metalama.Samples.Dirty;
-
-[TrackChanges( IsRevertible = true )]
-// [NotifyPropertyChanged]
+﻿[TrackChanges]
+[NotifyPropertyChanged]
 public partial class Comment
 {
     public Guid Id { get; }

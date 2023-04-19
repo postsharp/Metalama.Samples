@@ -1,7 +1,6 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
-namespace Metalama.Samples.Dirty;
 
 [Inheritable]
 public class TrackChangesAttribute : TypeAspect
@@ -10,12 +9,12 @@ public class TrackChangesAttribute : TypeAspect
     {
         // Implement the ISwitchableChangeTracking interface.
         builder.Advice.ImplementInterface( builder.Target, typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore );
-        
+
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where( f => !f.IsImplicitlyDeclared && 
-            f.IsAutoPropertyOrField == true &&
-            f.Writeability == Writeability.All );
+            .Where( f => !f.IsImplicitlyDeclared &&
+                         f.IsAutoPropertyOrField == true &&
+                         f.Writeability == Writeability.All );
 
         foreach ( var fieldOrProperty in fieldsOrProperties )
         {
@@ -28,13 +27,10 @@ public class TrackChangesAttribute : TypeAspect
 
     [InterfaceMember]
     public bool IsTrackingChanges { get; set; }
-   
+
 
     [InterfaceMember]
-    public void AcceptChanges()
-    {
-        this.IsChanged = false;
-    }
+    public void AcceptChanges() => this.IsChanged = false;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
     protected void OnChange()

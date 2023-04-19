@@ -2,8 +2,6 @@
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 
-namespace Metalama.Samples.Clone;
-
 [Inheritable]
 [EditorExperience( SuggestAsLiveTemplate = true )]
 internal class DeepCloneAttribute : TypeAspect

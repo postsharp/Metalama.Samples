@@ -3,30 +3,31 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
 
-namespace Metalama.Samples.Dirty;
 
 public class TrackChangesAttribute : TypeAspect
 {
-    private static readonly DiagnosticDefinition<INamedType> _mustHaveOnChangeMethod = new(     
+    private static readonly DiagnosticDefinition<INamedType> _mustHaveOnChangeMethod = new(
         "MY001",
         Severity.Error,
-        $"The '{nameof(ISwitchableChangeTracking)}' interface is implemented manually on type '{{0}}', but the type does not have an '{nameof(OnChange)}()' method." );
+        $"The '{nameof(ISwitchableChangeTracking)}' interface is implemented manually on type '{{0}}', but the type does not have an '{nameof(OnChange)}()' method.");
 
     private static readonly DiagnosticDefinition _onChangeMethodMustBeProtected = new(
         "MY002",
         Severity.Error,
-        $"The '{nameof(OnChange)}()' method must be have the 'protected' accessibility." );
+        $"The '{nameof(OnChange)}()' method must be have the 'protected' accessibility.");
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ISwitchableChangeTracking interface.         
-        var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target, typeof( ISwitchableChangeTracking ), OverrideStrategy.Ignore ); /*[BuildAspect:Start]*/
+        var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
+            typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore ); /*[BuildAspect:Start]*/
 
         // If the type already implements IChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
         if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )
         {
-            var onChangeMethod = builder.Target.AllMethods.OfName( nameof( OnChange ) ).Where( m => m.Parameters.Count == 0 ).SingleOrDefault();
+            var onChangeMethod = builder.Target.AllMethods.OfName( nameof(this.OnChange) )
+                .Where( m => m.Parameters.Count == 0 ).SingleOrDefault();
 
             if ( onChangeMethod == null )
             {
@@ -41,7 +42,8 @@ public class TrackChangesAttribute : TypeAspect
 
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where( f => !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
+            .Where( f =>
+                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
 
         foreach ( var fieldOrProperty in fieldsOrProperties )
         {
@@ -58,10 +60,7 @@ public class TrackChangesAttribute : TypeAspect
 
 
     [InterfaceMember]
-    public void AcceptChanges()
-    {
-        this.IsChanged = false;
-    }
+    public void AcceptChanges() => this.IsChanged = false;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
     protected void OnChange()

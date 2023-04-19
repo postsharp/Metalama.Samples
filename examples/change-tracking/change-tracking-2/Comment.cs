@@ -1,6 +1,4 @@
-﻿namespace Metalama.Samples.Dirty;
-
-[TrackChanges]
+﻿[TrackChanges]
 public partial class Comment
 {
     public Guid Id { get; }

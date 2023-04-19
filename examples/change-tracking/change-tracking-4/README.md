@@ -20,12 +20,6 @@ Here is the complete code of the new version of the `TrackChanges` aspect:
 
 [!metalama-file TrackChangesAttribute.cs]
 
-The first difference is the new property `IsRevertible`:
-
-[!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute.IsRevertible"]
-
-When this property is `false`, the aspect behaves as before.
-
 Let's focus on the following part of the `BuildAspect` method at the moment. 
 
 [!metalama-file TrackChangesAttribute.cs from="BuildDictionary:Start" to="BuildDictionary:End"]

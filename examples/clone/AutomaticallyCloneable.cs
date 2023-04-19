@@ -1,6 +1,4 @@
-﻿namespace Metalama.Samples.Clone;
-
-[DeepClone]
+﻿[DeepClone]
 internal partial class AutomaticallyCloneable
 {
     public int A;

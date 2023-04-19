@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 
-namespace Metalama.Samples.Dirty;
 
 public interface ISwitchableChangeTracking : IChangeTracking
 {
