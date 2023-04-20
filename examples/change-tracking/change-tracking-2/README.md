@@ -6,7 +6,7 @@ uid: sample-dirty-2
 
 [!metalama-project-buttons .]
 
-In the previous example, we have created an aspect that does a great job at implementing the `IChangeTracking` interface. If the base class implements the `IChangeTracking` manually, the aspect will still work properly and call the `OnChange` method of the base class. However, what if the base class does _not_ contain any `OnChange` method, or if it is not protected?
+In the previous example, we created an aspect that does a great job of implementing the `IChangeTracking` interface. If the base class implements the `IChangeTracking` manually, the aspect will still work properly and call the `OnChange` method of the base class. However, what if the base class does _not_ contain any `OnChange` method, or if it is not protected?
 
 In this example, we will enhance the aspect and report a nice error if the `IChangeTracking` is implemented but the `OnChange` method does not exist or is not protected.
 
@@ -31,7 +31,7 @@ Then, we add this code to the `BuildAspect` method:
 
 [!metalama-file TrackChangesAttribute.cs from="BuildAspect:Start" to="BuildAspect:End"]
 
-As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore`  <xref:Metalama.Framework.Aspects.OverrideStrategy>.  This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that type, or any base type, already implements the `IChangeTracking` interface. In this case, we check that the type contains a parameterless method named `OnChange` and we verify its accessibility.
+As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore` <xref:Metalama.Framework.Aspects.OverrideStrategy>. This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that the type, or any base type, already implements the `IChangeTracking` interface. In this case, we check that the type contains a parameterless method named `OnChange` and we verify its accessibility.
 
 > [!div class="see-also"]
 > <xref:diagnostics>

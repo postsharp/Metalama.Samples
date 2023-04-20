@@ -6,9 +6,9 @@ uid: sample-dirty-4
 
 [!metalama-project-buttons .]
 
-In this article, we will implement the ability to revert the object to the last-accepted version. In the .NET Framework, this ability is exposed as the <xref:System.ComponentModel.IRevertibleChangeTracking> interface. It adds a new <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method. This method must revert any changes done since the last call to <xref:System.ComponentModel.IChangeTracking.AcceptChanges*>  method. 
+In this article, we will implement the ability to revert the object to the last-accepted version. In the .NET Framework, this ability is exposed as the <xref:System.ComponentModel.IRevertibleChangeTracking> interface. It adds a new <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method. This method must revert any changes done since the last call to the <xref:System.ComponentModel.IChangeTracking.AcceptChanges*> method.
 
-To implement this pattern, we need duplicate each field or automatic property: one copy will contain the _current_ value, and the second value the _accepted_ value. The <xref:System.ComponentModel.IChangeTracking.AcceptChanges*>  method copies the current values to the accepted values, while the <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method the accepted values to the current value.
+To implement this pattern, we need to duplicate each field or automatic property: one copy will contain the _current_ value, and the second value will contain the _accepted_ value. The <xref:System.ComponentModel.IChangeTracking.AcceptChanges*> method copies the current values to the accepted values, while the <xref:System.ComponentModel.IRevertibleChangeTracking.RejectChanges*> method copies the accepted values to the current value.
 
 Let's see this pattern in action:
 
@@ -20,13 +20,13 @@ Here is the complete code of the new version of the `TrackChanges` aspect:
 
 [!metalama-file TrackChangesAttribute.cs]
 
-Let's focus on the following part of the `BuildAspect` method at the moment. 
+Let's focus on the following part of the `BuildAspect` method for the moment.
 
 [!metalama-file TrackChangesAttribute.cs from="BuildDictionary:Start" to="BuildDictionary:End"]
 
-First, the method introduces new fields into the type for each mutable field or automatic property using the  <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceField*> method. For details about this practice, see <xref:introducing-members>.
+First, the method introduces new fields into the type for each mutable field or automatic property using the <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceField*> method. For details about this practice, see <xref:introducing-members>.
 
-Note that we are building the `introducedFields` dictionary, which maps the current-value field or property to the accepted-value field. This dictionary will be passed to <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> call as a _tag_. The collection of tags is an anonymous object. For more details about this technique, see <xref:sharing-state-with-advice>.
+Note that we are building the `introducedFields` dictionary, which maps the current-value field or property to the accepted-value field. This dictionary will be passed to the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> call as a _tag_. The collection of tags is an anonymous object. For more details about this technique, see <xref:sharing-state-with-advice>.
 
 Lower in the `BuildAspect` method, we add the <xref:System.ComponentModel.IRevertibleChangeTracking> interface to the target type. We also pass the dictionary to the _tags_ parameter.
 
