@@ -2,7 +2,7 @@
 uid: sample-dirty-1
 ---
 
-# Change Tracking example, step 1: getting started
+# Change Tracking Example, Step 1: Getting Started
 
 [!metalama-project-buttons .]
 
@@ -50,7 +50,7 @@ The `OnChange` method has an <xref:Metalama.Framework.Aspects.IntroduceAttribute
 
 ## Summary
 
-In this first article, we have created the first version of the `TrackChanged` aspect, and it already does a good job. There are still two problems we need to address. The first: what if the aspect's user implements the `IChangeTracking` manually but forgets the `OnChange` method? Next: how to integrate with <xref:System.ComponentModel.INotifyPropertyChanged>?
+In this first article, we have created the first version of the `TrackChanged` aspect, and it already does a good job. There are still two problems we need to address. The first is what if the aspect's user implements the `IChangeTracking` manually but forgets the `OnChange` method? Next, how to integrate with <xref:System.ComponentModel.INotifyPropertyChanged>?
 
 > [!div class="see-also"]
 > <xref:aspect-inheritance>
