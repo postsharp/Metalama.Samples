@@ -1,0 +1,36 @@
+{
+    "markdown.extension.toc.levels": "2..2",
+    "editor.wordWrap" : "bounded",
+    "editor.wordWrapColumn": 120,
+    "cSpell.words": [
+        "matryoshka",
+        "Metalama",
+        "multicasting",
+        "refactorings",
+        "structs",
+        "xref"
+    ],
+    "markdownlint.config": {
+        "header-style": false,
+        "MD028": false,
+        "MD025": {
+            "front_matter_title": ""
+        },
+        "DOCSMD041": false,
+        "DOCSMD009": false,
+        "MD013": false,
+        "DOCSMD010": false,
+        "MD033": false,
+        },
+    "grammarly.config.documentDomain": "business",
+    "grammarly.config.suggestions.conjunctionAtStartOfSentence": true,
+    "grammarly.config.documentDialect": "american",
+    "markdown.showToolbar": true,
+    "grammarly.files.include": [
+        "**/readme.md",
+        "**/README.md",
+        "**/*.txt",
+        "**/*.md"
+    ]
+    }
+    
