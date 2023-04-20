@@ -75,12 +75,6 @@ public class TrackChangesAttribute : TypeAspect
             builder.Advice.IntroduceField( builder.Target, "_isTrackingChanges", typeof(bool) );
         }
 
-
-        builder.Advice.ImplementInterface( builder.Target, typeof(IRevertibleChangeTracking),
-            OverrideStrategy.Override, /*[IRevertibleChangeTracking:Start]*/
-            new { IntroducedFields = introducedFields } ); /*[IRevertibleChangeTracking:End]*/
-
-
         // Override all writable fields and automatic properties.
         // If the type has an OnPropertyChanged method, we assume that all properties
         // and fields already call it, and we hook into OnPropertyChanged instead of
