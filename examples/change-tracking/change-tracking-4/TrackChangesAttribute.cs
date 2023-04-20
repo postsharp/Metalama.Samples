@@ -150,6 +150,11 @@ public class TrackChangesAttribute : TypeAspect
                 {
                     onPropertyChanged.Invoke( nameof(this.IsTrackingChanges) );
                 }
+
+                if ( value )
+                {
+                    this.AcceptChanges();
+                }
             }
         }
     }

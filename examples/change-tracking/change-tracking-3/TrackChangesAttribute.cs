@@ -54,11 +54,9 @@ public class TrackChangesAttribute : TypeAspect
         }
 
 
-        // Override all writable fields and automatic properties.
+        var onPropertyChanged = this.GetOnPropertyChangedMethod( builder.Target ); 
 
-        var onPropertyChanged = this.GetOnPropertyChangedMethod( builder.Target );
-
-        if ( onPropertyChanged == null )
+        if ( onPropertyChanged == null )        /*[NoOnPropertyChanged:Start]*/
         {
             // If the type has an OnPropertyChanged method, we assume that all properties
             // and fields already call it, and we hook into OnPropertyChanged instead of
@@ -72,13 +70,13 @@ public class TrackChangesAttribute : TypeAspect
             {
                 builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
             }
-        }
-        else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )
+        }                                   /*[NoOnPropertyChanged:End]*/
+        else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )    /*[OnPropertyChangedInCurrentType:Start]*/
         {
             // If the OnPropertyChanged method was declared in the current type, override it.
             builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
-        }
-        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )
+        }                                                                       /*[OnPropertyChangedInCurrentType:End]*/
+        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )    /*[OnPropertyChangedInBaseType:Start]*/
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -99,7 +97,7 @@ public class TrackChangesAttribute : TypeAspect
                 builder.Advice.IntroduceMethod( builder.Target, nameof(this.OnPropertyChanged),
                     whenExists: OverrideStrategy.Override );
             }
-        }
+        }                                                                               /*[OnPropertyChangedInBaseType:End]*/
     }
 
 
