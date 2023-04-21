@@ -8,24 +8,27 @@ using Metalama.Framework.Project;
 public class CloneableAttribute : TypeAspect
 {
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)> _fieldOrPropertyCannotBeReadOnly =
-        new( "CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child]." );
+        new("CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
 
-    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)> _missingCloneMethod = 
-        new( "CLONE02", Severity.Error, "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method." );
+    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)> _missingCloneMethod =
+        new("CLONE02", Severity.Error,
+            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method.");
 
     private static readonly DiagnosticDefinition<IProperty> _childPropertyMustBeAutomatic =
-        new( "CLONE03", Severity.Error, "The property '{0}' cannot be a [Child] because is not an automatic property." ); 
+        new("CLONE03", Severity.Error, "The property '{0}' cannot be a [Child] because is not an automatic property.");
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Verify that child fields are valid.
-        var hasError = false;               
+        var hasError = false;
         foreach ( var fieldOrProperty in GetClonableFieldsOrProperties( builder.Target ) )
         {
             // The field or property must be writable.
             if ( fieldOrProperty.Writeability != Writeability.All )
             {
-                builder.Diagnostics.Report( _fieldOrPropertyCannotBeReadOnly.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty) ), fieldOrProperty );
+                builder.Diagnostics.Report(
+                    _fieldOrPropertyCannotBeReadOnly.WithArguments( (fieldOrProperty.DeclarationKind,
+                        fieldOrProperty) ), fieldOrProperty );
                 hasError = true;
             }
 
@@ -38,14 +41,17 @@ public class CloneableAttribute : TypeAspect
 
             // The type of the field must be cloneable.
             if ( !MetalamaExecutionContext.Current.ExecutionScenario.IsDesignTime )
-            { 
+            {
                 var fieldType = fieldOrProperty.Type as INamedType;
 
                 if ( fieldType == null ||
-                    !(fieldType.AllMethods.OfName( "Clone" ).Where( p => p.Parameters.Count == 0 ).Any() ||
-                    ( fieldType.BelongsToCurrentProject && fieldType.Enhancements().HasAspect<CloneableAttribute>()) ) )
+                     !(fieldType.AllMethods.OfName( "Clone" ).Where( p => p.Parameters.Count == 0 ).Any() ||
+                       (fieldType.BelongsToCurrentProject &&
+                        fieldType.Enhancements().HasAspect<CloneableAttribute>())) )
                 {
-                    builder.Diagnostics.Report( _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty, fieldOrProperty.Type) ), fieldOrProperty );
+                    builder.Diagnostics.Report(
+                        _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty,
+                            fieldOrProperty.Type) ), fieldOrProperty );
                     hasError = true;
                 }
             }
@@ -69,9 +75,9 @@ public class CloneableAttribute : TypeAspect
                 m.Name = "Clone";
                 m.ReturnType = builder.Target;
             } );
-        builder.Advice.IntroduceMethod(   /*<AddCloneMembers>*/
+        builder.Advice.IntroduceMethod( /*<AddCloneMembers>*/
             builder.Target,
-            nameof( this.CloneMembers ),
+            nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target } ); /*</AddCloneMembers>*/
 
@@ -83,7 +89,7 @@ public class CloneableAttribute : TypeAspect
     }
 
     private static IEnumerable<IFieldOrProperty> GetClonableFieldsOrProperties( INamedType type )
-        => type.FieldsAndProperties.Where( f => f.Attributes.OfAttributeType( typeof( ChildAttribute ) ).Any() );
+        => type.FieldsAndProperties.Where( f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
     [Template]
     public virtual T CloneImpl<[CompileTime] T>()
@@ -107,7 +113,7 @@ public class CloneableAttribute : TypeAspect
 
         // Call CloneMembers, which may have a hand-written part.
         meta.This.CloneMembers( clone );
-        
+
 
         return clone;
     }
@@ -128,7 +134,6 @@ public class CloneableAttribute : TypeAspect
 
         // Call the hand-written implementation, if any.
         meta.Proceed();
-
     }
 
     [InterfaceMember( IsExplicit = true )]

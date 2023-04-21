@@ -5,5 +5,4 @@ internal class Game
 
     [Child]
     public GameSettings Settings { get; private set; }
-    
 }

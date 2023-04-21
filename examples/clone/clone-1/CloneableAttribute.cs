@@ -6,20 +6,20 @@ using Metalama.Framework.Code;
 public class CloneableAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
-    { 
-        builder.Advice.ImplementInterface(     /*<BuildAspect1>*/
+    {
+        builder.Advice.ImplementInterface( /*<BuildAspect1>*/
             builder.Target,
             typeof(ICloneable),
-            OverrideStrategy.Ignore );          /*</BuildAspect1>*/
-            
-        builder.Advice.IntroduceMethod(         /*<BuildAspect2>*/
+            OverrideStrategy.Ignore ); /*</BuildAspect1>*/
+
+        builder.Advice.IntroduceMethod( /*<BuildAspect2>*/
             builder.Target,
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
-            buildMethod: m => m.Name = "Clone" );/*</BuildAspect2>*/
+            buildMethod: m => m.Name = "Clone" ); /*</BuildAspect2>*/
     }
-    
+
     [InterfaceMember( IsExplicit = true )]
     private object Clone() => meta.This.Clone();
 
@@ -52,11 +52,10 @@ public class CloneableAttribute : TypeAspect
         {
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;
-            
+
             field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
         }
 
         return clone;
     }
-
 }

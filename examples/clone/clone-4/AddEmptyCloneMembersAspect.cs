@@ -3,14 +3,12 @@ using Metalama.Framework.Code;
 
 internal class AddEmptyCloneMembersAspect : IAspect<INamedType>
 {
-    public void BuildAspect( IAspectBuilder<INamedType> builder )
-    {
+    public void BuildAspect( IAspectBuilder<INamedType> builder ) =>
         builder.Advice.IntroduceMethod(
-           builder.Target,
-           nameof( this.CloneMembers ),
-           whenExists: OverrideStrategy.Override,
-           args: new { T = builder.Target } );
-    }
+            builder.Target,
+            nameof(this.CloneMembers),
+            whenExists: OverrideStrategy.Override,
+            args: new { T = builder.Target } );
 
     [Template]
     private void CloneMembers<[CompileTime] T>( T clone )

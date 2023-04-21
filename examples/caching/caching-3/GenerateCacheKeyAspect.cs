@@ -58,7 +58,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
             // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
             if ( member.Type.Is( typeof(ICacheKey) ) ||
-                 (member.Type is INamedType { BelongsToCurrentProject: true } namedType && namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
+                 (member.Type is INamedType { BelongsToCurrentProject: true } namedType &&
+                  namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
                 // If the parameter is ICacheKey, use it.
                 if ( member.Type.IsNullable == false )
