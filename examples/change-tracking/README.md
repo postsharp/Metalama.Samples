@@ -10,7 +10,7 @@ Implementing the _Dirty Flag_ pattern typically requires adding a large amount o
 
 | Article | Description |
 | --- | --- |
-| [1. Getting started](change-tracking-1/README.md) | Gives a minimal implementation of the change tracking pattern. |
+| [1. Getting started](change-tracking-1/README.md) | Provides a minimal implementation of the change tracking pattern. |
 | [2. Verifying code](change-tracking-2/README.md) | Reports errors if the manual implementation of the pattern does not respect the conventions of the pattern. |
 | [3. Integrating with INotifyPropertyChanged](change-tracking-3/README.md) | Raises `PropertyChange` notifications when the `IsChanged` property has changed. |
 | [4. Reverting changes](change-tracking-4/README.md) | Adds support for the `RevertChanges` method. |

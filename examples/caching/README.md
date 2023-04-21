@@ -4,9 +4,9 @@ uid: sample-cache
 
 # Example: caching
 
-In optimizing performance, it is important to store method outputs in memory to improve overall application efficiency, especially for time-consuming or computationally expensive tasks. By storing the results in memory, subsequent calls can quickly retrieve the data without having to re-execute the entire operation, reducing latency.
+When optimizing performance, it is essential to store method outputs in memory to improve overall application efficiency, especially for time-consuming or computationally expensive tasks. By storing results in memory, subsequent calls can quickly retrieve the data without having to re-execute the entire operation, reducing latency.
 
-It is important to note that caching method outputs should only be applied to methods without side effects. Side effects are any changes made to the state of the system or external components resulting from method execution. Caching methods with side effects can cause unintended consequences that bypass necessary updates, modifications, or validations, resulting in stale or incorrect data, which can impact application stability and correctness. To ensure the application's stability and correctness, only cache the results of pure, deterministic functions that always produce the same output given the same input, without altering any external state.
+It is important to note that caching method outputs should only be applied to methods without side effects. Side effects are any changes made to the state of the system or external components resulting from method execution. Caching methods with side effects can cause unintended consequences that bypass necessary updates, modifications, or validations, resulting in stale or incorrect data. This can impact application stability and correctness. To ensure the application's stability and correctness, only cache the results of pure, deterministic functions that always produce the same output given the same input, without altering any external state.
 
 Traditionally, caching the output of a method requires a lot of boilerplate code. However, this process can be significantly simplified by encapsulating it in an aspect.
 

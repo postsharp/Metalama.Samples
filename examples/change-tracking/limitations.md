@@ -4,7 +4,7 @@ uid: sample-dirty-limitations
 
 # Change Tracking example: limitations
 
-A significant limitation of the aspects implemented in the articles above is that they only support fields of _immutable_ type. When a change is made in a child object without changing the field referencing the child object, the <xref:System.ComponentModel.IChangeTracking.IsChanged> property will not be modified. The most common examples are child collections, typically stored in read-only fields or properties.
+One significant limitation of the aspects implemented in the articles above is that they only support fields of _immutable_ type. When a change is made in a child object without changing the field referencing the child object, the <xref:System.ComponentModel.IChangeTracking.IsChanged> property will not be modified. The most common examples are child collections, typically stored in read-only fields or properties.
 
 There are several strategies to mitigate this limitation:
 
