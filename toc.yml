@@ -69,17 +69,26 @@ items:
           topicUid: sample-dirty-limitations
     - name: Clone
       topicUid: sample-clone
-    - name: ToString
-      topicUid: sample-tostring
       items:
-        - name: ToString 101
-          topicUid: sample-tostring-101
-        - name: ToString 102
-          topicUid: sample-tostring-102
-    - name: Enum View-Model
-      topicUid: sample-enum-viewmodel
-    - name: Optional Value Type
-      topicUid: sample-optionalvalue
+        - name: Step 1. Getting started
+          topicUid: sample-clone-1
+        - name: Step 2. Verifying code
+          topicUid: sample-clone-2
+        - name: Step 3. Allowing handmade customizations
+          topicUid: sample-clone-3
+        - name: Step 4. Providing coding guidance
+          topicUid: sample-clone-4
+#    - name: ToString
+#      topicUid: sample-tostring
+#      items:
+#        - name: ToString 101
+#          topicUid: sample-tostring-101
+#        - name: ToString 102
+#          topicUid: sample-tostring-102
+#    - name: Enum View-Model
+#      topicUid: sample-enum-viewmodel
+#    - name: Optional Value Type
+#      topicUid: sample-optionalvalue
     - name: Contributing
       topicUid: samples-contributing
     

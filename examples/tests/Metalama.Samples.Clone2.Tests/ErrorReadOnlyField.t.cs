@@ -1,0 +1,1 @@
+// Error CLONE01 on `Settings`: `The property 'Game.Settings' cannot be read-only because it is marked as a [Child].`

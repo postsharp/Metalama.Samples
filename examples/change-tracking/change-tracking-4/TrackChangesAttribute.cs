@@ -35,7 +35,7 @@ public class TrackChangesAttribute : TypeAspect
                 !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
 
 
-        var introducedFields = new Dictionary<IFieldOrProperty, IField>(); /*[BuildDictionary:Start]*/
+        var introducedFields = new Dictionary<IFieldOrProperty, IField>(); /*<BuildDictionary>*/
 
         // Create a field for each mutable field or property. These fields
         // will contain the accepted values.
@@ -52,7 +52,7 @@ public class TrackChangesAttribute : TypeAspect
         // Implement the ISwitchableChangeTracking interface.         
         var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
             typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore,
-            new { IntroducedFields = introducedFields } ); /*[BuildDictionary:End]*/
+            new { IntroducedFields = introducedFields } ); /*</BuildDictionary>*/
 
         // If the type already implements ISwitchableChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.

@@ -6,6 +6,7 @@
 		<IsPackable>false</IsPackable>
 
 		<Configurations>Debug;Release;LamaDebug</Configurations>
+		<NoWarn>$(NoWarn);CS8618</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\clone\Metalama.Samples.Clone.csproj" />
+		<ProjectReference Include="..\..\clone\clone-2\Metalama.Samples.Clone2.csproj" />
 	</ItemGroup>
 
 </Project>

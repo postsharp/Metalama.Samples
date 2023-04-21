@@ -40,7 +40,7 @@ public class CacheAttribute : OverrideMethodAspect
             stringBuilder.AddText( "{" );
 
             // Check if the parameter type implements ICacheKey or has an aspect of type GenerateCacheKeyAspect.
-            if ( p.Type.Is( typeof(ICacheKey) ) || (p.Type is INamedType namedType &&
+            if ( p.Type.Is( typeof(ICacheKey) ) || (p.Type is INamedType { BelongsToCurrentProject: true } namedType &&
                                                     namedType.Enhancements().HasAspect<GenerateCacheKeyAspect>()) )
             {
                 // If the parameter is ICacheKey, use it.

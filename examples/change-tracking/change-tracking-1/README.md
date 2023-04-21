@@ -1,4 +1,4 @@
-  ---
+---
 uid: sample-dirty-1
 ---
 

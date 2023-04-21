@@ -20,7 +20,7 @@ public class TrackChangesAttribute : TypeAspect
     {
         // Implement the ISwitchableChangeTracking interface.         
         var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
-            typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore ); /*[BuildAspect:Start]*/
+            typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore ); /*<BuildAspect>*/
 
         // If the type already implements IChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
@@ -38,7 +38,7 @@ public class TrackChangesAttribute : TypeAspect
                 builder.Diagnostics.Report( _onChangeMethodMustBeProtected );
             }
         }
-        /*[BuildAspect:End]*/
+        /*</BuildAspect>*/
 
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties

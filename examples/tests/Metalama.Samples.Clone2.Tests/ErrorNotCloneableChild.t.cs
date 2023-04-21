@@ -1,0 +1,2 @@
+// Error CLONE02 on `Player`: `The property 'Game.Player' cannot be a [Child] because its type 'Player' does not have a 'Clone' parameterless method.`
+// Error CLONE01 on `Player`: `The property 'Game.Player' cannot be read-only because it is marked as a [Child].`

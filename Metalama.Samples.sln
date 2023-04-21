@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache1", "examples\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone", "examples\clone\Metalama.Samples.Clone.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone1", "examples\clone\clone-1\Metalama.Samples.Clone1.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking1", "examples\change-tracking\change-tracking-1\Metalama.Samples.ChangeTracking1.csproj", "{5BFA206D-41CE-47DC-A4EE-B8959F8B5AEB}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry1", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone.Tests", "examples\tests\Metalama.Samples.Clone.Tests\Metalama.Samples.Clone.Tests.csproj", "{0BABE3DA-21E5-407E-AABC-F14CD6F61DB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2.Tests", "examples\tests\Metalama.Samples.Clone2.Tests\Metalama.Samples.Clone2.Tests.csproj", "{0BABE3DA-21E5-407E-AABC-F14CD6F61DB6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log2.Tests", "examples\tests\Metalama.Samples.Log2.Tests\Metalama.Samples.Log2.Tests.csproj", "{C7EC8353-5C89-4380-A535-FB90FCC97458}"
 EndProject
@@ -92,6 +92,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking3", "examples\change-tracking\change-tracking-3\Metalama.Samples.ChangeTracking3.csproj", "{63D02C34-4E24-45E7-A3CD-EF8ECE90D9D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking4", "examples\change-tracking\change-tracking-4\Metalama.Samples.ChangeTracking4.csproj", "{4913E93D-59F1-454D-9FA8-AD874CB78034}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clone", "clone", "{B83BDFAD-4481-4AE0-982C-2D6734C4AF25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2", "examples\clone\clone-2\Metalama.Samples.Clone2.csproj", "{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone3", "examples\clone\clone-3\Metalama.Samples.Clone3.csproj", "{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone4", "examples\clone\clone-4\Metalama.Samples.Clone4.csproj", "{F085A769-5611-4A57-ACB4-09F0667106E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -322,12 +330,31 @@ Global
 		{4913E93D-59F1-454D-9FA8-AD874CB78034}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{4913E93D-59F1-454D-9FA8-AD874CB78034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4913E93D-59F1-454D-9FA8-AD874CB78034}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F085A769-5611-4A57-ACB4-09F0667106E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D} = {77C66C48-66C7-4D6C-8816-D27CA316ED56}
+		{48FC05CB-86BA-4924-917C-9DD38F3485A1} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
 		{5BFA206D-41CE-47DC-A4EE-B8959F8B5AEB} = {9B3FE904-D75E-41D1-B7C6-96D0A5A43081}
 		{A9A5F335-9830-44B5-AF77-B052203D7557} = {76F98450-261F-470C-903F-17ED0BB00357}
 		{CD11C312-1F1B-43FE-AA68-5DB7C5A291A9} = {DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}
@@ -360,6 +387,9 @@ Global
 		{F886B0FC-AB80-45CB-ACE7-B51C50E6F9B4} = {4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}
 		{63D02C34-4E24-45E7-A3CD-EF8ECE90D9D2} = {9B3FE904-D75E-41D1-B7C6-96D0A5A43081}
 		{4913E93D-59F1-454D-9FA8-AD874CB78034} = {9B3FE904-D75E-41D1-B7C6-96D0A5A43081}
+		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
+		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
+		{F085A769-5611-4A57-ACB4-09F0667106E5} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}

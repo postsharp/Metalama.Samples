@@ -1,0 +1,50 @@
+---
+uid: sample-clone-2
+---
+
+# Clone example, step 1: verifying code
+
+[!metalama-project-buttons .]
+
+In the previous article, we have built an aspect that implements the Deep Clone pattern. The aspect assumed that all fields or properties annotated with the `[Child]` attribute were both of a cloneable type and assignable. If this was not the case, the aspect would generate uncompilable code, making the aspect's user confused.
+
+In the current article, we will improve the aspect so that reports errors in the following three unsupported situations.
+
+We report an error when the field or property is read-only.
+
+[!metalama-test ../../tests/Metalama.Samples.Clone2.Tests/ErrorReadOnlyField.cs]
+
+We report an error when the type of the field or property does not have a `Clone` method.
+
+[!metalama-test ../../tests/Metalama.Samples.Clone2.Tests/ErrorNotCloneableChild.cs]
+
+We report an error when the property is not an automatic property.
+
+[!metalama-test ../../tests/Metalama.Samples.Clone2.Tests/ErrorNotAutomaticProperty.cs]
+
+## Aspect implementation
+
+The full updated aspect code is here:
+
+[!metalama-file CloneableAttribute.cs]
+
+The first thing to do is to define the errors we want to report as static fields.
+
+[!metalama-file CloneableAttribute.cs marker="DiagnosticDefinitions"]
+
+For details about reporting errors, see <xref:diagnostics>.
+
+Then, we edit the `BuildAspect` method to verify the code.
+
+[!metalama-file CloneableAttribute.cs marker="Verify"]
+
+When we detect an unsupported situation, we report the error using the <xref:Metalama.Framework.Diagnostics.IDiagnosticSink.Report*> method. The first argument is the diagnostic constructed from the definition stored in the static field. The second argument is the invalid field or property.
+
+The third verification requires additional discussion. Our aspect requires the type of child fields or properties to have a `Clone` method. This method can be defined in three ways: in source code (i.e., it is hand-written), in a referenced assembly (compiled), or introduced by aspect the `Cloneable` aspect itself. In the latter case, the `Clone` method may not yet be present in the code model because the child field type may not have been processed yet. Therefore, if we don't find the `Clone` method, we should check if the child type has the `Cloneable` aspect. This aspect can be added as a custom attribute which we could check using the code model, but it could also be added as a fabric without the help of a custom attribute. Thus, we must check the presence of the aspect, not the custom attribute. You can check the presence of the aspect using `fieldType.Enhancements().HasAspect<CloneableAttribute>()`. The problem is that, at design time (inside the IDE), Metalama only knows aspects applied to the current type and its parent types. Metalama uses that strategy for performance reasons to avoid recompiling the whole assembly at each keystroke. Therefore, that verification cannot be performed at design time and must be skipped.
+
+## Summary
+
+Instead of generating invalid code and confusing the user, our aspect now reports errors when it detects unsupported situations. It still lacks a mechanism to support anomalies. What if the `Game` class includes a collection of `Player`s instead of just one? 
+
+> [!div class="see-also"]
+> <xref:diagnostics>

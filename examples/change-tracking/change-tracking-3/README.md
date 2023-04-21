@@ -32,15 +32,15 @@ We call `GetOnPropertyChangedMethod` from `BuildAspect`.
 
 If we do not find _any_ `OnPropertyChanged`, we have to override all fields and automatic properties ourselves:
 
-[!metalama-file TrackChangesAttribute.cs from="NoOnPropertyChanged:Start" to="NoOnPropertyChanged:End"]
+[!metalama-file TrackChangesAttribute.cs marker="NoOnPropertyChanged"]
 
 However, if the closest `OnPropertyChanged` method is in the base type, the logic is more complex:
 
-[!metalama-file TrackChangesAttribute.cs from="NoOnPropertyChanged:Start" to="NoOnPropertyChanged:End"]
+[!metalama-file TrackChangesAttribute.cs marker="NoOnPropertyChanged"]
 
 If the closest `OnPropertyChanged` is in the current type, we override it:
 
-[!metalama-file TrackChangesAttribute.cs from="OnPropertyChangedInBaseType:Start" to="OnPropertyChangedInBaseType:End"]
+[!metalama-file TrackChangesAttribute.cs marker="OnPropertyChangedInBaseType"]
 
 If _both_ the `OnPropertyChanged` method and the `ISwitchableChangeTracking` interface are defined in the base type, we do not have to hook `OnPropertyChanged` because it is the responsibility of the base type. We rely on the outcome of the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method to know if `ISwitchableChangeTracking` was already implemented.
 

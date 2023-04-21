@@ -22,15 +22,11 @@ Here is the complete code of the new version of the `TrackChanges` aspect:
 
 Let's focus on the following part of the `BuildAspect` method for the moment.
 
-[!metalama-file TrackChangesAttribute.cs from="BuildDictionary:Start" to="BuildDictionary:End"]
+[!metalama-file TrackChangesAttribute.cs marker="BuildDictionary"]
 
 First, the method introduces new fields into the type for each mutable field or automatic property using the <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceField*> method. For details about this practice, see <xref:introducing-members>.
 
 Note that we are building the `introducedFields` dictionary, which maps the current-value field or property to the accepted-value field. This dictionary will be passed to the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> call as a _tag_. The collection of tags is an anonymous object. For more details about this technique, see <xref:sharing-state-with-advice>.
-
-Lower in the `BuildAspect` method, we add the <xref:System.ComponentModel.IRevertibleChangeTracking> interface to the target type. We also pass the dictionary to the _tags_ parameter.
-
-[!metalama-file TrackChangesAttribute.cs from="IRevertibleChangeTracking:Start" to="IRevertibleChangeTracking:End"]
 
 The field dictionary is read from the implementation of `AcceptChanges` and `RejectChanges`:
 
