@@ -6,7 +6,7 @@ uid: sample-dirty-2
 
 [!metalama-project-buttons .]
 
-In the previous article, we created an aspect that automatically implements the <xref:System.ComponentModel.IChangeTracking>  interface. If the base class has a manual implementation of the <xref:System.ComponentModel.IChangeTracking>, the aspect will still work correctly and call the `OnChange` method of the base class. However, what if the base class does _not_ contain an `OnChange` method or if it is not protected? Let's improve the aspect and report an error in these situations.
+In the previous article, we created an aspect that automatically implements the <xref:System.ComponentModel.IChangeTracking> interface. If the base class has a manual implementation of the <xref:System.ComponentModel.IChangeTracking>, the aspect will still work correctly and call the `OnChange` method of the base class. However, what if the base class does _not_ contain an `OnChange` method or if it is not protected? Let's improve the aspect and report an error in these situations.
 
 The result of this aspect will be two new errors:
 
@@ -18,7 +18,7 @@ The result of this aspect will be two new errors:
 
 [!metalama-file TrackChangesAttribute.cs]
 
-The first thing we add to the `TrackChangesAttribute` is two static fields to _define_ the errors:
+The first thing we add to the `TrackChangesAttribute` is two static fields to define the errors:
 
 [!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute._mustHaveOnChangeMethod"]
 [!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute._onChangeMethodMustBeProtected"]
@@ -29,7 +29,7 @@ Then, we add this code to the `BuildAspect` method:
 
 [!metalama-file TrackChangesAttribute.cs marker="BuildAspect"]
 
-As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore` <xref:Metalama.Framework.Aspects.OverrideStrategy>. This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that the type or any base type already implements the <xref:System.ComponentModel.IChangeTracking>  interface. In this case, we check that the type contains a parameterless method named `OnChange` and verify its accessibility.
+As in the previous step, the `BuildAspect` method calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> with the `Ignore` <xref:Metalama.Framework.Aspects.OverrideStrategy>. This time, we inspect the outcome of <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*>. If the outcome is `Ignored`, it means that the type or any base type already implements the <xref:System.ComponentModel.IChangeTracking> interface. In this case, we check that the type contains a parameterless method named `OnChange` and verify its accessibility.
 
 ## Summary
 

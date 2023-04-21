@@ -7,7 +7,7 @@ level: 300
 
 [!metalama-project-buttons .]
 
-In the preceding article, we introduced the concept of generating cache keys for custom types by implementing the `ICacheKey` interface. We created an aspect that implements this interface automatically for all the fields or properties of a custom class annotated with the `[CacheKeyMember]` attribute.
+In the preceding article, we introduced the concept of generating cache keys for custom types by implementing the `ICacheKey` interface. We created an aspect that automatically implements this interface for all the fields or properties of a custom class annotated with the `[CacheKeyMember]` attribute.
 
 However, two issues remain with this approach. Firstly, how do we handle types for which we don't have the source code? Secondly, what if the user of this aspect tries to include an item whose type is not supported? We are now adding two requirements to our aspect:
 
@@ -16,7 +16,7 @@ However, two issues remain with this approach. Firstly, how do we handle types f
 
 ## ICacheKeyBuilder
 
-To address these challenges, we have introduced the concept of _cache key builders_ -- objects capable of building a cache key for another object. We define the `ICacheKeyBuilder` interface as follows: 
+To address these challenges, we have introduced the concept of _cache key builders_ -- objects capable of building a cache key for another object. We define the `ICacheKeyBuilder` interface as follows:
 
 [!metalama-file ICacheKeyBuilder.cs]
 

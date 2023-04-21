@@ -6,9 +6,9 @@ uid: sample-dirty-1
 
 [!metalama-project-buttons .]
 
-This article will create an aspect that automatically implements the <xref:System.ComponentModel.IChangeTracking> interface of the .NET Framework.
+This article explains how to create an aspect that automatically implements the <xref:System.ComponentModel.IChangeTracking> interface of the .NET Framework.
 
-Before implementing any aspect, we must first discuss the implementation design of the pattern. The main design decision is that objects will not track their changes by default. Instead, they will have an `IsTrackingChanges` property to control this behavior. Why? Because if we enable change tracking by default, we will need to reset the changes after object initialization has been completed, and we have no way to automate this. So, instead of asking users to write code that calls the <xref:System.ComponentModel.IChangeTracking.AcceptChanges*> method after each object initialization, we ask them to set the `IsTrackingChanges` property to `true` if they are interested in change tracking. Therefore, we can define the `ISwitchableChangeTracking` interface as follows:
+Before implementing any aspect, we must first discuss the implementation design of the pattern. The main design decision is that objects will not track their changes by default. Instead, they will have an `IsTrackingChanges` property to control this behavior. Why? Enabling change tracking by default requires resetting changes after object initialization has been completed, and we have no way to automate this. Therefore, instead of asking users to write code that calls the <xref:System.ComponentModel.IChangeTracking.AcceptChanges*> method after each object initialization, we ask them to set the `IsTrackingChanges` property to `true` if they are interested in change tracking. Therefore, we can define the `ISwitchableChangeTracking` interface as follows:
 
 [!metalama-file ISwitchableChangeTracking.cs]
 
@@ -50,11 +50,9 @@ The `OnChange` method has an <xref:Metalama.Framework.Aspects.IntroduceAttribute
 
 ## Summary
 
-In this first article, we created the first version of the `TrackChanged` aspect, which already does a good job. The aspect also works with manual implementations of <xref:System.ComponentModel.IChangeTracking> as long as the OnChange` method is available. But what if there is no `OnChange` method? In the following article, we will see how to report an error when this happens.
+In this first article, we created the first version of the `TrackChanged` aspect that already does a good job. The aspect also works with manual implementations of <xref:System.ComponentModel.IChangeTracking> as long as the `OnChange` method is available. But what if there is no `OnChange` method? In the following article, we will see how to report an error when this happens.
 
 > [!div class="see-also"]
 > <xref:aspect-inheritance>
 > <xref:implementing-interfaces>
 > <xref:overriding-fields-or-properties>
-
-  

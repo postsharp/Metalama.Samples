@@ -9,13 +9,13 @@ level: 200
 
 Our next goal, now that we have appropriately handled async methods, is to handle the <xref:System.Threading.CancellationToken> parameters. When there is a cancellation token, we should transfer it to the call to `Task.Delay`.
 
-[!metalama-compare RemoteCalculator.cs ]
+[!metalama-compare RemoteCalculator.cs]
 
 ## Implementation
 
 In this example, we have adjusted the `OverrideMethodAspect` template in the following way:
 
-[!metalama-file RetryAttribute.cs ]
+[!metalama-file RetryAttribute.cs]
 
 Let's look at the first lines:
 
@@ -24,7 +24,7 @@ var cancellationTokenParameter
     = meta.Target.Parameters.Where( p => p.Type.Is( typeof( CancellationToken ) ) ).LastOrDefault();
 ```
 
-This code defines a local variable and assigns it to the last parameter of type `CancellationToken`, or to `null` if there is no such parameter. The expression `meta.Target.Parameters` gives access to the parameters of the method to which the template is applied. This expression is evaluated at compile time and, by transitivity, the `cancellationTokenParameter` variable is also defined as a compile-time local variable. 
+This code defines a local variable and assigns it to the last parameter of type `CancellationToken`, or to `null` if there is no such parameter. The expression `meta.Target.Parameters` gives access to the parameters of the method to which the template is applied. This expression is evaluated at compile time and, by transitivity, the `cancellationTokenParameter` variable is also defined as a compile-time local variable.
 
 We use this variable to determine which overload of `Task.Delay` to use. The `if` statement is executed at compile time, as the `cancellationTokenParameter != null` expression is entirely known at compile time. `cancellationTokenParameter.Value` returns the run-time value of the parameter, which translates to `cancellationToken` in most cases.
 
@@ -38,7 +38,6 @@ else
       await Task.Delay( (int) delay );
 }
 ```
-
 
 ## Limitations
 

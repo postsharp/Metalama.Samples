@@ -7,7 +7,7 @@ level: 200
 
 [!metalama-project-buttons .]
 
-In this first example, we demonstrate a simple aspect that catches all exceptions and retries the method execution until the number of attempts reaches a maximum.
+In this example, we demonstrate a simple aspect that catches all exceptions and retries the method execution until the number of attempts reaches a maximum.
 
 Let's see what this aspect does with the following code:
 
@@ -32,7 +32,7 @@ The aspect is implemented by the `RetryAttribute` class.
 
 [!metalama-file RetryAttribute.cs]
 
-The `RetryAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `RetryAttribute` a custom attribute. 
+The `RetryAttribute` class derives from the <xref:Metalama.Framework.Aspects.OverrideMethodAspect> abstract class, which in turn derives from the <xref:System.Attribute?text=System.Attribute> class. This makes `RetryAttribute` a custom attribute.
 
 The `RetryAttribute` class implements the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method. This method acts like a _template_. Most of the code in this template is injected into the target method, i.e., the method to which we add the `[Retry]` custom attribute.
 
@@ -40,7 +40,7 @@ Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*
 
 To implement the retry behavior, we wrap the call to `meta.Proceed()` within a `for` loop and `try...catch` exception handler.
 
-The `RetryAttribute` class has two properties: `Delay` and `Attempts`. The value of these properties is used in the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation. Because the value of these properties is known and compile time, it will replace them with their value in the template.
+The `RetryAttribute` class has two properties: `Delay` and `Attempts`. The value of these properties is used in the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation. Because the value of these properties is known at compile time, it will replace them with their value in the template.
 
 ## Limitations
 
@@ -54,6 +54,3 @@ We will address these limitations in the following examples.
 > [!div class="see-also"]
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
-  
-
-  

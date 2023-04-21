@@ -9,7 +9,7 @@ level: 300
 
 In the previous implementation of the aspect, the cache key came from an interpolated string that implicitly called the `ToString` method for all parameters of the cached method. This approach is simplistic because it assumes that all parameters have a suitable implementation of the `ToString` method: one that returns a distinct string for each unique instance.
 
-To alleviate this limitation, our objective is to make it sufficient for users of our framework to mark with a `[CacheKeyMember]` custom attribute all fields or properties that should be part of the cache key. This is not a trivial goal so let's first think about the design.
+To alleviate this limitation, our objective is to make it sufficient for users of our framework to mark with a `[CacheKeyMember]` custom attribute all fields or properties that should be part of the cache key. This is not a trivial goal, so let's first think about the design.
 
 ## Pattern design
 

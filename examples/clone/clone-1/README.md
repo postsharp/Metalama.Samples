@@ -38,7 +38,7 @@ Our interface implementation calls the public `Clone` method we will introduce i
 
 For details, see <xref:implementing-interfaces>.
 
-Note that the code uses the expression <xref:Metalama.Framework.Aspects.meta.This?text=meta.This>, a _compile-time_ expression that returns a `dynamic` value. Thanks to its `dynamic` nature, you can write any run-time expression on its right side. This code is not verified until all aspects have been executed, so you can call a method that does not exist yet. For details regarding these techniques, see <xref:template-dynamic-code>
+Note that the code uses the expression <xref:Metalama.Framework.Aspects.meta.This?text=meta.This>, a _compile-time_ expression that returns a `dynamic` value. Thanks to its `dynamic` nature, you can write any run-time expression on its right side. This code is not verified until all aspects have been executed, so you can call a method that does not exist yet. For details regarding these techniques, see <xref:template-dynamic-code>.
 
 ### Adding the public method
 

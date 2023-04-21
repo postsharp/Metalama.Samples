@@ -7,15 +7,15 @@ level: 300
 
 [!metalama-project-buttons .]
 
-Ensuring the security and privacy of sensitive data is a critical responsibility for developers. Logs can inadvertently expose sensitive information, especially if all methods and their parameter values are logged without review. This example shows how to prevent logging specific parameters, mitigating the risk of data breaches and unauthorized access.
+It is a critical responsibility for developers to ensure the security and privacy of sensitive data. Logs can inadvertently expose sensitive information, especially if all methods and their parameter values are logged without review. This example shows how to prevent logging specific parameters, mitigating the risk of data breaches and unauthorized access.
 
-In the following examples, the password and the salt are excluded from the log:
+The following examples exclude the password and salt from the log:
 
 [!metalama-compare LoginService.cs]
 
 ## Implementation
 
-Parameters are filtered by the following compile-time class:
+The following compile-time class filters parameters:
 
 [!metalama-file SensitiveParameterFilter.cs]
 

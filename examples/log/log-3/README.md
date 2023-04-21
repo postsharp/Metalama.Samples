@@ -7,18 +7,17 @@ level: 250
 
 [!metalama-project-buttons .]
 
-Up until now, our logging aspect writes messages that include _constant_ text and _compile-time_ expressions. Let's now introduce the values of parameters and the method return value, which are known at _run time_.
+Until now, our logging aspect has written messages that include _constant_ text and _compile-time_ expressions. Let's now introduce the values of parameters and the method return value, which are known at _run time_.
 
-It's important to include parameter values in traces because they offer valuable context to help developers comprehend the application's state during execution. With this contextual information, you can diagnose and debug problems more easily, decreasing the time spent recreating issues and tracing through code paths, resulting in a more stable and reliable application.
-
+Including parameter values in traces is highly valuable because they offer valuable context to help developers comprehend the application's state during execution. With this contextual information, you can diagnose and debug problems more easily, decreasing the time spent recreating issues and tracing through code paths, resulting in a more stable and reliable application.
 
 The code with the transformation from the new aspect can be seen below:
 
-[!metalama-compare Calculator.cs ]
+[!metalama-compare Calculator.cs]
 
 > [!WARNING]
 > Adding sensitive information such as user credentials, personal data, etc., to logs can pose a security risk. Exercise caution when adding parameter values to logs and avoid exposing sensitive data.
-> To remove sensitive information from the logs, see <xref:sample-log-7>
+> To remove sensitive information from the logs, see <xref:sample-log-7>.
 
 ## Implementation
 

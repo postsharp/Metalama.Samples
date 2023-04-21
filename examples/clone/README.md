@@ -6,7 +6,7 @@ uid: sample-clone
 
 The Deep Clone pattern creates a copy of an object that is completely separate from the original object, including its properties and sub-properties. Deep cloning is achieved by recursively cloning all the child objects that make up the original object, creating a new instance of each one, and assembling the parent clone from the child clones.
 
-The Deep Clone pattern requires that you have a concept of an _object tree_, i.e., a concept of a _child property_. Objects typically have _reference_ properties and _child_ properties, and when deep cloning an object, only _child_ properties should be deep cloned.
+The Deep Clone pattern requires a concept of an _object tree_, i.e., a concept of a _child property_. Objects typically have _reference_ properties and _child_ properties, and when deep cloning an object, only _child_ properties should be deep cloned.
 
 Implementing deep cloning can be error-prone and time-consuming, requiring much boilerplate code. This series of articles shows how to automate this work using an aspect, making the code more maintainable and efficient.
 

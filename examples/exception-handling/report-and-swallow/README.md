@@ -19,7 +19,7 @@ In this case, you must implement exception handling at each entry point of your 
 
 Since there can be hundreds of such entry points, it is useful to automate this pattern using an aspect.
 
-In this example, we will assume that we have a host application that defines an interface `IPartProvider` that plug-ins can implement. Let's see what the aspect does with the code:
+In this example, we assume that we have a host application that defines an interface `IPartProvider` that plug-ins can implement. Let's see what the aspect does with the code:
 
 [!metalama-compare PartProvider.cs]
 
@@ -49,7 +49,7 @@ To remind you that `meta.Proceed()` has a special meaning, it is colored differe
 
 Around the call to `meta.Proceed()`, we have a `try...catch` exception handler. The `catch` block has a `when` clause that should ensure that we do not handle exceptions that are accepted by the host, typically <xref:System.OperationCanceledException>. Then, the `catch` handler simply reports the exception and does not rethrow it.
 
- The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute?text=[IntroduceDependency]> on the top of the `_exceptionHandler` field does the magic of introducing the field and pulling it from the constructor.
+The <xref:Metalama.Extensions.DependencyInjection.IntroduceDependencyAttribute?text=[IntroduceDependency]> on the top of the `_exceptionHandler` field does the magic of introducing the field and pulling it from the constructor.
 
 > [!div class="see-also"]
 > <xref:simple-override-method>

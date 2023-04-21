@@ -7,7 +7,7 @@ level: 200
 
 [!metalama-project-buttons .]
 
-Call stacks are essential for diagnosing software issues; however, without parameter values, they can be less helpful. They lack context by only showing the sequence of method calls, which fails to reveal the data being processed during execution. Parameter values give you insight into the application's state, which is vital to pinpoint the root cause easily. Without parameter values, recreating an issue becomes time-consuming and increases the tedium of tracing through code paths since you cannot directly assess the impact of input data on the error from the call stack alone.
+Call stacks are essential for diagnosing software issues. However, without parameter values, they can be less helpful. They lack context by only showing the sequence of method calls, which fails to reveal the data being processed during execution. Parameter values give you insight into the application's state, which is vital to pinpoint the root cause easily. Without parameter values, recreating an issue becomes time-consuming and increases the tedium of tracing through code paths since you cannot directly assess the impact of input data on the error from the call stack alone.
 
 In this example, we will show how to include parameter values into the call stack. The idea is to add an exception handler to all non-trivial methods, to append context information to the current <xref:System.Exception>, and rethrow the exception to the next stack frame.
 
@@ -67,4 +67,4 @@ Adding the aspect to all methods by hand as a custom attribute would be highly c
 
 > [!WARNING]
 > Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be cautious when adding parameter values to logs and avoid exposing sensitive data.
-> To remove sensitive information from the logs, see <xref:sample-log-7>
+> To remove sensitive information from the logs, see <xref:sample-log-7>.

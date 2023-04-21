@@ -17,7 +17,7 @@ The aspect relies on the `ICache` interface, which has only two methods used by 
 
 [!metalama-file ICache.cs]
 
-A typical implementation of this interface would use  <xref:System.Runtime.Caching.MemoryCache>.
+A typical implementation of this interface would use <xref:System.Runtime.Caching.MemoryCache>.
 
 ## Aspect Code
 
@@ -31,10 +31,9 @@ The `CacheKeyBuilder` class hides the complexity of creating the cache key. It i
 
 [!metalama-file CacheKeyBuilder.cs]
 
-As its name suggests, the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class helps build interpolated strings. The `meta.Target` property exposes the context into which the template applies.  `meta.Target.Type` is the current type, `meta.Target.Method` is the current method, and so on. The `GetCachingKey` method creates an interpolated string for the current context. Parameters get represented at compile time using the <xref:Metalama.Framework.Code.IParameter> interface. The <xref:Metalama.Framework.Code.IExpression.Value?text=parameter.Value> expression returns a `dynamic` object that represents a _run-time_ expression. In this case, it's the name of the parameter.
+As its name suggests, the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> class helps build interpolated strings. The `meta.Target` property exposes the context into which the template applies. `meta.Target.Type` is the current type, `meta.Target.Method` is the current method, and so on. The `GetCachingKey` method creates an interpolated string for the current context. Parameters get represented at compile time using the <xref:Metalama.Framework.Code.IParameter> interface. The <xref:Metalama.Framework.Code.IExpression.Value?text=parameter.Value> expression returns a `dynamic` object that represents a _run-time_ expression. In this case, it's the name of the parameter.
 
 Upon receiving the <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder> instance from the `CacheKeyBuilder` class, the aspect converts it to a run-time interpolated string by calling the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method. This method returns a `dynamic` object representing the interpolated string. It can be cast to a `string`, and we use it as the caching key.
-
 
 > [!div class="see-also"]
 > - <xref:template-overview>

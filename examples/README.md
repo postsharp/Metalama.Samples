@@ -4,7 +4,7 @@ uid: samples
 
 # Commented Examples
 
-This chapter shows a few examples that demonstrate how to use Metalama. Each example is designed as a tutorial, progressively introducing features of growing complexity. You can use these examples to support your learning process.
+This chapter presents several examples that demonstrate how to use Metalama. Each example is designed as a tutorial, progressively introducing features of growing complexity. You can use these examples to support your learning process.
 
 | Example                               | Description                                                                                                     |
 |---------------------------------------|-----------------------------------------------------------------------------------------------------------------|

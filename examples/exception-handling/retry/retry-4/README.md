@@ -11,7 +11,7 @@ In this article, we will add real-world logging to the retry aspect. To learn mo
 
 Below is the updated code transformation:
 
-[!metalama-compare RemoteCalculator.cs ]
+[!metalama-compare RemoteCalculator.cs]
 
 The code now produces the following output:
 
@@ -46,7 +46,7 @@ To substitute `Console.WriteLine` with `ILogger` and inject the `ILogger` into t
 
 Below is the aspect code update:
 
-[!metalama-file RetryAttribute.cs ]
+[!metalama-file RetryAttribute.cs]
 
 > [!div class="see-also"]
 > <xref:sample-log-2>

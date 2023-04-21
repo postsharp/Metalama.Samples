@@ -6,7 +6,7 @@ uid: sample-dirty-3
 
 [!metalama-project-buttons .]
 
-At this point, we have a `TrackChanges` aspect that implements the <xref:System.ComponentModel.IChangeTracking> interface, supports hand-written base implementations of this interface and reports errors if the pattern contract is not respected. However, we have built this aspect in pure isolation. In practice, the `TrackChanges` aspect must interact with the `NotifyPropertyChanged` pattern. When the <xref:System.ComponentModel.IChangeTracking.IsChanged> property changes, the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event must be raised.
+At this point, we have a `TrackChanges` aspect that implements the <xref:System.ComponentModel.IChangeTracking> interface, supports hand-written base implementations of this interface, and reports errors if the pattern contract is not respected. However, we have built this aspect in pure isolation. In practice, the `TrackChanges` aspect must interact with the `NotifyPropertyChanged` pattern. When the <xref:System.ComponentModel.IChangeTracking.IsChanged> property changes, the <xref:System.ComponentModel.INotifyPropertyChanged.PropertyChanged> event must be raised.
 
 It is essential to understand that the two concepts interacting with each other are not _aspects_ or _interfaces_ but _patterns_. Aspects, by definition, are executable artifacts that automate the implementation and verification patterns, but patterns can also be implemented manually. Patterns define extension points. The `OnPropertyChanged` method is a part of the _pattern_ we chose to implement the <xref:System.ComponentModel.INotifyPropertyChanged> interface, but not a part of the interface itself. Patterns are essentially _conventions_, and a different implementation pattern can rely on a different triggering mechanism than the `OnPropertyChanged` method.
 
@@ -20,7 +20,7 @@ Let's see this pattern in action:
 
 ## Aspect implementation
 
-The new aspect implementation is the following:
+The new aspect implementation is as follows:
 
 [!metalama-file TrackChangesAttribute.cs]
 
@@ -50,11 +50,11 @@ Finally, we also need to change the implementations of `IsTrackingChanges` and `
 
 [!metalama-file TrackChangesAttribute.cs member="TrackChangesAttribute.OnChange"]
 
-If the `OnPropertyChanged` method is present, we invoke it using the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*> method. Note, to be precise, that <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*> does not invoke really the method because the code runs at compile time. What it actually does is _generate the code_ that will invoke the method at run time. Note also that we cannot use the conditional `?.` operator in this case. We must use an `if` statement to check if the `OnPropertyChanged` method is present.
+If the `OnPropertyChanged` method is present, we invoke it using the <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*> method. Note, to be precise, that <xref:Metalama.Framework.Code.Invokers.IMethodInvoker.Invoke*> does not invoke the method because the code runs at compile time. What it actually does is _generate the code_ that will invoke the method at run time. Note also that we cannot use the conditional `?.` operator in this case. We must use an `if` statement to check if the `OnPropertyChanged` method is present.
 
 ## Summary
 
-In this article, we briefly discussed the philosophy of pattern interactions. We then integrated the `TrackChanges` and the `NotifyPropertyChanges` pattern. In the following article, we will add the ability to _revert_ changes done to the object.
+In this article, we briefly discussed the philosophy of pattern interactions. We then integrated the `TrackChanges` and the `NotifyPropertyChanges` patterns. In the following article, we will add the ability to _revert_ changes done to the object.
 
 
 > [!div class="see-also"]
