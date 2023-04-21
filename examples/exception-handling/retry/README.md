@@ -4,7 +4,7 @@ uid: sample-retry
 
 # Sample: retry
 
-Retrying failed methods is crucial for ensuring reliability and efficiency in systems such as database transactions or online services. As temporary faults such as network congestion, hardware issues, or software glitches can cause initial failures, it is important to implement retry mechanisms with exponential backoff to increase the probability of success, minimize data loss, and provide a seamless user experience in the face of transient obstacles. Retry mechanisms enable systems to be dependable and resilient.
+Retrying failed methods is crucial for ensuring reliability and efficiency in systems such as database transactions or online services. Temporary faults such as network congestion, hardware issues, or software glitches can cause initial failures. Therefore, it is important to implement retry mechanisms with exponential backoff to increase the probability of success, minimize data loss, and provide a seamless user experience in the face of transient obstacles. Retry mechanisms enable systems to be dependable and resilient.
 
 This series of articles describes how to construct an aspect that automatically retries a failed method. This aspect modifies a method in the following way:
 
