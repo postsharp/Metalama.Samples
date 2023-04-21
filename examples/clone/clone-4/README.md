@@ -8,13 +8,13 @@ uid: sample-clone-4
 
 So far, we have built a powerful aspect that implements the Deep Clone pattern and has three pieces of API: the `[Cloneable]` and `[Child]` attributes and the method `void CloneMembers(T)`. Our aspect already reports errors in unsupported cases. We will now see how we can improve the productivity of the aspect's users by providing coding guidance.
 
-First, we would like to save users the need to remember the name and signature of the `void CloneMembers(T)` method. When there is no such method in their code, we would like to add an action to the refactoring menu that would create this action like this:
+First, we would like to save users from the need to remember the name and signature of the `void CloneMembers(T)` method. When there is no such method in their code, we would like to add an action to the refactoring menu that would create this action like this:
 
 ![Refactoring suggestion: add CloneMembers](screenshots/customize.png)
 
-Secondly, suppose that we have deployed the `Clonable` aspect to the team, and we notice that developers frequently forget to annotate cloneable fields with the `[Child]` attribute, causing inconsistencies in the resulting cloned object tree. Such inconsistencies are tedious to debug because they may appear randomly after the cloning process, losing much time for the team and degrading trust in aspect-oriented programming and architecture decisions. As the aspect's authors, it is our job to prevent the most frequent pitfalls by reporting a warning and suggesting remediations.
+Secondly, suppose that we have deployed the `Cloneable` aspect to the team, and we notice that developers frequently forget to annotate cloneable fields with the `[Child]` attribute, causing inconsistencies in the resulting cloned object tree. Such inconsistencies are tedious to debug because they may appear randomly after the cloning process, losing much time for the team and degrading trust in aspect-oriented programming and architecture decisions. As the aspect's authors, it is our job to prevent the most frequent pitfalls by reporting a warning and suggesting remediations.
 
-To make sure that developers do not forget to annotate properties with the `[Child]` attribute, we will define a new attribute `[Reference]` and require developers to annotate any cloneable property with either `[Child]` or  `[Reference]`. Otherwise, we will report a warning and suggest two code fixes: add `[Child]` or add `[Reference]` to the field. Thanks to this strategy, we ensure that developers no longer forget to classify properties and instead make a conscious choice.
+To make sure that developers do not forget to annotate properties with the `[Child]` attribute, we will define a new attribute `[Reference]` and require developers to annotate any cloneable property with either `[Child]` or `[Reference]`. Otherwise, we will report a warning and suggest two code fixes: add `[Child]` or add `[Reference]` to the field. Thanks to this strategy, we ensure that developers no longer forget to classify properties and instead make a conscious choice.
 
 The first thing developers will experience is the warning:
 

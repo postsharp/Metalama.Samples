@@ -6,11 +6,11 @@ uid: sample-clone-1
 
 [!metalama-project-buttons .]
 
-In this article, we will create the first working version of the `Cloneable` aspect. Once it is done, it will implement the Deep Clone pattern as shown below:
+This article will create the first working version of the `Cloneable` aspect. Once it is done, it will implement the Deep Clone pattern as shown below:
 
 [!metalama-files Game.cs GameSettings.cs]
 
-Before we start writing the aspect, we must materialize in C# the concept of _child property_. Conceptually, a child property is a property that points to a reference-type object that needs to be cloned when the parent object is cloned. Let's decide to mark such properties with the `[Child]` custom attribute:
+Before we start writing the aspect, we must materialize in C# the concept of a _child property_. Conceptually, a child property is a property that points to a reference-type object that needs to be cloned when the parent object is cloned. Let's decide to mark such properties with the `[Child]` custom attribute:
 
 [!metalama-file CloneableAttribute.cs]
 
@@ -20,7 +20,7 @@ The whole aspect implementation is here:
 
 [!metalama-file CloneableAttribute.cs]
 
-The `BuildAspect` method is the entry point of the aspect. 
+The `BuildAspect` method is the entry point of the aspect.
 
 You can clearly see two steps in this method. We will comment on them independently.
 
@@ -30,7 +30,7 @@ The first operation of `BuildAspect` is to add the <xref:System.ICloneable> meth
 
 [!metalama-file CloneableAttribute.cs from="BuildAspect1:Start" from="BuildAspect1:End"]
 
- If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the aspect type to include all interface members and to annotate them with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute.
+If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the aspect type to include all interface members and to annotate them with the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute.
 
 Our interface implementation calls the public `Clone` method we will introduce in the type.
 
@@ -38,11 +38,11 @@ Our interface implementation calls the public `Clone` method we will introduce i
 
 For details, see <xref:implementing-interfaces>.
 
-Note that the code uses the expression <xref:Metalama.Framework.Aspects.meta.This?text=meta.This>, a _compile-time_ expression that returns a `dynamic` value. Thanks to its `dynamic` nature, you can write any run-time expression on its right side. This code is not verified until all aspects have been executed, so you can call a method that does not exist yet.  For details regarding these techniques, see <xref:template-dynamic-code>
+Note that the code uses the expression <xref:Metalama.Framework.Aspects.meta.This?text=meta.This>, a _compile-time_ expression that returns a `dynamic` value. Thanks to its `dynamic` nature, you can write any run-time expression on its right side. This code is not verified until all aspects have been executed, so you can call a method that does not exist yet. For details regarding these techniques, see <xref:template-dynamic-code>
 
 ### Adding the public method
 
-The second operation of `BuildAspect` is to introduce a method named `Clone` by invoking <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*>. 
+The second operation of `BuildAspect` is to introduce a method named `Clone` by invoking <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*>.
 
 [!metalama-file CloneableAttribute.cs from="BuildAspect2:Start" from="BuildAspect2:End"]
 
@@ -68,13 +68,13 @@ The first half of the method generates the _base_ call with two possibilities:
 * It is faster than setting individual fields or properties in C#.
 * It works even when the base type is unaware of the Clone pattern.
 
- <xref:Metalama.Framework.Aspects.meta.This?text=meta.Base> works similarly to the xref:Metalama.Framework.Aspects.meta.This?text=meta.This> we already used before. It returns a `dynamic` value and anything you write on its right side becomes a run-time expression, i.e., C# code injected by the template. To convert this code into a compile-time <xref:Metalama.Framework.Code.IExpression> object, we cast the `dynamic` expression into <xref:Metalama.Framework.Code.IExpression>.
+<xref:Metalama.Framework.Aspects.meta.This?text=meta.Base> works similarly to the xref:Metalama.Framework.Aspects.meta.This?text=meta.This> we already used before. It returns a `dynamic` value, and anything you write on its right side becomes a run-time expression, i.e., C# code injected by the template. To convert this code into a compile-time <xref:Metalama.Framework.Code.IExpression> object, we cast the `dynamic` expression into <xref:Metalama.Framework.Code.IExpression>.
 
 The second part of the `CloneImpl` template selects all fields and properties annotated with the `[Child]` attribute and generates code according to the pattern `clone.Foo = (FooType?) this.Foo?.Clone()`. Fields or properties are represented as compile-time objects by the <xref:Metalama.Framework.Code.IFieldOrProperty> interface. The <xref:Metalama.Framework.Code.IExpression.Value> property operates the same kind of magic as `meta.This` or `meta.Base` above, i.e., a `dynamic` property that can be used in run-time code. By default, `field.Value` generates a reference to the field for the current instance (i.e. `this.Foo`). To get the field for a different instance (e.g. `clone.Foo`), you must use <xref:Metalama.Framework.Code.Invokers.IFieldOrPropertyInvoker.With*>.
 
 ## Summary
 
-In this article, we have created a `Cloneable` aspect that performs deep cloning of an object by recursively calling the `Clone` method on child properties. However, we did not validate that the child objects actually have a _Clone_ method, or that child properties are not read-only. We will address this problem the following step.
+In this article, we have created a `Cloneable` aspect that performs deep cloning of an object by recursively calling the `Clone` method on child properties. However, we did not validate that the child objects actually have a _Clone_ method or that child properties are not read-only. We will address this problem the following step.
 
 > [!div class="see-also"]
 > <xref:introducing-members>
