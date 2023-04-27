@@ -12,9 +12,9 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>1.0.141-preview</PostSharpEngineeringVersion>
-        <MetalamaVersion>2023.0.102-rc</MetalamaVersion>
-        <MetalamaExtensionsVersion>2023.0.102-rc</MetalamaExtensionsVersion>
+        <PostSharpEngineeringVersion>2023.1.5-preview</PostSharpEngineeringVersion>
+        <MetalamaVersion>2023.1.0-preview</MetalamaVersion>
+        <MetalamaExtensionsVersion>2023.1.0-preview</MetalamaExtensionsVersion>
     </PropertyGroup>
 
     <!-- Import overrides for the local build -->
