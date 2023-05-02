@@ -58,7 +58,7 @@ To implement the code fix, we create the ad-hoc aspect class `AddEmptyCloneMembe
 
 [!metalama-file AddEmptyCloneMembersAspect.cs]
 
-Note that we did not derive `AddEmptyCloneMembersAspect` from <xref:Metalama.Framework.Aspects.TypeAspect> because it would make the aspect a custom attribute. Instead, we directly implemented the <xref:Metalama.Framework.Aspects.IAspect`> interface.
+Note that we did not derive `AddEmptyCloneMembersAspect` from <xref:Metalama.Framework.Aspects.TypeAspect> because it would make the aspect a custom attribute. Instead, we directly implemented the <xref:Metalama.Framework.Aspects.IAspect> interface.
 
 ## Summary
 
