@@ -19,7 +19,7 @@ public class LogAttribute : MethodAspect
     {
         var declaringType = builder.Target.DeclaringType;
 
-        // Finds a field named '_logger' or a property named 'Property'.
+        // Finds a field named '_logger' or a property named 'Logger'.
         var loggerFieldOrProperty = (IFieldOrProperty?) declaringType.AllFields.OfName( "_logger" ).SingleOrDefault() ??
                                     declaringType.AllProperties.OfName( "Logger" ).SingleOrDefault();
 
