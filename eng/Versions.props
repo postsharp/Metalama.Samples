@@ -12,7 +12,7 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>2023.0.143</PostSharpEngineeringVersion>
+        <PostSharpEngineeringVersion>2023.0.144</PostSharpEngineeringVersion>
         <MetalamaVersion>2023.0.102-rc</MetalamaVersion>
         <MetalamaExtensionsVersion>2023.0.102-rc</MetalamaExtensionsVersion>
     </PropertyGroup>
