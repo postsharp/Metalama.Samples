@@ -72,18 +72,15 @@ The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class essent
 
 We report an error whenever an unsupported type is used as a parameter of a cached method, or when it is used as a type for a field or property annotated with `[CacheKeyMember]`.
 
-To achieve this, we add the following code to `CachingOptions`:
+To achieve this, we add the following code to `CachingOptions`. First, we define an error. Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to be defined in a static field or property. Then, if the type of the `expression` is invalid, this error is reported for that property or parameter. To learn more about reporting errors, see <xref:diagnostics>.
 
+[!metalama-file CachingOptions.Internals.cs member="CachingOptions._error"]
+
+Then, we add a `VerifyCacheKeyMember` method, which must verify the type of the given <xref:Metalama.Framework.Code.IParameter>, <xref:Metalama.Framework.Code.IField> or <xref:Metalama.Framework.Code.IProperty> and report an error in case of problem.  
 
 [!metalama-file CachingOptions.Internals.cs member="CachingOptions.VerifyCacheKeyMember"]
 
-
-
-The first line defines an error kind. Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition> to be defined in a static field or property. Then, if the type of the `expression` is invalid, this error is reported for that property or parameter. To learn more about reporting errors, see <xref:diagnostics>.
-
-This method needs to be reported from the `BuildAspect` method of the `CacheAttribute` and `GenerateCacheKeyAspect` aspect classes. We cannot report errors from template methods because templates are typically not executed at design time unless we are using the _preview_ feature.
-
-However, a limitation prevents us from detecting unsupported types at design time. When Metalama runs inside the editor, at design time, it doesn't execute all aspects for all files at every keystroke, but only does so for the files that have been edited, plus all files containing the ancestor types. Therefore, at design time, your aspect receives a _partial_ compilation. It can still see all the types in the project, but it doesn't see the aspects that have been applied to these types.
+This method needs to be invoked from the `BuildAspect` method of the `CacheAttribute` and `GenerateCacheKeyAspect` aspect classes. It cannot be invoked from a template because templates are typically not executed at design time unless we use the _preview__ feature. However, a limitation prevents us from detecting unsupported types at design time. When Metalama runs inside the editor, at design time, it doesn't execute all aspects for all files at every key stroke, but only does so for the files that have been edited, plus all files containing the ancestor types. Therefore, at design time, your aspect receives a _partial_ compilation. It can still see all the types in the project, but it doesn't see the aspects that have been applied to these types.
 
 So, when `CachingOptions.VerifyCacheKeyMember` evaluates `Enhancements().HasAspect<GenerateCacheKeyAspect>()` at design time, the expression does not yield an accurate result. Therefore, we can only run this method when we have a complete compilation, i.e., at compile time.
 
