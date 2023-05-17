@@ -52,8 +52,13 @@ void OnTestCompleted( BuildCompletedEventArgs args )
         var sourceFile = Path.Combine( sourceDirectory, match.Path );
         var targetFile = Path.Combine( targetDirectory, match.Path );
         var targetSubdirectory = Path.GetDirectoryName( targetFile );
-        Directory.CreateDirectory( targetSubdirectory );
+
+        if ( targetSubdirectory == null )
+        {
+            throw new InvalidOperationException( $"{nameof(targetSubdirectory)} is null for '{match.Path}' path." );
+        }
         
+        Directory.CreateDirectory( targetSubdirectory );
         
         File.Copy(sourceFile, targetFile, true);
     }
