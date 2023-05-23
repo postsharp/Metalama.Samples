@@ -12,7 +12,7 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>2023.1.9-preview</PostSharpEngineeringVersion>
+        <PostSharpEngineeringVersion>2023.1.12-preview</PostSharpEngineeringVersion>
         <MetalamaVersion>2023.1.0-preview</MetalamaVersion>
         <MetalamaExtensionsVersion>2023.1.0-preview</MetalamaExtensionsVersion>
     </PropertyGroup>
