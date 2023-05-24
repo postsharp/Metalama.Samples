@@ -1,4 +1,4 @@
-
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
 
     <!-- Set the default version -->
@@ -12,7 +12,7 @@
     
     <!-- Versions of dependencies -->
     <PropertyGroup>
-        <PostSharpEngineeringVersion>2023.0.146</PostSharpEngineeringVersion>
+        <PostSharpEngineeringVersion>2023.0.149</PostSharpEngineeringVersion>
         <MetalamaVersion>2023.0.116</MetalamaVersion>
         <MetalamaExtensionsVersion>2023.0.116</MetalamaExtensionsVersion>
     </PropertyGroup>
