@@ -1,0 +1,5 @@
+Program.Main() started.
+Program.SayHello() started.
+Hello, world.
+Program.SayHello() succeeded.
+Program.Main() succeeded.
