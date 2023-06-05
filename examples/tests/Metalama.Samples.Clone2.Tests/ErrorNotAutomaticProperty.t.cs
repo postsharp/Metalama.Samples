@@ -1,1 +1,1 @@
-// Error CLONE03 on `Settings`: `The property 'Game.Settings' cannot be a [Child] because is not an automatic property.`
+// Error CLONE04 on `Settings`: `The property 'Game.Settings' cannot be a [Child] because is not an automatic property.`

@@ -7,62 +7,31 @@ using Metalama.Framework.Project;
 [EditorExperience( SuggestAsLiveTemplate = true )]
 public class CloneableAttribute : TypeAspect
 {
-    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)> _fieldOrPropertyCannotBeReadOnly =
-        new("CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
+    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)> /*<DiagnosticDefinitions>*/
+           _fieldOrPropertyCannotBeReadOnly = 
+               new( "CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child]." );
 
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)> _missingCloneMethod =
-        new("CLONE02", Severity.Error,
-            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method.");
+        new( "CLONE02", Severity.Error,
+            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method." );
+
+    private static readonly DiagnosticDefinition<IMethod> _cloneMethodMustBePublic =
+    new( "CLONE03", Severity.Error,
+        "The '{0}' method must be public or internal." );
 
     private static readonly DiagnosticDefinition<IProperty> _childPropertyMustBeAutomatic =
-        new("CLONE03", Severity.Error, "The property '{0}' cannot be a [Child] because is not an automatic property.");
+        new( "CLONE04", Severity.Error,
+            "The property '{0}' cannot be a [Child] because is not an automatic property." ); /*</DiagnosticDefinitions>*/
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        // Verify that child fields are valid.
-        var hasError = false;
-        foreach ( var fieldOrProperty in GetClonableFieldsOrProperties( builder.Target ) )
-        {
-            // The field or property must be writable.
-            if ( fieldOrProperty.Writeability != Writeability.All )
-            {
-                builder.Diagnostics.Report(
-                    _fieldOrPropertyCannotBeReadOnly.WithArguments( (fieldOrProperty.DeclarationKind,
-                        fieldOrProperty) ), fieldOrProperty );
-                hasError = true;
-            }
-
-            // If it is a field, it must be an automatic property.
-            if ( fieldOrProperty is IProperty property && property.IsAutoPropertyOrField == false )
-            {
-                builder.Diagnostics.Report( _childPropertyMustBeAutomatic.WithArguments( property ), property );
-                hasError = true;
-            }
-
-            // The type of the field must be cloneable.
-            if ( !MetalamaExecutionContext.Current.ExecutionScenario.IsDesignTime )
-            {
-                var fieldType = fieldOrProperty.Type as INamedType;
-
-                if ( fieldType == null ||
-                     !(fieldType.AllMethods.OfName( "Clone" ).Where( p => p.Parameters.Count == 0 ).Any() ||
-                       (fieldType.BelongsToCurrentProject &&
-                        fieldType.Enhancements().HasAspect<CloneableAttribute>())) )
-                {
-                    builder.Diagnostics.Report(
-                        _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty,
-                            fieldOrProperty.Type) ), fieldOrProperty );
-                    hasError = true;
-                }
-            }
-        }
-
-        // Stop here if we have errors.
-        if ( hasError )
+        // Verify child fields and properties.
+        if ( !this.VerifyFieldsAndProperties( builder ) )
         {
             builder.SkipAspect();
             return;
         }
+
 
         // Introduce the Clone method.
         builder.Advice.IntroduceMethod(
@@ -88,7 +57,80 @@ public class CloneableAttribute : TypeAspect
             OverrideStrategy.Ignore );
     }
 
-    private static IEnumerable<IFieldOrProperty> GetClonableFieldsOrProperties( INamedType type )
+
+    private bool VerifyFieldsAndProperties( IAspectBuilder<INamedType> builder )
+    {
+        var success = true;
+
+        // Verify that child fields are valid.
+        foreach ( var fieldOrProperty in GetCloneableFieldsOrProperties( builder.Target ) )
+        {
+            // The field or property must be writable.
+            if ( fieldOrProperty.Writeability != Writeability.All )
+            {
+                builder.Diagnostics.Report(
+                    _fieldOrPropertyCannotBeReadOnly.WithArguments( (fieldOrProperty.DeclarationKind,
+                        fieldOrProperty) ), fieldOrProperty );
+                success = false;
+            }
+
+            // If it is a field, it must be an automatic property.
+            if ( fieldOrProperty is IProperty property && property.IsAutoPropertyOrField == false )
+            {
+                builder.Diagnostics.Report( _childPropertyMustBeAutomatic.WithArguments( property ), property );
+                success = false;
+            }
+
+            // The type of the field must be cloneable.
+            void ReportMissingMethod()
+            {
+                builder.Diagnostics.Report(
+                    _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty,
+                        fieldOrProperty.Type) ), fieldOrProperty );
+            }
+
+            if ( fieldOrProperty.Type is not INamedType fieldType )
+            {
+                // The field type is an array, a pointer or another special type, which do not have a Clone method.
+                ReportMissingMethod();
+                success = false;
+            }
+            else
+            {
+                var cloneMethod = fieldType.AllMethods.OfName( "Clone" )
+                    .SingleOrDefault( p => p.Parameters.Count == 0 );
+
+                if ( cloneMethod == null )
+                {
+                    // There is no Clone method.
+                    // If may be implemented by an aspect, but we don't have access to aspects on other types
+                    // at design time.
+                    if ( !MetalamaExecutionContext.Current.ExecutionScenario.IsDesignTime )
+                    {
+                        if ( !fieldType.BelongsToCurrentProject ||
+                             !fieldType.Enhancements().HasAspect<CloneableAttribute>() )
+                        {
+                            ReportMissingMethod();
+                            success = false;
+                        }
+                    }
+                }
+                else if ( cloneMethod.Accessibility is not (Accessibility.Public or Accessibility.Internal) )
+                {
+                    // If we have a Clone method, it must be public.
+                    builder.Diagnostics.Report(
+                        _cloneMethodMustBePublic.WithArguments( cloneMethod ), fieldOrProperty );
+                    success = false;
+
+                }
+            }
+        }
+
+        return success;
+    }
+
+
+    private static IEnumerable<IFieldOrProperty> GetCloneableFieldsOrProperties( INamedType type )
         => type.FieldsAndProperties.Where( f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
     [Template]
@@ -121,10 +163,10 @@ public class CloneableAttribute : TypeAspect
     [Template]
     private void CloneMembers<[CompileTime] T>( T clone )
     {
-        // Select clonable fields.
-        var clonableFields = GetClonableFieldsOrProperties( meta.Target.Type );
+        // Select cloneable fields.
+        var cloneableFields = GetCloneableFieldsOrProperties( meta.Target.Type );
 
-        foreach ( var field in clonableFields )
+        foreach ( var field in cloneableFields )
         {
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;

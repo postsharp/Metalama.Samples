@@ -43,12 +43,12 @@ public class CloneableAttribute : TypeAspect
         // Define a local variable of the same type as the target type.
         var clone = (T) baseCall.Value!;
 
-        // Select clonable fields.
-        var clonableFields =
+        // Select cloneable fields.
+        var cloneableFields =
             meta.Target.Type.FieldsAndProperties.Where(
                 f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
-        foreach ( var field in clonableFields )
+        foreach ( var field in cloneableFields )
         {
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;

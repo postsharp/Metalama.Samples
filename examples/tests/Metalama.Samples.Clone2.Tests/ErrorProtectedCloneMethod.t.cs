@@ -1,0 +1,1 @@
+// Error CLONE03 on `Player`: `The 'Player.Clone()' method must be public or internal.`
