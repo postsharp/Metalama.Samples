@@ -89,6 +89,8 @@ items:
 #      topicUid: sample-enum-viewmodel
 #    - name: Optional Value Type
 #      topicUid: sample-optionalvalue
+    - name: Shared Fabrics
+      topicUid: sample-shared-fabric
     - name: Contributing
       topicUid: samples-contributing
     

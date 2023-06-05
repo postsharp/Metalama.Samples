@@ -1,0 +1,10 @@
+<Project>
+	<!-- Imports Directory.Build.props of the upper directory.  -->
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"
+	        Condition="Exists('$([MSBuild]::GetPathOfFileAbove(`Directory.Build.props`, `$(MSBuildThisFileDirectory)../`))')" />
+
+	<!-- Include the shared fabric -->
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)SharedFabric.cs" />
+	</ItemGroup>
+</Project>
