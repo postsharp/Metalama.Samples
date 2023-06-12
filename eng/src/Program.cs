@@ -6,23 +6,14 @@ using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
-using PostSharp.Engineering.BuildTools.Dependencies.Model;
+using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using Spectre.Console.Cli;
+using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2023_2;
 
-var product = new Product( Dependencies.MetalamaSamples )
+var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
     Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
-    Dependencies = new[] { Dependencies.PostSharpEngineering, Dependencies.MetalamaExtensions },
-    
-    // MergePublisher disabled for 2023.1.
-    // Configurations = Product.DefaultConfigurations
-    //     .WithValue(
-    //     BuildConfiguration.Public, new BuildConfigurationInfo(
-    //         MSBuildName: "Release",
-    //         PublicPublishers: new Publisher[] {
-    //             new MergePublisher()
-    //         } )
-    //     ),
+    Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions },
     TestOnBuild = true
 };
 
@@ -45,15 +36,13 @@ void OnTestCompleted( BuildCompletedEventArgs args )
     matcher.AddInclude("**/*.html");
     var matches = matcher.Execute(new DirectoryInfoWrapper( new DirectoryInfo( sourceDirectory ) ));
 
-// Copy each matched file to the destination directory
+    // Copy each matched file to the destination directory
     foreach (var match in matches.Files)
     {
         var sourceFile = Path.Combine( sourceDirectory, match.Path );
         var targetFile = Path.Combine( targetDirectory, match.Path );
         var targetSubdirectory = Path.GetDirectoryName( targetFile );
-        Directory.CreateDirectory( targetSubdirectory );
-        
-        
+        Directory.CreateDirectory( targetSubdirectory! );
         File.Copy(sourceFile, targetFile, true);
     }
 }
