@@ -1,5 +1,5 @@
 items:
- - name: Commented Examples
+ - name: Commented examples
    topicUid: samples
    items:
     - name: Logging
