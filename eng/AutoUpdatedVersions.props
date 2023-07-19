@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+    <PropertyGroup>
+        <MetalamaVersion>2023.3.0-preview</MetalamaVersion>
+        <MetalamaExtensionsVersion>2023.3.0-preview</MetalamaExtensionsVersion>
+    </PropertyGroup>
+
+</Project>
