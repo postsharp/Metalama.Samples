@@ -9,7 +9,7 @@ internal class Program
             .AddSingleton<DatabaseFrontend>()
             .BuildServiceProvider();
 
-        var db = serviceProvider.GetService<DatabaseFrontend>()!;
+        var db = serviceProvider.GetRequiredService<DatabaseFrontend>();
 
         Console.WriteLine( "Calling GetEntity once" );
         db.GetEntity( new EntityKey( "Invoice", 1 ) );

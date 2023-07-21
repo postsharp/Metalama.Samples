@@ -3,12 +3,12 @@
     <PropertyGroup>
         <RepoDirectory>$(MSBuildThisFileDirectory)</RepoDirectory>
         <RepoKind>GitHub</RepoKind>
+        <NoWarn>LAMA0048;CA1050</NoWarn>
     </PropertyGroup>
 
     <Import Project="eng\Versions.props"/>
 
     <PropertyGroup>
-        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>False</IsPackable>

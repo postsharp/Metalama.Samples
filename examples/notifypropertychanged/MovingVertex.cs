@@ -1,6 +1,4 @@
-﻿namespace Metalama.Samples.NotifyPropertyChanged;
-
-[NotifyPropertyChanged]
+﻿[NotifyPropertyChanged]
 internal partial class MovingVertex
 {
     public double X { get; set; }

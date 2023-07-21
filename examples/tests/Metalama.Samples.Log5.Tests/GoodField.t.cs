@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Logging;
 namespace Metalama.Samples.Log4.Tests.GoodField;
+// ReSharper disable once NotAccessedField.Local
 internal class Foo
 {
   private readonly ILogger _logger;

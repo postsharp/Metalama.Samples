@@ -9,7 +9,7 @@ internal class Program
             .AddSingleton<ICache, Cache>()
             .BuildServiceProvider();
 
-        var calculator = serviceProvider.GetService<Calculator>();
+        var calculator = serviceProvider.GetRequiredService<Calculator>();
 
         Console.WriteLine( "First call." );
         calculator.Add( 1, 2 );

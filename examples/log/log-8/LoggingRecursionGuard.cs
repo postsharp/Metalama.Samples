@@ -1,17 +1,17 @@
 ﻿internal static class LoggingRecursionGuard
 {
     [ThreadStatic]
-    public static bool _isLogging;
+    public static bool IsLogging;
 
     public static DisposeCookie Begin()
     {
-        if ( _isLogging )
+        if ( IsLogging )
         {
             return new DisposeCookie( false );
         }
         else
         {
-            _isLogging = true;
+            IsLogging = true;
             return new DisposeCookie( true );
         }
     }
@@ -29,7 +29,7 @@
         {
             if ( this.CanLog )
             {
-                _isLogging = false;
+                IsLogging = false;
             }
         }
     }

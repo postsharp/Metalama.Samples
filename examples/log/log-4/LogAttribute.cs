@@ -4,6 +4,8 @@ using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Microsoft.Extensions.Logging;
 
+#pragma warning disable CS8618
+
 public class LogAttribute : OverrideMethodAspect
 {
     [IntroduceDependency]

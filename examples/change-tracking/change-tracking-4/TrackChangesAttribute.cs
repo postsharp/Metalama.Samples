@@ -2,12 +2,9 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
-using System.ComponentModel;
 using System.Globalization;
 
-
-#pragma warning disable IDE1005
-
+#pragma warning disable IDE0031, IDE1005
 
 [Inheritable]
 public class TrackChangesAttribute : TypeAspect
@@ -32,8 +29,8 @@ public class TrackChangesAttribute : TypeAspect
         // Select fields and automatic properties that can be changed.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
             .Where( f =>
-                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
-
+                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true )
+            .ToArray();
 
         var introducedFields = new Dictionary<IFieldOrProperty, IField>(); /*<BuildDictionary>*/
 
@@ -56,10 +53,10 @@ public class TrackChangesAttribute : TypeAspect
 
         // If the type already implements ISwitchableChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
-        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )
+        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
         {
             var onChangeMethod = builder.Target.AllMethods.OfName( nameof(this.OnChange) )
-                .Where( m => m.Parameters.Count == 0 ).SingleOrDefault();
+                .SingleOrDefault( m => m.Parameters.Count == 0 );
 
             if ( onChangeMethod == null )
             {
@@ -95,7 +92,7 @@ public class TrackChangesAttribute : TypeAspect
         {
             builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
         }
-        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )
+        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -122,8 +119,7 @@ public class TrackChangesAttribute : TypeAspect
     private IMethod? GetOnPropertyChangedMethod( INamedType type )
         => type.AllMethods
             .OfName( "OnPropertyChanged" )
-            .Where( m => m.Parameters.Count == 1 )
-            .SingleOrDefault();
+            .SingleOrDefault( m => m.Parameters.Count == 1 );
 
     [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
     public bool IsChanged { get; private set; }

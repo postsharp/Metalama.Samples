@@ -3,8 +3,6 @@ using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.CodeFixes;
 
-namespace Metalama.Samples.ToString;
-
 [AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
 public class NotToStringAttribute : Attribute
 {

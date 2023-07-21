@@ -1,13 +1,8 @@
-﻿using Metalama.Extensions.DependencyInjection;
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Microsoft.Extensions.Logging;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ILogger _logger;
-
     /// <summary>
     /// Gets or sets the maximum number of times that the method should be executed.
     /// </summary>
@@ -41,7 +36,7 @@ public class RetryAttribute : OverrideMethodAspect
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
         var cancellationTokenParameter
-            = meta.Target.Parameters.Where( p => p.Type.Is( typeof(CancellationToken) ) ).LastOrDefault();
+            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
 
         for ( var i = 0;; i++ )
         {

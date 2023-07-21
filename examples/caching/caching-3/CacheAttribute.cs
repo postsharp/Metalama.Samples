@@ -4,7 +4,7 @@ using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Eligibility;
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618
 
 public class CacheAttribute : OverrideMethodAspect
 {

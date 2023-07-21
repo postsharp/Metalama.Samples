@@ -2,12 +2,9 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Samples.Retry2;
-using Metalama.Samples.Retry5;
 using Microsoft.Extensions.Logging;
 
-#pragma warning disable IDE0062 // Make local function 'static'
-
+#pragma warning disable CS8618, CS0649
 
 public class RetryAttribute : OverrideMethodAspect
 {
@@ -23,7 +20,6 @@ public class RetryAttribute : OverrideMethodAspect
     {
         this.Kind = kind;
     }
-
 
     // Template for non-async methods.
     public override dynamic? OverrideMethod()
@@ -70,12 +66,12 @@ public class RetryAttribute : OverrideMethodAspect
         }
 
         var cancellationTokenParameter
-            = meta.Target.Parameters.Where( p => p.Type.Is( typeof(CancellationToken) ) ).LastOrDefault();
+            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
 
         var policy = this._policyFactory.GetAsyncPolicy( this.Kind );
         return await policy.ExecuteAsync( ExecuteCoreAsync,
             cancellationTokenParameter != null
-                ? (CancellationToken) cancellationTokenParameter.Value
+                ? (CancellationToken) cancellationTokenParameter.Value!
                 : CancellationToken.None );
     }
 }

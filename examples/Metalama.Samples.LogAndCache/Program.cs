@@ -2,17 +2,20 @@
 
 [assembly: AspectOrder( typeof(CacheAttribute), typeof(LogAttribute) )]
 
-internal class Program
+internal static class Program
 {
     [Log]
     private static void Main()
     {
         try
         {
-            Add( 1, 1 );
-            Add( 1, 1 );
+            Console.WriteLine( Add( 1, 1 ) );
+            Console.WriteLine( Add( 1, 1 ) );
         }
-        catch { }
+        catch ( Exception ex )
+        {
+            Console.WriteLine( ex );
+        }
     }
 
     [Log]

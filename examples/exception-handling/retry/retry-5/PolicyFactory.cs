@@ -1,8 +1,6 @@
 ﻿using Polly;
 using Polly.Retry;
 
-namespace Metalama.Samples.Retry5;
-
 internal class PolicyFactory : IPolicyFactory
 {
     private static readonly RetryPolicy _retry = Policy.Handle<Exception>().WaitAndRetry(

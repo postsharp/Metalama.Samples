@@ -16,6 +16,9 @@ internal class Program
         {
             calculator.Add( 1, 1 );
         }
-        catch { }
+        catch ( Exception ex )
+        {
+            Console.WriteLine( ex );
+        }
     }
 }

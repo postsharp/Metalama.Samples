@@ -3,9 +3,7 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
 
-
-#pragma warning disable IDE1005
-
+#pragma warning disable IDE0031, IDE1005
 
 [Inheritable]
 public class TrackChangesAttribute : TypeAspect
@@ -31,13 +29,13 @@ public class TrackChangesAttribute : TypeAspect
         var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
             typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore );
 
-        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored )
+        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
         {
             // If the type already implements ISwitchableChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
             // this is a contract violation, so we report an error.
 
             var onChangeMethod = builder.Target.AllMethods.OfName( nameof(this.OnChange) )
-                .Where( m => m.Parameters.Count == 0 ).SingleOrDefault();
+                .SingleOrDefault( m => m.Parameters.Count == 0 );
 
             if ( onChangeMethod == null )
             {
@@ -76,7 +74,7 @@ public class TrackChangesAttribute : TypeAspect
             // If the OnPropertyChanged method was declared in the current type, override it.
             builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
         } /*</OnPropertyChangedInCurrentType>*/
-        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignored ) /*<OnPropertyChangedInBaseType>*/
+        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore ) /*<OnPropertyChangedInBaseType>*/
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -104,8 +102,7 @@ public class TrackChangesAttribute : TypeAspect
     private IMethod? GetOnPropertyChangedMethod( INamedType type )
         => type.AllMethods
             .OfName( "OnPropertyChanged" )
-            .Where( m => m.Parameters.Count == 1 )
-            .SingleOrDefault();
+            .SingleOrDefault( m => m.Parameters.Count == 1 );
 
     [InterfaceMember]
     public bool IsChanged { get; private set; }

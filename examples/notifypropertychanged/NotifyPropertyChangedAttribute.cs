@@ -2,8 +2,6 @@
 using Metalama.Framework.Code;
 using System.ComponentModel;
 
-namespace Metalama.Samples.NotifyPropertyChanged;
-
 [Inheritable]
 internal class NotifyPropertyChangedAttribute : TypeAspect
 {

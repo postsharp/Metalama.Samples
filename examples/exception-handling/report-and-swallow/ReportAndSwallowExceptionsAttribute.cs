@@ -1,6 +1,8 @@
 ﻿using Metalama.Extensions.DependencyInjection;
 using Metalama.Framework.Aspects;
 
+#pragma warning disable CS0649
+
 public class ReportAndSwallowExceptionsAttribute : OverrideMethodAspect
 {
     [IntroduceDependency( IsRequired = false )]
