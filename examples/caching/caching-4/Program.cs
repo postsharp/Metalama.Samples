@@ -10,7 +10,7 @@ internal class Program
             .AddSingleton<ICacheKeyBuilderProvider, CacheKeyBuilderProvider>()
             .BuildServiceProvider();
 
-        var db = serviceProvider.GetService<DatabaseFrontend>()!;
+        var db = serviceProvider.GetRequiredService<DatabaseFrontend>();
 
         Console.WriteLine( "Calling GetBlob once" );
         db.GetBlob( new BlobId( "MyContainer", new byte[] { 1, 2, 3 } ) );

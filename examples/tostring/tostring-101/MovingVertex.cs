@@ -1,6 +1,4 @@
-﻿namespace Metalama.Samples.ToString;
-
-[ToString]
+﻿[ToString]
 internal class MovingVertex
 {
     public double X;

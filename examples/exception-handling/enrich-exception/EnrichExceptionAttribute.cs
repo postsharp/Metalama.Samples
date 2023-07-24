@@ -12,7 +12,6 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
         methodSignatureBuilder.AddText( "." );
         methodSignatureBuilder.AddText( meta.Target.Method.Name );
         methodSignatureBuilder.AddText( "(" );
-        var i = meta.CompileTime( 0 );
 
         foreach ( var p in meta.Target.Parameters )
         {
@@ -29,8 +28,6 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
             {
                 methodSignatureBuilder.AddExpression( p.Value );
             }
-
-            i++;
         }
 
         methodSignatureBuilder.AddText( ")" );

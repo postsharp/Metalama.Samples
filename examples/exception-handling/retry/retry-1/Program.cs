@@ -1,11 +1,8 @@
-﻿internal class Program
+﻿try
 {
-    private static void Main()
-    {
-        try
-        {
-            RemoteCalculator.Add( 1, 2 );
-        }
-        catch { }
-    }
+    RemoteCalculator.Add( 1, 2 );
+}
+catch ( Exception ex )
+{
+    Console.WriteLine( ex );
 }

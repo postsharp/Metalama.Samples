@@ -23,13 +23,12 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
 
         // Introduce a property in the main type to store the Optional object.
-        var optionalValuesProperty = builder.Advice.IntroduceProperty( builder.Target, nameof(this.OptionalValues),
+        builder.Advice.IntroduceProperty( builder.Target, nameof(this.OptionalValues),
             buildProperty: p =>
             {
                 p.Type = nestedType;
                 p.InitializerExpression = ExpressionFactory.Parse( $"new {nestedType.Name}()" );
-            } ).Declaration;
-
+            } );
 
         var optionalValueType = (INamedType) TypeFactory.GetType( typeof(OptionalValue<>) );
 
@@ -66,7 +65,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
         {
             var optionalProperty = (IProperty) meta.Tags["optionalProperty"]!;
 
-            return optionalProperty.With( (IExpression) meta.This.OptionalValues ).Value.Value;
+            return optionalProperty.With( (IExpression) meta.This.OptionalValues ).Value!.Value;
         }
 
         set
@@ -75,7 +74,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
             var optionalValueBuilder = new ExpressionBuilder();
             optionalValueBuilder.AppendVerbatim( "new " );
             optionalValueBuilder.AppendTypeName( optionalProperty.Type );
-            optionalValueBuilder.AppendVerbatim( "( value )" );
+            optionalValueBuilder.AppendVerbatim( $"( {nameof(value)} )" );
             optionalProperty.With( (IExpression) meta.This.OptionalValues ).Value = optionalValueBuilder.ToValue();
         }
     }

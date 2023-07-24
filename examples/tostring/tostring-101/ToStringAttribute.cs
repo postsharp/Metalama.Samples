@@ -1,8 +1,6 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code.SyntaxBuilders;
 
-namespace Metalama.Samples.ToString;
-
 internal class ToStringAttribute : TypeAspect
 {
     [Introduce( WhenExists = OverrideStrategy.Override, Name = "ToString" )]

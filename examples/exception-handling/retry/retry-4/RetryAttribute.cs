@@ -2,8 +2,9 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
-using Metalama.Samples.Retry2;
 using Microsoft.Extensions.Logging;
+
+#pragma warning disable CS8618, CS0649
 
 public class RetryAttribute : OverrideMethodAspect
 {
@@ -57,7 +58,7 @@ public class RetryAttribute : OverrideMethodAspect
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
         var cancellationTokenParameter
-            = meta.Target.Parameters.Where( p => p.Type.Is( typeof(CancellationToken) ) ).LastOrDefault();
+            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
 
         for ( var i = 0;; i++ )
         {

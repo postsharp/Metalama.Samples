@@ -1,4 +1,4 @@
-﻿#pragma warning disable CS8618
+﻿#pragma warning disable CS0169, CS8618, IDE0044, IDE0051
 
 namespace Metalama.Samples.Log4.Tests.FieldOrWrongType;
 

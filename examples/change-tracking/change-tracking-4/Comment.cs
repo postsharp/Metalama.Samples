@@ -1,4 +1,6 @@
-﻿[TrackChanges]
+﻿#pragma warning disable CS8618
+
+[TrackChanges]
 [NotifyPropertyChanged]
 public partial class Comment
 {

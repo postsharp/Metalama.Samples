@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace><!--Intentionally empty--></RootNamespace>
+        <NoWarn>$(NoWarn);CA1307</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

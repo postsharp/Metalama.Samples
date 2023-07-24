@@ -2,8 +2,6 @@
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Code;
 
-namespace Metalama.Samples.Retry2;
-
 [CompileTime]
 internal static class LoggingHelper
 {

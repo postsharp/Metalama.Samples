@@ -1,12 +1,7 @@
-﻿using Metalama.Extensions.DependencyInjection;
-using Metalama.Framework.Aspects;
-using Microsoft.Extensions.Logging;
+﻿using Metalama.Framework.Aspects;
 
 public class RetryAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ILogger _logger;
-
     /// <summary>
     /// Gets or sets the maximum number of times that the method should be executed.
     /// </summary>
