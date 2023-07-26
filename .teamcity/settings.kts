@@ -157,7 +157,6 @@ object PublicBuild : BuildType({
 
     params {
         text("BuildArguments", "", label = "Build Arguments", description = "Arguments to append to the engineering command.", allowEmpty = true)
-        text("UpstreamCheckArguments", "", label = "Upstream Check Arguments", description = "Arguments to append to the upstream check command.", allowEmpty = true)
         text("TimeOut", "300", label = "Time-Out Threshold", description = "Seconds after the duration of the last successful build.",
               regex = """\d+""", validationMessage = "The timeout has to be an integer number.")
     }
@@ -174,14 +173,6 @@ object PublicBuild : BuildType({
             }
             noProfile = false
             param("jetbrains_powershell_scriptArguments", "tools kill")
-        }
-        powerShell {
-            name = "Check pending upstream changes"
-            scriptMode = file {
-                path = "Build.ps1"
-            }
-            noProfile = false
-            param("jetbrains_powershell_scriptArguments", "tools git check-upstream %UpstreamCheckArguments%")
         }
         powerShell {
             name = "Build [Public]"
@@ -214,10 +205,6 @@ object PublicBuild : BuildType({
         swabra {
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
-        }
-        sshAgent {
-            // By convention, the SSH key name is always PostSharp.Engineering for all repositories using SSH to connect.
-            teamcitySshKey = "PostSharp.Engineering"
         }
     }
 
