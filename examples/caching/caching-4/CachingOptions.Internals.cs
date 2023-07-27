@@ -6,10 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 public partial class CachingOptions : ProjectExtension
 {
-    private static DiagnosticDefinition<IType> _error = new("CACHE01", Severity.Error,
+    private static readonly DiagnosticDefinition<IType> _error = new( "CACHE01", Severity.Error,
         "The type '{0}' cannot be a part of a cache key. Implement ICacheKey, use [CacheKeyMember] or register a cache key builder.");
 
-    internal bool VerifyCacheKeyMember<T>( T expression, IDiagnosticSink diagnosticSink )
+    internal bool VerifyCacheKeyMember<T>( T expression, ScopedDiagnosticSink diagnosticSink )
         where T : IExpression, IDeclaration
     {
         if ( this._toStringTypes.Contains( expression.Type ) )
