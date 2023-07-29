@@ -18,6 +18,7 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
         PackRequiresExplicitBuild = true } },
     Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions },
     TestOnBuild = true,
+    MainVersionDependency = MetalamaDependencies.Metalama,
     PublicArtifacts = Pattern.Create(
         "Metalama.Documentation.QuickStart.$(PackageVersion).nupkg" ),
 };
