@@ -101,6 +101,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone3", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone4", "examples\clone\clone-4\Metalama.Samples.Clone4.csproj", "{F085A769-5611-4A57-ACB4-09F0667106E5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Documentation.QuickStart", "examples\Metalama.Documentation.QuickStart\Metalama.Documentation.QuickStart.csproj", "{2A30033C-0CB4-4817-B805-D4D921724888}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -348,6 +350,12 @@ Global
 		{F085A769-5611-4A57-ACB4-09F0667106E5}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{F085A769-5611-4A57-ACB4-09F0667106E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F085A769-5611-4A57-ACB4-09F0667106E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.LamaDebug|Any CPU.ActiveCfg = LamaDebug|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.LamaDebug|Any CPU.Build.0 = LamaDebug|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A30033C-0CB4-4817-B805-D4D921724888}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

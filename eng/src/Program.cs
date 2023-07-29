@@ -12,12 +12,14 @@ using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Defin
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
-    Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true, BuildMethod = BuildMethod.Build } },
+    Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true } },
     Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions },
-    TestOnBuild = true
+    TestOnBuild = true,
+    PublicArtifacts = Pattern.Create(
+        "Metalama.Documentation.QuickStart.$(PackageVersion).nupkg" ),
 };
 
-product.TestCompleted += OnTestCompleted ;
+product.TestCompleted += OnTestCompleted;
 
 var commandApp = new CommandApp();
 

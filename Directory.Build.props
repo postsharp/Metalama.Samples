@@ -7,6 +7,9 @@
     </PropertyGroup>
 
     <Import Project="eng\Versions.props"/>
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="BuildOptions.props"/>
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="TeamCity.props"/>
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="SourceLink.props"/>
 
     <PropertyGroup>
         <Nullable>enable</Nullable>
