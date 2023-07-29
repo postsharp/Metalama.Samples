@@ -12,7 +12,10 @@ using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Defin
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
-    Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { CanFormatCode = true } },
+    Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { 
+        CanFormatCode = true, 
+        // We must build all projects because we product HTML formatted files and include them in the artifacts.
+        PackRequiresExplicitBuild = true } },
     Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions },
     TestOnBuild = true,
     PublicArtifacts = Pattern.Create(
