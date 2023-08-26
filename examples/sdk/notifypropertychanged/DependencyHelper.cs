@@ -93,6 +93,7 @@ public static class DependencyHelper
             return null;
         }
 
+        // We are not using LINQ to work around a bug (#33676) with lambda expressions in compile-time code.
         foreach ( var accessor in property.AccessorList.Accessors )
         {
             if ( accessor.Keyword.IsKind( SyntaxKind.GetKeyword ) )
