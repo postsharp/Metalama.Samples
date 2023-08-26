@@ -1,6 +1,5 @@
 ﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Metalama.Framework.Code.Collections;
 using Metalama.Framework.Engine.CodeModel;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -12,12 +11,12 @@ public static class DependencyHelper
     /// <summary>
     /// Gets a graph mapping referenced properties to referencing properties.
     /// </summary>
-    public static Dictionary<string, List<string>> GetPropertyDependencyGraph( INamedType type )
+    public static Dictionary<string, string[]> GetPropertyDependencyGraph( INamedType type )
     {
         return type.Properties
             .SelectMany( p => p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
             .GroupBy( r => r.Referenced )
-            .ToDictionary( g => g.Key, g => g.Select( x=>x.Referencing ).ToList() );
+            .ToDictionary( g => g.Key, g => g.Select( x=>x.Referencing ).ToArray() );
     }
     
     /// <summary>
@@ -25,6 +24,8 @@ public static class DependencyHelper
     /// </summary>
     private static IEnumerable<string> GetReferencedProperties( this IProperty property )
     {
+        var compilation = property.Compilation.GetRoslynCompilation();
+
         var propertySymbol = property.GetSymbol();
         
         if ( propertySymbol == null )
@@ -49,10 +50,9 @@ public static class DependencyHelper
         var visitor = new Visitor(properties, semanticModel);
         visitor.Visit(  body );
 
-        // Note that we limit the analysis to the current type. If a property of a _derived_ type depends
-        // on a property of the current type, we won't detect it.
+       // We only take into account properties of the current type or any base type.
         return properties
-            .Where( p => p.ContainingType == propertySymbol.ContainingType )
+            .Where( p => compilation.HasImplicitConversion( propertySymbol.ContainingType, p.ContainingType ) )
             .Select( p => p.Name );
     }
 
