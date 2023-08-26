@@ -49,7 +49,7 @@ public static class DependencyHelper
         var visitor = new Visitor(properties, semanticModel);
         visitor.Visit(  body );
 
-        // Note that we limit the analysis to the current time. If a property of a derived type depends
+        // Note that we limit the analysis to the current type. If a property of a _derived_ type depends
         // on a property of the current type, we won't detect it.
         return properties
             .Where( p => p.ContainingType == propertySymbol.ContainingType )
