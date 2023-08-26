@@ -103,6 +103,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone4", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Documentation.QuickStart", "examples\Metalama.Documentation.QuickStart\Metalama.Documentation.QuickStart.csproj", "{2A30033C-0CB4-4817-B805-D4D921724888}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sdk", "sdk", "{C47BBB65-4811-4856-BC95-88F1A5F501AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "notifypropertychanged-sdk", "examples\sdk\notifypropertychanged\notifypropertychanged-sdk.csproj", "{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +360,12 @@ Global
 		{2A30033C-0CB4-4817-B805-D4D921724888}.LamaDebug|Any CPU.Build.0 = LamaDebug|Any CPU
 		{2A30033C-0CB4-4817-B805-D4D921724888}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A30033C-0CB4-4817-B805-D4D921724888}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -398,6 +408,7 @@ Global
 		{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
 		{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
 		{F085A769-5611-4A57-ACB4-09F0667106E5} = {B83BDFAD-4481-4AE0-982C-2D6734C4AF25}
+		{53B5C181-BD22-4C39-BC23-61CACCCCC5D1} = {C47BBB65-4811-4856-BC95-88F1A5F501AC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}
