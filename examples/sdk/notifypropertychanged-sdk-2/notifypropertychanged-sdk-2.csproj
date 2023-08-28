@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+		
+		<!-- We reference Metalama.Framework.Sdk to have access to the Roslyn layer. We use PrivateAssets="all" to avoid this
+		     package reference from flowing to consumers of the current project or packages. -->
+        <PackageReference Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+    </ItemGroup>
+
+
+</Project>
