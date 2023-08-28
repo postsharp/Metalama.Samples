@@ -1,6 +1,5 @@
 ﻿public class Calculator
 {
-    [Cache]
     public int Add( int a, int b )
     {
         Console.WriteLine( "Thinking..." );
