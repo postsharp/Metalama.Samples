@@ -2,8 +2,8 @@
 <Project>
 
     <PropertyGroup>
-        <MetalamaVersion>2023.3.4-preview</MetalamaVersion>
-        <MetalamaExtensionsVersion>2023.3.4-preview</MetalamaExtensionsVersion>
-    <MetalamaBackstageVersion>2023.3.3-preview</MetalamaBackstageVersion><MetalamaCompilerVersion>2023.3.4-preview</MetalamaCompilerVersion></PropertyGroup>
+        <MetalamaVersion>2023.3.5-rc</MetalamaVersion>
+        <MetalamaExtensionsVersion>2023.3.5-rc</MetalamaExtensionsVersion>
+    <MetalamaBackstageVersion>2023.3.5-rc</MetalamaBackstageVersion><MetalamaCompilerVersion>2023.3.5-rc</MetalamaCompilerVersion></PropertyGroup>
 
 </Project>
