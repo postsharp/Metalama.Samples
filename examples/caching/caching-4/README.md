@@ -28,7 +28,7 @@ For instance, here is an implementation for `byte[]`:
 
 ## Compile-time API
 
-To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a compile-time configuration API for the caching aspects. We accomplish this via a concept named a _project extension_, which is explained in more detail in <xref:exposing-configuration>. We define a new compile-time class, `CachingOptions`, to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
+To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a compile-time configuration API for the caching aspects. We accomplish this via a concept named a _project extension_, which is explained in more detail in <xref:aspect-configuration>. We define a new compile-time class, `CachingOptions`, to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
 
 [!metalama-file CachingOptions.cs]
 
@@ -99,6 +99,6 @@ The aspects can be applied to some business code as follows:
 [!metalama-files BlobId.cs DatabaseFrontend.cs links="false"]
 
 > [!div class="see-also"]
-> <xref:exposing-configuration>
+> <xref:aspect-configuration>
 > <xref:fabrics>
 > <xref:diagnostics>
