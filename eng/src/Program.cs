@@ -8,13 +8,14 @@ using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using Spectre.Console.Cli;
+using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2023_4;
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
     Solutions = new Solution[] { new DotNetSolution( "Metalama.Samples.sln" ) { 
         CanFormatCode = true, 
-        // We must build all projects because we product HTML formatted files and include them in the artifacts.
+        // We must build all projects because we produce HTML formatted files and include them in the artifacts.
         PackRequiresExplicitBuild = true } },
     Dependencies = new[] { DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions },
     TestOnBuild = true,
@@ -34,21 +35,25 @@ return commandApp.Run( args );
 
 void OnTestCompleted( BuildCompletedEventArgs args )
 {
-    var targetDirectory = Path.Combine( args.PrivateArtifactsDirectory, "html" );
     var sourceDirectory = Path.Combine( args.Context.RepoDirectory, "examples" );
-    Directory.CreateDirectory( targetDirectory );
-    
-    var matcher = new Matcher();
-    matcher.AddInclude("**/*.html");
-    var matches = matcher.Execute(new DirectoryInfoWrapper( new DirectoryInfo( sourceDirectory ) ));
 
-    // Copy each matched file to the destination directory
-    foreach (var match in matches.Files)
+    var matcher = new Matcher();
+    matcher.AddInclude( "**/*.html" );
+    var matches = matcher.Execute( new DirectoryInfoWrapper( new DirectoryInfo( sourceDirectory ) ) );
+
+    // Store each matched file to a zip file in the destination directory
+    var targetZipFile = Path.Combine( args.PrivateArtifactsDirectory, "html-examples.zip" );
+
+    if ( File.Exists( targetZipFile ) )
+    {
+        File.Delete( targetZipFile );
+    }
+
+    using var archive = ZipFile.Open( targetZipFile, ZipArchiveMode.Create );
+
+    foreach ( var match in matches.Files )
     {
         var sourceFile = Path.Combine( sourceDirectory, match.Path );
-        var targetFile = Path.Combine( targetDirectory, match.Path );
-        var targetSubdirectory = Path.GetDirectoryName( targetFile );
-        Directory.CreateDirectory( targetSubdirectory! );
-        File.Copy(sourceFile, targetFile, true);
+        archive.CreateEntryFromFile( sourceFile, match.Path );
     }
 }
