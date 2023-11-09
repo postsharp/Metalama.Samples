@@ -41,7 +41,7 @@ The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFa
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.PropertyChanged"]
 
-To read more about this, see <xref: implementing-interfaces>.
+To read more about this, see <xref:implementing-interfaces>.
 
 Note that the `OnPropertyChanged` method is not a part of the [System.ComponentModel.INotifyPropertyChanged](xref:System.ComponentModel.INotifyPropertyChanged) interface. So we introduce it not by using the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute but by using the <xref:Metalama.Framework.Aspects.IntroduceAttribute?text=[Introduce]> attribute. We again assign the `Ignore` value to the <xref:Metalama.Framework.Aspects.IntroduceAttribute.WhenExists> property, so we skip this step if the target type already contains this method.
 
