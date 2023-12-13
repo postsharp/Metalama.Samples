@@ -8,7 +8,6 @@
 
     <Import Project="eng\Versions.props"/>
     <Import Sdk="PostSharp.Engineering.Sdk" Project="BuildOptions.props"/>
-    <Import Sdk="PostSharp.Engineering.Sdk" Project="TeamCity.props"/>
     <Import Sdk="PostSharp.Engineering.Sdk" Project="SourceLink.props"/>
 
     <PropertyGroup>
@@ -16,6 +15,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <IsPackable>False</IsPackable>
         <MetalamaWriteHtml>True</MetalamaWriteHtml>
+
+        <!-- Symbol NuGet packages are enabled since Metalama 2024.0. -->
+        <IncludeSymbols>false</IncludeSymbols>
     </PropertyGroup>
 
 </Project>
