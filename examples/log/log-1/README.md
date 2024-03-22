@@ -27,7 +27,7 @@ The `LogAttribute` class implements the <xref:Metalama.Framework.Aspects.Overrid
 
 Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a very special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, with a few syntactic changes to capture the return value.
 
-To remind you that `meta.Proceed()` has a different meaning and configure syntax highlighting in the Metalama Tools for Visual Studio, the text is colored differently than the rest of the code.
+To remind you that `meta.Proceed()` has a different meaning and configure syntax highlighting in the Visual Studio Tools for Metalama and PostSharp, the text is colored differently than the rest of the code.
 
 > [!div class="see-also"]
 > <xref:simple-override-method>

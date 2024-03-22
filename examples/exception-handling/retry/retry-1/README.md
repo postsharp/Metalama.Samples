@@ -36,7 +36,7 @@ The `RetryAttribute` class derives from the <xref:Metalama.Framework.Aspects.Ove
 
 The `RetryAttribute` class implements the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> method. This method acts like a _template_. Most of the code in this template is injected into the target method, i.e., the method to which we add the `[Retry]` custom attribute.
 
-Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, but with a few syntactic changes to capture the return value. We colored `meta.Proceed()` differently than the other code to remind you that it has a special meaning. If you use Metalama Tools for Visual Studio, you will also enjoy syntax highlighting in this IDE.
+Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, but with a few syntactic changes to capture the return value. We colored `meta.Proceed()` differently than the other code to remind you that it has a special meaning. If you use Visual Studio Tools for Metalama and PostSharp, you will also enjoy syntax highlighting in this IDE.
 
 To implement the retry behavior, we wrap the call to `meta.Proceed()` within a `for` loop and `try...catch` exception handler.
 

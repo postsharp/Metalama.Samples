@@ -45,7 +45,7 @@ The `ReportAndSwallowExceptionsAttribute` class implements the <xref:Metalama.Fr
 
 Inside the <xref:Metalama.Framework.Aspects.OverrideMethodAspect.OverrideMethod*> implementation, the call to `meta.Proceed()` has a very special meaning. When the aspect is applied to the target, the call to `meta.Proceed()` is replaced by the original implementation, with a few syntactic changes to capture the return value.
 
-To remind you that `meta.Proceed()` has a special meaning, it is colored differently than the rest of the code. If you use Metalama Tools for Visual Studio, you will also enjoy syntax highlighting in this IDE.
+To remind you that `meta.Proceed()` has a special meaning, it is colored differently than the rest of the code. If you use Visual Studio Tools for Metalama and PostSharp, you will also enjoy syntax highlighting in this IDE.
 
 Around the call to `meta.Proceed()`, we have a `try...catch` exception handler. The `catch` block has a `when` clause that should ensure that we do not handle exceptions that are accepted by the host, typically <xref:System.OperationCanceledException>. Then, the `catch` handler simply reports the exception and does not rethrow it.
 
