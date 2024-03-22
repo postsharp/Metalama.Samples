@@ -11,7 +11,7 @@ internal class Foo
   [Log]
   public void Method()
   {
-    var logger = this._logger;
+    var logger = _logger;
     var isTracingEnabled = logger.IsEnabled(LogLevel.Trace);
     if (isTracingEnabled)
     {
