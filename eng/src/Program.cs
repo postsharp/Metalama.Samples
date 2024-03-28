@@ -9,7 +9,7 @@ using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using Spectre.Console.Cli;
 using System.IO.Compression;
-using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2024_1;
+using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2024_2;
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
