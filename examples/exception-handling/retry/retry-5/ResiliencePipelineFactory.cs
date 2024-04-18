@@ -15,16 +15,8 @@ internal class ResiliencePipelineFactory : IResiliencePipelineFactory
                         new()
                         {
                             ShouldHandle = new PredicateBuilder().Handle<Exception>(),
-                            DelayGenerator = static args => new ValueTask<TimeSpan?>(
-                                args.AttemptNumber switch
-                                {
-                                    0 => TimeSpan.FromSeconds( 1 ),
-                                    1 => TimeSpan.FromSeconds( 2 ),
-                                    2 => TimeSpan.FromSeconds( 4 ),
-                                    3 => TimeSpan.FromSeconds( 8 ),
-                                    4 => TimeSpan.FromSeconds( 15 ),
-                                    _ => TimeSpan.FromSeconds( 30 )
-                                } ),
+                            Delay = TimeSpan.FromSeconds( 1 ),
+                            BackoffType = DelayBackoffType.Exponential,
                             MaxRetryAttempts = 10
                         } );
                     ;
@@ -45,16 +37,8 @@ internal class ResiliencePipelineFactory : IResiliencePipelineFactory
                         new()
                         {
                             ShouldHandle = new PredicateBuilder<T>().Handle<Exception>(),
-                            DelayGenerator = static args => new ValueTask<TimeSpan?>(
-                                args.AttemptNumber switch
-                                {
-                                    0 => TimeSpan.FromSeconds( 1 ),
-                                    1 => TimeSpan.FromSeconds( 2 ),
-                                    2 => TimeSpan.FromSeconds( 4 ),
-                                    3 => TimeSpan.FromSeconds( 8 ),
-                                    4 => TimeSpan.FromSeconds( 15 ),
-                                    _ => TimeSpan.FromSeconds( 30 )
-                                } ),
+                            Delay = TimeSpan.FromSeconds( 1 ),
+                            BackoffType = DelayBackoffType.Exponential,
                             MaxRetryAttempts = 10
                         } );
                     break;
