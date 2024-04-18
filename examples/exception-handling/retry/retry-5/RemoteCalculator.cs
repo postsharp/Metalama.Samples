@@ -3,18 +3,6 @@
     private static int _attempts;
 
     [Retry]
-    public void Nothing()
-    {
-        Console.WriteLine( "Hello void!" );
-    }
-
-    [Retry]
-    public async Task NothingAsync()
-    {
-        await Task.CompletedTask;
-    }
-
-    [Retry]
     public int Add( int a, int b )
     {
         // Let's pretend this method executes remotely
