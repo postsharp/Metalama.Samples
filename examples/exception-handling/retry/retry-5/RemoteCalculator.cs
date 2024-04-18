@@ -3,6 +3,18 @@
     private static int _attempts;
 
     [Retry]
+    public void Nothing()
+    {
+        Console.WriteLine( "Hello void!" );
+    }
+
+    [Retry]
+    public async Task NothingAsync()
+    {
+        await Task.CompletedTask;
+    }
+
+    [Retry]
     public int Add( int a, int b )
     {
         // Let's pretend this method executes remotely
@@ -11,7 +23,7 @@
         Thread.Sleep( 10 );
 
         _attempts++;
-        Console.WriteLine( $"Trying for the {_attempts}-th time." );
+        Console.WriteLine( $"Attempt #{_attempts}." );
 
         if ( _attempts <= 3 )
         {
@@ -32,7 +44,7 @@
         await Task.Delay( 10 );
 
         _attempts++;
-        Console.WriteLine( $"Trying for the {_attempts}-th time." );
+        Console.WriteLine( $"Attempt #{_attempts}." );
 
         if ( _attempts <= 3 )
         {

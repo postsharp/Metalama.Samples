@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 var serviceProvider = new ServiceCollection()
     .AddLogging( builder => builder.AddConsole().SetMinimumLevel( LogLevel.Trace ) )
     .AddSingleton<RemoteCalculator>()
-    .AddSingleton<IPolicyFactory, PolicyFactory>()
+    .AddSingleton<IResiliencePipelineFactory, ResiliencePipelineFactory>()
     .BuildServiceProvider();
 
 var calculator = serviceProvider.GetService<RemoteCalculator>()!;
