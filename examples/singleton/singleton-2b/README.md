@@ -1,0 +1,11 @@
+---
+uid: sample-singleton-2b
+---
+
+# Singleton example, step 2 detour: Checking constructor references
+
+[!metalama-project-buttons .]
+
+So far, we have ensured that the constructor is private, but that does not guarantee it is only ever called once. To do this, we can use Metalama infrastructure for architecture validation. Though since we're not using it for its originally intended purpose, we have to customize it a bit (see <xref:validation-extending>). We do this by creating a custom <xref:Metalama.Framework.Validation.ReferenceValidator> that checks that a member is only used from the `Instance` property and then applying it the constructur of the singleton by calling <xref:Metalama.Framework.Validation.IValidatorReceiver.ValidateReferences(Metalama.Framework.Validation.ReferenceValidator)>:
+
+[!metalama-test ../../tests/Metalama.Samples.Singleton2b.Tests/Singleton.cs]

@@ -89,6 +89,18 @@ items:
 #      topicUid: sample-enum-viewmodel
 #    - name: Optional Value Type
 #      topicUid: sample-optionalvalue
+    - name: Singleton
+      topicUid: sample-singleton
+      items:
+        - name: Step 1. Consistency and boilerplate
+          topicUid: sample-singleton-1
+        - name: Step 2. Simple safety
+          topicUid: sample-singleton-2
+          items:
+            - name: "Detour: Checking constructor references"
+              topicUid: sample-singleton-2b
+        - name: Step 3. Advanced safety
+          topicUid: sample-singleton-3              
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing
