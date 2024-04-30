@@ -1,15 +1,29 @@
 ﻿[Singleton]
-internal class PrivateConstructorSingleton
+public class MySingleton
 {
-    private PrivateConstructorSingleton() { }
+    public MySingleton() { }
 
-    public PrivateConstructorSingleton Instance { get; } = new();
+    public MySingleton Instance { get; } = new();
 }
 
-[Singleton]
-internal class PublicConstructorSingleton
+namespace Prod
 {
-    public PublicConstructorSingleton() { }
+    internal class ProductionClass
+    {
+        public void M()
+        {
+            _ = new MySingleton();
+        }
+    }
+}
 
-    public PublicConstructorSingleton Instance { get; } = new();
+namespace Tests
+{
+    internal class TestClass
+    {
+        public void M()
+        {
+            _ = new MySingleton();
+        }
+    }
 }

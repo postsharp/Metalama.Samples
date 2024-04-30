@@ -13,6 +13,8 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
+        <PackageReference Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)" />
+        <PackageReference Include="System.Collections.Immutable" Version="8.0.0" />
     </ItemGroup>
 
 </Project>

@@ -92,15 +92,13 @@ items:
     - name: Singleton
       topicUid: sample-singleton
       items:
-        - name: Step 1. Consistency and boilerplate
+        - name: "Version 1: Classic singleton"
           topicUid: sample-singleton-1
-        - name: Step 2. Simple safety
-          topicUid: sample-singleton-2
           items:
-            - name: "Detour: Checking constructor references"
-              topicUid: sample-singleton-2b
-        - name: Step 3. Advanced safety
-          topicUid: sample-singleton-3              
+            - name: "Bonus: Checking private constructor references"
+              topicUid: sample-singleton-1b
+        - name: "Version 2: Dependency injection and testing"
+          topicUid: sample-singleton-2
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing

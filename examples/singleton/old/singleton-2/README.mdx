@@ -1,0 +1,11 @@
+---
+uid: sample-singleton-2
+---
+
+# Singleton example, step 2: Simple safety
+
+[!metalama-project-buttons .]
+
+To ensure safety in the simple case, we can verify that the constructor is private and produce a warning (see <xref:diagnostics>) if it isn't:
+
+[!metalama-test ../../tests/Metalama.Samples.Singleton2.Tests/Singleton.cs]
