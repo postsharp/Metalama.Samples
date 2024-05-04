@@ -3,7 +3,7 @@
     <PropertyGroup>
         <RepoDirectory>$(MSBuildThisFileDirectory)</RepoDirectory>
         <RepoKind>GitHub</RepoKind>
-        <NoWarn>LAMA0048;CA1050</NoWarn>
+        <NoWarn>LAMA0048;CA1050;LAMA0066</NoWarn>
     </PropertyGroup>
 
     <Import Project="eng\Versions.props"/>
