@@ -4,8 +4,8 @@
     <PropertyGroup>
         <MetalamaBackstageVersion>2024.1.13</MetalamaBackstageVersion>
         <MetalamaCompilerVersion>2024.1.7</MetalamaCompilerVersion>
-        <MetalamaVersion>2024.1.17</MetalamaVersion>
-        <MetalamaExtensionsVersion>2024.1.17</MetalamaExtensionsVersion>
+        <MetalamaVersion>2024.1.18</MetalamaVersion>
+        <MetalamaExtensionsVersion>2024.1.18</MetalamaExtensionsVersion>
         <MetalamaFrameworkRunTimeVersion>2024.1.4</MetalamaFrameworkRunTimeVersion>
     </PropertyGroup>
 
