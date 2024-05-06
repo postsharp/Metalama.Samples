@@ -4,8 +4,8 @@ using Metalama.Framework.Code;
 internal class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender ) =>
-        amender.Outbound
-            .SelectMany( compilation => compilation.AllTypes )
+        amender
+            .SelectTypes()
             .Where( type => type.Accessibility == Accessibility.Public )
             .SelectMany( type => type.Methods )
             .Where( method => method.Accessibility == Accessibility.Public && method.Name != "ToString" )
