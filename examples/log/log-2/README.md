@@ -7,7 +7,9 @@ level: 200
 
 [!metalama-project-buttons .]
 
-In the previous example, a generic message was logged when a method started. This was not very useful when the aspect was applied to multiple methods. In this example, the aspect is improved to include the name and signature of the executed method.
+In the previous example, a generic message was logged when a method started. This was not very useful when the aspect
+was applied to multiple methods. In this example, the aspect is improved to include the name and signature of the
+executed method.
 
 The logging aspect generates the _green_ code in the snippet below:
 
@@ -19,7 +21,8 @@ The aspect at work is the following:
 
 [!metalama-file LogAttribute.cs]
 
-The `meta.Target.Method` expression is used in an interpolated string to get the method name and signature. The `meta` pseudo-keyword means that the expression on the right side is evaluated at compile-time.
+The `meta.Target.Method` expression is used in an interpolated string to get the method name and signature. The `meta`
+pseudo-keyword means that the expression on the right side is evaluated at compile-time.
 
 > [!div class="see-also"]
 > <xref:template-overview>

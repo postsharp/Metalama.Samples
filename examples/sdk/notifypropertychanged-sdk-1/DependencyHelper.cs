@@ -9,27 +9,27 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 public static class DependencyHelper
 {
     /// <summary>
-    /// Gets a graph mapping referenced properties to referencing properties.
+    ///     Gets a graph mapping referenced properties to referencing properties.
     /// </summary>
-    public static Dictionary<string, List<string>> GetPropertyDependencyGraph( INamedType type )
-    {
-        return type.Properties
+    public static Dictionary<string, List<string>> GetPropertyDependencyGraph( INamedType type ) =>
+        type.Properties
             .SelectMany( p => p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
             .GroupBy( r => r.Referenced )
-            .ToDictionary( g => g.Key, g => g.Select( x=>x.Referencing ).ToList() );
-    }
-    
+            .ToDictionary( g => g.Key, g => g.Select( x => x.Referencing ).ToList() );
+
     /// <summary>
-    /// Gets the name of all properties referenced by a given property. Only the properties of the same declaring type are returned.
+    ///     Gets the name of all properties referenced by a given property. Only the properties of the same declaring type are
+    ///     returned.
     /// </summary>
     private static IEnumerable<string> GetReferencedProperties( this IProperty property )
     {
         var propertySymbol = property.GetSymbol();
-        
+
         if ( propertySymbol == null )
         {
             return Enumerable.Empty<string>();
         }
+
         var body = propertySymbol
             .DeclaringSyntaxReferences
             .Select( r => r.GetSyntax() )
@@ -43,10 +43,10 @@ public static class DependencyHelper
         }
 
         var semanticModel = property.Compilation.GetSemanticModel( body.SyntaxTree );
-            
+
         var properties = new HashSet<IPropertySymbol>();
-        var visitor = new Visitor(properties, semanticModel);
-        visitor.Visit(  body );
+        var visitor = new Visitor( properties, semanticModel );
+        visitor.Visit( body );
 
         // Note that we limit the analysis to the current type. If a property of a _derived_ type depends
         // on a property of the current type, we won't detect it.
@@ -55,30 +55,9 @@ public static class DependencyHelper
             .Select( p => p.Name );
     }
 
-    private class Visitor : CSharpSyntaxWalker
-    {
-        private readonly HashSet<IPropertySymbol> _properties;
-        private readonly SemanticModel _semanticModel;
 
-        public Visitor( HashSet<IPropertySymbol> properties, SemanticModel semanticModel )
-        {
-            this._properties = properties;
-            this._semanticModel = semanticModel;
-        }
-
-        public override void VisitIdentifierName( IdentifierNameSyntax node )
-        {
-            var symbol = this._semanticModel.GetSymbolInfo( node ).Symbol;
-            if ( symbol is IPropertySymbol property )
-            {
-                this._properties.Add( property );
-            }
-        }
-    }
-    
-    
     /// <summary>
-    /// Gets the body of the property getter, if any.
+    ///     Gets the body of the property getter, if any.
     /// </summary>
     private static SyntaxNode? GetGetterBody( PropertyDeclarationSyntax property )
     {
@@ -102,6 +81,26 @@ public static class DependencyHelper
         }
 
         return null;
-        
+    }
+
+    private class Visitor : CSharpSyntaxWalker
+    {
+        private readonly HashSet<IPropertySymbol> _properties;
+        private readonly SemanticModel _semanticModel;
+
+        public Visitor( HashSet<IPropertySymbol> properties, SemanticModel semanticModel )
+        {
+            this._properties = properties;
+            this._semanticModel = semanticModel;
+        }
+
+        public override void VisitIdentifierName( IdentifierNameSyntax node )
+        {
+            var symbol = this._semanticModel.GetSymbolInfo( node ).Symbol;
+            if ( symbol is IPropertySymbol property )
+            {
+                this._properties.Add( property );
+            }
+        }
     }
 }

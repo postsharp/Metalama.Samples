@@ -6,8 +6,7 @@ using Metalama.Framework.Eligibility;
 
 public class CacheAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ICache _cache;
+    [IntroduceDependency] private readonly ICache _cache;
 
     public override dynamic? OverrideMethod()
     {
@@ -20,16 +19,14 @@ public class CacheAttribute : OverrideMethodAspect
             // Cache hit.
             return value;
         }
-        else
-        {
-            // Cache miss. Go and invoke the method.
-            var result = meta.Proceed();
 
-            // Add to cache.
-            this._cache.TryAdd( cacheKey, result );
+        // Cache miss. Go and invoke the method.
+        var result = meta.Proceed();
 
-            return result;
-        }
+        // Add to cache.
+        this._cache.TryAdd( cacheKey, result );
+
+        return result;
     }
 
     public override void BuildEligibility( IEligibilityBuilder<IMethod> builder )

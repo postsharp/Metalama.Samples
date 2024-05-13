@@ -1,26 +1,23 @@
 ﻿using Metalama.Framework.Aspects;
-using System;
-using System.Threading;
 
-namespace Metalama.Documentation.QuickStart
+namespace Metalama.Documentation.QuickStart;
+
+public class RetryAttribute : OverrideMethodAspect
 {
-    public class RetryAttribute : OverrideMethodAspect
-    {
-        public int MaxAttempts { get; set; } = 5;
+    public int MaxAttempts { get; set; } = 5;
 
-        public override dynamic? OverrideMethod()
+    public override dynamic? OverrideMethod()
+    {
+        for ( var i = 0;; i++ )
         {
-            for (var i = 0; ; i++)
+            try
             {
-                try
-                {
-                    return meta.Proceed();
-                }
-                catch (Exception e) when (i < this.MaxAttempts)
-                {
-                    Console.WriteLine($"{e.Message}. Retrying in 100 ms.");
-                    Thread.Sleep(100);
-                }
+                return meta.Proceed();
+            }
+            catch ( Exception e ) when ( i < this.MaxAttempts )
+            {
+                Console.WriteLine( $"{e.Message}. Retrying in 100 ms." );
+                Thread.Sleep( 100 );
             }
         }
     }

@@ -1,0 +1,13 @@
+---
+uid: sample-singleton-3
+---
+
+# Singleton example, step 3: Advanced safety
+
+[!metalama-project-buttons .]
+
+In more advanced cases, we might want to allow multiple instances of the singleton class for testing purposes. To ensure that the singleton pattern is still enforced in production code, we can use Metalama architecture validation (see <xref:validating-usage>) for its intended purpose and allow the constructor to be called only from test code by programmaticaly adding the <xref:Metalama.Extensions.Architecture.Aspects.CanOnlyBeUsedFromAttribute> aspect, while allowing only namespaces that end in `.Tests`.
+
+Note that since architecture validation normally does not enforce the rules within a class, we can still create an instance of the singleton from within itself.
+
+[!metalama-test ../../tests/Metalama.Samples.Singleton3.Tests/Singleton.cs]

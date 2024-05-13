@@ -4,9 +4,10 @@ using Metalama.Framework.Code.SyntaxBuilders;
 using System.Text;
 
 /// <summary>
-/// Implements the <see cref="ICacheKey"/> interface based on <see cref="CacheKeyMemberAttribute"/> 
-/// aspects on fields and properties. This aspect is implicitly added by <see cref="CacheKeyMemberAttribute"/> aspects.
-/// It should never be added explicitly.
+///     Implements the <see cref="ICacheKey" /> interface based on <see cref="CacheKeyMemberAttribute" />
+///     aspects on fields and properties. This aspect is implicitly added by <see cref="CacheKeyMemberAttribute" />
+///     aspects.
+///     It should never be added explicitly.
 /// </summary>
 [EditorExperience( SuggestAsAddAttribute = false )]
 internal class GenerateCacheKeyAspect : TypeAspect
@@ -19,7 +20,7 @@ internal class GenerateCacheKeyAspect : TypeAspect
         // Verify that all cache key members have a valid type.
         if ( !builder.Target.Compilation.IsPartial )
         {
-            var cachingOptions = builder.Project.CachingOptions();
+            var cachingOptions = builder.Target.Enhancements().GetOptions<CachingOptions>();
 
             foreach ( var member in this.GetMembers( builder.Target ) )
             {
@@ -61,7 +62,7 @@ internal class GenerateCacheKeyAspect : TypeAspect
                 "Design-time preview code may be different that compile-time code because of unresolved cache key builders." );
         }
 
-        var cachingOptions = meta.Target.Project.CachingOptions();
+        var cachingOptions = meta.Target.Type.Enhancements().GetOptions<CachingOptions>();
 
         // This is how we define a compile-time variable of value 0.
         var i = meta.CompileTime( 0 );
