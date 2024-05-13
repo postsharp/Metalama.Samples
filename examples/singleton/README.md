@@ -4,19 +4,21 @@ uid: sample-singleton
 
 # Example: Singleton
 
-[Singleton](https://en.wikipedia.org/wiki/Singleton_pattern) is a design pattern that requires that there is only one instance of a class in the whole application.
-The singleton pattern is often used for classes that manage resources, such as a database connection or a logger. It can also be used to represent a global state, such as the configuration of the application.
+The Singleton pattern is beneficial in scenarios where a class in a software system should have only one instance available to all components.
 
-Though with the advent of dependency injection and increased focus on testability, the singleton pattern has evolved as well.
+Singleton can be instrumental in maintaining consistency across the system -- whether it involves synchronized access to a shared resource (e.g., through locking) or ensuring data consistency. In these cases, it is crucial to have only a single instance of the object. Another scenario where the Singleton pattern can be beneficial is when creating multiple instances of a complex object might be resource-intensive. If a single instance suffices for the application’s needs, a Singleton can reduce overhead in terms of both memory and processing.
 
-In this group of examples, we will explore how Metalama can be used to improve the singleton pattern, with or without dependency injection.
+The classic implementation of the Singleton pattern involves having a private constructor in the class, forbidding it from being instantiated from outside, and exposing a single instance on a static member.
+
+With the advent of dependency injection and unit testing, the Singleton pattern has evolved. To allow several unit tests to be executed concurrently but in isolation from each other, we provide a new instance of each singleton to each unit test.
+
+In this group of examples, we will explore how Metalama can be used to improve the Singleton pattern, with or without dependency injection.
 
 ## In this series
 
-We will explore the various ways to improve the singleton pattern:
+We will explore the various ways to improve the Singleton pattern:
 
-| Article | Description |
-|--------|-------------|
-| [Classic singleton](singleton-1/README.md) | We'll start with the classic singleton pattern, where the class has a private constructor and a public static property `Instance`. |
-| [Bonus: Checking private constructor references](singleton-1b/README.md) | We'll optionally ensure that the constructor is only ever called once. |
-| [Dependency injection and testing](singleton-2/README.md) | We'll discover how to improve safety for "singleton" classes that aer used with dependency injection and testing. |
+| Article                                                                  | Description                                                                                                                        |
+|--------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| [Classic singleton](singleton-1/README.md)                               | We'll start with the classic Singleton pattern, where the class has a private constructor and a public static property `Instance`. |
+| [Modern singleton](singleton-2/README.md)                | We'll discover how to improve safety for "singleton" classes that are used with dependency injection and testing.                  |

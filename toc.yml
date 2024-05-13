@@ -94,10 +94,7 @@ items:
       items:
         - name: "Version 1: Classic singleton"
           topicUid: sample-singleton-1
-          items:
-            - name: "Bonus: Checking private constructor references"
-              topicUid: sample-singleton-1b
-        - name: "Version 2: Dependency injection and testing"
+        - name: "Version 2: Modern singleton"
           topicUid: sample-singleton-2
     - name: Shared Fabrics
       topicUid: sample-shared-fabric

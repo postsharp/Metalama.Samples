@@ -3,8 +3,8 @@ using Metalama.Framework.Project;
 
 public partial class CachingOptions : ProjectExtension
 {
-    private readonly HashSet<IType> _toStringTypes = new();
     private readonly Dictionary<IType, IType> _externalCacheBuilderTypes = new();
+    private readonly HashSet<IType> _toStringTypes = new();
 
 
     public void UseToString( Type type ) => this._toStringTypes.Add( TypeFactory.GetType( type ) );

@@ -24,6 +24,34 @@ public class TrackChangesAttribute : TypeAspect
         Severity.Error,
         "The '{0}' method must be virtual.");
 
+    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
+    public bool IsChanged { get; private set; }
+
+    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
+    public bool IsTrackingChanges
+    {
+        get => meta.This._isTrackingChanges;
+        set
+        {
+            if ( meta.This._isTrackingChanges != value )
+            {
+                meta.This._isTrackingChanges = value;
+
+                var onPropertyChanged = this.GetOnPropertyChangedMethod( meta.Target.Type );
+
+                if ( onPropertyChanged != null )
+                {
+                    onPropertyChanged.Invoke( nameof(this.IsTrackingChanges) );
+                }
+
+                if ( value )
+                {
+                    this.AcceptChanges();
+                }
+            }
+        }
+    }
+
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Select fields and automatic properties that can be changed.
@@ -120,34 +148,6 @@ public class TrackChangesAttribute : TypeAspect
         => type.AllMethods
             .OfName( "OnPropertyChanged" )
             .SingleOrDefault( m => m.Parameters.Count == 1 );
-
-    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
-    public bool IsChanged { get; private set; }
-
-    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
-    public bool IsTrackingChanges
-    {
-        get => meta.This._isTrackingChanges;
-        set
-        {
-            if ( meta.This._isTrackingChanges != value )
-            {
-                meta.This._isTrackingChanges = value;
-
-                var onPropertyChanged = this.GetOnPropertyChangedMethod( meta.Target.Type );
-
-                if ( onPropertyChanged != null )
-                {
-                    onPropertyChanged.Invoke( nameof(this.IsTrackingChanges) );
-                }
-
-                if ( value )
-                {
-                    this.AcceptChanges();
-                }
-            }
-        }
-    }
 
     [InterfaceMember]
     public virtual void AcceptChanges()

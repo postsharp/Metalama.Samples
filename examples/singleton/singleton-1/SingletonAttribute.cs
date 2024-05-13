@@ -3,34 +3,45 @@ using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Diagnostics;
 
+#pragma warning disable CS8618
+
 public class SingletonAttribute : TypeAspect
 {
-    /*<InstanceTemplate>*/[Template]
-    public static object Instance { get; }/*</InstanceTemplate>*/
+    [Template] /*<InstanceTemplate>*/
+    public static object Instance { get; } /*</InstanceTemplate>*/
 
-    /*<PrivateConstructorDiagnostic>*/private static readonly DiagnosticDefinition<(IConstructor, INamedType)> _constructorHasToBePrivate
-        = new( "SING01", Severity.Warning, "The constructor {0} of the singleton class {1} has to be private." );/*</PrivateConstructorDiagnostic>*/
+    private static readonly DiagnosticDefinition<(IConstructor, INamedType)>
+        _constructorHasToBePrivate /*<PrivateConstructorDiagnostic>*/
+            = new(
+                "SING01",
+                Severity.Warning,
+                "The '{0}' constructor must be private because the class is [Singleton]."); /*</PrivateConstructorDiagnostic>*/
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        /*<IntroduceInstanceProperty>*/builder.Advice.IntroduceProperty( builder.Target, nameof(Instance), buildProperty: propertyBuilder =>
-        {
-            propertyBuilder.Type = builder.Target;
+        builder.Advice.IntroduceProperty(
+            builder.Target,
+            nameof(Instance),
+            buildProperty: propertyBuilder => /*<IntroduceInstanceProperty>*/
+            {
+                propertyBuilder.Type = builder.Target;
 
-            var initializer = new ExpressionBuilder();
-            initializer.AppendVerbatim( "new " );
-            initializer.AppendTypeName( builder.Target );
-            initializer.AppendVerbatim( "()" );
+                var initializer = new ExpressionBuilder();
+                initializer.AppendVerbatim( "new " );
+                initializer.AppendTypeName( builder.Target );
+                initializer.AppendVerbatim( "()" );
 
-            propertyBuilder.InitializerExpression = initializer.ToExpression();
-        } );/*</IntroduceInstanceProperty>*/
+                propertyBuilder.InitializerExpression = initializer.ToExpression();
+            } ); /*</IntroduceInstanceProperty>*/
 
-        /*<PrivateConstructorReport>*/foreach ( var constructor in builder.Target.Constructors )
+        foreach ( var constructor in builder.Target.Constructors ) /*<PrivateConstructorReport>*/
         {
             if ( constructor.Accessibility != Accessibility.Private )
             {
-                builder.Diagnostics.Report( _constructorHasToBePrivate.WithArguments( (constructor, builder.Target) ), location: constructor );
+                builder.Diagnostics.Report( 
+                    _constructorHasToBePrivate.WithArguments( (constructor, builder.Target) ),
+                    location: constructor );
             }
-        }/*</PrivateConstructorReport>*/
+        } /*</PrivateConstructorReport>*/
     }
 }

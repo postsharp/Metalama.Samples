@@ -7,7 +7,6 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-
         // Get the dependency graph.
         var dependencyGraph = DependencyHelper.GetPropertyDependencyGraph( builder.Target );
 
@@ -18,19 +17,20 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
         foreach ( var property in builder.Target.Properties.Where( p =>
                      p is { IsAbstract: false, Writeability: Writeability.All } ) )
         {
-            builder.Advice.OverrideAccessors( property, null, nameof(this.OverridePropertySetter), args:new { dependencyGraph} );
+            builder.Advice.OverrideAccessors( property, null, nameof(this.OverridePropertySetter),
+                new { dependencyGraph } );
         }
     }
 
-    [InterfaceMember]
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [InterfaceMember] public event PropertyChangedEventHandler? PropertyChanged;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
     protected void OnPropertyChanged( string name ) =>
         this.PropertyChanged?.Invoke( meta.This, new PropertyChangedEventArgs( name ) );
 
     [Template]
-    private dynamic OverridePropertySetter( dynamic value, [CompileTime] Dictionary<string, List<string>> dependencyGraph )
+    private dynamic OverridePropertySetter( dynamic value,
+        [CompileTime] Dictionary<string, List<string>> dependencyGraph )
     {
         if ( value != meta.Target.Property.Value )
         {
@@ -42,7 +42,7 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
 
             // Notify changes of other properties that depend on the current property.
             if ( dependencyGraph.TryGetValue( meta.Target.Property.Name, out var referencingProperties ) )
-            { 
+            {
                 foreach ( var referencingProperty in referencingProperties )
                 {
                     if ( referencingProperty != meta.Target.Property.Name )
