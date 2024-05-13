@@ -89,6 +89,13 @@ items:
 #      topicUid: sample-enum-viewmodel
 #    - name: Optional Value Type
 #      topicUid: sample-optionalvalue
+    - name: Singleton
+      topicUid: sample-singleton
+      items:
+        - name: "Version 1: Classic singleton"
+          topicUid: sample-singleton-1
+        - name: "Version 2: Modern singleton"
+          topicUid: sample-singleton-2
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing

@@ -11,9 +11,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-        <PackageReference Include="xunit" Version="2.4.1" />
-        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)"/>
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\log\log-2\Metalama.Samples.Log2.csproj" />
+        <ProjectReference Include="..\..\log\log-2\Metalama.Samples.Log2.csproj"/>
     </ItemGroup>
 
 </Project>

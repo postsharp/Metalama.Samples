@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
 
-		<IsPackable>false</IsPackable>
+        <IsPackable>false</IsPackable>
 
-		<Configurations>Debug;Release;LamaDebug</Configurations>
-	</PropertyGroup>
+        <Configurations>Debug;Release;LamaDebug</Configurations>
+    </PropertyGroup>
 
-	<ItemGroup>
-	  <Compile Remove="MissingOnChangeMethod - Copy.t.cs" />
-	</ItemGroup>
+    <ItemGroup>
+        <Compile Remove="MissingOnChangeMethod - Copy.t.cs"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <None Include="OnChangeMethodNotProtected.t.cs">
-	    <SubType>Code</SubType>
-	    <DependentUpon>OnChangeMethodNotProtected.cs</DependentUpon>
-	  </None>
-	</ItemGroup>
+    <ItemGroup>
+        <None Include="OnChangeMethodNotProtected.t.cs">
+            <SubType>Code</SubType>
+            <DependentUpon>OnChangeMethodNotProtected.cs</DependentUpon>
+        </None>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-		<PackageReference Include="xunit" Version="2.4.1" />
-		<PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-		<PackageReference Include="coverlet.collector" Version="1.3.0">
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<PrivateAssets>all</PrivateAssets>
-		</PackageReference>
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
+        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="1.3.0">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\change-tracking\change-tracking-2\Metalama.Samples.ChangeTracking2.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\change-tracking\change-tracking-2\Metalama.Samples.ChangeTracking2.csproj"/>
+    </ItemGroup>
 
 </Project>
