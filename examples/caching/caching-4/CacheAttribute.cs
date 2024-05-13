@@ -21,7 +21,7 @@ public class CacheAttribute : OverrideMethodAspect
 
         if ( !builder.Target.Compilation.IsPartial )
         {
-            var cachingOptions = builder.Project.CachingOptions();
+            var cachingOptions = builder.Target.Enhancements().GetOptions<CachingOptions>();
 
             foreach ( var parameter in builder.Target.Parameters )
             {
@@ -46,7 +46,8 @@ public class CacheAttribute : OverrideMethodAspect
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );
 
-        var cachingOptions = meta.Target.Project.CachingOptions();
+        var cachingOptions = meta.Target.Method.Enhancements().GetOptions<CachingOptions>();
+
 
 
         foreach ( var p in meta.Target.Parameters )

@@ -1,14 +1,35 @@
 ﻿using Metalama.Framework.Code;
-using Metalama.Framework.Project;
+using Metalama.Framework.Options;
 
-public partial class CachingOptions : ProjectExtension
+public record CachingOptions : IHierarchicalOptions<IMethod>, IHierarchicalOptions<INamedType>, IHierarchicalOptions<INamespace>, IHierarchicalOptions<ICompilation>
 {
-    private readonly Dictionary<IType, IType> _externalCacheBuilderTypes = new();
-    private readonly HashSet<IType> _toStringTypes = new();
+    private readonly IncrementalKeyedCollection<string, CacheBuilderRegistration> _cacheBuilderRegistrations;
 
+    public static CachingOptions Default { get; } = new();
 
-    public void UseToString( Type type ) => this._toStringTypes.Add( TypeFactory.GetType( type ) );
+    public CachingOptions() : this( IncrementalKeyedCollection<string, CacheBuilderRegistration>.Empty ) { }
 
-    public void UseCacheKeyBuilder( Type type, Type builderType ) =>
-        this._externalCacheBuilderTypes[TypeFactory.GetType( type )] = TypeFactory.GetType( builderType );
+    private CachingOptions( IncrementalKeyedCollection<string, CacheBuilderRegistration> cacheBuilderRegistrations )
+    {
+        this._cacheBuilderRegistrations = cacheBuilderRegistrations;
+    }
+
+    internal IEnumerable<CacheBuilderRegistration> Registrations => this._cacheBuilderRegistrations;
+
+    public CachingOptions UseToString( Type type ) =>
+        new( this._cacheBuilderRegistrations.AddOrApplyChanges(
+            new CacheBuilderRegistration( TypeFactory.GetType( type ), null ) ) );
+
+    public CachingOptions UseCacheKeyBuilder( Type type, Type builderType ) =>
+        new(this._cacheBuilderRegistrations.AddOrApplyChanges( new CacheBuilderRegistration(
+            TypeFactory.GetType( type ),
+            TypeFactory.GetType( builderType ) ) ));
+
+    public object ApplyChanges( object changes, in ApplyChangesContext context )
+        => new CachingOptions(
+
+            this._cacheBuilderRegistrations.AddOrApplyChanges(
+                ((CachingOptions) changes)._cacheBuilderRegistrations )
+        );
 }
+

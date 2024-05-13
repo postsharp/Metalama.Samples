@@ -4,9 +4,12 @@ public class Fabric : ProjectFabric
 {
     public override void AmendProject( IProjectAmender amender )
     {
-        amender.Project.CachingOptions().UseToString( typeof(int) );
-        amender.Project.CachingOptions().UseToString( typeof(long) );
-        amender.Project.CachingOptions().UseToString( typeof(string) );
-        amender.Project.CachingOptions().UseCacheKeyBuilder( typeof(byte[]), typeof(ByteArrayCacheKeyBuilder) );
+        var cachingOptions = CachingOptions.Default
+            .UseToString( typeof(int) )
+            .UseToString( typeof(long) )
+            .UseToString( typeof(string) )
+            .UseCacheKeyBuilder( typeof(byte[]), typeof(ByteArrayCacheKeyBuilder) );
+
+        amender.Outbound.SetOptions( cachingOptions );
     }
 }

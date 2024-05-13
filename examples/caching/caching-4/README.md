@@ -35,15 +35,17 @@ For instance, here is an implementation for `byte[]`:
 ## Compile-time API
 
 To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a
-compile-time configuration API for the caching aspects. We accomplish this via a concept named a _project extension_,
+compile-time configuration API for the caching aspects. We accomplish this via a concept named _hierarchical options_,
 which is explained in more detail in <xref:aspect-configuration>. We define a new compile-time class, `CachingOptions`,
-to map types to their respective builders. We will also store a list of types for which we want to use `ToString`.
+to map types to their respective builders. It implements the <xref:Metalama.Framework.Options.IHierarchicalOptions`1> for all levels where the options can be defined, i.e. the whole compilation, namespace, or type. The class is designed as immutable and represents an incremental _change_ in configuration compared to its base level, but without knowing its base configuration. Because of this unusual requirements, designing aspect options can be complex. 
+
+Here is the top-level option class:
 
 [!metalama-file CachingOptions.cs]
 
-We define an extension method that simplifies access to caching options:
+The class relies on <xref:Metalama.Framework.Options.IncrementalKeyedCollection> to represent a change in the collection. Items in these collections are represented by the `CacheBuilderRegistration` class.
 
-[!metalama-file CachingProjectExtensions.cs]
+[!metalama-file CacheBuilderRegistration.cs]
 
 Configuring the caching API using a fabric is straightforward:
 
@@ -80,7 +82,7 @@ support for three cases plus null-handling.
 It is now easier to build the expression with <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> rather
 than with a template. We have moved this logic to `CachingOptions`.
 
-[!metalama-file CachingOptions.Internals.cs member="CachingOptions.TryGetCacheKeyExpression"]
+[!metalama-file CachingOptionsExtensions.cs member="CachingOptionsExtensions.TryGetCacheKeyExpression"]
 
 The <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> class essentially acts as a `StringBuilder` wrapper.
 We can add any text to an `ExpressionBuilder`, as long as it can be parsed back into a valid C# expression.
@@ -92,7 +94,7 @@ for a field or property annotated with `[CacheKeyMember]`.
 
 To achieve this, we add the following code to `CachingOptions`:
 
-[!metalama-file CachingOptions.Internals.cs member="CachingOptions.VerifyCacheKeyMember"]
+[!metalama-file CachingOptionsExtensions.cs member="CachingOptionsExtensions.VerifyCacheKeyMember"]
 
 The first line defines an error kind. Metalama requires the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition>
 to be defined in a static field or property. Then, if the type of the `expression` is invalid, this error is reported
