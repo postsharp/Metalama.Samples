@@ -1,7 +1,11 @@
 ﻿using Metalama.Framework.Code;
 using Metalama.Framework.Options;
 
-public record CachingOptions : IHierarchicalOptions<IMethod>, IHierarchicalOptions<INamedType>, IHierarchicalOptions<INamespace>, IHierarchicalOptions<ICompilation>
+public record CachingOptions : 
+    IHierarchicalOptions<IMethod>, 
+    IHierarchicalOptions<INamedType>, 
+    IHierarchicalOptions<INamespace>, 
+    IHierarchicalOptions<ICompilation>
 {
     private readonly IncrementalKeyedCollection<string, CacheBuilderRegistration> _cacheBuilderRegistrations;
 
