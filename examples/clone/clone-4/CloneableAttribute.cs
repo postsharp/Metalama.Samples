@@ -9,20 +9,20 @@ using Metalama.Framework.Project;
 public class CloneableAttribute : TypeAspect
 {
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)>
-          _fieldOrPropertyCannotBeReadOnly = 
-              new( "CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child]." );
+        _fieldOrPropertyCannotBeReadOnly =
+            new("CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
 
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)> _missingCloneMethod =
-        new( "CLONE02", Severity.Error,
-            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method." );
+        new("CLONE02", Severity.Error,
+            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method.");
 
     private static readonly DiagnosticDefinition<IMethod> _cloneMethodMustBePublic =
-    new( "CLONE03", Severity.Error,
-        "The '{0}' method must be public or internal." );
+        new("CLONE03", Severity.Error,
+            "The '{0}' method must be public or internal.");
 
     private static readonly DiagnosticDefinition<IProperty> _childPropertyMustBeAutomatic =
-        new( "CLONE04", Severity.Error,
-            "The property '{0}' cannot be a [Child] because is not an automatic property." ); 
+        new("CLONE04", Severity.Error,
+            "The property '{0}' cannot be a [Child] because is not an automatic property.");
 
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)> _annotateFieldOrProperty =
         new("CLONE05", Severity.Warning, "Mark the {0} '{1}' as a [Child] or [Reference].");
@@ -155,7 +155,6 @@ public class CloneableAttribute : TypeAspect
                     builder.Diagnostics.Report(
                         _cloneMethodMustBePublic.WithArguments( cloneMethod ), fieldOrProperty );
                     success = false;
-
                 }
             }
         }

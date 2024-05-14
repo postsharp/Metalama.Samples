@@ -1,0 +1,15 @@
+---
+uid: sample-singleton-1
+---
+
+# Singleton example, step 1: Ensuring consistency and avoiding boilerplate
+
+[!metalama-project-buttons .]
+
+To ensure consistency and avoid boilerplate code, we'll turn the `SingletonAttribute` into a Metalama aspect, which will implement the repetitive part of the singleton pattern for us by introducing the `Instance` property (see <xref:introducing-members>), with an initializer that invokes the constructor.
+
+[!metalama-file SingletonAttribute.cs]
+
+The resulting singleton class is a bit simpler:
+
+[!metalama-compare MySingleton.cs]

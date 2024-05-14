@@ -15,12 +15,10 @@ internal class Cache : ICache
 
             return true;
         }
-        else
-        {
-            Console.WriteLine( $"Key '{key}' not found in cache." );
 
-            return false;
-        }
+        Console.WriteLine( $"Key '{key}' not found in cache." );
+
+        return false;
     }
 
     public void TryAdd( string key, object? value )

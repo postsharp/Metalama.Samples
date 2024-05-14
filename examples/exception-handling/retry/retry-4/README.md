@@ -7,7 +7,8 @@ level: 300
 
 [!metalama-project-buttons .]
 
-In this article, we will add real-world logging to the retry aspect. To learn more about logging, please refer to <xref:sample-log>.
+In this article, we will add real-world logging to the retry aspect. To learn more about logging, please refer
+to <xref:sample-log>.
 
 Below is the updated code transformation:
 
@@ -36,13 +37,17 @@ Succeeded
 ```
 
 > [!WARNING]
-> Be careful when including sensitive information (e.g., user credentials, personal data, etc.) in logs as they can pose a security risk. Avoid exposing sensitive data and remove them from logs using techniques such as <xref:sample-log-7>.
+> Be careful when including sensitive information (e.g., user credentials, personal data, etc.) in logs as they can pose
+> a security risk. Avoid exposing sensitive data and remove them from logs using techniques such as <xref:sample-log-7>.
 
 ## Implementation
 
-To improve logging, we included the method name and parameter values in the logging message using the `LoggingHelper.BuildInterpolatedString` method. For more information about the method, refer to <xref:sample-log-2> and <xref:sample-log-3>.
+To improve logging, we included the method name and parameter values in the logging message using
+the `LoggingHelper.BuildInterpolatedString` method. For more information about the method, refer to <xref:sample-log-2>
+and <xref:sample-log-3>.
 
-To substitute `Console.WriteLine` with `ILogger` and inject the `ILogger` into the target class, we used dependency injection. Refer to <xref:sample-log-4> for details.
+To substitute `Console.WriteLine` with `ILogger` and inject the `ILogger` into the target class, we used dependency
+injection. Refer to <xref:sample-log-4> for details.
 
 Below is the aspect code update:
 
