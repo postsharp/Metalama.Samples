@@ -30,13 +30,13 @@ public class CacheAttribute : OverrideMethodAspect
     [CompileTime]
     private static string GetCachingKeyFormattingString()
     {
-        var stringBuilder = meta.CompileTime( new StringBuilder() );
+        var stringBuilder = new StringBuilder();
         stringBuilder.Append( meta.Target.Type );
         stringBuilder.Append( '.' );
         stringBuilder.Append( meta.Target.Method.Name );
         stringBuilder.Append( '(' );
 
-        var i = meta.CompileTime( 0 );
+        var i = 0;
 
         foreach ( var p in meta.Target.Parameters )
         {

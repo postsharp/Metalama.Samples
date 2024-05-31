@@ -103,7 +103,7 @@ public class LogAttribute : OverrideMethodAspect
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );
-        var i = meta.CompileTime( 0 );
+        var i = 0;
 
         // Include a placeholder for each parameter.
         foreach ( var p in meta.Target.Parameters )
