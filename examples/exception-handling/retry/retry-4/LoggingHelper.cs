@@ -31,7 +31,7 @@ internal static class LoggingHelper
             {
                 // Otherwise, add the parameter value.
                 stringBuilder.AddText( $"{comma}{p.Name} = {{" );
-                stringBuilder.AddExpression( p.Value );
+                stringBuilder.AddExpression( p );
                 stringBuilder.AddText( "}" );
             }
 

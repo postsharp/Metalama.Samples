@@ -138,7 +138,7 @@ public class LogAttribute : MethodAspect
             {
                 // Otherwise, add the parameter value.
                 stringBuilder.AddText( $"{comma}{p.Name} = {{" );
-                stringBuilder.AddExpression( p.Value );
+                stringBuilder.AddExpression( p );
                 stringBuilder.AddText( "}" );
             }
 
