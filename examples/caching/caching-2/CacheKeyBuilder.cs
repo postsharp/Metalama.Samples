@@ -26,7 +26,7 @@ internal static class CacheKeyBuilder
             stringBuilder.AddText( ")" );
 
             stringBuilder.AddText( "{" );
-            stringBuilder.AddExpression( p.Value );
+            stringBuilder.AddExpression( p );
             stringBuilder.AddText( "}" );
         }
 
