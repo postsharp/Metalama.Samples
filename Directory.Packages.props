@@ -10,11 +10,11 @@
   <ItemGroup>
     <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaExtensionsVersion)" />
     <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
-    <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+    <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
-    <PackageVersion Include="Polly" Version="7.2.3" />
+    <PackageVersion Include="Polly" Version="7.2.4" />
     <PackageVersion Include="PostSharp.Engineering.BuildTools" Version="$(PostSharpEngineeringVersion)" />
   </ItemGroup>
 </Project>
