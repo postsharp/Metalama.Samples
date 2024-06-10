@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <!-- Set versions of dependencies that need special treatment or consist of multiple packages of the same version. -->
+  <PropertyGroup>
+    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.109</PostSharpEngineeringVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaExtensionsVersion)" />
+    <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" PrivateAssets="all"/>
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+    <PackageVersion Include="Polly" Version="7.2.3" />
+    <PackageVersion Include="PostSharp.Engineering.BuildTools" Version="$(PostSharpEngineeringVersion)" />
+  </ItemGroup>
+</Project>

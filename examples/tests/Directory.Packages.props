@@ -1,0 +1,11 @@
+<Project>
+  <!-- Imports Directory.Packages.props of the upper directory. Use this code in any non-root Directory.Build.* even if the file does not exit. -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Packages.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists('$([MSBuild]::GetPathOfFileAbove(`Directory.Packages.props`, `$(MSBuildThisFileDirectory)../`))')" />
+  <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="1.3.0" />
+    <PackageVersion Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    <PackageVersion Include="xunit" Version="2.4.1" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.3" />
+  </ItemGroup>
+</Project>
