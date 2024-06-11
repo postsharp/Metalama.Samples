@@ -6,15 +6,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1"/>
-        <PackageReference Include="xunit" Version="2.4.1"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit" />
+        <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Metalama.Testing.AspectTesting" Version="$(MetalamaVersion)"/>
-        <PackageReference Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)"/>
-        <PackageReference Include="System.Collections.Immutable" Version="8.0.0"/>
+        <PackageReference Include="Metalama.Testing.AspectTesting" />
+        <PackageReference Include="Metalama.Extensions.Architecture" />
+        <PackageReference Include="System.Collections.Immutable" />
     </ItemGroup>
 
     <ItemGroup>

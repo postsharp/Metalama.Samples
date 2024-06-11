@@ -8,6 +8,7 @@
     <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.109</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)" />
     <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaExtensionsVersion)" />
     <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
