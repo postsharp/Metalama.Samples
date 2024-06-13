@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Metalama.Framework" Version="2023.0.113-rc" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Metalama.Framework" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\SharedAspects\SharedAspects.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedAspects\SharedAspects.csproj" />
+  </ItemGroup>
 
 </Project>
