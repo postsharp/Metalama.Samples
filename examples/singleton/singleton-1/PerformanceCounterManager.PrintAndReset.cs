@@ -1,19 +1,25 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Diagnostics;
 
 public partial class PerformanceCounterManager
 {
+    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
+
     public void PrintAndReset()
     {
-        var oldCounters = this._counters;
-        var elapsedMilliseconds = this._stopwatch.ElapsedMilliseconds;
-        
-        this._counters = new ConcurrentDictionary<string, int>();
-        this._stopwatch.Reset();
+        Dictionary<string, int> oldCounters;
+        TimeSpan elapsed;
+
+        lock ( this._stopwatch )
+        {
+            oldCounters = this._counters.RemoveAll();
+
+            elapsed = this._stopwatch.Elapsed;
+            this._stopwatch.Restart();
+        }
 
         foreach ( var counter in oldCounters )
         {
-            Console.WriteLine($"{counter.Key}: {1000d * counter.Value/elapsedMilliseconds} calls/s");
+            Console.WriteLine( $"{counter.Key}: {counter.Value / elapsed.TotalSeconds:f2} calls/s" );
         }
-
     }
 }

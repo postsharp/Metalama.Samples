@@ -1,10 +1,8 @@
 ﻿using System.Collections.Concurrent;
-using System.Diagnostics;
 
 public partial class PerformanceCounterManager
 {
-    private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
-    private ConcurrentDictionary<string, int> _counters = new();
+    private readonly ConcurrentDictionary<string, int> _counters = new();
     
     private PerformanceCounterManager() { }
 
