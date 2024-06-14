@@ -5,10 +5,8 @@
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
-
     <ItemGroup>
         <PackageReference Include="Metalama.Framework" Version="$(MetalamaVersion)"/>
     </ItemGroup>
-
 
 </Project>
