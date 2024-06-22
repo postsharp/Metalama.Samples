@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)" />
+        <PackageReference Include="Metalama.Extensions.Architecture" />
     </ItemGroup>
 
 </Project>
