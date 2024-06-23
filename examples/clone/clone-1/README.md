@@ -30,13 +30,13 @@ You can clearly see two steps in this method. We will comment on them independen
 ### Implementing the interface
 
 The first operation of `BuildAspect` is to add the <xref:System.ICloneable> method to the current type using
-the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method.
+the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method.
 
 [!metalama-file CloneableAttribute.cs from="BuildAspect1:Start" from="BuildAspect1:End"]
 
 If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are
 specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>.
-The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the aspect type to include all
+The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the aspect type to include all
 interface members and to annotate them with
 the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute.
 
@@ -54,13 +54,13 @@ yet. For details regarding these techniques, see <xref:template-dynamic-code>
 ### Adding the public method
 
 The second operation of `BuildAspect` is to introduce a method named `Clone` by
-invoking <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*>.
+invoking <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>.
 
 [!metalama-file CloneableAttribute.cs from="BuildAspect2:Start" from="BuildAspect2:End"]
 
 We set the <xref:Metalama.Framework.Aspects.OverrideStrategy> to `Override`, indicating that the method should be
 overridden if it already exists in the type. The invocation
-of <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*> is more complex than usual for two reasons:
+of <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*> is more complex than usual for two reasons:
 
 1. The template method cannot be named `Clone` because it would conflict with the other `Clone` method of this aspect,
    the template for the <xref:System.ICloneable.Clone*?text=ICloneable.Clone> method. Therefore, we name the template
@@ -69,7 +69,7 @@ of <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*> is more co
 
 2. The `CloneImpl` template, as we will see below, has a compile-time generic parameter `T`, where `T` represents the
    current type. We need to pass the value of the `T` parameter in our invocation to
-   the <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceMethod*> method. We pass an anonymous type to
+   the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*> method. We pass an anonymous type to
    the `args` parameter, with the property `T` set to its desired value:  `args: new { T = builder.Target }`.
 
 For details, see <xref:introducing-members>.

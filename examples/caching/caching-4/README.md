@@ -20,7 +20,7 @@ requirements to our aspect:
 
 ## ICacheKeyBuilder
 
-To address these challenges, we have introduced the concept of _cache key builders_ -- objects capable of building a
+To address these challenges, we have introduced the concept of _cache key builders_ &mdash; objects capable of building a
 cache key for another object. We define the `ICacheKeyBuilder` interface as follows:
 
 [!metalama-file ICacheKeyBuilder.cs]

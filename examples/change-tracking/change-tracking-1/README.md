@@ -47,11 +47,11 @@ aspect should be inherited from the base class to derived classes. For further d
 The entry point of the aspect is the `BuildAspect` method. Our implementation has two parts, two of the three operations
 that our aspect has to perform.
 
-First, the `BuildAspect` method calls the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method
+First, the `BuildAspect` method calls the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method
 to add the `ISwitchableChangeTracking` interface to the target type. It specifies
 the <xref:Metalama.Framework.Aspects.OverrideStrategy> to `Ignore`, indicating that the operation should be ignored if
 the target type already implements the interface.
-The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the aspect class to contain
+The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the aspect class to contain
 the interface members, which should be annotated with
 the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. The
 implementation of these members is trivial. For details about adding interfaces to types,
@@ -59,7 +59,7 @@ see <xref:implementing-interfaces>.
 
 Then, the `BuildAspect` method selects fields and automatic properties except `readonly` fields and `init` or `get`-only
 automatic properties (we apply this condition using the expression `f.Writeability == Writeability.All`). For all these
-fields and properties, we call the <xref:Metalama.Framework.Advising.IAdviceFactory.OverrideAccessors*> method
+fields and properties, we call the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*> method
 using `OverridePropertySetter` as a template for the new setter. For further details,
 see <xref:overriding-fields-or-properties>.
 
