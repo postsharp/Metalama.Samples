@@ -66,10 +66,10 @@ Let's now look at the implementation of `GenerateCacheKeyAspect`:
 [!metalama-file GenerateCacheKeyAspect.cs]
 
 The `BuildAspect` method of `GenerateCacheKeyAspect`
-calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add the `ICacheKey` interface to the
+calls <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> to add the `ICacheKey` interface to the
 target type. The `whenExists` parameter is set to `Ignore`, which means that this call will just be ignored if the
 target type or a base type already implements the interface.
-The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface members to be
+The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the interface members to be
 implemented by the aspect class and to be annotated with
 the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only
 member is `ToCacheKey`, which instantiates a `StringBuilder` and calls the `BuildCacheKey` method.

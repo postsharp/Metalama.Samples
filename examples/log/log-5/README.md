@@ -55,7 +55,7 @@ The `BuildAspect` is the entry point of the aspect. This method does the followi
   is incorrect.
 
 * Finally, the `BuildAspect` method overrides the target method by
-  calling <xref:Metalama.Framework.Advising.IAdviceFactory.Override*?text=builder.Advice.Override> and by passing the
+  calling <xref:Metalama.Framework.Advising.AdviserExtensions.Override*?text=builder.Advice.Override> and by passing the
   name of the template method that will override the target method. It passes
   the <xref:Metalama.Framework.Code.IFieldOrProperty> by using an anonymous type as the `args` parameter, where the
   property names of the anonymous type must match the parameter names of the template method.

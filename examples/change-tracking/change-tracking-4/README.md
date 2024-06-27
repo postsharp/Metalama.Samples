@@ -31,12 +31,12 @@ Let's focus on the following part of the `BuildAspect` method for the moment.
 [!metalama-file TrackChangesAttribute.cs marker="BuildDictionary"]
 
 First, the method introduces new fields into the type for each mutable field or automatic property using
-the <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceField*> method. For details about this practice,
+the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*> method. For details about this practice,
 see <xref:introducing-members>.
 
 Note that we are building the `introducedFields` dictionary, which maps the current-value field or property to the
 accepted-value field. This dictionary will be passed to
-the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> call as a _tag_. The collection of tags is an
+the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> call as a _tag_. The collection of tags is an
 anonymous object. For more details about this technique, see <xref:sharing-state-with-advice>.
 
 The field dictionary is read from the implementation of `AcceptChanges` and `RejectChanges`:
@@ -47,7 +47,7 @@ The field dictionary is read from the implementation of `AcceptChanges` and `Rej
 
 As you can see, the `(Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]` expression gets
 the `IntroducedFields` tag, which was passed to
-the <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method. We cast it back to its original type
+the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method. We cast it back to its original type
 and iterate it. We use the <xref:Metalama.Framework.Code.IExpression.Value> property to generate the run-time expression
 that represents the field or property. In the `AcceptChanges` method, we copy the current values to the accepted ones
 and do the opposite in the `RejectChanges` method.

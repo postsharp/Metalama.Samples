@@ -56,10 +56,10 @@ Let's examine the implementation of the `BuildAspect` method.
 
 [!metalama-file NotifyPropertyChangedAttribute.cs member="NotifyPropertyChangedAttribute.BuildAspect"]
 
-The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> to add
+The `BuildAspect` method first calls <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> to add
 the <xref:System.ComponentModel.INotifyPropertyChanged> interface to the target type. The `whenExists` parameter is set
 to `Ignore`, indicating that this call will just be ignored if the target type or any base type already implements the
-interface. The <xref:Metalama.Framework.Advising.IAdviceFactory.ImplementInterface*> method requires the interface
+interface. The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the interface
 members to be implemented by the aspect class and to be annotated with
 the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute. Here, our only
 member is the `PropertyChanged` event:
@@ -82,7 +82,7 @@ into simply `this` by Metalama. It represents the _run-time_ object, while the `
 represent the aspect itself. For further details about adding members, see <xref:introducing-members>.
 
 Now, moving back to the `BuildAspect` method. The next action it performs is to iterate through all properties that have
-a setter. It does this by calling the <xref:Metalama.Framework.Advising.IAdviceFactory.OverrideAccessors*>
+a setter. It does this by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.OverrideAccessors*>
 using `OverridePropertySetter` as a template for the new property setter. For further details,
 see <xref:overriding-fields-or-properties>..
 
