@@ -2,7 +2,7 @@
 
 [TrackChanges]
 [NotifyPropertyChanged]
-public class Comment
+public partial class Comment
 {
     public Comment( Guid id, string author, string content )
     {
