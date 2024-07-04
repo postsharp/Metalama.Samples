@@ -26,6 +26,7 @@ public partial class App : Application
 
                 // Add services
                 services.AddSingleton<ICaretaker, Caretaker>();
+                services.AddSingleton<IDataSource, DataSource>();
                 services.AddSingleton<GeneratorBase, RealNameGenerator>();
             } )
             .Build();

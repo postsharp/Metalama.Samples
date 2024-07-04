@@ -3,7 +3,7 @@
 namespace Sample;
 
 [Memento]
-internal partial class ItemViewModel : ObservableRecipient
+public partial class ItemViewModel : ObservableRecipient
 {
     private string? _name;
     private string? _species;

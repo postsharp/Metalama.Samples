@@ -2,7 +2,7 @@
 {
     private readonly Stack<IMemento> _mementos = new Stack<IMemento>();
 
-    public void Capture(IOriginator originator)
+    public void Capture( IOriginator originator )
     {
         this._mementos.Push( originator.Save() );
     }
@@ -12,7 +12,7 @@
         if ( this._mementos.Count > 0 )
         {
             var memento = this._mementos.Pop();
-            memento.Originator.Restore(memento);
+            memento.Originator.Restore( memento );
         }
     }
 

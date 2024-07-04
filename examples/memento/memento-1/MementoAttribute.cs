@@ -1,63 +1,124 @@
 ﻿using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using System.Diagnostics;
 
 namespace Sample;
 
-public class MementoAttribute : TypeAspect
+public partial class MementoAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        var mementoFields = new List<IField>();
-        var properties = new List<IProperty>();
+        // Introduce a new private nested class called Memento.
+        var mementoType =
+            builder.IntroduceClass(
+                "Memento",
+                buildType: b => b.Accessibility = Metalama.Framework.Code.Accessibility.Private );
 
-        foreach ( var property in builder.Target.Properties )
+        // Introduce originator property that will hold a reference to the instance that created the Memento.
+        var originatorProperty =
+            mementoType.IntroduceProperty(
+                nameof( this.Originator ),
+                buildProperty: b =>
+                {
+                    b.Name = "Originator";
+                    b.Type = TypeFactory.GetType( typeof( IOriginator ) );
+                    b.Accessibility = Metalama.Framework.Code.Accessibility.Public;
+                } );
+
+        // Dictionary that maps fields of the target class to memento properties.
+        var mementoPropertyMap = new Dictionary<IFieldOrProperty, IProperty>();
+
+        // Introduce data properties to the Memento class for each field of the target class.
+        foreach ( var fieldOrProperty in builder.Target.FieldsAndProperties )
         {
-            var name = $"_{char.ToLowerInvariant(property.Name.First())}{property.Name.Substring(1)}Memento";
-            var mementoField = builder.IntroduceField( name, property.Type );
+            if ( fieldOrProperty is not { IsAutoPropertyOrField: true, IsImplicitlyDeclared: false } )
+            {
+                // Ignore properties that are not auto-properties and fields that are not explicitly declared.
+                continue;
+            }
 
-            mementoFields.Add( mementoField.Declaration );
-            properties.Add( property );
+            if ( fieldOrProperty.Writeability is not Writeability.All ||
+                 fieldOrProperty.Attributes.OfAttributeType( typeof( MementoIgnoreAttribute ) ).Any() )
+            {
+                // Ignore read-only declarations and those marked with the MementoIgnore attribute.
+                continue;
+            }
+
+            var introducedField = mementoType.IntroduceProperty(
+                nameof( this.MementoProperty ),
+                buildProperty : b =>
+                {
+                    var trimmedName = fieldOrProperty.Name.TrimStart( '_' );
+
+                    b.Name = trimmedName.Substring( 0, 1 ).ToUpperInvariant() + trimmedName.Substring( 1 );
+                    b.Type = fieldOrProperty.Type;
+                } );
+
+            mementoPropertyMap.Add( fieldOrProperty, introducedField.Declaration );
         }
 
-        builder.IntroduceMethod( nameof( RememberState ), args: new { mementoFields, properties } );
-        builder.IntroduceMethod( nameof( RestoreState ), args: new { mementoFields, properties } );
-        builder.IntroduceMethod( nameof( DropState ), args: new { mementoFields } );
+        // Implement the IMemento interface on the Memento class.
+        mementoType.ImplementInterface( typeof( IMemento ) );
+
+        // Add a constructor to the Memento class that records the state of the .
+        mementoType.IntroduceConstructor(
+            nameof( MementoConstructorTemplate ),
+            buildConstructor: b =>
+            {
+                b.AddParameter( "originator", builder.Target );
+            },
+            args: new { originatorProperty = originatorProperty.Declaration, propertyMap = mementoPropertyMap } );
+
+        // Introduce a Restore method to the target class, that loads the state of the object from a Memento.
+        builder.IntroduceMethod(
+            nameof( Save ),
+            args: new { mementoType = mementoType.Declaration } );
+
+        // Introduce a Restore method to the target class, that loads the state of the object from a Memento.
+        builder.IntroduceMethod(
+            nameof( Restore ),
+            args: new { mementoType = mementoType.Declaration, propertyMap = mementoPropertyMap } );
+
+        // Implement the rest of the IOriginator interface.
+        builder.ImplementInterface( typeof( IOriginator ) );
     }
 
     [Template]
-    public void RememberState( [CompileTime] List<IField> mementoFields, [CompileTime] List<IProperty> properties )
+    public object? MementoProperty { get; }
+
+    [Template]
+    public object? Originator { get; }
+
+    [Template]
+    public IMemento Save( [CompileTime] INamedType mementoType )
     {
-        var index = meta.CompileTime( 0 );
+        // Invoke the constructor of the Memento class and pass this object as the originator.
+        return mementoType.Constructors.Single().Invoke( (IExpression) meta.This )!;
+    }
 
-        foreach ( var field in mementoFields )
+    [Template]
+    public void Restore( IMemento memento, [CompileTime] INamedType mementoType, [CompileTime] Dictionary<IFieldOrProperty, IProperty> propertyMap)
+    {
+        var onPropertyChangedMethod = meta.Target.Type.AllMethods.OfName( "OnPropertyChanged" ).Single( x => x.Parameters is [{ Type.SpecialType: SpecialType.String }] );
+
+        // Set fields of this instance to the values stored in the Memento.
+        foreach ( var pair in propertyMap )
         {
-            field.Value = properties[index].Value;
-
-            index++;
+            var old = pair.Key.Value;
+            pair.Key.Value = pair.Value.With( (IExpression) meta.Cast( mementoType, memento )! ).Value;
+            onPropertyChangedMethod.Invoke( pair.Value.Name );
         }
     }
 
     [Template]
-    public void RestoreState( [CompileTime] List<IField> mementoFields, [CompileTime] List<IProperty> properties )
+    public void MementoConstructorTemplate( [CompileTime] IProperty originatorProperty, [CompileTime] Dictionary<IFieldOrProperty, IProperty> propertyMap )
     {
-        var index = meta.CompileTime(0);
+        // Set the originator property and the data properties of the Memento.
+        originatorProperty.Value = meta.Target.Parameters[0];
 
-        foreach ( var field in mementoFields )
+        foreach ( var pair in propertyMap )
         {
-            properties[index].Value = field.Value;
-
-            index++;
-        }
-    }
-
-    [Template]
-    public void DropState( [CompileTime] List<IField> mementoFields )
-    {
-        foreach ( var field in mementoFields )
-        {
-            field.Value = default;
+            pair.Value.Value = pair.Key.With( meta.Target.Parameters[0] ).Value;
         }
     }
 }

@@ -11,17 +11,22 @@
         <sample:NotValueConverter x:Key="NotConverter" />
         <sample:SpeciesConverter x:Key="SpeciesConverter" />
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}" />
+    </Window.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
         <ListView Name="list" 
                   Grid.Column="0" 
+                  Grid.Row="1" 
                   ItemsSource="{Binding Items}" 
                   SelectedItem="{Binding CurrentItem, Mode=TwoWay}" 
                   SelectionMode="Single" 
@@ -35,10 +40,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <sample:ItemControl Grid.Column="1" Grid.Row="0" 
+        <sample:ItemControl Grid.Column="1" Grid.Row="1" 
                            DataContext="{Binding CurrentItem}"
                            IsEnabled="{Binding ElementName=window, Path=DataContext.IsEditing, UpdateSourceTrigger=PropertyChanged}" />
-        <Grid Grid.Row="1" Grid.Column="0">
+        <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -46,10 +51,13 @@
             <Button Content="New Fish" Grid.Column="0" Command="{Binding NewCommand}" />
             <Button Content="Remove Fish" Grid.Column="1" Command="{Binding RemoveCommand}" />
         </Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1">
             <Button Content="Edit" Width="96" Command="{Binding EditCommand}" />
             <Button Content="Save" Width="96" Command="{Binding SaveCommand}" />
             <Button Content="Cancel" Width="96" Command="{Binding CancelCommand}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1">
+            <Button Content="Undo" Width="96" Command="{Binding UndoCommand}" />
         </StackPanel>
     </Grid>
 </Window>
