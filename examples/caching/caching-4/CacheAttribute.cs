@@ -49,7 +49,6 @@ public class CacheAttribute : OverrideMethodAspect
         var cachingOptions = meta.Target.Method.Enhancements().GetOptions<CachingOptions>();
 
 
-
         foreach ( var p in meta.Target.Parameters )
         {
             if ( p.Index > 0 )

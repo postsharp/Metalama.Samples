@@ -7,7 +7,7 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Metalama.Framework"/>
     </ItemGroup>
 
 

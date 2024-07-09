@@ -20,7 +20,8 @@ requirements to our aspect:
 
 ## ICacheKeyBuilder
 
-To address these challenges, we have introduced the concept of _cache key builders_ &mdash; objects capable of building a
+To address these challenges, we have introduced the concept of _cache key builders_ &mdash; objects capable of building
+a
 cache key for another object. We define the `ICacheKeyBuilder` interface as follows:
 
 [!metalama-file ICacheKeyBuilder.cs]
@@ -37,13 +38,17 @@ For instance, here is an implementation for `byte[]`:
 To enable compile-time reporting of errors when attempting to include an unsupported type in the cache key, we need a
 compile-time configuration API for the caching aspects. We accomplish this via a concept named _hierarchical options_,
 which is explained in more detail in <xref:aspect-configuration>. We define a new compile-time class, `CachingOptions`,
-to map types to their respective builders. It implements the <xref:Metalama.Framework.Options.IHierarchicalOptions`1> for all levels where the options can be defined, i.e. the whole compilation, namespace, or type. The class is designed as immutable and represents an incremental _change_ in configuration compared to its base level, but without knowing its base configuration. Because of this unusual requirements, designing aspect options can be complex. 
+to map types to their respective builders. It implements the <xref:Metalama.Framework.Options.IHierarchicalOptions`1>
+for all levels where the options can be defined, i.e. the whole compilation, namespace, or type. The class is designed
+as immutable and represents an incremental _change_ in configuration compared to its base level, but without knowing its
+base configuration. Because of this unusual requirements, designing aspect options can be complex.
 
 Here is the top-level option class:
 
 [!metalama-file CachingOptions.cs]
 
-The class relies on <xref:Metalama.Framework.Options.IncrementalKeyedCollection> to represent a change in the collection. Items in these collections are represented by the `CacheBuilderRegistration` class.
+The class relies on <xref:Metalama.Framework.Options.IncrementalKeyedCollection> to represent a change in the
+collection. Items in these collections are represented by the `CacheBuilderRegistration` class.
 
 [!metalama-file CacheBuilderRegistration.cs]
 

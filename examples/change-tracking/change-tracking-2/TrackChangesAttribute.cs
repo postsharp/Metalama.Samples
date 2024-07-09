@@ -52,11 +52,9 @@ public class TrackChangesAttribute : TypeAspect
     }
 
 
-    [InterfaceMember]
-    public bool IsChanged { get; private set; }
+    [InterfaceMember] public bool IsChanged { get; private set; }
 
-    [InterfaceMember]
-    public bool IsTrackingChanges { get; set; }
+    [InterfaceMember] public bool IsTrackingChanges { get; set; }
 
 
     [InterfaceMember]

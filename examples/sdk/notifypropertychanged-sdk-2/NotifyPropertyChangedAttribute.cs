@@ -5,7 +5,6 @@ using System.ComponentModel;
 [Inheritable]
 internal class NotifyPropertyChangedAttribute : TypeAspect
 {
-    
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the interface.
@@ -19,12 +18,11 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
         }
     }
 
-    [Introduce]
-    private static readonly Dictionary<string, string[]> _propertyDependencies = DependencyHelper.GetPropertyDependencyGraph( meta.Target.Type );
+    [Introduce] private static readonly Dictionary<string, string[]> _propertyDependencies =
+        DependencyHelper.GetPropertyDependencyGraph( meta.Target.Type );
 
 
-    [InterfaceMember]
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [InterfaceMember] public event PropertyChangedEventHandler? PropertyChanged;
 
     [Introduce( WhenExists = OverrideStrategy.Override )]
     protected virtual void OnPropertyChanged( string name )
@@ -50,7 +48,7 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
     }
 
     [Template]
-    private dynamic OverridePropertySetter( dynamic value)
+    private dynamic OverridePropertySetter( dynamic value )
     {
         if ( value != meta.Target.Property.Value )
         {
@@ -58,7 +56,6 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
 
             // Notify change of the current properties.
             this.OnPropertyChanged( meta.Target.Property.Name );
-
         }
 
         return value;

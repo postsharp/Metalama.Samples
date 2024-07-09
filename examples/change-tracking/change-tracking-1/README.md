@@ -47,7 +47,8 @@ aspect should be inherited from the base class to derived classes. For further d
 The entry point of the aspect is the `BuildAspect` method. Our implementation has two parts, two of the three operations
 that our aspect has to perform.
 
-First, the `BuildAspect` method calls the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method
+First, the `BuildAspect` method calls the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*>
+method
 to add the `ISwitchableChangeTracking` interface to the target type. It specifies
 the <xref:Metalama.Framework.Aspects.OverrideStrategy> to `Ignore`, indicating that the operation should be ignored if
 the target type already implements the interface.

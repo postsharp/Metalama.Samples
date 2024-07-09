@@ -7,7 +7,7 @@
 
     <ItemGroup>
         <!-- Used because of HTML generation. -->
-        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Metalama.Framework"/>
     </ItemGroup>
 
 </Project>

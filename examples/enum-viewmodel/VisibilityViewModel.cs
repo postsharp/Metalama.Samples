@@ -1,7 +1,4 @@
-﻿// Some boilerplate is still necessary with this version of Metalama because
-// we cannot generate new types and constructors yet.
-
-[EnumViewModel]
+﻿[EnumViewModel]
 internal partial class VisibilityViewModel
 {
     private readonly Visibility _value;

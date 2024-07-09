@@ -34,7 +34,8 @@ instead of the parameter value for sensitive parameters.
 
 > [!WARNING]
 > This approach does not guarantee that there will be no leak of sensitive data to logs because it relies on manual
-> identification of parameters by you, the aspect's developer, or by the aspect's users, which is subject to human error.
+> identification of parameters by you, the aspect's developer, or by the aspect's users, which is subject to human
+> error.
 > To verify that you have not forgotten anything, consider the following strategies:
 >
 >  * Do not pass sensitive data in strings, but wrap them into an object and do not expose sensitive data in the

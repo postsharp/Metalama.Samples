@@ -11,14 +11,12 @@ public static class DependencyHelper
     /// <summary>
     /// Gets a graph mapping referenced properties to referencing properties.
     /// </summary>
-    public static Dictionary<string, string[]> GetPropertyDependencyGraph( INamedType type )
-    {
-        return type.Properties
+    public static Dictionary<string, string[]> GetPropertyDependencyGraph( INamedType type ) =>
+        type.Properties
             .SelectMany( p => p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
             .GroupBy( r => r.Referenced )
-            .ToDictionary( g => g.Key, g => g.Select( x=>x.Referencing ).ToArray() );
-    }
-    
+            .ToDictionary( g => g.Key, g => g.Select( x => x.Referencing ).ToArray() );
+
     /// <summary>
     /// Gets the name of all properties referenced by a given property. Only the properties of the same declaring type are returned.
     /// </summary>
@@ -27,11 +25,12 @@ public static class DependencyHelper
         var compilation = property.Compilation.GetRoslynCompilation();
 
         var propertySymbol = property.GetSymbol();
-        
+
         if ( propertySymbol == null )
         {
             return Enumerable.Empty<string>();
         }
+
         var body = propertySymbol
             .DeclaringSyntaxReferences
             .Select( r => r.GetSyntax() )
@@ -45,12 +44,12 @@ public static class DependencyHelper
         }
 
         var semanticModel = property.Compilation.GetSemanticModel( body.SyntaxTree );
-            
-        var properties = new HashSet<IPropertySymbol>();
-        var visitor = new Visitor(properties, semanticModel);
-        visitor.Visit(  body );
 
-       // We only take into account properties of the current type or any base type.
+        var properties = new HashSet<IPropertySymbol>();
+        var visitor = new Visitor( properties, semanticModel );
+        visitor.Visit( body );
+
+        // We only take into account properties of the current type or any base type.
         return properties
             .Where( p => compilation.HasImplicitConversion( propertySymbol.ContainingType, p.ContainingType ) )
             .Select( p => p.Name );
@@ -76,8 +75,8 @@ public static class DependencyHelper
             }
         }
     }
-    
-    
+
+
     /// <summary>
     /// Gets the body of the property getter, if any.
     /// </summary>
@@ -103,6 +102,5 @@ public static class DependencyHelper
         }
 
         return null;
-        
     }
 }

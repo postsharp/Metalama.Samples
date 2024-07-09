@@ -16,8 +16,7 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
         }
     }
 
-    [InterfaceMember]
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [InterfaceMember] public event PropertyChangedEventHandler? PropertyChanged;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
     protected virtual void OnPropertyChanged( string name ) =>

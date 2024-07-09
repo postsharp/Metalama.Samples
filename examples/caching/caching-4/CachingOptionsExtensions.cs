@@ -17,7 +17,8 @@ public static class CachingOptionsExtensions
     private static readonly DiagnosticDefinition<IType> _error = new("CACHE01", Severity.Error,
         "The type '{0}' cannot be a part of a cache key. Implement ICacheKey, use [CacheKeyMember] or register a cache key builder.");
 
-    private static ImmutableDictionary<string, CacheBuilderRegistration> GetRegistrations( CachingOptions cachingOptions )
+    private static ImmutableDictionary<string, CacheBuilderRegistration> GetRegistrations(
+        CachingOptions cachingOptions )
     {
         lock ( _cache )
         {
@@ -36,7 +37,6 @@ public static class CachingOptionsExtensions
         ScopedDiagnosticSink diagnosticSink )
         where T : IExpression, IDeclaration
     {
-         
         // Check supported intrinsics.
         switch ( expression.Type.SpecialType )
         {
@@ -58,7 +58,7 @@ public static class CachingOptionsExtensions
 
         // Check registered types.
         var registrations = GetRegistrations( cachingOptions );
-        
+
         var typeId = expression.Type.ToNonNullableType().ToDisplayString( CodeDisplayFormat.FullyQualified );
         if ( registrations.ContainsKey( typeId ) )
         {

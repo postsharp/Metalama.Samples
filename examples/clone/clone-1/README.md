@@ -36,7 +36,8 @@ the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> met
 
 If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are
 specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>.
-The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the aspect type to include all
+The <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method requires the aspect type to include
+all
 interface members and to annotate them with
 the <xref:Metalama.Framework.Aspects.InterfaceMemberAttribute?text=[InterfaceMember]> custom attribute.
 

@@ -104,8 +104,7 @@ public class TrackChangesAttribute : TypeAspect
             .OfName( "OnPropertyChanged" )
             .SingleOrDefault( m => m.Parameters.Count == 1 );
 
-    [InterfaceMember]
-    public bool IsChanged { get; private set; }
+    [InterfaceMember] public bool IsChanged { get; private set; }
 
 
     [InterfaceMember]

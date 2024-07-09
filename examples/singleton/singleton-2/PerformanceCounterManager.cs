@@ -15,9 +15,9 @@ public class PerformanceCounterManager
         this._uploader = uploader;
     }
 
-    public void IncrementCounter( string name ) 
+    public void IncrementCounter( string name )
         => this._counters.AddOrUpdate( name, 1, ( _, value ) => value + 1 );
-    
+
     public void UploadAndReset()
     {
         Dictionary<string, int> oldCounters;
