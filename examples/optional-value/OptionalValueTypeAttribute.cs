@@ -13,7 +13,7 @@ internal class OptionalValueTypeAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Find the nested type.
-        var nestedType = builder.Target.NestedTypes.OfName( "Optional" ).FirstOrDefault();
+        var nestedType = builder.Target.Types.OfName( "Optional" ).FirstOrDefault();
 
         if ( nestedType == null )
         {
@@ -52,11 +52,9 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
     }
 
-    [Template]
-    public dynamic? OptionalValues { get; private set; }
+    [Template] public dynamic? OptionalValues { get; private set; }
 
-    [Template]
-    public dynamic? OptionalPropertyTemplate { get; set; }
+    [Template] public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate

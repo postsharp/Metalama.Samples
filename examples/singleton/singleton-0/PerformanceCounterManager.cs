@@ -1,10 +1,13 @@
 ﻿using System.Collections.Concurrent;
 
-[Singleton]
 public partial class PerformanceCounterManager
 {
     private readonly ConcurrentDictionary<string, int> _counters = new();
+    
+    private PerformanceCounterManager() { }
 
-    public void IncrementCounter( string name )
+    public static PerformanceCounterManager Instance { get; } = new();
+
+    public void IncrementCounter( string name ) 
         => this._counters.AddOrUpdate( name, 1, ( _, value ) => value + 1 );
 }

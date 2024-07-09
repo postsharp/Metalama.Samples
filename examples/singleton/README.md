@@ -6,13 +6,13 @@ uid: sample-singleton
 
 The Singleton pattern is beneficial in scenarios where a class in a software system should have only one instance available to all components.
 
-Singleton can be instrumental in maintaining consistency across the system -- whether it involves synchronized access to a shared resource (e.g., through locking) or ensuring data consistency. In these cases, it is crucial to have only a single instance of the object. Another scenario where the Singleton pattern can be beneficial is when creating multiple instances of a complex object might be resource-intensive. If a single instance suffices for the application’s needs, a Singleton can reduce overhead in terms of both memory and processing.
+The Singleton pattern helps maintain state consistency across the system -- whether it involves synchronized access to a shared resource (e.g., through locking) or ensuring data consistency. Having only a single instance of the object is crucial in these cases. Another scenario where the Singleton pattern can be beneficial is when creating multiple instances of a complex object might be resource-intensive. If a single instance suffices for the application’s needs, a Singleton can reduce overhead in terms of both memory and processing.
 
-The classic implementation of the Singleton pattern involves having a private constructor in the class, forbidding it from being instantiated from outside, and exposing a single instance on a static member.
+The classic implementation of the Singleton pattern involves having a private constructor in the class, forbidding it from being instantiated from outside and exposing a single instance on a static member.
 
-With the advent of dependency injection and unit testing, the Singleton pattern has evolved. To allow several unit tests to be executed concurrently but in isolation from each other, we provide a new instance of each singleton to each unit test.
+With the advent of dependency injection and unit testing, the Singleton pattern has evolved. To allow several unit tests to be executed concurrently but in isolation from each other, we provide a new instance of each singleton to each unit test. Therefore, it is no longer true that a Singleton has a single instance per process but per context.
 
-In this group of examples, we will explore how Metalama can be used to improve the Singleton pattern, with or without dependency injection.
+In this group of examples, we will explore how Metalama can automatically generate code and enforce the Singleton pattern, with or without dependency injection.
 
 ## In this series
 

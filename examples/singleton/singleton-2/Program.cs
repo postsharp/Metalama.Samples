@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-internal class Program
+internal static class Program
 {
     private static void Main()
     {

@@ -1,3 +1,4 @@
 ﻿using Metalama.Framework.Aspects;
 
-[assembly: AspectOrder( typeof(TrackChangesAttribute), typeof(NotifyPropertyChangedAttribute) )]
+[assembly:
+    AspectOrder( AspectOrderDirection.RunTime, typeof(TrackChangesAttribute), typeof(NotifyPropertyChangedAttribute) )]

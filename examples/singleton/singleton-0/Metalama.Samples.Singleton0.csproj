@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Used because of HTML generation. -->
+        <PackageReference Include="Metalama.Framework" />
+    </ItemGroup>
+
+</Project>
