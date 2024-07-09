@@ -31,7 +31,7 @@ Then, we add code to the `BuildAspect` method to actually introduce the `Instanc
 
 [!metalama-file SingletonAttribute.cs marker="IntroduceInstanceProperty"]
 
-Here, we call <xref:Metalama.Framework.Advising.IAdviceFactory.IntroduceProperty*>, specifying the type into which the property should be introduced, the name of the template, and a lambda that is used to customize the property further. Inside the lambda, we replace the `object` type with the actual type of the Singleton class and set the initializer to invoke the constructor. We use <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> to build the expression that calls the constructor, including the <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName(Metalama.Framework.Code.IType)> method, which ensures that the type name is correctly formatted.
+Here, we call <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*>, specifying the type into which the property should be introduced, the name of the template, and a lambda that is used to customize the property further. Inside the lambda, we replace the `object` type with the actual type of the Singleton class and set the initializer to invoke the constructor. We use <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilder> to build the expression that calls the constructor, including the <xref:Metalama.Framework.Code.SyntaxBuilders.SyntaxBuilder.AppendTypeName*> method, which ensures that the type name is correctly formatted.
 
 The resulting Singleton class is a bit simpler, and doing this automatically ensures that all Singletons in the codebase are implemented in the same way:
 

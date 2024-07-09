@@ -15,20 +15,20 @@ internal class Foo
     var isTracingEnabled = logger.IsEnabled(LogLevel.Trace);
     if (isTracingEnabled)
     {
-      LoggerExtensions.LogTrace(logger, $"Foo.Method() started.");
+      logger.LogTrace($"Foo.Method() started.");
     }
     try
     {
       object result = null;
       if (isTracingEnabled)
       {
-        LoggerExtensions.LogTrace(logger, $"Foo.Method() succeeded.");
+        logger.LogTrace($"Foo.Method() succeeded.");
       }
       return;
     }
     catch (Exception e)when (logger.IsEnabled(LogLevel.Warning))
     {
-      LoggerExtensions.LogWarning(logger, $"Foo.Method() failed: {e.Message}");
+      logger.LogWarning($"Foo.Method() failed: {e.Message}");
       throw;
     }
   }

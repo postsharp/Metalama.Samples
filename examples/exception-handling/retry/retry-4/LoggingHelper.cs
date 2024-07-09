@@ -15,7 +15,7 @@ internal static class LoggingHelper
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );
-        var i = meta.CompileTime( 0 );
+        var i = 0;
 
         // Include a placeholder for each parameter.
         foreach ( var p in meta.Target.Parameters )
@@ -31,7 +31,7 @@ internal static class LoggingHelper
             {
                 // Otherwise, add the parameter value.
                 stringBuilder.AddText( $"{comma}{p.Name} = {{" );
-                stringBuilder.AddExpression( p.Value );
+                stringBuilder.AddExpression( p );
                 stringBuilder.AddText( "}" );
             }
 
