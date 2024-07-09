@@ -9,8 +9,8 @@ uid: sample-singleton-2
 In modern applications, the classic singleton pattern often proves unsuitable. It has even been argued that it is an
 antipattern. There are typically two good reasons for this:
 
-* We want to inject a dependency into the singleton, therefore we need a public constructor.
-* We want to isolate tests from each other, with each test having its own instance of each singleton.
+* We may want to inject a dependency into the singleton, therefore we need a public constructor.
+* We may want to isolate tests from each other, with each test having its own instance of each singleton. This is especially useful when unit tests are executed concurrently.
 
 In the _modern singleton_ pattern, the singleton's lifetime is managed by the dependency injection container, typically
 using the `AddSingleton` method of `IServiceCollection`.
