@@ -31,7 +31,8 @@ public class TrackChangesAttribute : TypeAspect
 
             if ( onChangeMethod == null )
             {
-                builder.Diagnostics.Report( _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
+                builder.Diagnostics.Report(
+                    _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
             }
             else if ( onChangeMethod.Accessibility != Accessibility.Protected )
             {
@@ -43,7 +44,8 @@ public class TrackChangesAttribute : TypeAspect
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
             .Where( f =>
-                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
+                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
+                f.IsAutoPropertyOrField == true );
 
         foreach ( var fieldOrProperty in fieldsOrProperties )
         {

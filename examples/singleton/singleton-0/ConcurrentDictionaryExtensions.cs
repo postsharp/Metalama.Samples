@@ -3,7 +3,8 @@ using System.Collections.Concurrent;
 internal static class ConcurrentDictionaryExtensions
 {
     // https://stackoverflow.com/a/66118283/41071
-    public static Dictionary<TKey, TValue> RemoveAll<TKey, TValue>( this ConcurrentDictionary<TKey, TValue> source )
+    public static Dictionary<TKey, TValue> RemoveAll<TKey, TValue>(
+        this ConcurrentDictionary<TKey, TValue> source )
         where TKey : notnull
     {
         var result = new Dictionary<TKey, TValue>();

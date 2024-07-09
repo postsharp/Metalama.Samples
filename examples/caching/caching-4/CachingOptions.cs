@@ -7,13 +7,18 @@ public record CachingOptions :
     IHierarchicalOptions<INamespace>,
     IHierarchicalOptions<ICompilation>
 {
-    private readonly IncrementalKeyedCollection<string, CacheBuilderRegistration> _cacheBuilderRegistrations;
+    private readonly IncrementalKeyedCollection<string, CacheBuilderRegistration>
+        _cacheBuilderRegistrations;
 
     public static CachingOptions Default { get; } = new();
 
-    public CachingOptions() : this( IncrementalKeyedCollection<string, CacheBuilderRegistration>.Empty ) { }
+    public CachingOptions() : this( IncrementalKeyedCollection<string, CacheBuilderRegistration>
+        .Empty )
+    {
+    }
 
-    private CachingOptions( IncrementalKeyedCollection<string, CacheBuilderRegistration> cacheBuilderRegistrations )
+    private CachingOptions(
+        IncrementalKeyedCollection<string, CacheBuilderRegistration> cacheBuilderRegistrations )
     {
         this._cacheBuilderRegistrations = cacheBuilderRegistrations;
     }

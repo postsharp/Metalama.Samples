@@ -42,7 +42,8 @@ public class EnumViewModelAttribute : TypeAspect
     }
 
     // Template for the non-flags enum member.
-    [Template] public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Value;
+    [Template]
+    public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Value;
 
     // Template for a flag enum member.
     [Template]

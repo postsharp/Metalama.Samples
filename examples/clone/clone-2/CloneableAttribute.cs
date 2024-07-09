@@ -10,11 +10,13 @@ public class CloneableAttribute : TypeAspect
     /*<DiagnosticDefinitions>*/
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)>
         _fieldOrPropertyCannotBeReadOnly =
-            new("CLONE01", Severity.Error, "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
+            new("CLONE01", Severity.Error,
+                "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
 
-    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)> _missingCloneMethod =
-        new("CLONE02", Severity.Error,
-            "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method.");
+    private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty, IType)>
+        _missingCloneMethod =
+            new("CLONE02", Severity.Error,
+                "The {0} '{1}' cannot be a [Child] because its type '{2}' does not have a 'Clone' parameterless method.");
 
     private static readonly DiagnosticDefinition<IMethod> _cloneMethodMustBePublic =
         new("CLONE03", Severity.Error,
@@ -63,7 +65,8 @@ public class CloneableAttribute : TypeAspect
             if ( fieldOrProperty.Writeability != Writeability.All )
             {
                 builder.Diagnostics.Report(
-                    _fieldOrPropertyCannotBeReadOnly.WithArguments( (fieldOrProperty.DeclarationKind,
+                    _fieldOrPropertyCannotBeReadOnly.WithArguments( (
+                        fieldOrProperty.DeclarationKind,
                         fieldOrProperty) ), fieldOrProperty );
                 success = false;
             }
@@ -71,7 +74,8 @@ public class CloneableAttribute : TypeAspect
             // If it is a field, it must be an automatic property.
             if ( fieldOrProperty is IProperty property && property.IsAutoPropertyOrField == false )
             {
-                builder.Diagnostics.Report( _childPropertyMustBeAutomatic.WithArguments( property ), property );
+                builder.Diagnostics.Report( _childPropertyMustBeAutomatic.WithArguments( property ),
+                    property );
                 success = false;
             }
 
@@ -79,7 +83,8 @@ public class CloneableAttribute : TypeAspect
             void ReportMissingMethod()
             {
                 builder.Diagnostics.Report(
-                    _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind, fieldOrProperty,
+                    _missingCloneMethod.WithArguments( (fieldOrProperty.DeclarationKind,
+                        fieldOrProperty,
                         fieldOrProperty.Type) ), fieldOrProperty );
             }
 
@@ -109,7 +114,8 @@ public class CloneableAttribute : TypeAspect
                         }
                     }
                 }
-                else if ( cloneMethod.Accessibility is not (Accessibility.Public or Accessibility.Internal) )
+                else if ( cloneMethod.Accessibility is not (Accessibility.Public
+                         or Accessibility.Internal) )
                 {
                     // If we have a Clone method, it must be public.
                     builder.Diagnostics.Report(
@@ -124,7 +130,8 @@ public class CloneableAttribute : TypeAspect
 
 
     private static IEnumerable<IFieldOrProperty> GetCloneableFieldsOrProperties( INamedType type )
-        => type.FieldsAndProperties.Where( f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
+        => type.FieldsAndProperties.Where( f =>
+            f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
     [Template]
     public virtual T CloneImpl<[CompileTime] T>()

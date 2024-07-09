@@ -27,7 +27,8 @@ public static class CachingOptionsExtensions
                 return dictionary;
             }
 
-            dictionary = cachingOptions.Registrations.ToImmutableDictionary( x => x.KeyType, x => x );
+            dictionary =
+                cachingOptions.Registrations.ToImmutableDictionary( x => x.KeyType, x => x );
             _cache.Add( cachingOptions, dictionary );
             return dictionary;
         }
@@ -59,7 +60,8 @@ public static class CachingOptionsExtensions
         // Check registered types.
         var registrations = GetRegistrations( cachingOptions );
 
-        var typeId = expression.Type.ToNonNullableType().ToDisplayString( CodeDisplayFormat.FullyQualified );
+        var typeId = expression.Type.ToNonNullableType()
+            .ToDisplayString( CodeDisplayFormat.FullyQualified );
         if ( registrations.ContainsKey( typeId ) )
         {
             return true;
@@ -77,12 +79,14 @@ public static class CachingOptionsExtensions
         return false;
     }
 
-    internal static bool TryGetCacheKeyExpression( this CachingOptions cachingOptions, IExpression expression,
+    internal static bool TryGetCacheKeyExpression( this CachingOptions cachingOptions,
+        IExpression expression,
         IExpression cacheKeyBuilderProvider,
         [NotNullWhen( true )] out IExpression? cacheKeyExpression )
     {
         var expressionBuilder = new ExpressionBuilder();
-        var typeId = expression.Type.ToNonNullableType().ToDisplayString( CodeDisplayFormat.FullyQualified );
+        var typeId = expression.Type.ToNonNullableType()
+            .ToDisplayString( CodeDisplayFormat.FullyQualified );
 
         if ( GetRegistrations( cachingOptions )
             .TryGetValue( typeId, out var registration ) )

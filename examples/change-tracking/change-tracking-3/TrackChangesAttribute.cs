@@ -39,7 +39,8 @@ public class TrackChangesAttribute : TypeAspect
 
             if ( onChangeMethod == null )
             {
-                builder.Diagnostics.Report( _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
+                builder.Diagnostics.Report(
+                    _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
             }
             else if ( onChangeMethod.Accessibility != Accessibility.Protected )
             {
@@ -62,19 +63,24 @@ public class TrackChangesAttribute : TypeAspect
 
             var fieldsOrProperties = builder.Target.FieldsAndProperties
                 .Where( f =>
-                    !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true );
+                    !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
+                    f.IsAutoPropertyOrField == true );
 
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+                builder.Advice.OverrideAccessors( fieldOrProperty, null,
+                    nameof(this.OverrideSetter) );
             }
         } /*</NoOnPropertyChanged>*/
-        else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) ) /*<OnPropertyChangedInCurrentType>*/
+        else if
+            ( onPropertyChanged.DeclaringType
+             .Equals( builder.Target ) ) /*<OnPropertyChangedInCurrentType>*/
         {
             // If the OnPropertyChanged method was declared in the current type, override it.
             builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
         } /*</OnPropertyChangedInCurrentType>*/
-        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore ) /*<OnPropertyChangedInBaseType>*/
+        else if ( implementInterfaceResult.Outcome ==
+                  AdviceOutcome.Ignore ) /*<OnPropertyChangedInBaseType>*/
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -88,7 +94,8 @@ public class TrackChangesAttribute : TypeAspect
 
             if ( !onPropertyChanged.IsVirtual )
             {
-                builder.Diagnostics.Report( _onPropertyChangedMustBeVirtual.WithArguments( onPropertyChanged ) );
+                builder.Diagnostics.Report(
+                    _onPropertyChangedMustBeVirtual.WithArguments( onPropertyChanged ) );
             }
             else
             {

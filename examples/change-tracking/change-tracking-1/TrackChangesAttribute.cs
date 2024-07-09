@@ -7,7 +7,8 @@ public class TrackChangesAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ISwitchableChangeTracking interface.
-        builder.Advice.ImplementInterface( builder.Target, typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(ISwitchableChangeTracking),
+            OverrideStrategy.Ignore );
 
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties

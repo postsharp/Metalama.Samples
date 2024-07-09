@@ -57,7 +57,8 @@ public class TrackChangesAttribute : TypeAspect
         // Select fields and automatic properties that can be changed.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
             .Where( f =>
-                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All && f.IsAutoPropertyOrField == true )
+                !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
+                f.IsAutoPropertyOrField == true )
             .ToArray();
 
         var introducedFields = new Dictionary<IFieldOrProperty, IField>(); /*<BuildDictionary>*/
@@ -67,10 +68,12 @@ public class TrackChangesAttribute : TypeAspect
         foreach ( var fieldOrProperty in fieldsOrProperties )
         {
             var upperCaseName = fieldOrProperty.Name.TrimStart( '_' );
-            upperCaseName = upperCaseName.Substring( 0, 1 ).ToUpper( CultureInfo.InvariantCulture ) +
-                            upperCaseName.Substring( 1 );
+            upperCaseName =
+                upperCaseName.Substring( 0, 1 ).ToUpper( CultureInfo.InvariantCulture ) +
+                upperCaseName.Substring( 1 );
             var acceptedField =
-                builder.Advice.IntroduceField( builder.Target, "_accepted" + upperCaseName, fieldOrProperty.Type );
+                builder.Advice.IntroduceField( builder.Target, "_accepted" + upperCaseName,
+                    fieldOrProperty.Type );
             introducedFields[fieldOrProperty] = acceptedField.Declaration;
         }
 
@@ -88,7 +91,8 @@ public class TrackChangesAttribute : TypeAspect
 
             if ( onChangeMethod == null )
             {
-                builder.Diagnostics.Report( _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
+                builder.Diagnostics.Report(
+                    _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
             }
             else if ( onChangeMethod.Accessibility != Accessibility.Protected )
             {
@@ -113,7 +117,8 @@ public class TrackChangesAttribute : TypeAspect
             // overriding each setter.
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+                builder.Advice.OverrideAccessors( fieldOrProperty, null,
+                    nameof(this.OverrideSetter) );
             }
         }
         else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )
@@ -134,7 +139,8 @@ public class TrackChangesAttribute : TypeAspect
 
             if ( !onPropertyChanged.IsVirtual )
             {
-                builder.Diagnostics.Report( _onPropertyChangedMustBeVirtual.WithArguments( onPropertyChanged ) );
+                builder.Diagnostics.Report(
+                    _onPropertyChangedMustBeVirtual.WithArguments( onPropertyChanged ) );
             }
             else
             {
@@ -161,7 +167,8 @@ public class TrackChangesAttribute : TypeAspect
             this.IsChanged = false;
         }
 
-        var introducedFields = (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
+        var introducedFields =
+            (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
 
         foreach ( var field in introducedFields )
         {
@@ -182,7 +189,8 @@ public class TrackChangesAttribute : TypeAspect
         }
 
 
-        var introducedFields = (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
+        var introducedFields =
+            (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
 
         foreach ( var field in introducedFields )
         {

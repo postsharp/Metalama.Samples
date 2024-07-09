@@ -8,6 +8,7 @@ internal class Fabric : ProjectFabric
             .SelectTypes()
             .Where( type => type.Accessibility == Accessibility.Public )
             .SelectMany( type => type.Methods )
-            .Where( method => method.Accessibility == Accessibility.Public && method.Name != "ToString" )
+            .Where( method =>
+                method.Accessibility == Accessibility.Public && method.Name != "ToString" )
             .AddAspectIfEligible<EnrichExceptionAttribute>();
 }

@@ -50,7 +50,8 @@ public class LogAttribute : OverrideMethodAspect
                     // When the method has a return value, add it to the message.
                     successMessage.AddText( " returned " );
 
-                    if ( SensitiveParameterFilter.IsSensitive( meta.Target.Method.ReturnParameter ) )
+                    if ( SensitiveParameterFilter.IsSensitive( meta.Target.Method
+                            .ReturnParameter ) )
                     {
                         successMessage.AddText( "<redacted>" );
                     }
@@ -98,7 +99,8 @@ public class LogAttribute : OverrideMethodAspect
         var stringBuilder = new InterpolatedStringBuilder();
 
         // Include the type and method name.
-        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText(
+            meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );

@@ -8,7 +8,8 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the interface.
-        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged),
+            OverrideStrategy.Ignore );
 
         // Override the property setters.
         foreach ( var property in builder.Target.Properties.Where( p =>

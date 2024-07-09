@@ -6,5 +6,6 @@
 //  - CacheAttribute relies on CacheKeyMemberAttribute, so CacheAttribute should run after.
 
 [assembly:
-    AspectOrder( AspectOrderDirection.RunTime, typeof(CacheAttribute), typeof(GenerateCacheKeyAspect),
+    AspectOrder( AspectOrderDirection.RunTime, typeof(CacheAttribute),
+        typeof(GenerateCacheKeyAspect),
         typeof(CacheKeyMemberAttribute) )]

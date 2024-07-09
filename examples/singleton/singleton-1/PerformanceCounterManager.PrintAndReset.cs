@@ -19,7 +19,8 @@ public partial class PerformanceCounterManager
 
         foreach ( var counter in oldCounters )
         {
-            Console.WriteLine( $"{counter.Key}: {counter.Value / elapsed.TotalSeconds:f2} calls/s" );
+            Console.WriteLine(
+                $"{counter.Key}: {counter.Value / elapsed.TotalSeconds:f2} calls/s" );
         }
     }
 }

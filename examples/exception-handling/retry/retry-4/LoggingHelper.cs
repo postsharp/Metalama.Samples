@@ -11,7 +11,8 @@ internal static class LoggingHelper
         var stringBuilder = new InterpolatedStringBuilder();
 
         // Include the type and method name.
-        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText(
+            meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );

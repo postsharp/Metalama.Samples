@@ -7,7 +7,8 @@ public class CacheAttribute : OverrideMethodAspect
     public override dynamic? OverrideMethod()
     {
         // Builds the caching string.
-        var cacheKey = string.Format( GetCachingKeyFormattingString(), meta.Target.Parameters.ToValueArray() );
+        var cacheKey = string.Format( GetCachingKeyFormattingString(),
+            meta.Target.Parameters.ToValueArray() );
 
         // Cache lookup.
         if ( SampleCache.Cache.TryGetValue( cacheKey, out object value ) )

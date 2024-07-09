@@ -40,7 +40,8 @@ public class SingletonAttribute : TypeAspect
         // Verify constructors.
         foreach ( var constructor in builder.Target.Constructors ) /*<PrivateConstructorReport>*/
         {
-            if ( constructor.Accessibility != Accessibility.Private && !constructor.IsImplicitlyDeclared )
+            if ( constructor.Accessibility != Accessibility.Private &&
+                 !constructor.IsImplicitlyDeclared )
             {
                 builder.Diagnostics.Report(
                     _constructorHasToBePrivate.WithArguments( (constructor, builder.Target) ),
@@ -49,7 +50,8 @@ public class SingletonAttribute : TypeAspect
         } /*</PrivateConstructorReport>*/
 
         // If there is no explicit constructor, add one.
-        if ( builder.Target.Constructors.All( c => c.IsImplicitlyDeclared ) ) /*<AddPrivateConstructor>*/
+        if ( builder.Target.Constructors.All( c =>
+                c.IsImplicitlyDeclared ) ) /*<AddPrivateConstructor>*/
         {
             builder.IntroduceConstructor( nameof(this.ConstructorTemplate),
                 buildConstructor: c => c.Accessibility = Accessibility.Private );
