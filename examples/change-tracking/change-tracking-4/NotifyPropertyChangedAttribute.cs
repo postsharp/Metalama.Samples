@@ -7,7 +7,8 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
-        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged),
+            OverrideStrategy.Ignore );
 
         foreach ( var property in builder.Target.Properties.Where( p =>
                      !p.IsAbstract && p.Writeability == Writeability.All ) )
@@ -16,8 +17,7 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
         }
     }
 
-    [InterfaceMember]
-    public event PropertyChangedEventHandler? PropertyChanged;
+    [InterfaceMember] public event PropertyChangedEventHandler? PropertyChanged;
 
     [Introduce( WhenExists = OverrideStrategy.Ignore )]
     protected virtual void OnPropertyChanged( string name ) =>

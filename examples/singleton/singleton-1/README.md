@@ -6,18 +6,23 @@ uid: sample-singleton-1
 
 [!metalama-project-buttons .]
 
-The "classic" version of the Singleton pattern in C# requires two components: a private constructor, and a static field, property or method exposing the unique instance of the class. The private constructor, or more importantly, the absence of a non-private constructor, ensures that the class cannot be externally instantiated.
+The Singleton pattern requires that a single instance of a class exists throughout the application's lifetime.
+
+In its classic version, the Singleton pattern in C# involves the following elements:
+
+* A private constructor, or more precisely, the absence of any public constructor, which ensures that the class cannot be externally instantiated.
+* A static read-only property or a field-backed method exposing the unique instance of the class.
 
 A performance counter manager serves as an ideal example for the Singleton pattern, as its metrics must be consistently gathered across the entire application.
 
-[!metalama-file PerformanceCounterManager.cs]
+[!metalama-file ../singleton-0/PerformanceCounterManager.cs]
 
 If you frequently use the Singleton pattern, you might start noticing several issues with this code:
 
-1. Clarity. It's not immediately clear that the type is a Singleton. You need to parse more code to understand the pattern the class follows.
-2. Consistency. Different team members may implement the Singleton pattern in slightly different ways, making the codebase harder to learn and understand. For instance, the `Instance` property could have a different name, or it could be a method instead.
-3. Boilerplate. Each Singleton class repeats the same code, which is tedious and could potentially lead to bugs due to inattention.
-4. Safety. There's nothing preventing someone from making the constructor public and then creating multiple instances of the class. You would typically rely on code reviews to detect violations of the pattern.
+1. **Clarity**: It's not immediately clear that the type is a Singleton. You need to parse more code to understand the pattern the class follows.
+2. **Consistency**: Different team members may implement the Singleton pattern in slightly different ways, making the codebase harder to learn and understand. For instance, the `Instance` property could have a different name, or it could be a method instead.
+3. **Boilerplate**: Each Singleton class repeats the same code, which is tedious and could potentially lead to bugs due to inattention.
+4. **Safety**: There's nothing preventing someone from making the constructor public and then creating multiple instances of the class. You would typically rely on code reviews to detect violations of the pattern.
 
 ## Step 1: Generating the Instance property on the fly
 
@@ -35,7 +40,7 @@ Here, we call <xref:Metalama.Framework.Advising.AdviserExtensions.IntroducePrope
 
 The resulting Singleton class is a bit simpler, and doing this automatically ensures that all Singletons in the codebase are implemented in the same way:
 
-[!metalama-compare MySingleton.cs]
+[!metalama-compare PerformanceCounterManager.cs]
 
 ## Step 2: Verifying that constructors are private
 
@@ -49,15 +54,20 @@ We then add code to the `BuildAspect` method to check if the constructor is priv
 
 [!metalama-file SingletonAttribute.cs marker="PrivateConstructorReport"]
 
-To do this, we iterate over all constructors of the type, check the <xref:Metalama.Framework.Code.IMemberOrNamedType.Accessibility> for each of them, and then report the warning specified above if the accessibility is not <xref:Metalama.Framework.Code.Accessibility.Private>. We specify the formatting arguments for the diagnostic message as a tuple using the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition`1.WithArguments*> method. We also set the location of the diagnostic to the constructor; otherwise, the warning would be reported at the type level, because we're reporting it through the <xref:Metalama.Framework.Aspects.IAspectBuilder`1> for the Singleton type.
+To do this, we iterate over all constructors of the type, check the <xref:Metalama.Framework.Code.IMemberOrNamedType.Accessibility> for each of them, and then report the warning specified above if the accessibility is not <xref:Metalama.Framework.Code.Accessibility.Private>. Note that we are skipping the implicitly defined default constructor because this case will be covered in step 3. We specify the formatting arguments for the diagnostic message as a tuple using the <xref:Metalama.Framework.Diagnostics.DiagnosticDefinition`1.WithArguments*> method. We also explicitly set the location of the diagnostic to the constructor; otherwise, the warning would be reported by default at the type level, because we're reporting it through the <xref:Metalama.Framework.Aspects.IAspectBuilder`1> for the Singleton type.
 
 Notice the warning on the public constructor in the following code.
 
 [!metalama-file PublicConstructorSingleton.cs]
+
+## Step 3. Adding a private constructor
+
+If the target class does not contain any user-defined constructor, the C# language implicitly defines a default public constructor. When the type is a Singleton, we want to introduce a _private_ default constructor instead.
+
+[!metalama-file SingletonAttribute.cs marker="AddPrivateConstructor"]
 
 ## Aspect implementation
 
 The complete aspect implementation is provided below:
 
 [!metalama-file SingletonAttribute.cs]
-

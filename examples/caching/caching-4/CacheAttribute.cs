@@ -49,7 +49,6 @@ public class CacheAttribute : OverrideMethodAspect
         var cachingOptions = meta.Target.Method.Enhancements().GetOptions<CachingOptions>();
 
 
-
         foreach ( var p in meta.Target.Parameters )
         {
             if ( p.Index > 0 )
@@ -66,7 +65,8 @@ public class CacheAttribute : OverrideMethodAspect
 
 
             if ( cachingOptions.TryGetCacheKeyExpression( p,
-                    ExpressionFactory.Parse( nameof(this._cacheBuilderProvider) ), out var cacheKeyExpression ) )
+                    ExpressionFactory.Parse( nameof(this._cacheBuilderProvider) ),
+                    out var cacheKeyExpression ) )
             {
                 stringBuilder.AddExpression( cacheKeyExpression );
             }
@@ -106,7 +106,8 @@ public class CacheAttribute : OverrideMethodAspect
     {
         // Do not allow or offer the aspect to be used on void methods or methods with out/ref parameters.
 
-        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ), m => $"{m} cannot be void" );
+        builder.MustSatisfy( m => !m.ReturnType.Is( SpecialType.Void ),
+            m => $"{m} cannot be void" );
 
         builder.MustSatisfy(
             m => !m.Parameters.Any( p => p.RefKind is RefKind.Out or RefKind.Ref ),

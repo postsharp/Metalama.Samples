@@ -13,7 +13,8 @@ public static class DependencyHelper
     /// </summary>
     public static Dictionary<string, List<string>> GetPropertyDependencyGraph( INamedType type ) =>
         type.Properties
-            .SelectMany( p => p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
+            .SelectMany( p =>
+                p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
             .GroupBy( r => r.Referenced )
             .ToDictionary( g => g.Key, g => g.Select( x => x.Referencing ).ToList() );
 

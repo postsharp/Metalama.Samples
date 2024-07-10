@@ -10,12 +10,14 @@ internal class PolicyFactory : IPolicyFactory
             TimeSpan.FromSeconds( 8 ), TimeSpan.FromSeconds( 15 ), TimeSpan.FromSeconds( 30 )
         } );
 
-    private static readonly AsyncRetryPolicy _asyncRetry = Policy.Handle<Exception>().WaitAndRetryAsync(
-        new[]
-        {
-            TimeSpan.FromSeconds( 1 ), TimeSpan.FromSeconds( 2 ), TimeSpan.FromSeconds( 4 ),
-            TimeSpan.FromSeconds( 8 ), TimeSpan.FromSeconds( 15 ), TimeSpan.FromSeconds( 30 )
-        } );
+    private static readonly AsyncRetryPolicy _asyncRetry = Policy.Handle<Exception>()
+        .WaitAndRetryAsync(
+            new[]
+            {
+                TimeSpan.FromSeconds( 1 ), TimeSpan.FromSeconds( 2 ), TimeSpan.FromSeconds( 4 ),
+                TimeSpan.FromSeconds( 8 ), TimeSpan.FromSeconds( 15 ),
+                TimeSpan.FromSeconds( 30 )
+            } );
 
 
     public Policy GetPolicy( PolicyKind policyKind )

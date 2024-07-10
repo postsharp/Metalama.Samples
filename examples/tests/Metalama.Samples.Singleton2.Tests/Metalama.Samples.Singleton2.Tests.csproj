@@ -6,19 +6,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" />
-        <PackageReference Include="xunit" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="xunit"/>
         <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Metalama.Testing.AspectTesting" />
-        <PackageReference Include="Metalama.Extensions.Architecture" />
-        <PackageReference Include="System.Collections.Immutable" />
+        <PackageReference Include="Metalama.Testing.AspectTesting"/>
+        <PackageReference Include="Metalama.Extensions.Architecture"/>
+        <PackageReference Include="System.Collections.Immutable"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\singleton\singleton-2\Metalama.Samples.Singleton2.csproj" />
+        <ProjectReference Include="..\..\singleton\singleton-2\Metalama.Samples.Singleton2.csproj"/>
     </ItemGroup>
 
 </Project>

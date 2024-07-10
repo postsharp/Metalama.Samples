@@ -11,7 +11,8 @@ using System.Text;
 internal class GenerateCacheKeyAspect : TypeAspect
 {
     public override void BuildAspect( IAspectBuilder<INamedType> builder ) =>
-        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey),
+            OverrideStrategy.Ignore );
 
 
     // Implementation of ICacheKey.ToCacheKey.

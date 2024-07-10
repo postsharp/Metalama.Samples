@@ -14,7 +14,8 @@ public class ReportAndSwallowExceptionsAttribute : OverrideMethodAspect
         {
             return meta.Proceed();
         }
-        catch ( Exception e ) when ( this._exceptionHandler != null && this._exceptionHandler.ShouldHandle( e ) )
+        catch ( Exception e ) when ( this._exceptionHandler != null &&
+                                     this._exceptionHandler.ShouldHandle( e ) )
         {
             this._exceptionHandler.Report( e );
 

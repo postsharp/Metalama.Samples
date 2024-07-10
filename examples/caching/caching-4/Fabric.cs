@@ -10,6 +10,6 @@ public class Fabric : ProjectFabric
             .UseToString( typeof(string) )
             .UseCacheKeyBuilder( typeof(byte[]), typeof(ByteArrayCacheKeyBuilder) );
 
-        amender.Outbound.SetOptions( cachingOptions );
+        amender.SetOptions( cachingOptions );
     }
 }

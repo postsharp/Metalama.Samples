@@ -11,7 +11,8 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
         var dependencyGraph = DependencyHelper.GetPropertyDependencyGraph( builder.Target );
 
         // Implement the interface.
-        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(INotifyPropertyChanged),
+            OverrideStrategy.Ignore );
 
         // Override the property setters.
         foreach ( var property in builder.Target.Properties.Where( p =>
@@ -41,7 +42,8 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
 
 
             // Notify changes of other properties that depend on the current property.
-            if ( dependencyGraph.TryGetValue( meta.Target.Property.Name, out var referencingProperties ) )
+            if ( dependencyGraph.TryGetValue( meta.Target.Property.Name,
+                    out var referencingProperties ) )
             {
                 foreach ( var referencingProperty in referencingProperties )
                 {

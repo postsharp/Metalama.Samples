@@ -20,8 +20,9 @@ public class LogAttribute : MethodAspect
         var declaringType = builder.Target.DeclaringType;
 
         // Finds a field named '_logger' or a property named 'Property'.
-        var loggerFieldOrProperty = (IFieldOrProperty?) declaringType.AllFields.OfName( "_logger" ).SingleOrDefault() ??
-                                    declaringType.AllProperties.OfName( "Logger" ).SingleOrDefault();
+        var loggerFieldOrProperty =
+            (IFieldOrProperty?) declaringType.AllFields.OfName( "_logger" ).SingleOrDefault() ??
+            declaringType.AllProperties.OfName( "Logger" ).SingleOrDefault();
 
         // Report an error if the field or property does not exist.
         if ( loggerFieldOrProperty == null )
@@ -118,7 +119,8 @@ public class LogAttribute : MethodAspect
         var stringBuilder = new InterpolatedStringBuilder();
 
         // Include the type and method name.
-        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText(
+            meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );

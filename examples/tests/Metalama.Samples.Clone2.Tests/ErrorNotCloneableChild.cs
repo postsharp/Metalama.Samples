@@ -3,11 +3,9 @@
 [Cloneable]
 internal class Game
 {
-    [Child]
-    public Player Player { get; }
+    [Child] public Player Player { get; }
 
-    [Child]
-    public GameSettings Settings { get; private set; }
+    [Child] public GameSettings Settings { get; private set; }
 }
 
 [Cloneable]
