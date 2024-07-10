@@ -2,3 +2,8 @@
 {
     IOriginator Originator { get; }
 }
+
+public interface ITransactionMemento : IMemento
+{
+    void Commit();
+}

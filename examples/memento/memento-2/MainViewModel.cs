@@ -1,36 +1,47 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
+using System.Collections.Immutable;
 using System.ComponentModel;
 
 namespace Sample;
 
-public class MainViewModel : ObservableRecipient
+[Memento]
+public partial class MainViewModel : ObservableRecipient
 {
     private readonly ICaretaker _caretaker;
     private readonly IDataSource _dataSource;
+
     private bool _isEditing;
     private ItemViewModel? _currentItem;
+    private ImmutableList<ItemViewModel> _items = ImmutableList<ItemViewModel>.Empty;
 
-    public ObservableCollection<ItemViewModel> Items { get; } = [];
+    [MementoIgnore]
+    private ITransaction? _currentTransaction;
 
     public IRelayCommand NewCommand { get; }
+
     public IRelayCommand RemoveCommand { get; }
+
     public IRelayCommand EditCommand { get; }
+
     public IRelayCommand SaveCommand { get; }
+
     public IRelayCommand CancelCommand { get; }
+
     public IRelayCommand UndoCommand { get; }
 
-    public bool IsEditing { get =>  this._isEditing; set => this.SetProperty( ref this._isEditing, value, true ); }
+    public bool IsEditing { get => this._isEditing; set => this.SetProperty( this._isEditing, value, v => this._isEditing = v, true ); }
 
-    public ItemViewModel? CurrentItem { get => this._currentItem; set => this.SetProperty( ref this._currentItem, value, true ); }
+    public ImmutableList<ItemViewModel> Items { get => this._items; private set => this.SetProperty( this._items, value, v => this._items = v, true ); }
+
+    public ItemViewModel? CurrentItem { get => this._currentItem; set => this.SetProperty( this._currentItem, value, v => this._currentItem = v, true ); }
 
     public MainViewModel( IDataSource dataSource, ICaretaker caretaker )
     {
         this._dataSource = dataSource;
         this._caretaker = caretaker;
 
-        this.NewCommand = new RelayCommand(this.ExecuteNew, this.CanExecuteNew);
+        this.NewCommand = new RelayCommand( this.ExecuteNew, this.CanExecuteNew );
         this.RemoveCommand = new RelayCommand( this.ExecuteRemove, this.CanExecuteRemove );
         this.EditCommand = new RelayCommand( this.ExecuteEdit, this.CanExecuteEdit );
         this.SaveCommand = new RelayCommand( this.ExecuteSave, this.CanExecuteSave );
@@ -55,15 +66,21 @@ public class MainViewModel : ObservableRecipient
             this.RemoveCommand.NotifyCanExecuteChanged();
             this.UndoCommand.NotifyCanExecuteChanged();
         }
+        else if ( e.PropertyName == nameof( this.Items ) )
+        {
+            this.UndoCommand.NotifyCanExecuteChanged();
+        }
 
         base.OnPropertyChanged( e );
     }
 
     private void ExecuteNew()
     {
-        this.Items.Add( 
-            new ItemViewModel() 
-            { 
+        this._caretaker.Capture( this );
+
+        this.Items = this.Items.Add(
+            new ItemViewModel( this.Caretaker )
+            {
                 Name = this._dataSource.GetNewName(),
                 Species = this._dataSource.GetNewSpecies(),
                 DateAdded = DateTime.Now,
@@ -79,10 +96,12 @@ public class MainViewModel : ObservableRecipient
     {
         if ( this.CurrentItem != null )
         {
-            var index = this.Items.IndexOf( this.CurrentItem );
-            this.Items.RemoveAt( index );
+            this._caretaker.Capture( this );
 
-            if (index < this.Items.Count )
+            var index = this.Items.IndexOf( this.CurrentItem );
+            this.Items = this.Items.RemoveAt( index );
+
+            if ( index < this.Items.Count )
             {
                 this.CurrentItem = this.Items[index];
             }
@@ -105,7 +124,7 @@ public class MainViewModel : ObservableRecipient
     private void ExecuteEdit()
     {
         this.IsEditing = true;
-        this._caretaker.Capture( this.CurrentItem! );
+        this._currentTransaction = this._caretaker.BeginTransaction( this._currentItem! );
     }
 
     private bool CanExecuteEdit()
@@ -116,6 +135,8 @@ public class MainViewModel : ObservableRecipient
     private void ExecuteSave()
     {
         this.IsEditing = false;
+        this._currentTransaction!.Commit();
+        this._currentTransaction = null;
     }
 
     private bool CanExecuteSave()
@@ -126,7 +147,8 @@ public class MainViewModel : ObservableRecipient
     private void ExecuteCancel()
     {
         this.IsEditing = false;
-        this._caretaker.Undo();
+        this._currentTransaction!.Rollback();
+        this._currentTransaction = null;
     }
 
     private bool CanExecuteCancel()
@@ -136,8 +158,41 @@ public class MainViewModel : ObservableRecipient
 
     private void ExecuteUndo()
     {
+        if (this._currentTransaction != null)
+        {
+            this._currentTransaction!.Rollback();
+            this._currentTransaction = null;
+            return;
+        }
+
         this.IsEditing = false;
+
+        // Remember the main list selection status before undo.
+        var item = this.CurrentItem;
+        var index =
+            item != null
+            ? (int?) this.Items.IndexOf( item )
+            : null;
+
         this._caretaker.Undo();
+
+        // Fix the current item after undo.
+        if ( index != null )
+        {
+            if ( index < this.Items.Count )
+            {
+                this.CurrentItem = this.Items[index.Value];
+            }
+            else if ( this.Items.Count > 0 )
+            {
+                this.CurrentItem = this.Items[this.Items.Count - 1];
+            }
+            else
+            {
+                this.CurrentItem = null;
+            }
+        }
+
         this.UndoCommand.NotifyCanExecuteChanged();
     }
 

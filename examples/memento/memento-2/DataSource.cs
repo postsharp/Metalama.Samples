@@ -32,6 +32,12 @@ namespace Sample
         private readonly GeneratorBase _nameGenerator;
         private readonly Random _random;
 
+        public DataSource( GeneratorBase nameGenerator )
+        {
+            this._nameGenerator = nameGenerator;
+            this._random = new Random();
+        }
+
         public string GetNewName()
         {
             return this._nameGenerator.Generate();

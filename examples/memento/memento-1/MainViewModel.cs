@@ -56,11 +56,14 @@ public partial class MainViewModel : ObservableRecipient
             this.CancelCommand.NotifyCanExecuteChanged();
             this.UndoCommand.NotifyCanExecuteChanged();
         }
-
         else if ( e.PropertyName == nameof( this.CurrentItem ) )
         {
             this.EditCommand.NotifyCanExecuteChanged();
             this.RemoveCommand.NotifyCanExecuteChanged();
+            this.UndoCommand.NotifyCanExecuteChanged();
+        }
+        else if ( e.PropertyName == nameof( this.Items ) )
+        {
             this.UndoCommand.NotifyCanExecuteChanged();
         }
 

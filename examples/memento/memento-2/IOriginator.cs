@@ -1,6 +1,6 @@
 ﻿public interface IOriginator
 {
-    IMemento Save();
+    IMemento Capture();
 
     void Restore( IMemento memento );
 }
