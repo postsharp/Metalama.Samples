@@ -2,10 +2,10 @@
 <Project>
 
     <PropertyGroup>
-        <MetalamaBackstageVersion>2024.2.12-rc</MetalamaBackstageVersion>
-        <MetalamaCompilerVersion>2024.2.8-rc</MetalamaCompilerVersion>
-        <MetalamaVersion>2024.2.15-rc</MetalamaVersion>
-        <MetalamaExtensionsVersion>2024.2.15-rc</MetalamaExtensionsVersion>
+        <MetalamaBackstageVersion>2024.2.13-rc</MetalamaBackstageVersion>
+        <MetalamaCompilerVersion>2024.2.9-rc</MetalamaCompilerVersion>
+        <MetalamaVersion>2024.2.16-rc</MetalamaVersion>
+        <MetalamaExtensionsVersion>2024.2.16-rc</MetalamaExtensionsVersion>
         <MetalamaFrameworkRunTimeVersion>2024.2.5-rc</MetalamaFrameworkRunTimeVersion>
     </PropertyGroup>
 
