@@ -127,7 +127,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2.Tests", "examples\tests\Metalama.Samples.Singleton2.Tests\Metalama.Samples.Singleton2.Tests.csproj", "{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Singleton0", "examples\singleton\singleton-0\Metalama.Samples.Singleton0.csproj", "{FF399248-5500-4D69-ADFA-8428ABBE8D1B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "memento", "memento", "{61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Memento1", "examples\memento\memento-1\Metalama.Samples.Memento1.csproj", "{652C25D5-921B-4F40-AA8D-F04D330F3137}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton0", "examples\singleton\singleton-0\Metalama.Samples.Singleton0.csproj", "{FF399248-5500-4D69-ADFA-8428ABBE8D1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -418,6 +422,12 @@ Global
 		{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}.Release|Any CPU.Build.0 = Release|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{652C25D5-921B-4F40-AA8D-F04D330F3137}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -472,6 +482,7 @@ Global
 		{531F72A5-86E9-4D35-AD75-DCC5DE829207} = {4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}
 		{5629569B-5A30-431F-87B0-6A1C7D3B9BE4} = {694C7F45-9994-46A7-8B7A-880688B50559}
 		{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035} = {4348E5E8-0AEF-4ED9-A1CD-4034D6CE423C}
+		{652C25D5-921B-4F40-AA8D-F04D330F3137} = {61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}
 		{FF399248-5500-4D69-ADFA-8428ABBE8D1B} = {694C7F45-9994-46A7-8B7A-880688B50559}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
