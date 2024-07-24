@@ -20,7 +20,7 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
         // We must build all projects because we produce HTML formatted files and include them in the artifacts.
         PackRequiresExplicitBuild = true }
     ],
-    Dependencies = [DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaExtensions],
+    Dependencies = [DevelopmentDependencies.PostSharpEngineering, MetalamaDependencies.MetalamaPatterns],
     TestOnBuild = true,
     MainVersionDependency = MetalamaDependencies.Metalama,
     PublicArtifacts = Pattern.Create(

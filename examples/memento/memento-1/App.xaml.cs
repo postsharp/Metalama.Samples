@@ -4,8 +4,6 @@ using NameGenerator;
 using NameGenerator.Generators;
 using System.Windows;
 
-namespace Sample;
-
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
@@ -25,8 +23,8 @@ public partial class App : Application
                 services.AddSingleton<MainViewModel>();
 
                 // Add services
-                services.AddSingleton<ICaretaker, Caretaker>();
-                services.AddSingleton<IDataSource, DataSource>();
+                services.AddSingleton<IMementoCaretaker, Caretaker>();
+                services.AddSingleton<IFishGenerator, FishGenerator>();
                 services.AddSingleton<GeneratorBase, RealNameGenerator>();
             } )
             .Build();

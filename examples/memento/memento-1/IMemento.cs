@@ -1,4 +1,4 @@
 ﻿public interface IMemento
 {
-    IOriginator Originator { get; }
+    IMementoable Originator { get; }
 }

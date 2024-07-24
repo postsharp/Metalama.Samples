@@ -96,6 +96,8 @@ items:
           topicUid: sample-singleton-1
         - name: "Version 2: Modern singleton"
           topicUid: sample-singleton-2
+    - name: Memento
+      topicUid: sample-memento-1
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing

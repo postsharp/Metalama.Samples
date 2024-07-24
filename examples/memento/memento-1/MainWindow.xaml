@@ -1,15 +1,15 @@
-﻿<Window x:Class="Sample.MainWindow"
+﻿<Window x:Class="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sample="clr-namespace:Sample"
+        xmlns:global="clr-namespace:"
         mc:Ignorable="d"
         Title="My Little Fish Tank" Height="450" Width="800"
         x:Name="window">
     <Window.Resources>
-        <sample:NotValueConverter x:Key="NotConverter" />
-        <sample:SpeciesConverter x:Key="SpeciesConverter" />
+        <global:NotValueConverter x:Key="NotConverter" />
+        <global:SpeciesConverter x:Key="SpeciesConverter" />
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Z" Modifiers="Control" Command="{Binding UndoCommand}" />
@@ -40,7 +40,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <sample:ItemControl Grid.Column="1" Grid.Row="1" 
+        <global:FishControl Grid.Column="1" Grid.Row="1" 
                            DataContext="{Binding CurrentItem}"
                            IsEnabled="{Binding ElementName=window, Path=DataContext.IsEditing, UpdateSourceTrigger=PropertyChanged}" />
         <Grid Grid.Row="2" Grid.Column="0">
