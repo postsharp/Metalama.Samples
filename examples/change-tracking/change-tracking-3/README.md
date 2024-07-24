@@ -61,7 +61,8 @@ If the closest `OnPropertyChanged` is in the current type, we override it:
 
 If _both_ the `OnPropertyChanged` method and the `ISwitchableChangeTracking` interface are defined in the base type, we
 do not have to hook `OnPropertyChanged` because it is the responsibility of the base type. We rely on the outcome of
-the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method to know if `ISwitchableChangeTracking`
+the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method to know
+if `ISwitchableChangeTracking`
 was already implemented.
 
 However, if the base type defines an `OnPropertyChanged` method but _no_ `ISwitchableChangeTracking` interface, we need

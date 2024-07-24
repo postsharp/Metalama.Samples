@@ -8,8 +8,7 @@ using Microsoft.Extensions.Logging;
 
 public class LogAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency]
-    private readonly ILogger _logger;
+    [IntroduceDependency] private readonly ILogger _logger;
 
     public override dynamic? OverrideMethod()
     {
@@ -70,7 +69,8 @@ public class LogAttribute : OverrideMethodAspect
         var stringBuilder = new InterpolatedStringBuilder();
 
         // Include the type and method name.
-        stringBuilder.AddText( meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
+        stringBuilder.AddText(
+            meta.Target.Type.ToDisplayString( CodeDisplayFormat.MinimallyQualified ) );
         stringBuilder.AddText( "." );
         stringBuilder.AddText( meta.Target.Method.Name );
         stringBuilder.AddText( "(" );

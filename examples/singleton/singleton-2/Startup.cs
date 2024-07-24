@@ -4,7 +4,8 @@ internal static class Startup
 {
     public static void ConfigureServices( IServiceCollection serviceCollection )
     {
-        serviceCollection.AddSingleton<IPerformanceCounterUploader>( _ => new AwsPerformanceCounterUploader() );
+        serviceCollection
+            .AddSingleton<IPerformanceCounterUploader, AwsPerformanceCounterUploader>();
         serviceCollection.AddSingleton<PerformanceCounterManager>();
     }
 }

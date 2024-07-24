@@ -13,11 +13,12 @@ internal class OptionalValueTypeAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Find the nested type.
-        var nestedType = builder.Target.NestedTypes.OfName( "Optional" ).FirstOrDefault();
+        var nestedType = builder.Target.Types.OfName( "Optional" ).FirstOrDefault();
 
         if ( nestedType == null )
         {
-            builder.Diagnostics.Report( _missingNestedTypeError.WithArguments( builder.Target ), builder.Target );
+            builder.Diagnostics.Report( _missingNestedTypeError.WithArguments( builder.Target ),
+                builder.Target );
 
             return;
         }
@@ -33,10 +34,12 @@ internal class OptionalValueTypeAttribute : TypeAspect
         var optionalValueType = (INamedType) TypeFactory.GetType( typeof(OptionalValue<>) );
 
         // For all automatic properties of the target type.
-        foreach ( var property in builder.Target.Properties.Where( p => p.IsAutoPropertyOrField.GetValueOrDefault() ) )
+        foreach ( var property in builder.Target.Properties.Where( p =>
+                     p.IsAutoPropertyOrField.GetValueOrDefault() ) )
         {
             // Add a property of the same name, but of type OptionalValue<T>, in the nested type.
-            var propertyBuilder = builder.Advice.IntroduceProperty( nestedType, nameof(this.OptionalPropertyTemplate),
+            var propertyBuilder = builder.Advice.IntroduceProperty( nestedType,
+                nameof(this.OptionalPropertyTemplate),
                 buildProperty: p =>
                 {
                     p.Name = property.Name;
@@ -52,11 +55,9 @@ internal class OptionalValueTypeAttribute : TypeAspect
         }
     }
 
-    [Template]
-    public dynamic? OptionalValues { get; private set; }
+    [Template] public dynamic? OptionalValues { get; private set; }
 
-    [Template]
-    public dynamic? OptionalPropertyTemplate { get; set; }
+    [Template] public dynamic? OptionalPropertyTemplate { get; set; }
 
     [Template]
     public dynamic? OverridePropertyTemplate
@@ -75,7 +76,8 @@ internal class OptionalValueTypeAttribute : TypeAspect
             optionalValueBuilder.AppendVerbatim( "new " );
             optionalValueBuilder.AppendTypeName( optionalProperty.Type );
             optionalValueBuilder.AppendVerbatim( $"( {nameof(value)} )" );
-            optionalProperty.With( (IExpression) meta.This.OptionalValues ).Value = optionalValueBuilder.ToValue();
+            optionalProperty.With( (IExpression) meta.This.OptionalValues ).Value =
+                optionalValueBuilder.ToValue();
         }
     }
 }

@@ -15,7 +15,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ICacheKey interface.        
-        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey), OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey),
+            OverrideStrategy.Ignore );
 
         // Verify that all cache key members have a valid type.
         if ( !builder.Target.Compilation.IsPartial )
@@ -47,7 +48,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
 
 
     [Introduce( WhenExists = OverrideStrategy.Override )]
-    protected virtual void BuildCacheKey( StringBuilder stringBuilder, ICacheKeyBuilderProvider provider )
+    protected virtual void BuildCacheKey( StringBuilder stringBuilder,
+        ICacheKeyBuilderProvider provider )
     {
         // Call the base method, if any.
         if ( meta.Target.Method.IsOverride )
@@ -76,7 +78,8 @@ internal class GenerateCacheKeyAspect : TypeAspect
             i++;
 
 
-            if ( cachingOptions.TryGetCacheKeyExpression( member, ExpressionFactory.Parse( nameof(provider) ),
+            if ( cachingOptions.TryGetCacheKeyExpression( member,
+                    ExpressionFactory.Parse( nameof(provider) ),
                     out var cacheKeyExpression ) )
             {
                 stringBuilder.Append( cacheKeyExpression.Value );

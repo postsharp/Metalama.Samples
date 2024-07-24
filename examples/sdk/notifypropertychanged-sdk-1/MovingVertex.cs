@@ -1,5 +1,5 @@
 ﻿[NotifyPropertyChanged]
-internal class MovingVertex
+internal partial class MovingVertex
 {
     public double X { get; set; }
 

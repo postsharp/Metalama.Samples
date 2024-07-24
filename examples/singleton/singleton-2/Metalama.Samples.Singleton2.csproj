@@ -6,10 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Metalama.Extensions.Architecture" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection"  />
-        <PackageReference Include="xunit.assert"  />
-        <PackageReference Include="xunit.extensibility.core" />
+        <PackageReference Include="Metalama.Extensions.Architecture"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+        <PackageReference Include="xunit.assert"/>
+        <PackageReference Include="xunit.extensibility.core"/>
     </ItemGroup>
 
 </Project>

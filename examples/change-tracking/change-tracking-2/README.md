@@ -37,7 +37,8 @@ Then, we add this code to the `BuildAspect` method:
 As in the previous step, the `BuildAspect` method
 calls <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> with
 the `Ignore` <xref:Metalama.Framework.Aspects.OverrideStrategy>. This time, we inspect the outcome
-of <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*>. If the outcome is `Ignored`, it means that the
+of <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*>. If the outcome is `Ignored`, it means that
+the
 type or any base type already implements the <xref:System.ComponentModel.IChangeTracking>  interface. In this case, we
 check that the type contains a parameterless method named `OnChange` and verify its accessibility.
 

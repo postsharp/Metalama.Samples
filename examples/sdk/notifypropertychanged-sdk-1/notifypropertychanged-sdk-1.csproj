@@ -7,12 +7,12 @@
 
 
     <ItemGroup>
-        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Metalama.Framework"/>
 
         <!-- We reference Metalama.Framework.Sdk to have access to the Roslyn layer.
              We use PrivateAssets="all" to avoid this package reference
              from flowing to consumers of the current project or packages. -->
-        <PackageReference Include="Metalama.Framework.Sdk" PrivateAssets="all" />
+        <PackageReference Include="Metalama.Framework.Sdk" PrivateAssets="all"/>
     </ItemGroup>
 
 

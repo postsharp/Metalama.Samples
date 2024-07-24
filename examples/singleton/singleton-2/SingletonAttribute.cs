@@ -1,18 +1,13 @@
-﻿using Metalama.Extensions.Architecture.Aspects;
+﻿using Metalama.Extensions.Architecture;
+using Metalama.Extensions.Architecture.Predicates;
 using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
 
-[CompileTime]
-public class SingletonAttribute : CanOnlyBeUsedFromAttribute
+public class SingletonAttribute : TypeAspect
 {
-    public SingletonAttribute()
-    {
-        // Allow from test namespaces.
-        this.Namespaces = ["**.Tests"];
-                
-        // Allow from the Startup class.
-        this.Types = [typeof(Startup)];
-                
-        // Justification.
-        this.Description = $"The class is a [Singleton].";
-    }
+    public override void BuildAspect( IAspectBuilder<INamedType> builder ) =>
+        builder.Outbound.SelectMany( t => t.Constructors )
+            .CanOnlyBeUsedFrom( scope => scope.Namespace( "**.Tests" )
+                    .Or().Type( typeof(Startup) ),
+                "The class is a [Singleton]." );
 }

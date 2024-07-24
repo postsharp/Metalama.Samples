@@ -5,4 +5,7 @@
 //  - CacheKeyMemberAttribute provides GenerateCacheKeyAspect, so CacheKeyMemberAttribute should run before GenerateCacheKeyAspect.
 //  - CacheAttribute relies on CacheKeyMemberAttribute, so CacheAttribute should run after.
 
-[assembly: AspectOrder( typeof(CacheAttribute), typeof(GenerateCacheKeyAspect), typeof(CacheKeyMemberAttribute) )]
+[assembly:
+    AspectOrder( AspectOrderDirection.RunTime, typeof(CacheAttribute),
+        typeof(GenerateCacheKeyAspect),
+        typeof(CacheKeyMemberAttribute) )]

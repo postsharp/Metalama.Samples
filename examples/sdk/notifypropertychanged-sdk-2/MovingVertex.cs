@@ -8,7 +8,7 @@
 
     public double EndY => this.Y + this.DY;
 
-    public double Velocity => Math.Sqrt( this.DX*this.DX + this.DY*this.DY );
+    public double Velocity => Math.Sqrt( (this.DX * this.DX) + (this.DY * this.DY) );
 
     public void ApplyTime( double time )
     {

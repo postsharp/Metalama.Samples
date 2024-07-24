@@ -137,6 +137,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Memento0",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Memento3", "examples\memento\memento-3\Metalama.Samples.Memento3.csproj", "{16B36CDA-0649-4C2B-A319-C2398F9DE718}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Singleton0", "examples\singleton\singleton-0\Metalama.Samples.Singleton0.csproj", "{FF399248-5500-4D69-ADFA-8428ABBE8D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -450,6 +452,12 @@ Global
 		{16B36CDA-0649-4C2B-A319-C2398F9DE718}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{16B36CDA-0649-4C2B-A319-C2398F9DE718}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16B36CDA-0649-4C2B-A319-C2398F9DE718}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -502,6 +510,7 @@ Global
 		{DA275B71-9D57-40DA-8B5A-01211A39F536} = {61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}
 		{B3026304-ECC7-4AA8-8B61-BF871E826724} = {61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}
 		{16B36CDA-0649-4C2B-A319-C2398F9DE718} = {61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}
+		{FF399248-5500-4D69-ADFA-8428ABBE8D1B} = {694C7F45-9994-46A7-8B7A-880688B50559}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}
