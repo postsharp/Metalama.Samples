@@ -97,7 +97,12 @@ items:
         - name: "Version 2: Modern singleton"
           topicUid: sample-singleton-2
     - name: Memento
-      topicUid: sample-memento-1
+      topicUid: sample-memento
+      items:
+        - name: Step 1. Basic aspect
+          topicUid: sample-memento-1
+        - name: Step 2. Supporting type inheritance
+          topicUid: sample-memento-2
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing
