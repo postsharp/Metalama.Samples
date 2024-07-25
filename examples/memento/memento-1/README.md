@@ -1,17 +1,15 @@
 ---
 uid: sample-memento-1
-level: 400
+level: 300
 ---
 
-# Memento example
+# Memento example, step 1: a basic aspect
 
 [!metalama-project-buttons .]
 
-The Memento pattern is a classic behavioral design pattern that allows you to capture the internal state of an object as a _memento_ object without violating encapsulation. You can then restore this memento state later.
+In this article, we show how to implement the Memento pattern. We will do this in the context of a simple WPF application that tracks fish in a home aquarium. We will intentionally ignore type inheritance, and cover this requirement in the [second step](xref:sample-memento-2).
 
-In UI application development, the Memento pattern is commonly used to implement an undo/redo feature.
-
-Implementing the Memento pattern typically requires a lot of boilerplate code. In this article, we will see how to automatically implement this pattern using Metalama. We will do this in the context of a simple WPF application that tracks fish in a home aquarium.
+## Pattern overview
 
 At the heart of the Memento pattern, we have the following interface:
 
@@ -33,7 +31,7 @@ Our objective is to generate the code supporting the `SaveToMemento` and `Restor
 
 How can we implement this aspect?
 
-## Implementation overview
+## Strategizing
 
 The first step is to list all the code operations that we need to perform:
 
@@ -44,8 +42,6 @@ The first step is to list all the code operations that we need to perform:
 2. Implement the `IMementoable` interface with the following members:
    * The `SaveToMemento` method that returns an instance of the new `Memento` type (effectively returning a copy of the state of the object).
    * The `RestoreMemento` method that copies the properties of the `Memento` object back to the fields and properties of the originator.
-
-
 
 ## Passing state between BuildAspect and the templates
 
@@ -65,6 +61,8 @@ Then, in the templates, we read it:
 
 [!metalama-file MementoAttribute.cs marker="GetTag"]
 
+For details regarding state sharing, see <xref:sharing-state-with-advice>.
+
 ## Step 1. Introducing the Memento type
 
 The first step is to introduce a nested type named `Memento`.
@@ -72,6 +70,8 @@ The first step is to introduce a nested type named `Memento`.
 [!metalama-file MementoAttribute.cs marker="IntroduceType"]
 
 We store the result in a local variable named `mementoType`. We will use it to construct the type.
+
+For details regarding type introduction, see <xref:introducing-types>.
 
 ## Step 2. Introducing and mapping the properties
 
@@ -128,5 +128,5 @@ Let's now put all the bits together. Here is the complete source code of our asp
 
 [!metalama-file MementoAttribute.cs]
 
-> [!div class="see-also"]
-> <xref:dependency-injection>
+This implementation does not support type inheritance, i.e. a memento-able object cannot inherit from another memento-able object. In the next article, we will see how to support type inheritance.
+
