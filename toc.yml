@@ -85,8 +85,8 @@ items:
 #          topicUid: sample-tostring-101
 #        - name: ToString 102
 #          topicUid: sample-tostring-102
-#    - name: Enum View-Model
-#      topicUid: sample-enum-viewmodel
+    - name: Enum View-Model
+      topicUid: sample-enum-viewmodel
 #    - name: Optional Value Type
 #      topicUid: sample-optionalvalue
     - name: Singleton
