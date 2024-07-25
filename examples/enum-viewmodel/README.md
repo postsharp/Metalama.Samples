@@ -1,12 +1,13 @@
 ---
 uid: sample-enum-viewmodel
+level: 200
 ---
 
 # Example: Enum View-Model
 
 [!metalama-project-buttons .]
 
-This example shows how to build an aspect that generates view-model classes for `enum` types. For each enum value `Foo`, the aspect will generate an `IsFoo` property.
+This example shows how to build an aspect that generates view-model classes for `enum` types. For each enum member `Foo`, the aspect will generate an `IsFoo` property.
 
 For instance, let's take the following input `enum`:
 
