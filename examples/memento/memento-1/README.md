@@ -7,7 +7,7 @@ level: 300
 
 [!metalama-project-buttons .]
 
-In this article, we show how to implement the Memento pattern. We will do this in the context of a simple WPF application that tracks fish in a home aquarium. We will intentionally ignore type inheritance, and cover this requirement in the [second step](xref:sample-memento-2).
+In this article, we show how to implement the Memento pattern. We will do this in the context of a simple WPF application that tracks fish in a home aquarium. We will intentionally ignore type inheritance and cover this requirement in the [second step](xref:sample-memento-2).
 
 ## Pattern overview
 
@@ -107,7 +107,6 @@ This interface has a single member:
 
 [!metalama-file MementoAttribute.cs member="MementoAttribute.Originator"]
 
-
 ## Step 5. Implementing the IMementoable interface in the originator type
 
 We can finally implement the `IMementoable` interface.
@@ -128,5 +127,4 @@ Let's now put all the bits together. Here is the complete source code of our asp
 
 [!metalama-file MementoAttribute.cs]
 
-This implementation does not support type inheritance, i.e. a memento-able object cannot inherit from another memento-able object. In the next article, we will see how to support type inheritance.
-
+This implementation does not support type inheritance, i.e., a memento-able object cannot inherit from another memento-able object. In the next article, we will see how to support type inheritance.
