@@ -15,8 +15,8 @@ public readonly struct TransactionalObjectId : IEquatable<TransactionalObjectId>
 
     public bool IsNull => this._id == 0;
 
-    internal static TransactionalObjectId New(ITransactionalObjectFactory factory) =>
-        new TransactionalObjectId( Interlocked.Increment( ref _nextId ), factory );
+    internal static TransactionalObjectId New( ITransactionalObjectFactory factory ) =>
+        new(Interlocked.Increment( ref _nextId ), factory);
 
     public bool Equals(TransactionalObjectId other) => this._id == other._id;
 

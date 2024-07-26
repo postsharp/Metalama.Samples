@@ -38,6 +38,7 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
             buildConstructor:
             constructor =>
             {
+                constructor.Accessibility = Accessibility.Protected;
                 constructor.InitializerKind = ConstructorInitializerKind.Base;
                 constructor.AddInitializerArgument( constructor.Parameters[0] );
                 constructor.AddInitializerArgument( constructor.Parameters[1] );

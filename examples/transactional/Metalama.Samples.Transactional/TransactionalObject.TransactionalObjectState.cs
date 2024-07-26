@@ -1,6 +1,6 @@
 ﻿namespace Metalama.Samples.Transactional;
 
-public abstract partial class TransactionalObject : ITransactionalObject
+public abstract partial class TransactionalObject 
 {
     protected abstract class TransactionalObjectState : ITransactionalObjectState
     {
