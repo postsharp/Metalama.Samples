@@ -21,8 +21,6 @@ public abstract partial class TransactionalObject : ITransactionalObject
         transactionAccessor.RegisterObject( this, factory.CreateInitialState( this._id ) );
     }
     
-    protected abstract ITransactionalObjectFactory TransactionalObjectFactory { get; }
-
     // Creates an object for an existing instance.
     protected TransactionalObject( IMemoryTransactionAccessor transactionAccessor, TransactionalObjectId id )
     {
@@ -30,6 +28,8 @@ public abstract partial class TransactionalObject : ITransactionalObject
         this._id = id;
     }
     
+    protected abstract ITransactionalObjectFactory TransactionalObjectFactory { get; }
+
   
     protected IMemoryTransactionAccessor TransactionAccessor { get; }
     

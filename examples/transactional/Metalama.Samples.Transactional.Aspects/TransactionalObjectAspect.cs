@@ -55,7 +55,7 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
             tags: new { factoryInstanceProperty } );
 
         builder.IntroduceMethod( nameof(this.GetState), whenExists: OverrideStrategy.New,
-            buildMethod: method => method.ReturnType = stateType );
+            args: new { T = stateType } );
 
     }
 
@@ -134,8 +134,7 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
             {
                 IsStatic: false,
                 IsAutoPropertyOrField: true,
-                IsImplicitlyDeclared: false,
-                Writeability: Writeability.All
+                IsImplicitlyDeclared: false
             } )
             .Where( p =>
                 !p.Attributes.OfAttributeType( typeof(NotTransactionalAttribute) )
@@ -145,21 +144,23 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
 
         foreach ( var fieldOrProperty in originatorFieldsAndProperties )
         {
-            var introducedProperty = introducedStateType.IntroduceProperty(
-                nameof(this.DataProperty),
-                buildProperty: b =>
-                {
-                    var trimmedName = fieldOrProperty.Name.TrimStart( '_' );
+            var trimmedPropertyName = fieldOrProperty.Name.TrimStart( '_' );
 
-                    b.Name = trimmedName.Substring( 0, 1 ).ToUpperInvariant() +
-                             trimmedName.Substring( 1 );
-                    b.Type = fieldOrProperty.Type;
+            var dataFieldName = trimmedPropertyName.Substring( 0, 1 ).ToUpperInvariant() +
+                                trimmedPropertyName.Substring( 1 );
+                     
+            var introducedDataField = introducedStateType.IntroduceField(
+                dataFieldName,
+                fieldOrProperty.Type,
+                buildField: f =>
+                {
+                    f.Accessibility = Accessibility.Public;
                 } );
 
             builder.With( fieldOrProperty ).OverrideAccessors(
                 nameof(this.GetterTemplate),
-                nameof(this.SetterTemplate),
-                args: new { stateProperty = introducedProperty.Declaration } );
+                 nameof(this.SetterTemplate),
+                args: new { stateField = introducedDataField.Declaration } );
         } /* </IntroduceProperties> */
 
         // Add a constructor to the State class that records the state of the originator.
@@ -203,7 +204,7 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
         introducedFactoryClass.IntroduceProperty( nameof(this.ObjectType),
             tags: new { objType = objConstructor.DeclaringType } );
         
-        var introducedInstanceProperty = introducedFactoryClass.IntroduceProperty( nameof(this.Instance),
+        var introducedInstanceProperty = introducedFactoryClass.IntroduceProperty( nameof(Instance),
             tags: new { factoryConstructor = introducedFactoryConstructor.Declaration } );
 
         instanceProperty = introducedInstanceProperty.Declaration;
@@ -219,21 +220,19 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
     public void StateConstructorTemplate( TransactionalObjectId id )
     {
     } /* </ConstructorTemplate> */
-
-    [Template] public object? DataProperty { get; }
-
+    
     [Template]
     public ITransactionalObjectState CreateInitialState( TransactionalObjectId id, IConstructor stateConstructor ) 
         => stateConstructor.Invoke( id )!;
     
     [Template]
     public ITransactionalObject CreateObject( TransactionalObjectId id, IMemoryTransactionAccessor transactionAccessor, IConstructor objConstructor ) 
-        => objConstructor.Invoke( id, transactionAccessor )!;
+        => objConstructor.Invoke( transactionAccessor, id )!;
 
     [Template] public Type ObjectType => ((INamedType) meta.Tags["objType"]!).ToTypeOfExpression().Value!;
 
     [Template]
-    public dynamic Instance { get; } = ((IConstructor) meta.Tags["factoryConstructor"]!).Invoke()!;
+    public static dynamic Instance { get; } = ((IConstructor) meta.Tags["factoryConstructor"]!).Invoke()!;
 
     #endregion
 
@@ -247,21 +246,21 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
     #region Templates for the originator type
 
     [Template]
-    private void RestoreObjectConstructorTemplate( TransactionalObjectId id, IMemoryTransactionAccessor transactionAccessor ) { }
+    private void RestoreObjectConstructorTemplate( IMemoryTransactionAccessor transactionAccessor, TransactionalObjectId id ) { }
 
 
     [Template]
-    private dynamic GetState( bool editing ) =>
-        ((IMemoryTransactionAccessor) meta.This.TransactionAccessor).GetObjectState( meta.This,
+    private T GetState<[CompileTime] T>( bool editing ) =>
+        (T) ((IMemoryTransactionAccessor) meta.This.TransactionAccessor).GetObjectState( meta.This,
             editing );
 
     [Template]
-    public dynamic? GetterTemplate( IProperty stateProperty )
-        => stateProperty.With( (IExpression) meta.This.GetState( false ) ).Value;
+    public dynamic? GetterTemplate( IField stateField )
+        => stateField.With( (IExpression) meta.This.GetState( false ) ).Value;
 
     [Template]
-    public void SetterTemplate( IProperty stateProperty, dynamic? value )
-        => stateProperty.With( (IExpression) meta.This.GetState( true ) ).Value = value;
+    public void SetterTemplate( IField stateField, dynamic? value )
+        => stateField.With( (IExpression) meta.This.GetState( true ) ).Value = value;
 
     [Template]
     protected ITransactionalObjectFactory TransactionalObjectFactory =>
