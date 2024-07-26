@@ -3,6 +3,8 @@ uid: sample-memento
 level: 300
 ---
 
+# Example: Memento
+
 The Memento pattern is a classic behavioral design pattern that allows you to capture the internal state of an object as a _memento_ object without violating encapsulation. You can then restore this memento state later.
 
 In UI application development, the Memento pattern is commonly used to implement an undo/redo feature.
