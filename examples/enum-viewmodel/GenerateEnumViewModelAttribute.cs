@@ -3,7 +3,8 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
 
-[AttributeUsage( AttributeTargets.Assembly, AllowMultiple = true )] /*<AttributeUsage>*/ /*</AttributeUsage>*/ 
+[AttributeUsage( AttributeTargets.Assembly, AllowMultiple = true )] /*<AttributeUsage>*/
+/*</AttributeUsage>*/
 public class GenerateEnumViewModelAttribute : CompilationAspect /*<ClassHeader>*/
 {
     public Type EnumType { get; }
@@ -19,35 +20,39 @@ public class GenerateEnumViewModelAttribute : CompilationAspect /*<ClassHeader>*
 
     public override void BuildAspect( IAspectBuilder<ICompilation> builder ) /*<MultiInstance>*/
     {
-        ImplementViewModel( this ); 
+        ImplementViewModel( this );
 
         foreach ( var secondaryInstance in builder.AspectInstance.SecondaryInstances )
         {
             ImplementViewModel( (GenerateEnumViewModelAttribute) secondaryInstance.Aspect );
         }
 
-        void ImplementViewModel( GenerateEnumViewModelAttribute aspectInstance ) /*</MultiInstance>*/
+        void ImplementViewModel(
+            GenerateEnumViewModelAttribute aspectInstance ) /*</MultiInstance>*/
         {
-            var enumType = (INamedType) TypeFactory.GetType( aspectInstance.EnumType ); /*<ValidateInputs>*/
+            var enumType =
+                (INamedType) TypeFactory.GetType( aspectInstance.EnumType ); /*<ValidateInputs>*/
 
             if ( enumType.TypeKind != TypeKind.Enum )
             {
-                builder.Diagnostics.Report( DiagnosticDefinitions.NotAnEnumError.WithArguments( enumType ) );
+                builder.Diagnostics.Report(
+                    DiagnosticDefinitions.NotAnEnumError.WithArguments( enumType ) );
                 builder.SkipAspect();
                 return;
             } /*</ValidateInputs>*/
-            
+
             /*<IntroduceClass>*/
             // Introduce the ViewModel type.
-            var viewModelType = builder  
+            var viewModelType = builder
                 .WithNamespace( this.TargetNamespace )
                 .IntroduceClass(
-                enumType.Name + "ViewModel",
-                type =>
-                {
-                    type.Accessibility = enumType.Accessibility;
-                    type.IsSealed = true;
-                } ); 
+                    enumType.Name + "ViewModel",
+                    buildType:
+                    type =>
+                    {
+                        type.Accessibility = enumType.Accessibility;
+                        type.IsSealed = true;
+                    } );
 
             // Introduce the _value field.
             viewModelType.IntroduceField( "_value", enumType,
@@ -60,7 +65,7 @@ public class GenerateEnumViewModelAttribute : CompilationAspect /*<ClassHeader>*
             // Introduce the constructor.
             viewModelType.IntroduceConstructor(
                 nameof(this.ConstructorTemplate),
-                args: new { T = enumType });
+                args: new { T = enumType } );
             /*</IntroduceClass>*/
 
 
@@ -82,7 +87,7 @@ public class GenerateEnumViewModelAttribute : CompilationAspect /*<ClassHeader>*
     }
 
     // Template for the non-flags enum member.
-    [Template] 
+    [Template]
     public bool IsMemberTemplate => meta.This._value == ((IField) meta.Tags["member"]!).Value;
 
     // Template for a flag enum member.
@@ -101,5 +106,6 @@ public class GenerateEnumViewModelAttribute : CompilationAspect /*<ClassHeader>*
     }
 
     [Template] /*<ConstructorTemplate>*/
-    public void ConstructorTemplate<[CompileTime] T>( T value ) => meta.This._value = value!; /*</ConstructorTemplate>*/
+    public void ConstructorTemplate<[CompileTime] T>( T value ) =>
+        meta.This._value = value!; /*</ConstructorTemplate>*/
 }
