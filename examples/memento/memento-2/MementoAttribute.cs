@@ -197,12 +197,12 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
         // Call the base method if any.
         meta.Proceed();
 
-        var typedSnapshot = meta.Cast( buildAspectInfo.MementoType, memento );
+        var typedMemento = meta.Cast( buildAspectInfo.MementoType, memento );
 
-        // Set fields of this instance to the values stored in the Snapshot.
+        // Set fields of this instance to the values stored in the Memento.
         foreach ( var pair in buildAspectInfo.PropertyMap )
         {
-            pair.Key.Value = pair.Value.With( (IExpression) typedSnapshot ).Value;
+            pair.Key.Value = pair.Value.With( (IExpression) typedMemento ).Value;
         }
     }
 
@@ -211,7 +211,7 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
     {
         var buildAspectInfo = (BuildAspectInfo) meta.Tags.Source!;
 
-        // Set the originator property and the data properties of the Snapshot.
+        // Set the originator property and the data properties of the Memento.
         if ( buildAspectInfo.OriginatorProperty != null )
         {
             buildAspectInfo.OriginatorProperty.Value = meta.Target.Parameters[0];
