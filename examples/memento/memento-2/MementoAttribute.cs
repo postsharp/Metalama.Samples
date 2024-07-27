@@ -26,7 +26,7 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
         if ( isBaseMementotable )
         {
             var baseTypeDefinition = builder.Target.BaseType!.Definition;
-            baseMementoType = baseTypeDefinition.Types.OfName( baseTypeDefinition.Name + "Memento" )
+            baseMementoType = baseTypeDefinition.Types.OfName( "Memento" )
                 .SingleOrDefault();
 
             if ( baseMementoType == null )
@@ -89,7 +89,8 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
         // Introduce a new private nested class called Memento.
         var mementoType =  
             builder.IntroduceClass(
-                builder.Target.Name + "Memento",
+                "Memento",
+                whenExists: OverrideStrategy.New,
                 buildType: b =>
                 {
                     b.Accessibility = Metalama.Framework.Code.Accessibility.Protected;
@@ -141,7 +142,7 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
             } ); /*</IntroduceConstructor>*/
 
 
-        // Implement the ISnapshot interface on the Memento class and add its members.   
+        // Implement the IMemento interface on the Memento class and add its members.   
         mementoType.ImplementInterface( typeof(IMemento), whenExists: OverrideStrategy.Ignore ); /*<AddMementoInterface>*/
         
         var introducePropertyResult = mementoType.IntroduceProperty( 
@@ -196,12 +197,12 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
         // Call the base method if any.
         meta.Proceed();
 
-        var typedSnapshot = meta.Cast( buildAspectInfo.MementoType, memento );
+        var typedMemento = meta.Cast( buildAspectInfo.MementoType, memento );
 
-        // Set fields of this instance to the values stored in the Snapshot.
+        // Set fields of this instance to the values stored in the Memento.
         foreach ( var pair in buildAspectInfo.PropertyMap )
         {
-            pair.Key.Value = pair.Value.With( (IExpression) typedSnapshot ).Value;
+            pair.Key.Value = pair.Value.With( (IExpression) typedMemento ).Value;
         }
     }
 
@@ -210,7 +211,7 @@ public sealed class MementoAttribute : TypeAspect /*</ClassDefinition>*/
     {
         var buildAspectInfo = (BuildAspectInfo) meta.Tags.Source!;
 
-        // Set the originator property and the data properties of the Snapshot.
+        // Set the originator property and the data properties of the Memento.
         if ( buildAspectInfo.OriginatorProperty != null )
         {
             buildAspectInfo.OriginatorProperty.Value = meta.Target.Parameters[0];
