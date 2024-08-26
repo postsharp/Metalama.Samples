@@ -2,7 +2,7 @@ namespace Metalama.Samples.Transactional;
 
 internal class MemoryTransactionManager : IMemoryTransactionFactory
 {
-    private readonly ContextBoundTransactionContext _contextBoundTransactionContext;
+    private readonly ContextBoundContext _contextBoundContext;
     private MemoryTransactionState _state = MemoryTransactionState.Empty;
 
     internal MemoryTransactionState State
@@ -19,15 +19,15 @@ internal class MemoryTransactionManager : IMemoryTransactionFactory
 
     public MemoryTransactionManager()
     {
-        this._contextBoundTransactionContext = new ContextBoundTransactionContext( this );
+        this._contextBoundContext = new ContextBoundContext( this );
     }
-    
+
     public object CommitSync { get; } = new();
 
-    public IMemoryTransaction? OpenTransaction(MemoryTransactionOptions options)
+    public IMemoryTransaction? OpenTransaction( MemoryTransactionOptions options )
     {
-        var currentTransaction = this._contextBoundTransactionContext.CurrentTransaction;
-        
+        var currentTransaction = this._contextBoundContext.CurrentTransaction;
+
         if ( currentTransaction != null )
         {
             if ( options.RequireNewTransaction )
@@ -47,19 +47,18 @@ internal class MemoryTransactionManager : IMemoryTransactionFactory
         }
 
         MemoryTransaction transaction;
-        
+
 
         if ( options.BindToExecutionContext )
         {
-            transaction = new ContextBoundMemoryTransaction( options, this._contextBoundTransactionContext );
-            this._contextBoundTransactionContext.CurrentTransaction = transaction;
+            transaction = new ContextBoundMemoryTransaction( options, this._contextBoundContext );
+            this._contextBoundContext.CurrentTransaction = transaction;
         }
         else
         {
-            transaction = new ObjectBoundMemoryTransaction(  options, this );
+            transaction = new ObjectBoundMemoryTransaction( options, this );
         }
 
         return transaction;
     }
-
 }

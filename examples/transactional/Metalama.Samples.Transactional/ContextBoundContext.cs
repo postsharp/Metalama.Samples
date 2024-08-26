@@ -2,18 +2,20 @@ using System.Collections.Concurrent;
 
 namespace Metalama.Samples.Transactional;
 
-internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMemoryTransactionContextImpl
+internal class ContextBoundContext : ITransactionalMemoryAccessor, IMemoryTransactionContext
 {
     private readonly AsyncLocal<MemoryTransaction?> _currentContext = new();
 
     // A cache for fast access because access to ImmutableDictionary is slow.
-    private readonly ConcurrentDictionary<TransactionalObjectId, ITransactionalObjectState> _stateCache = new();
-    
+    private readonly ConcurrentDictionary<TransactionalObjectId, ITransactionalObjectState>
+        _stateCache = new();
+
     // The list of all transactional objects.
-    private readonly ConcurrentDictionary<TransactionalObjectId, ITransactionalObject> _objects = new();
+    private readonly ConcurrentDictionary<TransactionalObjectId, ITransactionalObject> _objects =
+        new();
 
 
-    public ContextBoundTransactionContext( MemoryTransactionManager manager )
+    public ContextBoundContext( MemoryTransactionManager manager )
     {
         this.Manager = manager;
         this.Manager.StateChanged += this.OnStateChanged;
@@ -28,14 +30,17 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
     }
 
 
-    private void OnStateChanged()
-    {
-        this._stateCache.Clear();
-    }
-    
+    private void OnStateChanged() => this._stateCache.Clear();
+
     private Exception NotAllowedException() =>
         throw new InvalidOperationException(
             "This operation is not allowed out of a transaction." );
+
+    IMemoryTransactionInfo? ITransactionalMemoryAccessor.TransactionInfo =>
+        this.CurrentTransaction?.TransactionInfo;
+
+    IMemoryTransactionInfo? IMemoryTransactionContext.TransactionInfo =>
+        this.CurrentTransaction?.TransactionInfo;
 
     public void RegisterObject( ITransactionalObject obj, ITransactionalObjectState state )
     {
@@ -46,7 +51,6 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
 
         var transaction = this._currentContext.Value ?? throw this.NotAllowedException();
         transaction.RegisterObject( obj, state );
-        
     }
 
     public void DeleteObject( ITransactionalObject obj )
@@ -81,9 +85,8 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
 
     private ITransactionalObjectState GetTransactionlessState( ITransactionalObject originator )
     {
-
         var objectId = originator.Id;
-        
+
         if ( !this._stateCache.TryGetValue( objectId, out var state ) )
         {
             if ( !this.Manager.State.Nodes.TryGetValue( objectId, out var sharedNode ) )
@@ -93,8 +96,8 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
 
             state = this._stateCache.GetOrAdd( objectId, sharedNode.State );
         }
-        
-        
+
+
         if ( state.Status == TransactionalObjectStateStatus.Deleted )
         {
             throw new ObjectDisposedException( originator.GetType().Name );
@@ -116,14 +119,14 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
     public bool IsContextBound => true;
 
     public ITransactionalObject CreateObject( TransactionalObjectId id,
-        IMemoryTransactionAccessor transaction ) => id.Factory.CreateObject( id, this );
+        ITransactionalMemoryAccessor transaction ) => id.Factory.CreateObject( id, this );
 
     public void OnTransactionClosed( IMemoryTransaction transaction ) =>
         this.CurrentTransaction = null;
 
     public ITransactionalObject GetObject( ITransactionalObject obj )
     {
-        if ( obj.TransactionContext.IsContextBound )
+        if ( obj.TransactionInfo?.IsContextBound == true )
         {
             return obj;
         }
@@ -131,6 +134,5 @@ internal class ContextBoundTransactionContext : IMemoryTransactionAccessor, IMem
         {
             return this.GetObject( obj.Id );
         }
-        
     }
 }

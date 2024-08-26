@@ -1,12 +1,12 @@
 ﻿namespace Metalama.Samples.Transactional;
 
-public abstract partial class TransactionalObject 
+public abstract partial class TransactionalObject
 {
     protected abstract class TransactionalObjectState : ITransactionalObjectState
     {
         private readonly TransactionalObjectId _objectId;
         private volatile int _status = (int) TransactionalObjectStateStatus.Editable;
-        
+
         protected TransactionalObjectState( TransactionalObjectId objectId )
         {
             this._objectId = objectId;
@@ -14,7 +14,7 @@ public abstract partial class TransactionalObject
 
         TransactionalObjectStateStatus ITransactionalObjectState.Status =>
             (TransactionalObjectStateStatus) this._status;
-        
+
         public void MakeReadOnly()
         {
             var previousStatus = (TransactionalObjectStateStatus) Interlocked.CompareExchange(
@@ -54,12 +54,11 @@ public abstract partial class TransactionalObject
             }
         }
 
-        protected void CheckCanEdit()
-        {
+        protected void CheckCanEdit() =>
             this.CheckStatus( TransactionalObjectStateStatus.Editable );
-        }
 
-        protected virtual TransactionalObjectState Clone() => (TransactionalObjectState)this.MemberwiseClone();
+        protected virtual TransactionalObjectState Clone() =>
+            (TransactionalObjectState) this.MemberwiseClone();
 
         public virtual ITransactionalObjectState ToEditable()
         {
@@ -81,8 +80,5 @@ public abstract partial class TransactionalObject
 
             return clone;
         }
-
-
-
     }
 }

@@ -3,42 +3,43 @@ namespace Metalama.Samples.Transactional;
 public abstract partial class TransactionalObject : ITransactionalObject
 {
     private readonly TransactionalObjectId _id;
-    
+
     // Creates a new instance.
-    protected TransactionalObject( IMemoryTransactionAccessor transactionAccessor )
+    protected TransactionalObject( ITransactionalMemoryAccessor memoryAccessor )
     {
         // ReSharper disable once VirtualMemberCallInConstructor
         var factory = this.TransactionalObjectFactory;
-        
+
         if ( factory.ObjectType != this.GetType() )
         {
-            throw new ArgumentOutOfRangeException( nameof(factory), $"The factory does not create objects of type {this.GetType().Name}." );
+            throw new ArgumentOutOfRangeException( nameof(factory),
+                $"The factory does not create objects of type {this.GetType().Name}." );
         }
-        
-        this.TransactionAccessor = transactionAccessor;
-        this._id = TransactionalObjectId.New(factory);
-        
-        transactionAccessor.RegisterObject( this, factory.CreateInitialState( this._id ) );
+
+        this.MemoryAccessor = memoryAccessor;
+        this._id = TransactionalObjectId.New( factory );
+
+        memoryAccessor.RegisterObject( this, factory.CreateInitialState( this._id ) );
     }
-    
+
     // Creates an object for an existing instance.
-    protected TransactionalObject( IMemoryTransactionAccessor transactionAccessor, TransactionalObjectId id )
+    protected TransactionalObject( ITransactionalMemoryAccessor memoryAccessor,
+        TransactionalObjectId id )
     {
-        this.TransactionAccessor = transactionAccessor;
+        this.MemoryAccessor = memoryAccessor;
         this._id = id;
     }
-    
+
     protected abstract ITransactionalObjectFactory TransactionalObjectFactory { get; }
 
-  
-    protected IMemoryTransactionAccessor TransactionAccessor { get; }
-    
-    protected virtual void DeleteObject()
-    {
-        this.TransactionAccessor.DeleteObject( this );
-    }
 
-    IMemoryTransactionContext ITransactionalObject.TransactionContext => this.TransactionAccessor;
+    protected ITransactionalMemoryAccessor MemoryAccessor { get; }
+
+    protected virtual void DeleteObject() => this.MemoryAccessor.DeleteObject( this );
+
+    IMemoryTransactionInfo? ITransactionalObject.TransactionInfo =>
+        this.MemoryAccessor.TransactionInfo;
+
     TransactionalObjectId ITransactionalObject.Id => this._id;
 
     public bool IsSameThan( ITransactionalObject? other ) =>

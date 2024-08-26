@@ -1,17 +1,20 @@
 ﻿namespace Metalama.Samples.Transactional;
 
-internal class ObjectBoundMemoryTransaction : MemoryTransaction, IMemoryTransactionContextImpl
+internal class ObjectBoundMemoryTransaction : MemoryTransaction, IMemoryTransactionContext
 {
-    public ObjectBoundMemoryTransaction(MemoryTransactionOptions options, MemoryTransactionManager manager) : base(options, manager.State)
+    public ObjectBoundMemoryTransaction( MemoryTransactionOptions options,
+        MemoryTransactionManager manager ) : base( options, manager.State )
     {
         this.Manager = manager;
     }
 
-    public override IMemoryTransactionContextImpl Context => this;
+    protected override IMemoryTransactionContext Context => this;
+
+    IMemoryTransactionInfo IMemoryTransactionContext.TransactionInfo => this.TransactionInfo;
 
     public override ITransactionalObject GetObject( ITransactionalObject obj )
     {
-        if ( obj.TransactionContext == this )
+        if ( obj.TransactionInfo == this.TransactionInfo )
         {
             return obj;
         }
@@ -23,9 +26,9 @@ internal class ObjectBoundMemoryTransaction : MemoryTransaction, IMemoryTransact
 
     public MemoryTransactionManager Manager { get; }
 
-    ITransactionalObject IMemoryTransactionContextImpl.CreateObject( TransactionalObjectId id,
-        IMemoryTransactionAccessor transaction ) =>
+    ITransactionalObject IMemoryTransactionContext.CreateObject( TransactionalObjectId id,
+        ITransactionalMemoryAccessor transaction ) =>
         id.Factory.CreateObject( id, this );
 
-    void IMemoryTransactionContextImpl.OnTransactionClosed( IMemoryTransaction transaction ) { }
+    void IMemoryTransactionContext.OnTransactionClosed( IMemoryTransaction transaction ) { }
 }

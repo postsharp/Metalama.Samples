@@ -3,24 +3,22 @@ using System.Collections.Immutable;
 
 namespace Metalama.Samples.Transactional;
 
-
-
 public class TransactionalList<T> : TransactionalObject, IList<T>
 {
-    
-    public TransactionalList(IMemoryTransactionAccessor transactionAccessor) : base( transactionAccessor )
+    public TransactionalList( ITransactionalMemoryAccessor memoryAccessor ) : base( memoryAccessor )
     {
-        CheckTypeArgument( transactionAccessor );
+        CheckTypeArgument();
     }
 
-    private TransactionalList( TransactionalObjectId id, IMemoryTransactionAccessor transactionAccessor ) : base( transactionAccessor, id )
+    private TransactionalList( TransactionalObjectId id,
+        ITransactionalMemoryAccessor memoryAccessor ) : base( memoryAccessor, id )
     {
-        CheckTypeArgument( transactionAccessor );
+        CheckTypeArgument();
     }
 
-    private static void CheckTypeArgument( IMemoryTransactionAccessor transactionAccessor )
+    private static void CheckTypeArgument()
     {
-        if ( !transactionAccessor.IsContextBound && typeof(ITransactionalObject).IsAssignableFrom( typeof(T) ) )
+        if ( typeof(ITransactionalObject).IsAssignableFrom( typeof(T) ) )
         {
             throw new ArgumentOutOfRangeException( nameof(T),
                 $"The type {typeof(T)} cannot implement the {nameof(TransactionalList<T>)} type because the object is bound to a transaction." );
@@ -28,10 +26,11 @@ public class TransactionalList<T> : TransactionalObject, IList<T>
     }
 
     private ImmutableList<T> Items =>
-        this.GetObjectState(false)
+        this.GetObjectState( false )
             .Items;
 
-    private TransactionalListState GetObjectState(bool editable) => ((TransactionalListState) this.TransactionAccessor.GetObjectState( this, editable ));
+    private TransactionalListState GetObjectState( bool editable ) =>
+        (TransactionalListState) this.MemoryAccessor.GetObjectState( this, editable );
 
     public IEnumerator<T> GetEnumerator() => this.Items.GetEnumerator();
 
@@ -93,12 +92,13 @@ public class TransactionalList<T> : TransactionalObject, IList<T>
             state.Items = state.Items.SetItem( index, value );
         }
     }
-    
-    protected override ITransactionalObjectFactory TransactionalObjectFactory => TransactionalListFactory.Instance;
+
+    protected override ITransactionalObjectFactory TransactionalObjectFactory =>
+        TransactionalListFactory.Instance;
 
     protected class TransactionalListState : TransactionalObjectState
     {
-        public TransactionalListState(TransactionalObjectId objectId) : base(objectId)
+        public TransactionalListState( TransactionalObjectId objectId ) : base( objectId )
         {
         }
 
@@ -108,15 +108,14 @@ public class TransactionalList<T> : TransactionalObject, IList<T>
     private class TransactionalListFactory : ITransactionalObjectFactory
     {
         public static readonly TransactionalListFactory Instance = new();
+
         public ITransactionalObjectState CreateInitialState( TransactionalObjectId id ) =>
             new TransactionalListState( id );
 
         public ITransactionalObject CreateObject( TransactionalObjectId id,
-            IMemoryTransactionAccessor transactionAccessor ) =>
-            new TransactionalList<T>( id, transactionAccessor );
+            ITransactionalMemoryAccessor memoryAccessor ) =>
+            new TransactionalList<T>( id, memoryAccessor );
 
         public Type ObjectType => typeof(TransactionalList<T>);
     }
-
-    
 }

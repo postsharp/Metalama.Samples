@@ -1,6 +1,6 @@
 namespace Metalama.Samples.Transactional;
 
-public interface IMemoryTransaction :  IDisposable
+public interface IMemoryTransaction : IDisposable
 {
     MemoryTransactionOptions Options { get; }
     void Rollback();

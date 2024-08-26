@@ -2,7 +2,7 @@ namespace Metalama.Samples.Transactional;
 
 internal readonly struct TransactionalObjectSharedNode
 {
-    public TransactionalObjectSharedNode( 
+    public TransactionalObjectSharedNode(
         ITransactionalObjectState state,
         ITransactionalObject? contextBoundObject )
     {

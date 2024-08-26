@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Metalama.Samples.Transactional;
 
-internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransactionAccessor
+internal abstract class MemoryTransaction : IMemoryTransaction, ITransactionalMemoryAccessor
 {
     private readonly MemoryTransactionState _initialState;
 
@@ -11,21 +11,26 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
     private readonly ConcurrentDictionary<TransactionalObjectId, Node> _contextState = new();
 
     private readonly MemoryTransactionOptions _options;
-    public abstract IMemoryTransactionContextImpl Context { get; }
+
     private bool _isDisposed;
 
-    public MemoryTransaction( MemoryTransactionOptions options, MemoryTransactionState initialState )
+    protected MemoryTransaction( MemoryTransactionOptions options,
+        MemoryTransactionState initialState )
     {
         this._options = options;
         this._initialState = initialState;
+        this.TransactionInfo = new MemoryTransactionInfo( options );
     }
+
+    protected abstract IMemoryTransactionContext Context { get; }
+    public IMemoryTransactionInfo TransactionInfo { get; }
 
     public MemoryTransactionOptions Options => this._options;
 
     public void RegisterObject( ITransactionalObject obj, ITransactionalObjectState state )
     {
         this.CheckNotDisposed();
-        
+
         Debug.Assert( state.Status == TransactionalObjectStateStatus.Editable );
 
         if ( !this._contextState.TryAdd( obj.Id, new Node( obj, null, state ) ) )
@@ -38,7 +43,7 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
     public void DeleteObject( ITransactionalObject obj )
     {
         this.CheckNotDisposed();
-        
+
         var node = this.GetNode( obj );
 
         var spinWait = new SpinWait();
@@ -69,7 +74,7 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
     public ITransactionalObjectState GetObjectState( ITransactionalObject obj, bool editable )
     {
         this.CheckNotDisposed();
-        
+
         var node = this.GetNode( obj );
 
         if ( editable && node.CurrentState.Status != TransactionalObjectStateStatus.Editable )
@@ -121,13 +126,10 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
         return node.TransactionalObject;
     }
 
-    public bool IsContextBound => this.Context.IsContextBound;
-
-
     private Node GetNode( ITransactionalObject obj ) => this.GetNode( obj.Id, obj );
+
     private Node GetNode( TransactionalObjectId id, ITransactionalObject? obj = null )
     {
-        
         if ( !this._contextState.TryGetValue( id, out var node ) )
         {
             if ( this._initialState.Nodes.TryGetValue( id, out var sharedNode ) )
@@ -136,7 +138,7 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
                 {
                     obj = sharedNode.ContextBoundObject;
                 }
-                
+
                 node = new Node( obj, sharedNode.State, sharedNode.State );
                 node = this._contextState.GetOrAdd( id, node );
             }
@@ -148,7 +150,7 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
 
         if ( node.CurrentState.Status == TransactionalObjectStateStatus.Deleted )
         {
-            throw new ObjectDisposedException(nameof(ITransactionalObject));
+            throw new ObjectDisposedException( nameof(ITransactionalObject) );
         }
 
         return node;
@@ -160,7 +162,7 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
         public ITransactionalObject? TransactionalObject;
         public readonly ITransactionalObjectState? InitialState;
         public volatile ITransactionalObjectState CurrentState;
-        
+
         public Node(
             ITransactionalObject? transactionalObject,
             ITransactionalObjectState? initialState,
@@ -211,19 +213,23 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
                 if ( nodes.TryGetValue( ourNode.Key, out var theirNode ) )
                 {
                     // Check if the state has changed in the meantime.
-                     if (  !ReferenceEquals( ourNode.Value.InitialState, theirNode.State ) 
-                          && (this._options.RequireRepeatableReads || currentState.Status != TransactionalObjectStateStatus.ReadOnly ) ) 
+                    if ( !ReferenceEquals( ourNode.Value.InitialState, theirNode.State )
+                         && (this._options.RequireRepeatableReads || currentState.Status !=
+                             TransactionalObjectStateStatus.ReadOnly) )
                     {
                         throw new TransactionCommitException(
                             $"The '{ourNode.Key.GetType().Name}' has changed." );
-
                     }
 
                     if ( currentState.Status != TransactionalObjectStateStatus.ReadOnly )
                     {
                         currentState.MakeReadOnly();
-                        nodes = nodes.SetItem( ourNode.Key, new TransactionalObjectSharedNode( currentState, theirNode.ContextBoundObject ) );
-                        theirNode.ContextBoundObject?.NotifyStateChanged( new TransactionalObjectChangeNotification( theirNode.State, currentState ));
+                        nodes = nodes.SetItem( ourNode.Key,
+                            new TransactionalObjectSharedNode( currentState,
+                                theirNode.ContextBoundObject ) );
+                        theirNode.ContextBoundObject?.NotifyStateChanged(
+                            new TransactionalObjectChangeNotification( theirNode.State,
+                                currentState ) );
                     }
                 }
                 else
@@ -234,15 +240,14 @@ internal abstract class MemoryTransaction : IMemoryTransaction, IMemoryTransacti
                     var contextBoundOriginator = this._options.BindToExecutionContext
                         ? ourNode.Value.TransactionalObject
                         : null;
-                    nodes = nodes.Add( ourNode.Key, new TransactionalObjectSharedNode(currentState, contextBoundOriginator) );
-
+                    nodes = nodes.Add( ourNode.Key,
+                        new TransactionalObjectSharedNode( currentState, contextBoundOriginator ) );
                 }
 
                 this.Context.Manager.State = new MemoryTransactionState( nodes );
-
             }
-            
-            
+
+
             this._isDisposed = true;
             this.Context.OnTransactionClosed( this );
         }

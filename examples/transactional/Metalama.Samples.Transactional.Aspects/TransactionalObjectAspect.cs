@@ -227,8 +227,8 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
         => stateConstructor.Invoke( id )!;
     
     [Template]
-    public ITransactionalObject CreateObject( TransactionalObjectId id, IMemoryTransactionAccessor transactionAccessor, IConstructor objConstructor ) 
-        => objConstructor.Invoke( transactionAccessor, id )!;
+    public ITransactionalObject CreateObject( TransactionalObjectId id, ITransactionalMemoryAccessor memoryAccessor, IConstructor objConstructor ) 
+        => objConstructor.Invoke( memoryAccessor, id )!;
 
     [Template] public Type ObjectType => ((INamedType) meta.Tags["objType"]!).ToTypeOfExpression().Value!;
 
@@ -247,12 +247,12 @@ internal class TransactionalObjectAspect : IAspect<INamedType>
     #region Templates for the originator type
 
     [Template]
-    private void RestoreObjectConstructorTemplate( IMemoryTransactionAccessor transactionAccessor, TransactionalObjectId id ) { }
+    private void RestoreObjectConstructorTemplate( ITransactionalMemoryAccessor memoryAccessor, TransactionalObjectId id ) { }
 
 
     [Template]
     private T GetState<[CompileTime] T>( bool editing ) =>
-        (T) ((IMemoryTransactionAccessor) meta.This.TransactionAccessor).GetObjectState( meta.This,
+        (T) ((ITransactionalMemoryAccessor) meta.This.MemoryAccessor).GetObjectState( meta.This,
             editing );
 
     [Template]

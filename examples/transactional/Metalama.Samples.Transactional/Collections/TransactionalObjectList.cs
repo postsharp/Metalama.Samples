@@ -6,22 +6,25 @@ namespace Metalama.Samples.Transactional;
 public class TransactionalObjectList<T> : TransactionalObject, IList<T>
     where T : class, ITransactionalObject
 {
-  
-    public TransactionalObjectList( IMemoryTransactionAccessor transactionAccessor ) : base( transactionAccessor )
+    public TransactionalObjectList( ITransactionalMemoryAccessor memoryAccessor ) : base(
+        memoryAccessor )
     {
     }
 
-    public TransactionalObjectList( TransactionalObjectId id, IMemoryTransactionAccessor transactionAccessor ) : base( transactionAccessor, id )
+    public TransactionalObjectList( TransactionalObjectId id,
+        ITransactionalMemoryAccessor memoryAccessor ) : base( memoryAccessor, id )
     {
     }
 
     private ImmutableList<TransactionalObjectId<T>> Items =>
-        this.GetObjectState(false)
+        this.GetObjectState( false )
             .Items;
 
-    private TransactionalObjectListState GetObjectState(bool editable) => ((TransactionalObjectListState) this.TransactionAccessor.GetObjectState( this, editable ));
+    private TransactionalObjectListState GetObjectState( bool editable ) =>
+        (TransactionalObjectListState) this.MemoryAccessor.GetObjectState( this, editable );
 
-    public IEnumerator<T> GetEnumerator() => this.Items.Select( id => (T) this.TransactionAccessor.GetObject( id ) ).GetEnumerator();
+    public IEnumerator<T> GetEnumerator() => this.Items
+        .Select( id => (T) this.MemoryAccessor.GetObject( id ) ).GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
@@ -45,7 +48,7 @@ public class TransactionalObjectList<T> : TransactionalObject, IList<T>
         var index = arrayIndex;
         foreach ( var item in this.Items )
         {
-            array[index] = this.TransactionAccessor.GetTypedObject( item )!;
+            array[index] = this.MemoryAccessor.GetTypedObject( item )!;
             index++;
         }
     }
@@ -83,34 +86,37 @@ public class TransactionalObjectList<T> : TransactionalObject, IList<T>
 
     public T this[ int index ]
     {
-        get => this.TransactionAccessor.GetTypedObject( this.Items[index] )!;
+        get => this.MemoryAccessor.GetTypedObject( this.Items[index] )!;
         set
         {
             var state = this.GetObjectState( true );
             state.Items = state.Items.SetItem( index, value.GetTypedId() );
         }
     }
-    
-    protected override ITransactionalObjectFactory TransactionalObjectFactory => TransactionalObjectListFactory.Instance;
+
+    protected override ITransactionalObjectFactory TransactionalObjectFactory =>
+        TransactionalObjectListFactory.Instance;
 
     protected class TransactionalObjectListState : TransactionalObjectState
     {
-        public TransactionalObjectListState(TransactionalObjectId objectId) : base(objectId)
+        public TransactionalObjectListState( TransactionalObjectId objectId ) : base( objectId )
         {
         }
 
-        public ImmutableList<TransactionalObjectId<T>> Items = ImmutableList<TransactionalObjectId<T>>.Empty;
+        public ImmutableList<TransactionalObjectId<T>> Items =
+            ImmutableList<TransactionalObjectId<T>>.Empty;
     }
 
     private class TransactionalObjectListFactory : ITransactionalObjectFactory
     {
         public static readonly TransactionalObjectListFactory Instance = new();
+
         public ITransactionalObjectState CreateInitialState( TransactionalObjectId id ) =>
             new TransactionalObjectListState( id );
 
         public ITransactionalObject CreateObject( TransactionalObjectId id,
-            IMemoryTransactionAccessor transactionAccessor ) =>
-            new TransactionalObjectList<T>( id, transactionAccessor );
+            ITransactionalMemoryAccessor memoryAccessor ) =>
+            new TransactionalObjectList<T>( id, memoryAccessor );
 
         public Type ObjectType => typeof(TransactionalObjectList<T>);
     }

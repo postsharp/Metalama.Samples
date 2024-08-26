@@ -6,5 +6,5 @@ internal record MemoryTransactionState(
     ImmutableDictionary<TransactionalObjectId, TransactionalObjectSharedNode> Nodes )
 {
     public static MemoryTransactionState Empty = new(
-        ImmutableDictionary<TransactionalObjectId, TransactionalObjectSharedNode>.Empty );
+        ImmutableDictionary<TransactionalObjectId, TransactionalObjectSharedNode>.Empty);
 }
