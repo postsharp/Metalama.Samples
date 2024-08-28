@@ -15,7 +15,7 @@ Before we start writing the aspect, we must materialize in C# the concept of a _
 property is a property that points to a reference-type object that needs to be cloned when the parent object is cloned.
 Let's decide to mark such properties with the `[Child]` custom attribute:
 
-[!metalama-file CloneableAttribute.cs]
+[!metalama-file ChildAttribute.cs]
 
 ## Aspect implementation
 
