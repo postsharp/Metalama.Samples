@@ -41,7 +41,7 @@ We added the following code in the `BuildAspect` method:
 
 The template for the `CloneMembers` method is as follows:
 
-[!metalama-file CloneableAttribute.cs member="CloneableAttribute.CloneMembers]
+[!metalama-file CloneableAttribute.cs member="CloneableAttribute.CloneMembers"]
 
 As you can see, we moved the logic that clones individual fields to this method. We call `meta.Proceed()` _last_, so
 hand-written code is executed after aspect-generated code and can fix whatever gap the aspect left.
