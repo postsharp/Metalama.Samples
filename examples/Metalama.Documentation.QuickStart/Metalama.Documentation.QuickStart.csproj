@@ -5,10 +5,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>True</IsPackable>
+        <Description>Contains trivial aspects used in Metalama's getting started documentation. Do not use in production code.</Description>
+        <PackageReadmeFile>README.pkg.md</PackageReadmeFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Metalama.Framework"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.pkg.md" Pack="true" PackagePath="/" />
     </ItemGroup>
 
 </Project>
