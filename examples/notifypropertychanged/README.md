@@ -2,7 +2,7 @@
 uid: sample-notifypropertychanged
 ---
 
-# Example: INotifyPropertyChanged
+# Example: custom INotifyPropertyChanged aspect
 
 [!metalama-project-buttons .]
 
@@ -27,6 +27,9 @@ displayed in green.
 [!metalama-compare MovingVertex.cs]
 
 ## Implementation
+
+> [!WARNING]
+> The objective of this example is to teach you to build aspects of moderate complexity. For an open-source and production-ready implementation, see <xref:observability>. 
 
 In this example, we will explain the simplest possible implementation of the `NotifyPropertyChanged` aspect. As with any
 aspect, before starting to write code, it is good to take a pause and think a few minutes about the design. Here is how
@@ -101,9 +104,7 @@ current property.
 
 ## Limitations
 
-This implementation has limitations that you should be aware of. Note that all trivial implementations
-of <xref:System.ComponentModel.INotifyPropertyChanged> suffer from the same limitations. The only robust implementation
-we know about is the one of [PostSharp](https://doc.postsharp.net/model/notifypropertychanged/inotifypropertychanged).
+This implementation has limitations that you should be aware of. 
 
 ### Limitation 1. Dependent properties
 
@@ -121,8 +122,9 @@ class Person
 }
 ```
 
-Currently, Metalama doesn't provide any way to analyze dependent properties. This will be remediated in a future
-version.
+> [!TIP]
+> For an open-source and production-ready implementation that support dependent properties, see <xref:observability>.
+
 
 ### Limitation 2. Timing of notifications
 

@@ -32,7 +32,7 @@ You can clearly see two steps in this method. We will comment on them independen
 The first operation of `BuildAspect` is to add the <xref:System.ICloneable> method to the current type using
 the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method.
 
-[!metalama-file CloneableAttribute.cs from="BuildAspect1:Start" from="BuildAspect1:End"]
+[!metalama-file CloneableAttribute.cs marker="BuildAspect1"]
 
 If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are
 specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>.
@@ -57,7 +57,7 @@ yet. For details regarding these techniques, see <xref:template-dynamic-code>
 The second operation of `BuildAspect` is to introduce a method named `Clone` by
 invoking <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>.
 
-[!metalama-file CloneableAttribute.cs from="BuildAspect2:Start" from="BuildAspect2:End"]
+[!metalama-file CloneableAttribute.cs marker="BuildAspect2"]
 
 We set the <xref:Metalama.Framework.Aspects.OverrideStrategy> to `Override`, indicating that the method should be
 overridden if it already exists in the type. The invocation

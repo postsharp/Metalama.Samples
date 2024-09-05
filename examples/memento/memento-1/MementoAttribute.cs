@@ -7,7 +7,7 @@ public sealed class MementoAttribute : TypeAspect
     [CompileTime]
     private record BuildAspectInfo(
         // The newly introduced Memento type.
-        INamedType MementoType, 
+        INamedType MementoType,
         // Mapping from fields or properties in the Originator to the corresponding property
         // in the Memento type.
         Dictionary<IFieldOrProperty, IProperty> PropertyMap,
@@ -18,23 +18,27 @@ public sealed class MementoAttribute : TypeAspect
     {
         /*<IntroduceType>*/
         // Introduce a new private nested class called Memento.
-        var mementoType =  
+        var mementoType =
             builder.IntroduceClass(
                 "Memento",
-                buildType: b => b.Accessibility = Metalama.Framework.Code.Accessibility.Private ); /*</IntroduceType>*/ 
-        
+                buildType: b =>
+                    b.Accessibility =
+                        Metalama.Framework.Code.Accessibility.Private ); /*</IntroduceType>*/
+
         var originatorFieldsAndProperties = builder.Target.FieldsAndProperties /*<SelectFields>*/
             .Where( p => p is
             {
                 IsStatic: false,
-                IsAutoPropertyOrField: true, 
+                IsAutoPropertyOrField: true,
                 IsImplicitlyDeclared: false,
                 Writeability: Writeability.All
             } )
-            .Where( p => !p.Attributes.OfAttributeType( typeof(MementoIgnoreAttribute) ).Any() ); /*</SelectFields>*/
+            .Where( p =>
+                !p.Attributes.OfAttributeType( typeof(MementoIgnoreAttribute) )
+                    .Any() ); /*</SelectFields>*/
 
         // Introduce data properties to the Memento class for each field of the target class.
-        var propertyMap = new Dictionary<IFieldOrProperty, IProperty>();  /*<IntroduceProperties>*/
+        var propertyMap = new Dictionary<IFieldOrProperty, IProperty>(); /*<IntroduceProperties>*/
 
         foreach ( var fieldOrProperty in originatorFieldsAndProperties )
         {
@@ -51,19 +55,23 @@ public sealed class MementoAttribute : TypeAspect
 
             propertyMap.Add( fieldOrProperty, introducedField.Declaration );
         } /*</IntroduceProperties>*/
-        
+
         // Add a constructor to the Memento class that records the state of the originator.
         mementoType.IntroduceConstructor( /*<IntroduceConstructor>*/
             nameof(this.MementoConstructorTemplate),
-            buildConstructor: b => { b.AddParameter( "originator", builder.Target ); } ); /*</IntroduceConstructor>*/
+            buildConstructor: b =>
+            {
+                b.AddParameter( "originator", builder.Target );
+            } ); /*</IntroduceConstructor>*/
 
 
         // Implement the IMemento interface on the Memento class and add its members.   
-        mementoType.ImplementInterface( typeof(IMemento), whenExists: OverrideStrategy.Ignore ); /*<AddMementoInterface>*/
-        
+        mementoType.ImplementInterface( typeof(IMemento),
+            whenExists: OverrideStrategy.Ignore ); /*<AddMementoInterface>*/
+
         var originatorProperty =
-            mementoType.IntroduceProperty( nameof(this.Originator) );  /*</AddMementoInterface>*/
-        
+            mementoType.IntroduceProperty( nameof(this.Originator) ); /*</AddMementoInterface>*/
+
         // Implement the rest of the IOriginator interface and its members.
         builder.ImplementInterface( typeof(IMementoable) ); /*<AddMementoableInterface>*/
 
@@ -81,7 +89,7 @@ public sealed class MementoAttribute : TypeAspect
             originatorProperty.Declaration ); /*</SetTag>*/
     }
 
-    [Template] public object? MementoProperty { get; } 
+    [Template] public object? MementoProperty { get; }
 
     [Template] public IMementoable? Originator { get; }
 

@@ -2,7 +2,8 @@
 
 internal class SpeciesConverter : IValueConverter
 {
-    public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
+    public object Convert( object value, Type targetType, object parameter,
+        System.Globalization.CultureInfo culture )
     {
         if ( value is string s )
         {
@@ -16,7 +17,7 @@ internal class SpeciesConverter : IValueConverter
                     2 => "🐡",
                     3 => "🦈",
                     4 => "🐬",
-                    _ => throw new NotImplementedException(),
+                    _ => throw new NotImplementedException()
                 }
             };
         }
@@ -24,8 +25,6 @@ internal class SpeciesConverter : IValueConverter
         return "";
     }
 
-    public object ConvertBack( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
-    {
-        return "";
-    }
+    public object ConvertBack( object value, Type targetType, object parameter,
+        System.Globalization.CultureInfo culture ) => "";
 }
