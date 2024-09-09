@@ -5,7 +5,7 @@
   </PropertyGroup>
   <!-- Set versions of dependencies that need special treatment or consist of multiple packages of the same version. -->
   <PropertyGroup>
-    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.111</PostSharpEngineeringVersion>
+    <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.124</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaExtensionsVersion)" />
