@@ -2,6 +2,7 @@
 uid: sample-string-normalization
 level: 100
 summary: "This project demonstrates simple string normalization aspects like trimming, upper-casing, and UTF normalization, using a base aspect class to handle common behaviors."
+keywords: "string normalization, trimming, upper-casing, UTF normalization, .NET"
 ---
 
 # Example: String normalization
@@ -37,5 +38,6 @@ With this base class, the concrete implementations are almost trivial. The only 
 Let's look at the implementation of the Trim aspect:
 
 [!metalama-file TrimAttribute.cs ]
+
 
 

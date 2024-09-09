@@ -2,6 +2,7 @@
 uid: sample-log-5
 level: 300
 summary: "The document explains implementing an aspect that requires an existing `ILogger` field, reporting errors if missing or incorrect, and handling eligibility for static methods."
+keywords: "logging aspect, eligibility"
 ---
 
 # Logging example, step 5: ILogger without dependency injection
@@ -91,4 +92,5 @@ aspect.
 > <xref:overriding-methods>
 > <xref:template-parameters>
 > <xref:eligibility>
+
 

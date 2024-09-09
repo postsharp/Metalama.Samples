@@ -2,6 +2,7 @@
 uid: sample-retry-4
 level: 300
 summary: "This document describes adding real-world logging to a retry mechanism, including code updates and warnings about logging sensitive information."
+keywords: "logging, retry"
 ---
 
 # Retry example, step 4: Adding logging
@@ -62,4 +63,5 @@ Below is the aspect code update:
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
 > <xref:template-dynamic-code>
+
 

@@ -17,3 +17,4 @@ Unless you create change-tracking collection classes, you must design your class
 
 If you have an object model with parent-child relationships, you may need to call the `OnChange` method of the parent object when any child object is being modified.
 
+

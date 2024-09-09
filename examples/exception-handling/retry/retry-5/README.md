@@ -2,6 +2,7 @@
 uid: sample-retry-5
 level: 300
 summary: "This document explains how to use Polly for advanced retry policies and how to integrate it with Metalama to reduce boilerplate code."
+keywords: "Polly, retry policies, boilerplate code, .NET, PolicyKind, IPolicyFactory, resilience framework"
 ---
 
 # Retry example, step 5: Using Polly
@@ -68,4 +69,5 @@ all method arguments when the method fails.
 
 We now have the best of both worlds: a fully-featured resilience framework with Polly, and boilerplate reduction with
 Metalama.
+
 

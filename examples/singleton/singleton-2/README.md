@@ -1,6 +1,7 @@
 ---
 uid: sample-singleton-2
 summary: "This document explains how to implement the modern Singleton pattern. The modern singleton pattern, managed by dependency injection, requires a public constructor but risks multiple instances. Metalama architecture validation can mitigate this."
+keywords: "Singleton pattern, dependency injection"
 ---
 
 # Example: The Modern Singleton Pattern
@@ -35,4 +36,5 @@ To validate this constraint, we can use Metalama architecture validation (see <x
 Now, if we attempt to instantiate the `PerformanceCounterManager` from production code, we receive a warning:
 
 [!metalama-file IllegalUse.cs]
+
 

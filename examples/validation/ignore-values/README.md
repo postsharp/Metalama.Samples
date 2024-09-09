@@ -1,5 +1,6 @@
 ---
 uid: sample-ignore-value
+keywords: "ignore values, forbidden value, .NET"
 ---
 
 # Example: Ignore Values

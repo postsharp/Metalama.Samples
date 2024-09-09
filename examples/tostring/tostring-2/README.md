@@ -1,6 +1,7 @@
 ---
 uid: sample-tostring-2
 summary: "This document describes enhancing a `ToString` aspect by adding a `[NotToString]` attribute and lightbulb menu suggestions for better customization and usability."
+keywords: "ToString method, lightbulb menu, customization,  code fixes, refactorings"
 ---
 
 # ToString example, step 2: Adding code fixes and refactorings
@@ -66,6 +67,7 @@ As in the previous code fix, this can be achieved by calling the <xref:Metalama.
 Here is the code:
 
 [!metalama-file ToStringAttribute.cs marker="SwitchToManualImplementation"]
+
 
 
 

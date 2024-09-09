@@ -2,6 +2,7 @@
 uid: sample-log-3
 level: 250
 summary: "This document explains how to enhance logging by including runtime parameter values and return values, while cautioning against logging sensitive information."
+keywords: "logging, runtime parameter values, return values"
 ---
 
 # Logging example, step 3: Adding parameters values
@@ -76,4 +77,5 @@ compile-time code.
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
 > <xref:template-dynamic-code>
+
 

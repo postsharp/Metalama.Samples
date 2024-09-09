@@ -1,6 +1,7 @@
 ---
 uid: sample-singleton-1
 summary: "This document shows how to implement the classic Singleton pattern using an aspect. This pattern ensures a single instance of a class with a private constructor and a static instance property."
+keywords: "Singleton pattern"
 ---
 
 # Example: The Classic Singleton Pattern
@@ -72,4 +73,5 @@ If the target class does not contain any user-defined constructor, the C# langua
 The complete aspect implementation is provided below:
 
 [!metalama-file SingletonAttribute.cs]
+
 

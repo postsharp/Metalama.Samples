@@ -2,6 +2,7 @@
 uid: sample-enrich-exception
 level: 200
 summary: "This document demonstrates how to enrich exceptions with parameter values, enhancing call stacks for better debugging and context."
+keywords: "exception handling, call stacks, debugging, parameter values, .NET, enrich exceptions, context information, exception handler, crash report"
 ---
 
 # Example: Enriching exceptions with parameter values
@@ -79,4 +80,5 @@ the `EnrichExceptionHelper.AppendContextFrame` method.
 > Including sensitive information (e.g., user credentials, personal data, etc.) in logs can pose a security risk. Be
 > cautious when adding parameter values to logs and avoid exposing sensitive data.
 > To remove sensitive information from the logs, see <xref:sample-log-7>
+
 

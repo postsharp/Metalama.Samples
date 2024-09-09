@@ -2,6 +2,7 @@
 uid: sample-log-6
 level: 300
 summary: "This document explains how to programmatically add logging aspects to all public methods in a namespace using Metalama's ProjectFabric, avoiding manual attribute application."
+keywords: "logging aspect,  programmatically, add aspects, fabric"
 ---
 
 # Logging example, step 6: Adding the aspect programmatically
@@ -35,4 +36,5 @@ We can see that the `Calculator` class has been transformed, even though there i
 
 > [!div class="see-also"]
 > <xref:fabrics-adding-aspects>
+
 

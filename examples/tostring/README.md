@@ -1,6 +1,7 @@
 ---
 uid: sample-tostring
 summary: "This document outlines a series on creating an aspect to generate the `ToString` method from properties, including configurability and code refactorings."
+keywords: "ToString method, aspect, code generation"
 ---
 
 # Example: Generating the ToString method
@@ -11,4 +12,5 @@ In this series, we will show how to create an aspect that generates the `ToStrin
 |------------------------------------------------------------------------|-------------------------------------------------------------------------------|
 | [Generating the ToString method from properties](tostring-1/README.md) | We start with a simple implementation.                                        |
 | [Suggesting code refactorings](tostring-2/README.md)                   | We add a way to skip property and we improve the DevEx with code refactorings |
+
 
