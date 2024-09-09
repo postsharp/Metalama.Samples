@@ -2,7 +2,7 @@
 uid: sample-report-and-swallow
 level: 200
 summary: "This document explains the _Report and Swallow_ exception-handling strategy for last-chance exceptions in plug-in applications, utilizing the `ReportAndSwallowExceptions` aspect to automate exception handling."
-keywords: "exception-handling strategy, last-chance exceptions, `try...catch` block, `ILastChanceExceptionHandler`
+keywords: "exception-handling strategy, last-chance exceptions, `try...catch` block, `ILastChanceExceptionHandler`"
 created-date: 2023-04-06
 modified-date: 2024-09-09
 ---
