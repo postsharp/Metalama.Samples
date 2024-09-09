@@ -1,6 +1,7 @@
 ---
 uid: sample-log-1
 level: 200
+summary: "This document introduces a basic example of aspect-oriented programming using Metalama to log method start and completion messages."
 ---
 
 # Logging example, step 1: Getting started
@@ -44,3 +45,4 @@ Visual Studio, the text is colored differently than the rest of the code.
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
   
+

@@ -1,6 +1,7 @@
 ---
 uid: sample-log-8
 level: 300
+summary: "Avoid infinite recursion in logging by using `LoggingRecursionGuard` to prevent stack overflow and performance issues."
 ---
 
 # Logging example, step 8: Avoiding infinite recursion
@@ -44,3 +45,4 @@ We can update the previous example with this new approach:
 The `LogAttribute` code has been updated as follows:
 
 [!metalama-file LogAttribute.cs]
+

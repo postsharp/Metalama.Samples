@@ -1,6 +1,7 @@
 ---
 uid: sample-cache-1
 level: 250
+summary: "This document explains the basics of implementing caching using an aspect-oriented approach, comparing non-cached and cached code, and detailing the infrastructure and aspect code."
 ---
 
 # Caching example, step 1: getting started
@@ -59,3 +60,4 @@ a `dynamic` object representing the interpolated string. It can be cast to a `st
 > - <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > - <xref:template-compile-time>
 > - <xref:template-dynamic-code>
+

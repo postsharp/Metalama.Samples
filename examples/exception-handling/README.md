@@ -1,5 +1,6 @@
 ---
 uid: samples-exception-handling
+summary: "This document provides examples of exception handling, covering retry mechanisms, enriching exceptions for debugging, and reporting/swallowing last-chance exceptions."
 ---
 
 # Examples: exception handling

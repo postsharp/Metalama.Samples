@@ -1,6 +1,7 @@
 ---
 uid: sample-retry-1
 level: 200
+summary: "This document introduces a `RetryAttribute` class that retries method execution on exceptions, demonstrating its implementation and limitations."
 ---
 
 # Retry example, step 1: Getting started
@@ -69,3 +70,4 @@ We will address these limitations in the following examples.
   
 
   
+

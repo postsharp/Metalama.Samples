@@ -1,5 +1,6 @@
 ---
 uid: sample-dirty-4
+summary: "This article explains how to implement the ability to revert changes in objects using the `IRevertibleChangeTracking` interface in .NET."
 ---
 
 # Change Tracking example, step 4: reverting changes
@@ -57,3 +58,4 @@ and do the opposite in the `RejectChanges` method.
 > [!div class="see-also"]
 > <xref:introducing-members>
 > <xref:sharing-state-with-advice>
+

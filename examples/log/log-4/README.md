@@ -1,6 +1,7 @@
 ---
 uid: sample-log-4
 level: 300
+summary: "This document explains how to transition from using `Console.WriteLine` to `ILogger` for logging in .NET, emphasizing dependency injection for better flexibility, maintainability, and testability."
 ---
 
 # Logging example, step 4: Using ILogger
@@ -47,3 +48,4 @@ a `string`, which helps the C# compiler find the correct extension method.
 
 > [!div class="see-also"]
 > <xref:dependency-injection>
+

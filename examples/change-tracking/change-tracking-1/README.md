@@ -1,5 +1,6 @@
 ---
 uid: sample-dirty-1
+summary: "This article discusses creating an aspect to implement the `IChangeTracking` interface, focusing on design decisions and implementation details."
 ---
 
 # Change Tracking Example, Step 1: Getting Started
@@ -91,3 +92,4 @@ report an error when this happens.
 > <xref:overriding-fields-or-properties>
 
   
+

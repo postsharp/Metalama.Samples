@@ -1,6 +1,7 @@
 ---
 uid: sample-report-and-swallow
 level: 200
+summary: "This document explains the _Report and Swallow_ exception-handling strategy for last-chance exceptions in plug-in applications, utilizing the `ReportAndSwallowExceptions` aspect to automate exception handling."
 ---
 
 # Example: Report and swallow exceptions
@@ -75,3 +76,4 @@ the `_exceptionHandler` field does the magic of introducing the field and pullin
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
 > <xref:dependency-injection>
+

@@ -1,6 +1,7 @@
 ---
 uid: sample-memento-1
 level: 300
+summary: "This document explains the implementation of the Memento pattern in a WPF application, focusing on creating and managing mementos without type inheritance."
 ---
 
 # Memento example, step 1: a basic aspect
@@ -128,3 +129,4 @@ Let's now put all the bits together. Here is the complete source code of our asp
 [!metalama-file MementoAttribute.cs]
 
 This implementation does not support type inheritance, i.e., a memento-able object cannot inherit from another memento-able object. In the next article, we will see how to support type inheritance.
+

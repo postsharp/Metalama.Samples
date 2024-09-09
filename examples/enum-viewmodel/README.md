@@ -1,6 +1,7 @@
 ---
 uid: sample-enum-viewmodel
 level: 200
+summary: "This document describes creating an aspect in Metalama to generate view-model classes for `enum` types, producing `IsFoo` properties for each enum member."
 ---
 
 # Example: Enum View-Model
@@ -100,3 +101,4 @@ In this template, `meta.Tags["member"]` refers to the `member` tag passed by `Bu
 Putting all the pieces together, here is the complete code of the aspect:
 
 [!metalama-file GenerateEnumViewModelAttribute.cs]
+

@@ -1,5 +1,6 @@
 ---
 uid: sample-shared-fabric
+summary: "This document is an example by Whit Waldo demonstrating shared fabrics, including projects with logging aspects and a project fabric for applying these aspects."
 ---
 
 # Example: shared fabrics
@@ -14,6 +15,7 @@ It contains the following files and directories:
 * `Models/` and `App/` are two projects that must be logged.
 * `SharedFabrics.cs` is a project fabric that adds the logging aspect to all public and internal classes of the current project.
 * `Directory.Build.props` includes `SharedFabrics.cs` in all projects in any subdirectory.
+
 
 
 

@@ -1,5 +1,6 @@
 ---
 uid: sample-clone-1
+summary: "This document outlines the initial steps to create a `Cloneable` aspect in C#, focusing on deep cloning by marking child properties with a custom `[Child]` attribute."
 ---
 
 # Clone example, step 1: getting started
@@ -114,3 +115,4 @@ method or that child properties are not read-only. We will address this problem 
 > <xref:introducing-members>
 > <xref:implementing-interfaces>
 > <xref:template-dynamic-code>
+

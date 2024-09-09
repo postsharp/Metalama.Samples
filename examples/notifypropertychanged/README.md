@@ -1,5 +1,6 @@
 ---
 uid: sample-notifypropertychanged
+summary: "This document explains how to implement a custom `INotifyPropertyChanged` aspect using Metalama to reduce boilerplate code in .NET applications, highlighting its implementation and limitations."
 ---
 
 # Example: custom INotifyPropertyChanged aspect

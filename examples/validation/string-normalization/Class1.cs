@@ -13,6 +13,4 @@ public class Class1
     {
         Console.WriteLine($"Country: {country}");
     }
-    
-    
 }

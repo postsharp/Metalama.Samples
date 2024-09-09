@@ -1,6 +1,7 @@
 ---
 uid: sample-memento
 level: 300
+summary: "The Memento pattern captures an object's internal state to enable undo/redo functionality. This series simplifies its implementation using Metalama."
 ---
 
 # Example: Memento Pattern
@@ -21,3 +22,4 @@ We start with the most trivial implementation and progressively add new features
 |---------|-------------|
 | [Basic aspect](memento-1/README.md) | This is the simplest possible implementation of the Memento pattern. |
 | [Supporting type inheritance](memento-2/README.md) | We allow memento-able objects to inherit from each other. |
+

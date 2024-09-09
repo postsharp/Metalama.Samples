@@ -1,5 +1,6 @@
 ---
 uid: sample-log
+summary: "This document outlines a series of examples for implementing logging in application development, covering aspects from basic logging to advanced features like dependency injection and data redaction."
 ---
 
 # Example: Logging

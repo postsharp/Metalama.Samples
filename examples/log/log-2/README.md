@@ -1,6 +1,7 @@
 ---
 uid: sample-log-2
 level: 200
+summary: "This document describes enhancing a logging aspect to include method names and signatures, improving its utility across multiple methods."
 ---
 
 # Logging example, step 2: Adding the method name
@@ -26,3 +27,4 @@ pseudo-keyword means that the expression on the right side is evaluated at compi
 
 > [!div class="see-also"]
 > <xref:template-overview>
+
