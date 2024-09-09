@@ -3,6 +3,8 @@ uid: sample-retry-3
 level: 200
 summary: "This document explains how to handle `CancellationToken` parameters in async methods by adjusting the `OverrideMethodAspect` template to transfer the token to `Task.Delay`."
 keywords: "CancellationToken, async methods, handle cancellation tokens, CancellationToken parameter"
+created-date: 2023-04-05
+modified-date: 2024-09-09
 ---
 
 # Retry example, step 3: Handling cancellation tokens
@@ -58,5 +60,6 @@ Our example still has two drawbacks:
 > [!div class="see-also"]
 > <xref:template-compile-time>
 > <xref:template-dynamic-code>
+
 
 

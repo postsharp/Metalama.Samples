@@ -2,6 +2,8 @@
 uid: sample-tostring-1
 summary: "This document explains how to implement a `[ToString]` aspect in Metalama to generate a `ToString` method based on public fields and properties."
 keywords: "ToString method, generate code"
+created-date: 2024-09-05
+modified-date: 2024-09-09
 ---
 
 # ToString example, step 1: Getting started
@@ -43,5 +45,6 @@ We enumerate the <xref:Metalama.Framework.Code.INamedType.AllFieldsAndProperties
 For each public field or property, we call <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddText*> to add the member name, then <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder.AddExpression*> to add the member value.
 
 At the end of the method, we call the <xref:Metalama.Framework.Code.SyntaxBuilders.ExpressionBuilderExtensions.ToValue*> method to build a run-time interpolated string from the compile-time <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>, which is the return value of our `ToString` method.
+
 
 

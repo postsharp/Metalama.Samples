@@ -2,6 +2,8 @@
 uid: sample-clone-3
 summary: "The document explains enhancing a `Cloneable` aspect to allow custom user logic for cloning external types and collections by implementing a `CloneMembers` method."
 keywords: "Cloneable aspect"
+created-date: 2023-04-21
+modified-date: 2024-09-09
 ---
 
 # Clone example, step 3: allowing handmade customizations
@@ -54,5 +56,6 @@ We updated the aspect to add an extensibility mechanism allowing the user to imp
 support by the aspect. The problem with this approach is that users may easily forget that they have to supply
 a `private void CloneMembers(T clone)` method. To remedy this issue, we will provide them with suggestions in the code
 refactoring menu.
+
 
 

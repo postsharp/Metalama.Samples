@@ -2,6 +2,8 @@
 uid: sample-clone-4
 summary: "The document explains how to enhance a Deep Clone aspect by adding coding guidance, including refactoring suggestions and warnings with code fixes."
 keywords: "Deep Clone, cloneable, cloning"
+created-date: 2023-04-21
+modified-date: 2024-09-09
 ---
 
 # Clone example, step 3: adding coding guidance
@@ -101,5 +103,6 @@ method.
 
 > [!div class="see-also"]
 > <xref:building-ide-interactions>
+
 
 

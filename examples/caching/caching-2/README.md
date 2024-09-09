@@ -3,6 +3,8 @@ uid: sample-cache-2
 level: 250
 summary: "This document enhances caching by adding eligibility checks to prevent applying the aspect to `void` methods or methods with `out` or `ref` parameters."
 keywords: "caching, eligibility checks"
+created-date: 2023-04-06
+modified-date: 2024-09-09
 ---
 
 # Caching example, step 2: adding eligibility
@@ -26,5 +28,6 @@ An error is now reported when the user tries to apply the aspect to an unsupport
 
 > [!div class="see-also"]
 > <xref:eligibility>
+
 
 

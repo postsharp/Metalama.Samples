@@ -2,6 +2,8 @@
 uid: sample-notifypropertychanged
 summary: "This document explains how to implement a custom `INotifyPropertyChanged` aspect using Metalama to reduce boilerplate code in .NET applications, highlighting its implementation and limitations."
 keywords: "INotifyPropertyChanged, data binding, MVVM pattern, aspect,  PropertyChanged event"
+created-date: 2023-03-28
+modified-date: 2024-09-09
 ---
 
 # Example: custom INotifyPropertyChanged aspect
@@ -173,4 +175,5 @@ Contrarily to the first limitation, it's possible to address this limitation, bu
 If the target type already implements the <xref:System.ComponentModel.INotifyPropertyChanged> interface but does _not_
 implement the `OnPropertyChanged` method, the aspect will generate invalid code. This limitation can be easily addressed
 with Metalama.
+
 

@@ -3,6 +3,8 @@ uid: sample-cache-3
 level: 300
 summary: "This document explains how to build a cache key using a custom attribute `[CacheKeyMember]` and an `ICacheKey` interface, detailing the design and implementation process."
 keywords: "cache key, caching implementation"
+created-date: 2023-04-06
+modified-date: 2024-09-09
 ---
 
 # Caching example, step 3: building the cache key
@@ -112,5 +114,6 @@ using a global <xref:Metalama.Framework.Aspects.AspectOrderAttribute>:
 > [!div class="see-also"]
 > <xref:child-aspects>
 > <xref:ordering-aspects>
+
 
 

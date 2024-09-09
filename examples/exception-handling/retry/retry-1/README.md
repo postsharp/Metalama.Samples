@@ -3,6 +3,8 @@ uid: sample-retry-1
 level: 200
 summary: "This document introduces a `RetryAttribute` class that retries method execution on exceptions, demonstrating its implementation and limitations."
 keywords: "RetryAttribute, exceptions, OverrideMethodAspect, retry behavior, .NET, method retries, exception handling, custom attribute"
+created-date: 2023-04-05
+modified-date: 2024-09-09
 ---
 
 # Retry example, step 1: Getting started
@@ -71,5 +73,6 @@ We will address these limitations in the following examples.
   
 
   
+
 
 

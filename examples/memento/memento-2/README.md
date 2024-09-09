@@ -3,6 +3,8 @@ uid: sample-memento-2
 level: 300
 summary: "This article explains how to extend a Memento design pattern to support type inheritance using the Metalama framework, including validation and method overrides."
 keywords: "Memento design pattern, IMementoable, nested type"
+created-date: 2024-09-09
+modified-date: 2024-09-09
 ---
 
 # Memento example, step 2: supporting type inheritance
@@ -86,5 +88,6 @@ Finally, we must edit the `RestoreMemento` template to ensure it calls the `base
 Here is the `MementoAttribute`, now supporting class inheritance.
 
 [!metalama-file MementoAttribute.cs]
+
 
 

@@ -2,6 +2,8 @@
 uid: sample-clone-2
 summary: "This document discusses improving a Deep Clone aspect by adding error reporting for unsupported situations like read-only fields, non-cloneable types, and non-automatic properties."
 keywords: "Deep Clone, Clone method"
+created-date: 2023-04-21
+modified-date: 2024-09-09
 ---
 
 # Clone example, step 1: verifying code
@@ -70,5 +72,6 @@ instead of just one?
 
 > [!div class="see-also"]
 > <xref:diagnostics>
+
 
 

@@ -3,6 +3,8 @@ uid: sample-retry-2
 level: 200
 summary: "The document discusses handling `async` methods in a retry mechanism, using `await Task.Delay` instead of `Thread.Sleep`, and highlights limitations like improper `CancellationToken` handling and basic logging."
 keywords: "async methods, retry mechanism, OverrideAsyncMethod, meta.ProceedAsync, meta.Proceed, .NET"
+created-date: 2023-04-05
+modified-date: 2024-09-09
 ---
 
 # Retry example, step 2: Handling async methods
@@ -37,5 +39,6 @@ There are still two limitations in this example:
 > [!div class="see-also"]
 > <xref:simple-override-method>
 > <xref:quickstart-adding-aspects>
+
 
 

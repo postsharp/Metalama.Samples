@@ -1,6 +1,8 @@
 ---
 uid: sample-ignore-value
 keywords: "ignore values, forbidden value, .NET"
+created-date: 2023-03-28
+modified-date: 2024-09-09
 ---
 
 # Example: Ignore Values
@@ -37,3 +39,4 @@ Both cases could be handled by a more complex aspect. However, in this example, 
 Here is the complete source code of the aspect.
 
 [!metalama-file IgnoreValuesAttribute.cs]
+

@@ -2,6 +2,8 @@
 uid: sample-retry
 summary: "The document discusses the importance of retry mechanisms for system reliability and explains a series of articles on implementing automatic retries with features like async support, logging, and using Polly."
 keywords: "retry mechanisms, C#, .NET, transient faults, exponential backoff, automatic retries, async support, logging, Polly"
+created-date: 2023-04-06
+modified-date: 2024-09-09
 ---
 
 # Sample: retry
@@ -23,5 +25,6 @@ We start with the most basic implementation and add features progressively.
 | <xref:sample-retry-3> | Here, we add support for `CancellationToken` parameters, which we pass to `Task.Delay`. |
 | <xref:sample-retry-4> | We now add proper logging using `ILogger` and dependency injection. |
 | <xref:sample-retry-5> | Finally, we show how to use Polly instead of our custom and naïve implementation of the retry logic. |
+
 
 

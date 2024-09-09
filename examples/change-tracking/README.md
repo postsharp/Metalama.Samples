@@ -2,6 +2,8 @@
 uid: sample-dirty
 summary: "The document explains the _Dirty Flag_ pattern for tracking object state changes, its implementation in .NET, and automating it using aspect-oriented programming."
 keywords: "Dirty Flag pattern, object state changes, .NET, track changes, IChangeTracking interface"
+created-date: 2023-04-18
+modified-date: 2024-09-09
 ---
 
 # Example: Change Tracking
@@ -17,5 +19,6 @@ Implementing the _Dirty Flag_ pattern typically requires adding a large amount o
 | [3. Integrating with INotifyPropertyChanged](change-tracking-3/README.md) | Raises `PropertyChange` notifications when the `IsChanged` property has changed. |
 | [4. Reverting changes](change-tracking-4/README.md) | Adds support for the `RevertChanges` method. |
 | [Limitations](limitations.md) | This article discusses the limitations of the above aspects. |
+
 
 

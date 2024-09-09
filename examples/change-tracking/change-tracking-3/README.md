@@ -2,6 +2,8 @@
 uid: sample-dirty-3
 summary: "This document explains integrating the `TrackChanges` aspect with the `INotifyPropertyChanged` pattern, detailing implementation steps and considerations for combining patterns."
 keywords: "IChangeTracking interface, INotifyPropertyChanged interface, NotifyPropertyChanged event, OnPropertyChanged method, change tracking"
+created-date: 2023-04-18
+modified-date: 2024-09-09
 ---
 
 # Change Tracking example, step 3: integrating with INotifyPropertyChanged
@@ -94,5 +96,6 @@ object.
 
 > [!div class="see-also"]
 > <xref:sample-notifypropertychanged>
+
 
 

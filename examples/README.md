@@ -2,6 +2,8 @@
 uid: samples
 summary: "The document provides tutorial examples for using Metalama, covering topics like validation, logging, caching, exception handling, property change notification, change tracking, cloning, memento pattern, enum view-model, shared fabric, and ToString implementation."
 keywords: "Metalama examples, Metalama samples"
+created-date: 2023-03-28
+modified-date: 2024-09-09
 ---
 
 # Commented examples
@@ -23,5 +25,6 @@ This chapter shows a few examples that demonstrate how to use Metalama. Each of 
 | [ToString](tostring/README.md)        | Implements the <xref:System.Object.ToString*> method.                                                           |
 
 If you have developed an original aspect with Metalama, consider [contributing](contributing.md) to this list.
+
 
 
