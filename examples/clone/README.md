@@ -1,5 +1,9 @@
 ---
 uid: sample-clone
+summary: "The Deep Clone pattern creates a completely separate copy of an object, including all its properties and sub-properties, using recursive cloning."
+keywords: "Deep Clone, recursively cloning, automate, aspect"
+created-date: 2023-03-28
+modified-date: 2024-09-09
 ---
 
 # Example: deep cloning
@@ -19,3 +23,6 @@ Implementing deep cloning can be error-prone and time-consuming, requiring much 
 | [2. Verifying code](clone-2/README.md) | Reports errors when the child properties are not of a cloneable type. |
 | [3. Allowing handmade customizations](clone-3/README.md) | Adds extension points to allow for hand-made handling of properties. |
 | [4. Adding coding guidance](clone-4/README.md) | Adds a coding guidance to the refactoring menu to help developers write the customization method.
+
+
+

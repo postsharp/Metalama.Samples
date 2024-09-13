@@ -1,5 +1,9 @@
 ---
 uid: sample-singleton
+summary: "The Singleton pattern ensures a class has only one instance, maintaining state consistency and reducing resource overhead. This series explores classic and modern Singleton implementations."
+keywords: "Singleton pattern"
+created-date: 2024-07-09
+modified-date: 2024-09-09
 ---
 
 # Example: Singleton
@@ -22,3 +26,6 @@ We will explore various ways to improve the Singleton pattern:
 |--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | [Classic singleton](singleton-1/README.md) | We'll start with the classic Singleton pattern, where the class has a private constructor and a public static property `Instance`. |
 | [Modern singleton](singleton-2/README.md)  | We'll discover how to improve safety for "singleton" classes that are used with dependency injection and testing.                  |
+
+
+

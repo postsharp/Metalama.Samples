@@ -1,6 +1,10 @@
 ---
 uid: sample-cache-4
 level: 300
+summary: "This document discusses generating cache keys for external types by introducing cache key builders and compile-time error reporting for unsupported types."
+keywords: "cache key"
+created-date: 2023-04-12
+modified-date: 2024-09-09
 ---
 
 # Caching example, step 4: cache key for external types
@@ -133,3 +137,6 @@ The aspects can be applied to some business code as follows:
 > <xref:aspect-configuration>
 > <xref:fabrics>
 > <xref:diagnostics>
+
+
+

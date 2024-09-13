@@ -1,5 +1,9 @@
 ---
 uid: sample-clone-1
+summary: "This document outlines the initial steps to create a `Cloneable` aspect in C#, focusing on deep cloning by marking child properties with a custom `[Child]` attribute."
+keywords: "Cloneable aspect, deep cloning, ICloneable interface, MemberwiseClone"
+created-date: 2023-04-21
+modified-date: 2024-09-09
 ---
 
 # Clone example, step 1: getting started
@@ -15,7 +19,7 @@ Before we start writing the aspect, we must materialize in C# the concept of a _
 property is a property that points to a reference-type object that needs to be cloned when the parent object is cloned.
 Let's decide to mark such properties with the `[Child]` custom attribute:
 
-[!metalama-file CloneableAttribute.cs]
+[!metalama-file ChildAttribute.cs]
 
 ## Aspect implementation
 
@@ -32,7 +36,7 @@ You can clearly see two steps in this method. We will comment on them independen
 The first operation of `BuildAspect` is to add the <xref:System.ICloneable> method to the current type using
 the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> method.
 
-[!metalama-file CloneableAttribute.cs from="BuildAspect1:Start" from="BuildAspect1:End"]
+[!metalama-file CloneableAttribute.cs marker="BuildAspect1"]
 
 If the type already implements the <xref:System.ICloneable> method, we don't need to do anything, so we are
 specifying `Ignore` as the <xref:Metalama.Framework.Aspects.OverrideStrategy>.
@@ -57,7 +61,7 @@ yet. For details regarding these techniques, see <xref:template-dynamic-code>
 The second operation of `BuildAspect` is to introduce a method named `Clone` by
 invoking <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*>.
 
-[!metalama-file CloneableAttribute.cs from="BuildAspect2:Start" from="BuildAspect2:End"]
+[!metalama-file CloneableAttribute.cs marker="BuildAspect2"]
 
 We set the <xref:Metalama.Framework.Aspects.OverrideStrategy> to `Override`, indicating that the method should be
 overridden if it already exists in the type. The invocation
@@ -114,3 +118,6 @@ method or that child properties are not read-only. We will address this problem 
 > <xref:introducing-members>
 > <xref:implementing-interfaces>
 > <xref:template-dynamic-code>
+
+
+

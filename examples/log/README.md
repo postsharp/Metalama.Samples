@@ -1,5 +1,9 @@
 ---
 uid: sample-log
+summary: "This document outlines a series of examples for implementing logging in application development, covering aspects from basic logging to advanced features like dependency injection and data redaction."
+keywords: "logging, aspect, ILogger, tracing"
+created-date: 2023-03-29
+modified-date: 2024-09-09
 ---
 
 # Example: Logging
@@ -28,3 +32,5 @@ We start with the most trivial implementation and progressively add new features
 | [Adding logging to many methods](log-6/README.md) | So far, we have manually added a custom attribute to each method. In this example, we show how to target several methods programmatically using compile-time code queries.
 | [Redacting sensitive data](log-7/README.md) | Passwords and other sensitive data are excluded from the log. |
 | [Avoiding infinite recursions](log-8/README.md) | Adds a recursion guard to avoid infinite recursions due to logging. |
+
+

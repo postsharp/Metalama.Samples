@@ -1,5 +1,9 @@
 ---
 uid: sample-dirty-2
+summary: "This document explains enhancing an aspect to report errors if a base class lacks a required `OnChange` method or if it's not protected."
+keywords: ".NET, aspect, IChangeTracking interface"
+created-date: 2023-04-18
+modified-date: 2024-09-09
 ---
 
 # Change Tracking example, step 2: verifying manual code
@@ -53,3 +57,6 @@ article.
 
 > [!div class="see-also"]
 > <xref:diagnostics>
+
+
+

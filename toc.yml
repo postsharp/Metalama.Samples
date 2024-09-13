@@ -2,6 +2,13 @@ items:
  - name: Commented examples
    topicUid: samples
    items:
+    - name: Validation
+      topicUid: sample-validation
+      items:
+        - name: Ignore values
+          topicUid: sample-ignore-value
+        - name: String normalization
+          topicUid: sample-string-normalization
     - name: Logging
       topicUid: sample-log
       items: 
@@ -78,17 +85,15 @@ items:
           topicUid: sample-clone-3
         - name: Step 4. Providing coding guidance
           topicUid: sample-clone-4
-#    - name: ToString
-#      topicUid: sample-tostring
-#      items:
-#        - name: ToString 101
-#          topicUid: sample-tostring-101
-#        - name: ToString 102
-#          topicUid: sample-tostring-102
+    - name: ToString
+      topicUid: sample-tostring
+      items:
+        - name: Step 1. Getting started.
+          topicUid: sample-tostring-1
+        - name: Step 2. Suggesting code refactorings
+          topicUid: sample-tostring-2
     - name: Enum View-Model
       topicUid: sample-enum-viewmodel
-#    - name: Optional Value Type
-#      topicUid: sample-optionalvalue
     - name: Singleton
       topicUid: sample-singleton
       items:

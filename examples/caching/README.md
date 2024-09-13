@@ -1,5 +1,9 @@
 ---
 uid: sample-cache
+summary: "This chapters explains how to leverage aspect-oriented programming to cache method outputs and improve performance for computationally expensive tasks."
+keywords: "cache C#, cache .NET, caching C#, caching .NET, aspect"
+created-date: 2023-04-06
+modified-date: 2024-09-09
 ---
 
 # Example: caching
@@ -18,3 +22,6 @@ One of the significant challenges of caching is generating a unique cache key re
 | [Enforcing eligibility](caching-2/README.md) | Makes the aspect report an error for `void` methods or methods with `out` or `ref` parameters. |
 | [Building the cache key](caching-3/README.md) | Explains how to add a `[CacheKeyMember]` aspect to make the specified field or property part of the cache key for that type. |
 | [Supporting external types](caching-4/README.md) | Shows how to build a caching key that includes external types. |
+
+
+

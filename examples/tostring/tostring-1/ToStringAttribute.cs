@@ -1,4 +1,5 @@
 ﻿using Metalama.Framework.Aspects;
+using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 
 internal class ToStringAttribute : TypeAspect
@@ -11,21 +12,26 @@ internal class ToStringAttribute : TypeAspect
         stringBuilder.AddText( meta.Target.Type.Name );
         stringBuilder.AddText( " " );
 
-        var fields = meta.Target.Type.FieldsAndProperties
-            .Where( f => !f.IsStatic && !f.IsImplicitlyDeclared ).ToList();
+        var properties = meta.Target.Type.AllFieldsAndProperties
+            .Where( f => f is
+            {
+                IsStatic: false, IsImplicitlyDeclared: false, Accessibility: Accessibility.Public
+            } )
+            .OrderBy( f => f.Name );
 
-        var i = meta.CompileTime( 0 );
+        /*<CompileTimeVariable>*/
+        var i = meta.CompileTime( 0 ); /*</CompileTimeVariable>*/
 
-        foreach ( var field in fields )
+        foreach ( var property in properties )
         {
             if ( i > 0 )
             {
                 stringBuilder.AddText( ", " );
             }
 
-            stringBuilder.AddText( field.Name );
+            stringBuilder.AddText( property.Name );
             stringBuilder.AddText( "=" );
-            stringBuilder.AddExpression( field.Value );
+            stringBuilder.AddExpression( property );
 
             i++;
         }

@@ -1,4 +1,4 @@
-﻿[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
+﻿[AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
 internal class MementoIgnoreAttribute : Attribute
 {
 }

@@ -1,5 +1,8 @@
 ---
 uid: samples-contributing
+summary: "Contribute original aspects to the Metalama community by discussing ideas on Slack, forking the repository, and submitting a pull request."
+created-date: 2023-04-13
+modified-date: 2024-09-09
 ---
 
 # Contributing to Metalama Examples
@@ -18,3 +21,6 @@ Please follow the below procedure:
 8. Most of the follow-up will happen on GitHub or through [Slack](https://www.postsharp.net/slack).
 
 We look forward to your contributions!
+
+
+

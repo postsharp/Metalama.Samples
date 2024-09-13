@@ -1,6 +1,10 @@
 ---
 uid: sample-log-7
 level: 300
+summary: "This document explains how to prevent logging sensitive data by filtering parameters and using custom attributes, with examples and implementation details."
+keywords: "sensitive data, logging sensitive data, prevent logging, custom attributes, .NET, parameter filtering"
+created-date: 2023-04-06
+modified-date: 2024-09-09
 ---
 
 # Logging example, step 7: Removing sensitive data
@@ -43,3 +47,6 @@ instead of the parameter value for sensitive parameters.
 >  * Perform tests by injecting well-known strings as values for sensitive parameters (e.g., `p@ssw0rd`), enable logging
      to the maximum verbosity, and verify that the logs do not contain any of the well-known values. These tests must
      have complete coverage to be accurate.
+
+
+
