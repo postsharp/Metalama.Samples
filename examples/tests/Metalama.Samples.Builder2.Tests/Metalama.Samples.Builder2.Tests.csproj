@@ -3,12 +3,12 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <Configurations>Debug;Release;LamaDebug</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
         <PackageReference Include="xunit"/>
+        <PackageReference Include="Metalama.Testing.AspectTesting"/>
         <PackageReference Include="xunit.runner.visualstudio">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -17,12 +17,17 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Metalama.Testing.AspectTesting"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\builder\Metalama.Samples.Builder2\Metalama.Samples.Builder2.csproj" />
+    </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\caching\caching-2\Metalama.Samples.Cache2.csproj"/>
+      <Compile Update="DerivedGenericType.cs">
+        <DependentUpon>$([System.String]::Copy('DerivedType').Substring( %(Filename.IndexOf('.') ).cs</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 
 </Project>

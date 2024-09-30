@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\change-tracking\change-tracking-2\Metalama.Samples.ChangeTracking2.csproj"/>
+      <ProjectReference Include="..\..\builder\Metalama.Samples.Builder1\Metalama.Samples.Builder1.csproj" />
     </ItemGroup>
 
 </Project>
