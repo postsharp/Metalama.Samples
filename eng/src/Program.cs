@@ -7,7 +7,6 @@ using PostSharp.Engineering.BuildTools;
 using PostSharp.Engineering.BuildTools.Build.Model;
 using PostSharp.Engineering.BuildTools.Build.Solutions;
 using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
-using Spectre.Console.Cli;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2024_2;
 
@@ -29,12 +28,7 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
 
 product.TestCompleted += OnTestCompleted;
 
-var commandApp = new CommandApp();
-
-commandApp.AddProductCommands( product );
-
-return commandApp.Run( args );
-
+return new EngineeringApp( product ).Run( args );
 
 void OnTestCompleted( BuildCompletedEventArgs args )
 {
