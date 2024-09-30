@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#if TEST_OPTIONS
+// @Skipped(Fixed in 2025.0)
+#endif
+using System.ComponentModel.DataAnnotations;
+
+#pragma warning disable CS8618 //  Non-nullable property must contain a non-null value when exiting constructor.
 
 namespace Metalama.Samples.Builder2.Tests.DerivedGenericType;
 
