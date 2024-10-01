@@ -17,7 +17,7 @@ public partial class StringKeyedValue<T>
     public Builder()
     {
     }
-    protected internal Builder(StringKeyedValue<T> source)
+    internal Builder(StringKeyedValue<T> source)
     {
       Value = source.Value;
     }

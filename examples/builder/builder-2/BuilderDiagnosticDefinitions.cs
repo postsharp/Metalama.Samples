@@ -34,12 +34,12 @@ internal static class BuilderDiagnosticDefinitions
                 "A parameter of the base type cannot be mapped to a property.");
     
     public static readonly DiagnosticDefinition<(INamedType BuilderType, INamedType SourceType)> BaseBuilderMustContainCopyConstructor
-        = new("BUILDER07", Severity.Error,
+        = new("BUILDER06", Severity.Error,
             "The '{0}' type must contain a constructor, called the copy constructor, with a single parameter of type '{1}'.",
             "The base type must contain a copy constructor.");
     
     public static readonly DiagnosticDefinition<(INamedType, int)> BaseBuilderMustContainOneNonCopyConstructor
-        = new("BUILDER08", Severity.Error,
+        = new("BUILDER07", Severity.Error,
             "The '{0}' type must contain exactly two constructors but has {1}.",
             "The base builder type must contain exactly two constructors.");
 }

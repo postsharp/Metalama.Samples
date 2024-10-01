@@ -34,7 +34,7 @@ public partial class Invoice
       Number = number;
       Caption = caption;
     }
-    protected internal Builder(Invoice source)
+    internal Builder(Invoice source)
     {
       Number = source.Number;
       Caption = source.Caption;

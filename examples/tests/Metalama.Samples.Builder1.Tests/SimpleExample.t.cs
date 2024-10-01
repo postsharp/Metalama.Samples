@@ -28,7 +28,7 @@ public partial class Song
       Artist = artist;
       Title = title;
     }
-    protected internal Builder(Song source)
+    internal Builder(Song source)
     {
       Artist = source.Artist;
       Title = source.Title;

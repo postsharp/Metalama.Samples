@@ -24,7 +24,7 @@ code refactoring menu of your IDE.
 
 An error is now reported when the user tries to apply the aspect to an unsupported method:
 
-[!metalama-file ../../tests/Metalama.Samples.Caching2.Tests/Eligibility.cs]
+[!metalama-file ../../tests/Metalama.Samples.Cache2.Tests/Eligibility.cs]
 
 > [!div class="see-also"]
 > <xref:eligibility>

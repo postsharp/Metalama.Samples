@@ -24,6 +24,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         var sourceType = builder.Target;
 
+        /*<FindBaseType>*/
         // Find the Builder nested type in the base type.
         INamedType? baseBuilderType = null;
         IConstructor? baseConstructor = null,
@@ -107,7 +108,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
         {
             return;
         }
+        /*</FindBaseType>*/
 
+        /*<CreatePropertyMap>*/
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
         var properties = sourceType.AllProperties.Where(
                 p => p.Writeability != Writeability.None &&
@@ -121,9 +124,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     return new PropertyMapping( p, isRequired, isInherited );
                 } )
             .ToList();
+        /*</CreatePropertyMap>*/
 
         // Introduce the Builder nested type.
-        var builderType = builder.IntroduceClass(
+        var builderType = builder.IntroduceClass( /*<IntroduceBuilderType>*/
             "Builder",
             OverrideStrategy.New,
             t =>
@@ -131,12 +135,33 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 t.Accessibility = Accessibility.Public;
                 t.BaseType = baseBuilderType;
                 t.IsSealed = sourceType.IsSealed;
-            } );
+            } ); /*</IntroduceBuilderType>*/
 
-        // Add builder properties and update the mapping.
+        
+        /*<CreateProperties>*/
+        // Add builder properties and update the mapping.  
         foreach ( var property in properties )
         {
-            if ( property.SourceProperty.DeclaringType == sourceType )
+            if ( property.IsInherited )
+            {
+                // For properties of the base type, find the matching property.
+                var baseProperty =
+                    baseBuilderType!.AllProperties.OfName( property.SourceProperty.Name )
+                        .SingleOrDefault();
+
+                if ( baseProperty == null )
+                {
+                    builder.Diagnostics.Report(
+                        BuilderDiagnosticDefinitions.BaseBuilderMustContainProperty.WithArguments( (
+                            baseBuilderType, property.SourceProperty.Name) ) );
+                    hasError = true;
+                }
+                else
+                {
+                    property.BuilderProperty = baseProperty;
+                }
+            }
+            else
             {
                 // For properties of the current type, introduce a new property.
                 property.BuilderProperty =
@@ -152,32 +177,14 @@ public partial class GenerateBuilderAttribute : TypeAspect
                             } )
                         .Declaration;
             }
-            else if ( baseBuilderType != null )
-            {
-                // For properties of the base type, find the matching property.
-                var baseProperty =
-                    baseBuilderType.AllProperties.OfName( property.SourceProperty.Name )
-                        .SingleOrDefault();
-
-                if ( baseProperty == null )
-                {
-                    builder.Diagnostics.Report(
-                        BuilderDiagnosticDefinitions.BaseBuilderMustContainProperty.WithArguments( (
-                            baseBuilderType, property.SourceProperty.Name) ) );
-                    hasError = true;
-                }
-                else
-                {
-                    property.BuilderProperty = baseProperty;
-                }
-            }
-        }
+        } /*</CreateProperties>*/
 
         if ( hasError )
         {
             return;
         }
 
+        /*<CreateBuilderConstructor>*/
         // Add a builder constructor accepting the required properties and update the mapping.
         builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
@@ -222,6 +229,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     }
                 }
             } );
+        /*</CreateBuilderConstructor>*/
 
         // Add a builder constructor that creates a copy from the source type.
         var builderCopyConstructor = builderType.IntroduceConstructor(

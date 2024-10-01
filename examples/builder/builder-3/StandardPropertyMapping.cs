@@ -10,13 +10,13 @@ internal class StandardPropertyMapping : PropertyMapping
 {
     private IProperty? _builderProperty;
         
-    public StandardPropertyMapping(IProperty sourceProperty, bool isRequired, bool isInherited ) : base(sourceProperty, isRequired, isInherited )
+    public StandardPropertyMapping(IProperty sourceProperty, bool isRequired, bool isInherited ) 
+        : base(sourceProperty, isRequired, isInherited )
     {
     }
         
     public override IExpression GetBuilderPropertyValue() => this._builderProperty!;
-
-        
+    
     public override void ImplementBuilderArtifacts( IAdviser<INamedType> builderType )
     {
         this._builderProperty = builderType.IntroduceAutomaticProperty(

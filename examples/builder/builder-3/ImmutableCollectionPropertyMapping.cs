@@ -3,11 +3,8 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
 using Metalama.Framework.Diagnostics;
-using System.Collections.Immutable;
 
 namespace Metalama.Samples.Builder3;
-
-
 
 internal class ImmutableCollectionPropertyMapping : PropertyMapping
 {
@@ -98,7 +95,8 @@ internal class ImmutableCollectionPropertyMapping : PropertyMapping
         
 
 
-    public override IExpression GetBuilderPropertyValue() => this._getImmutableValueMethod!.CreateInvokeExpression( [] );
+    public override IExpression GetBuilderPropertyValue() 
+        => this._getImmutableValueMethod!.CreateInvokeExpression( [] );
 
     public override bool TryImportBuilderArtifactsFromBaseType( INamedType baseType,
         ScopedDiagnosticSink diagnosticSink )

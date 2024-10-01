@@ -8,15 +8,10 @@ namespace Metalama.Samples.Builder1;
 
 public partial class GenerateBuilderAttribute : TypeAspect
 {
-    [CompileTime]
-    private record Tags(
-        INamedType SourceType,
-        IReadOnlyList<PropertyMapping> Properties,
-        IConstructor SourceConstructor,
-        IConstructor BuilderCopyConstructor );
-
+    /*<InitializeMapping>*/
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
+        
         base.BuildAspect( builder );
 
         var sourceType = builder.Target;
@@ -28,13 +23,15 @@ public partial class GenerateBuilderAttribute : TypeAspect
             .Select(
                 p => new PropertyMapping(p,
                     p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
-            .ToList();
+            .ToList(); /*</InitializeMapping>*/
 
+        /*<IntroduceBuilder>*/
         // Introduce the Builder nested type.
         var builderType = builder.IntroduceClass(
             "Builder",
-            buildType: t => t.Accessibility = Accessibility.Public );
+            buildType: t => t.Accessibility = Accessibility.Public ); /*</IntroduceBuilder>*/
 
+        /*<IntroduceProperties>*/
         // Add builder properties and update the mapping.
         foreach ( var property in properties )
         {
@@ -42,17 +39,17 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 builderType.IntroduceAutomaticProperty(
                         property.SourceProperty.Name,
                         property.SourceProperty.Type,
-                        IntroductionScope.Instance,
                         buildProperty: p =>
                         {
                             p.Accessibility = Accessibility.Public;
                             p.InitializerExpression = property.SourceProperty.InitializerExpression;
                         } )
                     .Declaration;
-        }
+        } /*</IntroduceProperties>*/
 
+        /*<IntroducePublicConstructor>*/
         // Add a builder constructor accepting the required properties and update the mapping.
-        var builderConstructor = builderType.IntroduceConstructor(
+        builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
             buildConstructor: c =>
             {
@@ -60,22 +57,34 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
                 foreach ( var property in properties.Where( m => m.IsRequired ) )
                 {
-                    property.BuilderConstructorParameterIndex = c.AddParameter(
-                            NameHelper.ToParameterName( property.SourceProperty.Name ),
-                            property.SourceProperty.Type )
-                        .Index;
+                    var parameter = c.AddParameter(
+                        NameHelper.ToParameterName( property.SourceProperty.Name ),
+                        property.SourceProperty.Type );
+                    
+                    property.BuilderConstructorParameterIndex = parameter.Index;
                 }
-            } ).Declaration;
-        
-        // Add a builder constructor that creates a copy from the source type.
-        var builderCopyConstructor = builderType.IntroduceConstructor(
-            nameof(this.BuilderCopyConstructorTemplate),
-            buildConstructor: c =>
-            {
-                c.Accessibility = Accessibility.ProtectedInternal;
-                c.Parameters[0].Type = sourceType;
-            } ).Declaration;
+            } );  /*</IntroducePublicConstructor>*/
 
+        /*<IntroduceSourceConstructor>*/
+        // Add a constructor to the source type with all properties.
+        var sourceConstructor = builder.IntroduceConstructor(
+                nameof(this.SourceConstructorTemplate),
+                buildConstructor: c =>
+                {
+                    c.Accessibility = Accessibility.Private;
+
+                    foreach ( var property in properties )
+                    {
+                        var parameter = c.AddParameter(
+                            NameHelper.ToParameterName( property.SourceProperty.Name ),
+                            property.SourceProperty.Type );
+                        
+                        property.SourceConstructorParameterIndex = parameter.Index;
+                    }
+                } )
+            .Declaration; /*</IntroduceSourceConstructor>*/
+
+        /*<IntroduceBuildMethod>*/
         // Add a Build method to the builder.
         builderType.IntroduceMethod(
             nameof(this.BuildMethodTemplate),
@@ -86,24 +95,19 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 m.Accessibility = Accessibility.Public;
                 m.ReturnType = sourceType;
             } );
+        /*</IntroduceBuildMethod>*/
 
-        // Add a constructor to the source type with all properties.
-        var sourceConstructor = builder.IntroduceConstructor(
-                nameof(this.SourceConstructorTemplate),
-                buildConstructor: c =>
-                {
-                    c.Accessibility = Accessibility.Private;
-
-                    foreach ( var property in properties )
-                    {
-                        property.SourceConstructorParameterIndex = c.AddParameter(
-                                NameHelper.ToParameterName( property.SourceProperty.Name ),
-                                property.SourceProperty.Type )
-                            .Index;
-                    }
-                } )
-            .Declaration;
-
+        /*<IntroduceCopyConstructor>*/
+        // Add a builder constructor that creates a copy from the source type.
+        var builderCopyConstructor = builderType.IntroduceConstructor(
+            nameof(this.BuilderCopyConstructorTemplate),
+            buildConstructor: c =>
+            {
+                c.Accessibility = Accessibility.Internal;
+                c.Parameters[0].Type = sourceType;
+            } ).Declaration; /*</IntroduceCopyConstructor>*/
+        
+        /*<IntroduceToBuilderMethod>*/
         // Add a ToBuilder method to the source type.
         builder.IntroduceMethod( nameof(this.ToBuilderMethodTemplate), buildMethod: m =>
         {
@@ -111,8 +115,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
             m.Name = "ToBuilder";
             m.ReturnType = builderType.Declaration;
         } );
+        /*</IntroduceToBuilderMethod>*/
 
-        builder.Tags = new Tags(  builder.Target, properties, sourceConstructor, builderCopyConstructor );
+        /*<SetTags>*/
+        builder.Tags = new Tags(  builder.Target, properties, sourceConstructor, builderCopyConstructor ); /*</SetTags>*/
     }
 
     [Template]
@@ -146,7 +152,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         foreach ( var property in tags.Properties )
         {
-            property.SourceProperty!.Value =
+            property.SourceProperty.Value =
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
@@ -157,7 +163,8 @@ public partial class GenerateBuilderAttribute : TypeAspect
         var tags = (Tags) meta.Tags.Source!;
 
         // Build the object.
-        var instance = tags.SourceConstructor.Invoke( tags.Properties.Select( x => x.BuilderProperty! ) )!;
+        var instance = tags.SourceConstructor.Invoke( 
+            tags.Properties.Select( x => x.BuilderProperty! ) )!;
 
         // Find and invoke the Validate method, if any.
         var validateMethod = tags.SourceType.AllMethods.OfName( "Validate" )

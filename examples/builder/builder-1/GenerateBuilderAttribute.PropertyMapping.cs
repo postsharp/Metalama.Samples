@@ -6,6 +6,13 @@ namespace Metalama.Samples.Builder1;
 public partial class GenerateBuilderAttribute
 {
     [CompileTime]
+    private record Tags(
+        INamedType SourceType,
+        IReadOnlyList<PropertyMapping> Properties,
+        IConstructor SourceConstructor,
+        IConstructor BuilderCopyConstructor );
+    
+    [CompileTime]
     private class PropertyMapping
     {
         public PropertyMapping( IProperty sourceProperty, bool isRequired )

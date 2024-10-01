@@ -108,6 +108,16 @@ items:
           topicUid: sample-memento-1
         - name: Step 2. Supporting type inheritance
           topicUid: sample-memento-2
+    - name: Builder
+      topicUid: sample-builder
+      items:
+        - name: Step 1. Basic aspect
+          topicUid:  sample-builder-1
+        - name: Step 2. Handling type inheritance
+          topicUid: sample-builder-2
+        - name: Step 3. Handling immutable collections
+          topicUid: sample-builder-3
+    
     - name: Shared Fabrics
       topicUid: sample-shared-fabric
     - name: Contributing

@@ -2,6 +2,7 @@
 uid: sample-builder
 summary: "This chapters explains how automatically implement the builder pattern in C# thanks to Metalama."
 keywords: "builder pattern C#, c# builder pattern, builder design pattern C#"
+level: 300
 created-date: 2024-09-30
 modified-date: 2024-09-30
 ---
