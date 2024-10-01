@@ -5,15 +5,15 @@ namespace Metalama.Samples.NormalizeStrings;
 [RunTimeOrCompileTime]
 public sealed class NormalizeAttribute : StringContractAspect
 {
-    public override void Validate( dynamic? value )
+    public override void Validate(dynamic? value)
     {
-        if ( IsAppliedToNullableString() )
+        if (IsAppliedToNullableString())
         {
-            value = ((string?) value)?.Normalize();
+            value = ((string?)value)?.Normalize();
         }
         else
         {
-            value = ((string) value!).Normalize();
+            value = ((string)value!).Normalize();
         }
     }
 }

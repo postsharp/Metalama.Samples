@@ -24,27 +24,27 @@ public class TrackChangesAttribute : TypeAspect
         Severity.Error,
         "The '{0}' method must be virtual.");
 
-    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
+    [InterfaceMember(WhenExists = InterfaceMemberOverrideStrategy.Ignore)]
     public bool IsChanged { get; private set; }
 
-    [InterfaceMember( WhenExists = InterfaceMemberOverrideStrategy.Ignore )]
+    [InterfaceMember(WhenExists = InterfaceMemberOverrideStrategy.Ignore)]
     public bool IsTrackingChanges
     {
         get => meta.This._isTrackingChanges;
         set
         {
-            if ( meta.This._isTrackingChanges != value )
+            if (meta.This._isTrackingChanges != value)
             {
                 meta.This._isTrackingChanges = value;
 
-                var onPropertyChanged = this.GetOnPropertyChangedMethod( meta.Target.Type );
+                var onPropertyChanged = this.GetOnPropertyChangedMethod(meta.Target.Type);
 
-                if ( onPropertyChanged != null )
+                if (onPropertyChanged != null)
                 {
-                    onPropertyChanged.Invoke( nameof(this.IsTrackingChanges) );
+                    onPropertyChanged.Invoke(nameof(this.IsTrackingChanges));
                 }
 
-                if ( value )
+                if (value)
                 {
                     this.AcceptChanges();
                 }
@@ -52,80 +52,80 @@ public class TrackChangesAttribute : TypeAspect
         }
     }
 
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         // Select fields and automatic properties that can be changed.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where( f =>
+            .Where(f =>
                 !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
-                f.IsAutoPropertyOrField == true )
+                f.IsAutoPropertyOrField == true)
             .ToArray();
 
         var introducedFields = new Dictionary<IFieldOrProperty, IField>(); /*<BuildDictionary>*/
 
         // Create a field for each mutable field or property. These fields
         // will contain the accepted values.
-        foreach ( var fieldOrProperty in fieldsOrProperties )
+        foreach (var fieldOrProperty in fieldsOrProperties)
         {
-            var upperCaseName = fieldOrProperty.Name.TrimStart( '_' );
+            var upperCaseName = fieldOrProperty.Name.TrimStart('_');
             upperCaseName =
-                upperCaseName.Substring( 0, 1 ).ToUpper( CultureInfo.InvariantCulture ) +
-                upperCaseName.Substring( 1 );
+                upperCaseName.Substring(0, 1).ToUpper(CultureInfo.InvariantCulture) +
+                upperCaseName.Substring(1);
             var acceptedField =
-                builder.Advice.IntroduceField( builder.Target, "_accepted" + upperCaseName,
-                    fieldOrProperty.Type );
+                builder.Advice.IntroduceField(builder.Target, "_accepted" + upperCaseName,
+                    fieldOrProperty.Type);
             introducedFields[fieldOrProperty] = acceptedField.Declaration;
         }
 
         // Implement the ISwitchableChangeTracking interface.         
-        var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
+        var implementInterfaceResult = builder.Advice.ImplementInterface(builder.Target,
             typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore,
-            new { IntroducedFields = introducedFields } ); /*</BuildDictionary>*/
+            new { IntroducedFields = introducedFields }); /*</BuildDictionary>*/
 
         // If the type already implements ISwitchableChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
-        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
+        if (implementInterfaceResult.Outcome == AdviceOutcome.Ignore)
         {
-            var onChangeMethod = builder.Target.AllMethods.OfName( nameof(this.OnChange) )
-                .SingleOrDefault( m => m.Parameters.Count == 0 );
+            var onChangeMethod = builder.Target.AllMethods.OfName(nameof(this.OnChange))
+                .SingleOrDefault(m => m.Parameters.Count == 0);
 
-            if ( onChangeMethod == null )
+            if (onChangeMethod == null)
             {
                 builder.Diagnostics.Report(
-                    _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
+                    _mustHaveOnChangeMethod.WithArguments(builder.Target));
             }
-            else if ( onChangeMethod.Accessibility != Accessibility.Protected )
+            else if (onChangeMethod.Accessibility != Accessibility.Protected)
             {
-                builder.Diagnostics.Report( _onChangeMethodMustBeProtected );
+                builder.Diagnostics.Report(_onChangeMethodMustBeProtected);
             }
         }
         else
         {
-            builder.Advice.IntroduceField( builder.Target, "_isTrackingChanges", typeof(bool) );
+            builder.Advice.IntroduceField(builder.Target, "_isTrackingChanges", typeof(bool));
         }
 
         // Override all writable fields and automatic properties.
         // If the type has an OnPropertyChanged method, we assume that all properties
         // and fields already call it, and we hook into OnPropertyChanged instead of
         // overriding each setter.
-        var onPropertyChanged = this.GetOnPropertyChangedMethod( builder.Target );
+        var onPropertyChanged = this.GetOnPropertyChangedMethod(builder.Target);
 
-        if ( onPropertyChanged == null )
+        if (onPropertyChanged == null)
         {
             // If the type has an OnPropertyChanged method, we assume that all properties
             // and fields already call it, and we hook into OnPropertyChanged instead of
             // overriding each setter.
-            foreach ( var fieldOrProperty in fieldsOrProperties )
+            foreach (var fieldOrProperty in fieldsOrProperties)
             {
-                builder.Advice.OverrideAccessors( fieldOrProperty, null,
-                    nameof(this.OverrideSetter) );
+                builder.Advice.OverrideAccessors(fieldOrProperty, null,
+                    nameof(this.OverrideSetter));
             }
         }
-        else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )
+        else if (onPropertyChanged.DeclaringType.Equals(builder.Target))
         {
-            builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
+            builder.Advice.Override(onPropertyChanged, nameof(this.OnPropertyChanged));
         }
-        else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
+        else if (implementInterfaceResult.Outcome == AdviceOutcome.Ignore)
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -137,28 +137,28 @@ public class TrackChangesAttribute : TypeAspect
             // in the current class, and if we implement ISwitchableChangeTracking ourselves,
             // then we need to override OnPropertyChanged.
 
-            if ( !onPropertyChanged.IsVirtual )
+            if (!onPropertyChanged.IsVirtual)
             {
                 builder.Diagnostics.Report(
-                    _onPropertyChangedMustBeVirtual.WithArguments( onPropertyChanged ) );
+                    _onPropertyChangedMustBeVirtual.WithArguments(onPropertyChanged));
             }
             else
             {
-                builder.Advice.IntroduceMethod( builder.Target, nameof(this.OnPropertyChanged),
-                    whenExists: OverrideStrategy.Override );
+                builder.Advice.IntroduceMethod(builder.Target, nameof(this.OnPropertyChanged),
+                    whenExists: OverrideStrategy.Override);
             }
         }
     }
 
-    private IMethod? GetOnPropertyChangedMethod( INamedType type )
+    private IMethod? GetOnPropertyChangedMethod(INamedType type)
         => type.AllMethods
-            .OfName( "OnPropertyChanged" )
-            .SingleOrDefault( m => m.Parameters.Count == 1 );
+            .OfName("OnPropertyChanged")
+            .SingleOrDefault(m => m.Parameters.Count == 1);
 
     [InterfaceMember]
     public virtual void AcceptChanges()
     {
-        if ( meta.Target.Method.IsOverride )
+        if (meta.Target.Method.IsOverride)
         {
             meta.Proceed();
         }
@@ -168,9 +168,9 @@ public class TrackChangesAttribute : TypeAspect
         }
 
         var introducedFields =
-            (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
+            (Dictionary<IFieldOrProperty, IField>)meta.Tags["IntroducedFields"]!;
 
-        foreach ( var field in introducedFields )
+        foreach (var field in introducedFields)
         {
             field.Value.Value = field.Key.Value;
         }
@@ -179,7 +179,7 @@ public class TrackChangesAttribute : TypeAspect
     [InterfaceMember]
     public virtual void RejectChanges()
     {
-        if ( meta.Target.Method.IsOverride )
+        if (meta.Target.Method.IsOverride)
         {
             meta.Proceed();
         }
@@ -190,48 +190,48 @@ public class TrackChangesAttribute : TypeAspect
 
 
         var introducedFields =
-            (Dictionary<IFieldOrProperty, IField>) meta.Tags["IntroducedFields"]!;
+            (Dictionary<IFieldOrProperty, IField>)meta.Tags["IntroducedFields"]!;
 
-        foreach ( var field in introducedFields )
+        foreach (var field in introducedFields)
         {
             field.Key.Value = field.Value.Value;
         }
     }
 
 
-    [Introduce( WhenExists = OverrideStrategy.Ignore )]
+    [Introduce(WhenExists = OverrideStrategy.Ignore)]
     protected void OnChange()
     {
-        if ( this.IsChanged == false )
+        if (this.IsChanged == false)
         {
             this.IsChanged = true;
 
-            var onPropertyChanged = this.GetOnPropertyChangedMethod( meta.Target.Type );
+            var onPropertyChanged = this.GetOnPropertyChangedMethod(meta.Target.Type);
 
-            if ( onPropertyChanged != null )
+            if (onPropertyChanged != null)
             {
-                onPropertyChanged.Invoke( nameof(this.IsChanged) );
+                onPropertyChanged.Invoke(nameof(this.IsChanged));
             }
         }
     }
 
     [Template]
-    private void OverrideSetter( dynamic? value )
+    private void OverrideSetter(dynamic? value)
     {
         meta.Proceed();
 
-        if ( value != meta.Target.Property.Value )
+        if (value != meta.Target.Property.Value)
         {
             this.OnChange();
         }
     }
 
     [Template]
-    protected virtual void OnPropertyChanged( string name )
+    protected virtual void OnPropertyChanged(string name)
     {
         meta.Proceed();
 
-        if ( name is not (nameof(this.IsChanged) or nameof(this.IsTrackingChanges)) )
+        if (name is not (nameof(this.IsChanged) or nameof(this.IsTrackingChanges)))
         {
             this.OnChange();
         }

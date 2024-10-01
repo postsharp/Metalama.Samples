@@ -1,2 +1,2 @@
-﻿[AttributeUsage( AttributeTargets.Field | AttributeTargets.Property )]
+﻿[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 public class NotToStringAttribute : Attribute;

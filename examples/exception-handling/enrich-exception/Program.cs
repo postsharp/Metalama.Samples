@@ -4,18 +4,18 @@
     {
         try
         {
-            Calculator.Fibonaci( 5 );
+            Calculator.Fibonaci(5);
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            Console.WriteLine( e );
+            Console.WriteLine(e);
             var context = e.GetContextInfo();
 
-            if ( context != null )
+            if (context != null)
             {
-                Console.WriteLine( "---with---" );
-                Console.Write( context );
-                Console.WriteLine( "----------" );
+                Console.WriteLine("---with---");
+                Console.Write(context);
+                Console.WriteLine("----------");
             }
         }
     }

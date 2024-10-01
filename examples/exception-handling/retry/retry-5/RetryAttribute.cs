@@ -14,7 +14,7 @@ public class RetryAttribute : OverrideMethodAspect
 
     public PolicyKind Kind { get; }
 
-    public RetryAttribute( PolicyKind kind = PolicyKind.Retry )
+    public RetryAttribute(PolicyKind kind = PolicyKind.Retry)
     {
         this.Kind = kind;
     }
@@ -28,48 +28,48 @@ public class RetryAttribute : OverrideMethodAspect
             {
                 return meta.Proceed();
             }
-            catch ( Exception e )
+            catch (Exception e)
             {
-                var messageBuilder = LoggingHelper.BuildInterpolatedString( false );
-                messageBuilder.AddText( " has failed: " );
-                messageBuilder.AddExpression( e.Message );
-                this._logger.LogWarning( (string) messageBuilder.ToValue() );
+                var messageBuilder = LoggingHelper.BuildInterpolatedString(false);
+                messageBuilder.AddText(" has failed: ");
+                messageBuilder.AddExpression(e.Message);
+                this._logger.LogWarning((string)messageBuilder.ToValue());
 
                 throw;
             }
         }
 
-        var policy = this._policyFactory.GetPolicy( this.Kind );
-        return policy.Execute( ExecuteCore );
+        var policy = this._policyFactory.GetPolicy(this.Kind);
+        return policy.Execute(ExecuteCore);
     }
 
     // Template for async methods.
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
-        async Task<object?> ExecuteCoreAsync( CancellationToken cancellationToken )
+        async Task<object?> ExecuteCoreAsync(CancellationToken cancellationToken)
         {
             try
             {
                 return await meta.ProceedAsync();
             }
-            catch ( Exception e )
+            catch (Exception e)
             {
-                var messageBuilder = LoggingHelper.BuildInterpolatedString( false );
-                messageBuilder.AddText( " has failed: " );
-                messageBuilder.AddExpression( e.Message );
-                this._logger.LogWarning( (string) messageBuilder.ToValue() );
+                var messageBuilder = LoggingHelper.BuildInterpolatedString(false);
+                messageBuilder.AddText(" has failed: ");
+                messageBuilder.AddExpression(e.Message);
+                this._logger.LogWarning((string)messageBuilder.ToValue());
 
                 throw;
             }
         }
 
         var cancellationTokenParameter
-            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
+            = meta.Target.Parameters.LastOrDefault(p => p.Type.Is(typeof(CancellationToken)));
 
-        var policy = this._policyFactory.GetAsyncPolicy( this.Kind );
-        return await policy.ExecuteAsync( ExecuteCoreAsync,
+        var policy = this._policyFactory.GetAsyncPolicy(this.Kind);
+        return await policy.ExecuteAsync(ExecuteCoreAsync,
             cancellationTokenParameter != null
-                ? (CancellationToken) cancellationTokenParameter.Value!
-                : CancellationToken.None );
+                ? (CancellationToken)cancellationTokenParameter.Value!
+                : CancellationToken.None);
     }
 }

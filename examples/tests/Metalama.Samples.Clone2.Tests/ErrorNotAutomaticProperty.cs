@@ -14,7 +14,7 @@ internal class Game
 
         private set
         {
-            Console.WriteLine( "Setting the value." );
+            Console.WriteLine("Setting the value.");
             this._settings = value;
         }
     }

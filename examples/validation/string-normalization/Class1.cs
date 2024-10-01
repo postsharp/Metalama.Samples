@@ -9,7 +9,7 @@ public class Class1
     [Normalize] public string LastName = "Stavitel";
 
     // Applied on a parameter - nullable.
-    public void SetCountry( [ToUpperCase] string? country )
+    public void SetCountry([ToUpperCase] string? country)
     {
         Console.WriteLine($"Country: {country}");
     }

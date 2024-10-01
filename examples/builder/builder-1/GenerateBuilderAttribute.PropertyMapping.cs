@@ -10,12 +10,12 @@ public partial class GenerateBuilderAttribute
         INamedType SourceType,
         IReadOnlyList<PropertyMapping> Properties,
         IConstructor SourceConstructor,
-        IConstructor BuilderCopyConstructor );
-    
+        IConstructor BuilderCopyConstructor);
+
     [CompileTime]
     private class PropertyMapping
     {
-        public PropertyMapping( IProperty sourceProperty, bool isRequired )
+        public PropertyMapping(IProperty sourceProperty, bool isRequired)
         {
             this.SourceProperty = sourceProperty;
             this.IsRequired = isRequired;

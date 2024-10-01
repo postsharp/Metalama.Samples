@@ -32,22 +32,23 @@ internal static class BuilderDiagnosticDefinitions
             = new("BUILDER05", Severity.Error,
                 "The '{1}' parameter of '{0}' cannot be mapped to a property.",
                 "A parameter of the base type cannot be mapped to a property.");
-    
-    public static readonly DiagnosticDefinition<(INamedType BuilderType, INamedType SourceType)> BaseBuilderMustContainCopyConstructor
-        = new("BUILDER07", Severity.Error,
-            "The '{0}' type must contain a constructor, called the copy constructor, with a single parameter of type '{1}'.",
-            "The base type must contain a copy constructor.");
-    
-    public static readonly DiagnosticDefinition<(INamedType, int)> BaseBuilderMustContainOneNonCopyConstructor
-        = new("BUILDER08", Severity.Error,
-            "The '{0}' type must contain exactly two constructors but has {1}.",
-            "The base builder type must contain exactly two constructors.");
 
-    
-    public static readonly DiagnosticDefinition<(INamedType, string)> BaseBuilderMustContainGetImmutableMethod
-        = new("BUILDER09", Severity.Error,
-            "The '{0}' type must contain a method named '{1}'.",
-            "The base builder type must contain a GetImmutable for all immutable collection properties of the base built type.");
-    
+    public static readonly DiagnosticDefinition<(INamedType BuilderType, INamedType SourceType)>
+        BaseBuilderMustContainCopyConstructor
+            = new("BUILDER07", Severity.Error,
+                "The '{0}' type must contain a constructor, called the copy constructor, with a single parameter of type '{1}'.",
+                "The base type must contain a copy constructor.");
 
+    public static readonly DiagnosticDefinition<(INamedType, int)>
+        BaseBuilderMustContainOneNonCopyConstructor
+            = new("BUILDER08", Severity.Error,
+                "The '{0}' type must contain exactly two constructors but has {1}.",
+                "The base builder type must contain exactly two constructors.");
+
+
+    public static readonly DiagnosticDefinition<(INamedType, string)>
+        BaseBuilderMustContainGetImmutableMethod
+            = new("BUILDER09", Severity.Error,
+                "The '{0}' type must contain a method named '{1}'.",
+                "The base builder type must contain a GetImmutable for all immutable collection properties of the base built type.");
 }

@@ -8,37 +8,37 @@ public class EnrichExceptionAttribute : OverrideMethodAspect
     {
         // Compile-time code: create a formatting string containing the method name and placeholder for formatting parameters.
         var methodSignatureBuilder = new InterpolatedStringBuilder();
-        methodSignatureBuilder.AddText( meta.Target.Type.ToString() );
-        methodSignatureBuilder.AddText( "." );
-        methodSignatureBuilder.AddText( meta.Target.Method.Name );
-        methodSignatureBuilder.AddText( "(" );
+        methodSignatureBuilder.AddText(meta.Target.Type.ToString());
+        methodSignatureBuilder.AddText(".");
+        methodSignatureBuilder.AddText(meta.Target.Method.Name);
+        methodSignatureBuilder.AddText("(");
 
-        foreach ( var p in meta.Target.Parameters )
+        foreach (var p in meta.Target.Parameters)
         {
-            if ( p.Index > 0 )
+            if (p.Index > 0)
             {
-                methodSignatureBuilder.AddText( ", " );
+                methodSignatureBuilder.AddText(", ");
             }
 
-            if ( p.RefKind == RefKind.Out )
+            if (p.RefKind == RefKind.Out)
             {
-                methodSignatureBuilder.AddText( $"{p.Name} = <out> " );
+                methodSignatureBuilder.AddText($"{p.Name} = <out> ");
             }
             else
             {
-                methodSignatureBuilder.AddExpression( p.Value );
+                methodSignatureBuilder.AddExpression(p.Value);
             }
         }
 
-        methodSignatureBuilder.AddText( ")" );
+        methodSignatureBuilder.AddText(")");
 
         try
         {
             return meta.Proceed();
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
-            e.AppendContextFrame( (string) methodSignatureBuilder.ToValue() );
+            e.AppendContextFrame((string)methodSignatureBuilder.ToValue());
 
             throw;
         }

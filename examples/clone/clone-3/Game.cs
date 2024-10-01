@@ -5,6 +5,6 @@ internal class Game
 
     [Child] public GameSettings Settings { get; set; }
 
-    private void CloneMembers( Game clone )
-        => clone.Players = new List<Player>( this.Players );
+    private void CloneMembers(Game clone)
+        => clone.Players = new List<Player>(this.Players);
 }

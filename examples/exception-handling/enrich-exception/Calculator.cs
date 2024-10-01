@@ -1,13 +1,13 @@
 ﻿public static class Calculator
 {
-    public static int Fibonaci( int n )
+    public static int Fibonaci(int n)
     {
-        if ( n < 0 )
+        if (n < 0)
         {
-            throw new ArgumentOutOfRangeException( nameof(n) );
+            throw new ArgumentOutOfRangeException(nameof(n));
         }
 
-        if ( n == 0 )
+        if (n == 0)
         {
             return 0;
         }
@@ -19,7 +19,7 @@
         //}
         else
         {
-            return Fibonaci( n - 1 ) + Fibonaci( n - 2 );
+            return Fibonaci(n - 1) + Fibonaci(n - 2);
         }
     }
 }

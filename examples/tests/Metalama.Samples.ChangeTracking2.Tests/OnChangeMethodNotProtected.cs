@@ -13,7 +13,7 @@ public class BaseClass : ISwitchableChangeTracking
 
     public void AcceptChanges()
     {
-        if ( this.IsTrackingChanges )
+        if (this.IsTrackingChanges)
         {
             this.IsChanged = false;
         }

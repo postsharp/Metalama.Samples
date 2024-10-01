@@ -17,9 +17,11 @@ public sealed partial class MainViewModel
     public Fish? CurrentFish { get; set; }
 
     // Design-time.
-    public MainViewModel() : this( new FishGenerator( new RealNameGenerator() ), null ) { }
+    public MainViewModel() : this(new FishGenerator(new RealNameGenerator()), null)
+    {
+    }
 
-    public MainViewModel( IFishGenerator fishGenerator, IMementoCaretaker? caretaker )
+    public MainViewModel(IFishGenerator fishGenerator, IMementoCaretaker? caretaker)
     {
         this._fishGenerator = fishGenerator;
         this._caretaker = caretaker;
@@ -28,14 +30,14 @@ public sealed partial class MainViewModel
     [Command]
     private void ExecuteNew()
     {
-        this._caretaker?.CaptureMemento( this );
+        this._caretaker?.CaptureMemento(this);
 
-        this.Fishes = this.Fishes.Add( new Fish()
+        this.Fishes = this.Fishes.Add(new Fish()
         {
             Name = this._fishGenerator.GetNewName(),
             Species = this._fishGenerator.GetNewSpecies(),
             DateAdded = DateTime.Now
-        } );
+        });
     }
 
     public bool CanExecuteNew => !this.IsEditing;
@@ -43,18 +45,18 @@ public sealed partial class MainViewModel
     [Command]
     private void ExecuteRemove()
     {
-        if ( this.CurrentFish != null )
+        if (this.CurrentFish != null)
         {
-            this._caretaker?.CaptureMemento( this );
+            this._caretaker?.CaptureMemento(this);
 
-            var index = this.Fishes.IndexOf( this.CurrentFish );
-            this.Fishes = this.Fishes.RemoveAt( index );
+            var index = this.Fishes.IndexOf(this.CurrentFish);
+            this.Fishes = this.Fishes.RemoveAt(index);
 
-            if ( index < this.Fishes.Count )
+            if (index < this.Fishes.Count)
             {
                 this.CurrentFish = this.Fishes[index];
             }
-            else if ( this.Fishes.Count > 0 )
+            else if (this.Fishes.Count > 0)
             {
                 this.CurrentFish = this.Fishes[^1];
             }
@@ -71,7 +73,7 @@ public sealed partial class MainViewModel
     private void ExecuteEdit()
     {
         this.IsEditing = true;
-        this._caretaker?.CaptureMemento( this.CurrentFish! );
+        this._caretaker?.CaptureMemento(this.CurrentFish!);
     }
 
     public bool CanExecuteEdit => this.CurrentFish != null && !this.IsEditing;
@@ -100,19 +102,19 @@ public sealed partial class MainViewModel
 
         var index =
             item != null
-                ? (int?) this.Fishes.IndexOf( item )
+                ? (int?)this.Fishes.IndexOf(item)
                 : null;
 
         this._caretaker?.Undo();
 
         // Fix the current item after undo.
-        if ( index != null )
+        if (index != null)
         {
-            if ( index < this.Fishes.Count )
+            if (index < this.Fishes.Count)
             {
                 this.CurrentFish = this.Fishes[index.Value];
             }
-            else if ( this.Fishes.Count > 0 )
+            else if (this.Fishes.Count > 0)
             {
                 this.CurrentFish = this.Fishes[^1];
             }

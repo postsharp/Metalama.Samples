@@ -3,5 +3,7 @@
 internal class Foo
 {
     [Log]
-    private void Bar() { }
+    private void Bar()
+    {
+    }
 }

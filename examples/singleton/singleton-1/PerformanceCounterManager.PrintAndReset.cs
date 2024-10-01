@@ -9,7 +9,7 @@ public partial class PerformanceCounterManager
         Dictionary<string, int> oldCounters;
         TimeSpan elapsed;
 
-        lock ( this._stopwatch )
+        lock (this._stopwatch)
         {
             oldCounters = this._counters.RemoveAll();
 
@@ -17,10 +17,10 @@ public partial class PerformanceCounterManager
             this._stopwatch.Restart();
         }
 
-        foreach ( var counter in oldCounters )
+        foreach (var counter in oldCounters)
         {
             Console.WriteLine(
-                $"{counter.Key}: {counter.Value / elapsed.TotalSeconds:f2} calls/s" );
+                $"{counter.Key}: {counter.Value / elapsed.TotalSeconds:f2} calls/s");
         }
     }
 }

@@ -4,18 +4,18 @@
 
 
     [Cache]
-    public byte[] GetBlob( string container, byte[] hash )
+    public byte[] GetBlob(string container, byte[] hash)
     {
-        Console.WriteLine( "Executing GetBlob..." );
+        Console.WriteLine("Executing GetBlob...");
         this.DatabaseCalls++;
 
         return new byte[] { 0, 1, 2 };
     }
 
     [Cache]
-    public byte[] GetBlob( BlobId blobId )
+    public byte[] GetBlob(BlobId blobId)
     {
-        Console.WriteLine( "Executing GetBlob..." );
+        Console.WriteLine("Executing GetBlob...");
         this.DatabaseCalls++;
 
         return new byte[] { 0, 1, 2 };

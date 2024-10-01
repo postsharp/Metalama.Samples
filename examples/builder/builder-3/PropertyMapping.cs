@@ -9,7 +9,7 @@ namespace Metalama.Samples.Builder3;
 [CompileTime]
 internal abstract partial class PropertyMapping : ITemplateProvider
 {
-    protected PropertyMapping( IProperty sourceProperty, bool isRequired, bool isInherited )
+    protected PropertyMapping(IProperty sourceProperty, bool isRequired, bool isInherited)
     {
         this.SourceProperty = sourceProperty;
         this.IsRequired = isRequired;
@@ -32,19 +32,20 @@ internal abstract partial class PropertyMapping : ITemplateProvider
     /// <summary>
     /// Adds the properties, fields and methods required to implement this property.
     /// </summary>
-    public abstract void ImplementBuilderArtifacts( IAdviser<INamedType> builderType );
+    public abstract void ImplementBuilderArtifacts(IAdviser<INamedType> builderType);
 
     /// <summary>
     /// Imports, from the base type, the properties, field and methods required for
     /// the current property. 
     /// </summary>
-    public abstract bool TryImportBuilderArtifactsFromBaseType( INamedType baseType, ScopedDiagnosticSink diagnosticSink );
+    public abstract bool TryImportBuilderArtifactsFromBaseType(INamedType baseType,
+        ScopedDiagnosticSink diagnosticSink);
 
     /// <summary>
     /// A template for the code that sets the relevant data in the Builder type for the current property. 
     /// </summary>
     [Template]
-    public virtual void SetBuilderPropertyValue( IExpression expression, IExpression builderInstance )
+    public virtual void SetBuilderPropertyValue(IExpression expression, IExpression builderInstance)
     {
         // Abstract templates are not supported, so we must create a virtual method and override it.
         throw new NotSupportedException();

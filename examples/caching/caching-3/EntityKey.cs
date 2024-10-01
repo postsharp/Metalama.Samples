@@ -4,7 +4,7 @@
 
     [CacheKeyMember] public long Id { get; }
 
-    public EntityKey( string type, long id )
+    public EntityKey(string type, long id)
     {
         this.Type = type;
         this.Id = id;

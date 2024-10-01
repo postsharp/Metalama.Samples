@@ -6,15 +6,15 @@ public class Calculator
 
     // Eligible.
     [Cache]
-    public int Add( int a, int b ) => a + b;
+    public int Add(int a, int b) => a + b;
 
     // Ineligible because it is void.
     [Cache]
-    public void SetValue( int value ) => this._value = value;
+    public void SetValue(int value) => this._value = value;
 
     // Ineligible because it has an out parameter.
     [Cache]
-    public bool TryGetValue( out int? value )
+    public bool TryGetValue(out int? value)
     {
         value = this._value;
         return value.HasValue;

@@ -12,7 +12,7 @@ public class CacheAttribute : OverrideMethodAspect
         var cacheKey = CacheKeyBuilder.GetCachingKey().ToValue();
 
         // Cache lookup.
-        if ( this._cache.TryGetValue( cacheKey, out object value ) )
+        if (this._cache.TryGetValue(cacheKey, out object value))
         {
             // Cache hit.
             return value;
@@ -22,7 +22,7 @@ public class CacheAttribute : OverrideMethodAspect
         var result = meta.Proceed();
 
         // Add to cache.
-        this._cache.TryAdd( cacheKey, result );
+        this._cache.TryAdd(cacheKey, result);
 
         return result;
     }

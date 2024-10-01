@@ -1,12 +1,12 @@
 ﻿internal class LastChanceExceptionHandler : ILastChanceExceptionHandler
 {
-    public void Report( Exception e )
+    public void Report(Exception e)
     {
         try
         {
             // Here, we should create a full crash report and submit it
             // to the crash report server.
-            Console.WriteLine( e.ToString() );
+            Console.WriteLine(e.ToString());
         }
         catch
         {
@@ -15,6 +15,6 @@
         }
     }
 
-    public bool ShouldHandle( Exception e )
+    public bool ShouldHandle(Exception e)
         => e is not OperationCanceledException;
 }

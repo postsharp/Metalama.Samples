@@ -5,7 +5,7 @@ using Metalama.Framework.Aspects;
 
 public class ReportAndSwallowExceptionsAttribute : OverrideMethodAspect
 {
-    [IntroduceDependency( IsRequired = false )]
+    [IntroduceDependency(IsRequired = false)]
     private readonly ILastChanceExceptionHandler? _exceptionHandler;
 
     public override dynamic? OverrideMethod()
@@ -14,10 +14,10 @@ public class ReportAndSwallowExceptionsAttribute : OverrideMethodAspect
         {
             return meta.Proceed();
         }
-        catch ( Exception e ) when ( this._exceptionHandler != null &&
-                                     this._exceptionHandler.ShouldHandle( e ) )
+        catch (Exception e) when (this._exceptionHandler != null &&
+                                  this._exceptionHandler.ShouldHandle(e))
         {
-            this._exceptionHandler.Report( e );
+            this._exceptionHandler.Report(e);
 
             return default;
         }

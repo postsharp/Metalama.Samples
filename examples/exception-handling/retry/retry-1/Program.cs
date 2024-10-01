@@ -1,8 +1,8 @@
 ﻿try
 {
-    RemoteCalculator.Add( 1, 2 );
+    RemoteCalculator.Add(1, 2);
 }
-catch ( Exception ex )
+catch (Exception ex)
 {
-    Console.WriteLine( ex );
+    Console.WriteLine(ex);
 }

@@ -15,17 +15,17 @@ public class RetryAttribute : OverrideMethodAspect
 
     public override dynamic? OverrideMethod()
     {
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return meta.Proceed();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                var delay = this.Delay * Math.Pow( 2, i + 1 );
-                Console.WriteLine( e.Message + $" Waiting {delay} ms." );
-                Thread.Sleep( (int) delay );
+                var delay = this.Delay * Math.Pow(2, i + 1);
+                Console.WriteLine(e.Message + $" Waiting {delay} ms.");
+                Thread.Sleep((int)delay);
             }
         }
     }

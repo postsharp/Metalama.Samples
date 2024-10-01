@@ -1,6 +1,6 @@
 ﻿internal class CacheKeyBuilderProvider : ICacheKeyBuilderProvider
 {
-    public ICacheKeyBuilder<TValue> GetCacheKeyBuilder<TValue, TBuilder>( in TValue value )
+    public ICacheKeyBuilder<TValue> GetCacheKeyBuilder<TValue, TBuilder>(in TValue value)
         where TBuilder : ICacheKeyBuilder<TValue>, new() =>
         Instance<TBuilder>.Value;
 

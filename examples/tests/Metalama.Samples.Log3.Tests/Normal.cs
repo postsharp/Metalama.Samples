@@ -3,5 +3,5 @@
 internal class Foo
 {
     [Log]
-    private void Bar( int a, string b ) => Console.WriteLine( $"a={a}, b='{b}'" );
+    private void Bar(int a, string b) => Console.WriteLine($"a={a}, b='{b}'");
 }

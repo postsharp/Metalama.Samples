@@ -8,11 +8,9 @@ namespace Metalama.Samples.Builder3.Tests.SimpleExample;
 [GenerateBuilder]
 public partial class Song
 {
-    [Required]
-    public string Artist { get; }
-    
-    [Required]
-    public string Title { get; }
-    
+    [Required] public string Artist { get; }
+
+    [Required] public string Title { get; }
+
     public TimeSpan? Duration { get; }
 }

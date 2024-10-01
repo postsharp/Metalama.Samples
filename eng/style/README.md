@@ -1,7 +1,3 @@
----
-created-date: 2021-12-20
-modified-date: 2021-12-20
----
 # PostSharp Engineering: Code Style Features
 
 Make sure you have read and understood [PostSharp Engineering](../README.md) before reading this doc.

@@ -6,18 +6,18 @@ namespace Metalama.Samples.Builder3;
 
 internal abstract partial class PropertyMapping
 {
-    protected bool TryFindBuilderPropertyInBaseType( INamedType baseType,
-        ScopedDiagnosticSink diagnosticSink, [NotNullWhen( true )] out IProperty? baseProperty )
+    protected bool TryFindBuilderPropertyInBaseType(INamedType baseType,
+        ScopedDiagnosticSink diagnosticSink, [NotNullWhen(true)] out IProperty? baseProperty)
     {
         baseProperty =
-            baseType.AllProperties.OfName( this.SourceProperty.Name )
+            baseType.AllProperties.OfName(this.SourceProperty.Name)
                 .SingleOrDefault();
 
-        if ( baseProperty == null )
+        if (baseProperty == null)
         {
             diagnosticSink.Report(
-                BuilderDiagnosticDefinitions.BaseBuilderMustContainProperty.WithArguments( (
-                    baseType, this.SourceProperty.Name) ) );
+                BuilderDiagnosticDefinitions.BaseBuilderMustContainProperty.WithArguments((
+                    baseType, this.SourceProperty.Name)));
             return false;
         }
 

@@ -5,7 +5,7 @@ public partial class Comment
     public string Author { get; set; }
     public string Content { get; set; }
 
-    public Comment( Guid id, string author, string content )
+    public Comment(Guid id, string author, string content)
     {
         this.Id = id;
         this.Author = author;

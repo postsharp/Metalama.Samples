@@ -10,20 +10,20 @@ public class PerformanceCounterManager
 
     private readonly IPerformanceCounterUploader _uploader;
 
-    public PerformanceCounterManager( IPerformanceCounterUploader uploader )
+    public PerformanceCounterManager(IPerformanceCounterUploader uploader)
     {
         this._uploader = uploader;
     }
 
-    public void IncrementCounter( string name )
-        => this._counters.AddOrUpdate( name, 1, ( _, value ) => value + 1 );
+    public void IncrementCounter(string name)
+        => this._counters.AddOrUpdate(name, 1, (_, value) => value + 1);
 
     public void UploadAndReset()
     {
         Dictionary<string, int> oldCounters;
         TimeSpan elapsed;
 
-        lock ( this._stopwatch )
+        lock (this._stopwatch)
         {
             oldCounters = this._counters.RemoveAll();
 
@@ -31,9 +31,9 @@ public class PerformanceCounterManager
             this._stopwatch.Restart();
         }
 
-        foreach ( var counter in oldCounters )
+        foreach (var counter in oldCounters)
         {
-            this._uploader.UploadCounter( counter.Key, counter.Value / elapsed.TotalSeconds );
+            this._uploader.UploadCounter(counter.Key, counter.Value / elapsed.TotalSeconds);
         }
     }
 }

@@ -14,7 +14,7 @@ public partial class App : Application
     public App()
     {
         Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-            .ConfigureServices( ( context, services ) =>
+            .ConfigureServices((context, services) =>
             {
                 // Add windows
                 services.AddSingleton<MainWindow>();
@@ -26,23 +26,23 @@ public partial class App : Application
                 services.AddSingleton<IMementoCaretaker, Caretaker>();
                 services.AddSingleton<IFishGenerator, FishGenerator>();
                 services.AddSingleton<GeneratorBase, RealNameGenerator>();
-            } )
+            })
             .Build();
     }
 
-    protected override async void OnStartup( StartupEventArgs e )
+    protected override async void OnStartup(StartupEventArgs e)
     {
         await Host!.StartAsync();
 
         var mainWindow = Host.Services.GetRequiredService<MainWindow>();
         mainWindow.Show();
 
-        base.OnStartup( e );
+        base.OnStartup(e);
     }
 
-    protected override async void OnExit( ExitEventArgs e )
+    protected override async void OnExit(ExitEventArgs e)
     {
         await Host!.StopAsync();
-        base.OnExit( e );
+        base.OnExit(e);
     }
 }
