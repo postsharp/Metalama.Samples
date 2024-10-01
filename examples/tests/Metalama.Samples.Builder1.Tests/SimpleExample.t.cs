@@ -1,6 +1,6 @@
 using Metalama.Samples.Builder1;
 using System.ComponentModel.DataAnnotations;
-namespace ClassLibrary1Metalama.Samples.Builder1.Tests.SimpleExample;
+namespace Metalama.Samples.Builder1.Tests.SimpleExample;
 [GenerateBuilder]
 public partial class Song
 {
@@ -85,7 +85,8 @@ public partial class Song
     }
     public Song Build()
     {
-      return new Song(Artist, Title, Duration, Genre)!;
+      var instance = new Song(Artist, Title, Duration, Genre)!;
+      return instance;
     }
   }
 }

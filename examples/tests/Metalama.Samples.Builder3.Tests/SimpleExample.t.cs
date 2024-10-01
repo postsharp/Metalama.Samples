@@ -1,6 +1,6 @@
 using Metalama.Samples.Builder3;
 using System.ComponentModel.DataAnnotations;
-namespace ClassLibrary1Metalama.Samples.Builder3.Tests.SimpleExample;
+namespace Metalama.Samples.Builder3.Tests.SimpleExample;
 #pragma warning disable CS8618 //  Non-nullable property must contain a non-null value when exiting constructor.
 [GenerateBuilder]
 public partial class Song
@@ -71,7 +71,8 @@ public partial class Song
     }
     public Song Build()
     {
-      return new Song(Artist, Title, Duration)!;
+      var instance = new Song(Artist, Title, Duration)!;
+      return instance;
     }
   }
 }

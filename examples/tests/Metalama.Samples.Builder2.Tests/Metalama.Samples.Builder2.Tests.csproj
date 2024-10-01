@@ -22,5 +22,12 @@
     <ItemGroup>
       <ProjectReference Include="..\..\builder\builder-2\Metalama.Samples.Builder2.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Validate.cs">
+        <DependentUpon>$([System.String]::Copy('SimpleExample').Substring( %(Filename.IndexOf('.') ).cs</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
     
 </Project>

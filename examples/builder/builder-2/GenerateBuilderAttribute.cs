@@ -7,32 +7,11 @@ using System.Diagnostics;
 namespace Metalama.Samples.Builder2;
 
 [Inheritable]
-public class GenerateBuilderAttribute : TypeAspect
+public partial class GenerateBuilderAttribute : TypeAspect
 {
     [CompileTime]
-    private class PropertyMapping
-    {
-        public PropertyMapping( IProperty sourceProperty, bool isRequired, bool isInherited )
-        {
-            this.SourceProperty = sourceProperty;
-            this.IsRequired = isRequired;
-            this.IsInherited = isInherited;
-        }
-
-        public IProperty SourceProperty { get; }
-
-        public bool IsRequired { get; }
-        public bool IsInherited { get; }
-
-        public IProperty? BuilderProperty { get; set; }
-
-        public int? SourceConstructorParameterIndex { get; set; }
-
-        public int? BuilderConstructorParameterIndex { get; set; }
-    }
-
-    [CompileTime]
     private record Tags(
+        INamedType SourceType,
         IReadOnlyList<PropertyMapping> Properties,
         IConstructor SourceConstructor,
         IConstructor BuilderCopyConstructor );
@@ -335,7 +314,7 @@ public class GenerateBuilderAttribute : TypeAspect
                 m.IsVirtual = !sourceType.IsSealed;
             } );
 
-        builder.Tags = new Tags( properties, sourceConstructor, builderCopyConstructor );
+        builder.Tags = new Tags( builder.Target, properties, sourceConstructor, builderCopyConstructor );
     }
 
     [Template]
@@ -380,7 +359,20 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        return tags.SourceConstructor.Invoke( tags.Properties.Select( x => x.BuilderProperty! ) )!;
+        // Build the object.
+        var instance = tags.SourceConstructor.Invoke( tags.Properties.Select( x => x.BuilderProperty! ) )!;
+
+        // Find and invoke the Validate method, if any.
+        var validateMethod = tags.SourceType.AllMethods.OfName( "Validate" )
+            .SingleOrDefault( m => m.Parameters.Count == 0 );
+
+        if ( validateMethod != null )
+        {
+            validateMethod.With( (IExpression) instance ).Invoke();
+        }
+
+        // Return the object.
+        return instance;
     }
 
     [Template]

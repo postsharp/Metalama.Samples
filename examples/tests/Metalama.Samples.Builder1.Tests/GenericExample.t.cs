@@ -1,5 +1,5 @@
 using Metalama.Samples.Builder1;
-namespace ClassLibrary1Metalama.Samples.Builder1.Tests.SimpleExample.GenericExample;
+namespace Metalama.Samples.Builder1.Tests.SimpleExample.GenericExample;
 [GenerateBuilder]
 public partial class StringKeyedValue<T>
 {
@@ -35,7 +35,8 @@ public partial class StringKeyedValue<T>
     }
     public StringKeyedValue<T> Build()
     {
-      return new StringKeyedValue<T>(Value)!;
+      var instance = new StringKeyedValue<T>(Value)!;
+      return instance;
     }
   }
 }

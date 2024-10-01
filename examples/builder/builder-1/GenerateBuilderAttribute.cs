@@ -10,9 +10,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
 {
     [CompileTime]
     private record Tags(
+        INamedType SourceType,
         IReadOnlyList<PropertyMapping> Properties,
         IConstructor SourceConstructor,
-        IConstructor BuilderConstructor,
         IConstructor BuilderCopyConstructor );
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
@@ -112,7 +112,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
             m.ReturnType = builderType.Declaration;
         } );
 
-        builder.Tags = new Tags( properties, sourceConstructor, builderConstructor, builderCopyConstructor );
+        builder.Tags = new Tags(  builder.Target, properties, sourceConstructor, builderCopyConstructor );
     }
 
     [Template]
@@ -156,7 +156,20 @@ public partial class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        return tags.SourceConstructor.Invoke( tags.Properties.Select( x => x.BuilderProperty! ) )!;
+        // Build the object.
+        var instance = tags.SourceConstructor.Invoke( tags.Properties.Select( x => x.BuilderProperty! ) )!;
+
+        // Find and invoke the Validate method, if any.
+        var validateMethod = tags.SourceType.AllMethods.OfName( "Validate" )
+            .SingleOrDefault( m => m.Parameters.Count == 0 );
+
+        if ( validateMethod != null )
+        {
+            validateMethod.With( (IExpression) instance ).Invoke();
+        }
+
+        // Return the object.
+        return instance;
     }
 
     [Template]
