@@ -13,7 +13,7 @@ level: 400
 
 In the previous articles, we created an aspect that implements the `Builder` pattern for properties of "plain" types. However, properties of collection types require different handling.
 
-Since the Builder pattern is typically used to build immutable objects, it is good practice for properties of the immutable class to be of an immutable type, such as `ImmutableArray` or `ImmutableDictionary`. In the `Builder` class, though, it's more convenient if the collections are mutable. For instance, for a source property of type `Immutable<string>`, the builder property could be an `Immutable<string>.Builder`.
+Since the Builder pattern is typically used to build immutable objects, it is good practice for properties of the immutable class to be of an immutable type, such as <xref:System.Collections.Immutable.ImmutableArray`1> or <xref:System.Collections.Immutable.ImmutableDictionary`2>. In the `Builder` class, though, it's more convenient if the collections are mutable. For instance, for a source property of type `ImmutableArray<string>`, the builder property could be an `ImmutableArray<string>.Builder`.
 
 In this article, we'll update the aspect so that the collection properties of the `Builder` class are of the _builder_ collection type.
 
@@ -25,7 +25,7 @@ Here is an example of a transformation performed by the aspect.
 
 ## Step 1. Setting up more abstractions
 
-We'll now update the aspect to support two kinds of properties: standard ones and properties of an immutable collection type. We'll only support collection types from the `System.Collections.Immutable` namespace, but the same approach can be used for different types.
+We'll now update the aspect to support two kinds of properties: standard ones and properties of an immutable collection type. We'll only support collection types from the <xref:System.Collections.Immutable> namespace, but the same approach can be used for different types.
 
 Since we have two kinds of properties, we'll make the `PropertyMapping` class _abstract_. It will have two implementations: `StandardPropertyMapping` and `ImmutableCollectionPropertyMapping`. Any implementation-specific method must be abstracted in the `PropertyMapping` class and implemented separately in derived classes.
 
@@ -42,7 +42,7 @@ Here is the new `PropertyMapping` class:
 
 [!metalama-file PropertyMapping.cs]
 
-Note that the `PropertyMapping` class now implements the (empty) `ITemplateProvider` interface. This is required because `SetBuilderPropertyValue` is a template. Note also that `SetBuilderPropertyValue` cannot be abstract due to current limitations in Metalama, so we had to make it virtual.
+Note that the `PropertyMapping` class now implements the (empty) <xref:Metalama.Framework.Aspects.ITemplateProvider> interface. This is required because `SetBuilderPropertyValue` is an _auxiliary template_, i.e. a template called from another top-level template. Note also that `SetBuilderPropertyValue` cannot be abstract due to current limitations in Metalama, so we had to make it virtual. For details regarding auxiliary templates, see <xref:auxiliary-templates>.
 
 The implementation of `PropertyMapping` for standard properties is directly extracted from the aspect implementation in the previous article.
 
@@ -87,3 +87,4 @@ These artifacts are built by the `ImplementBuilderArtifacts` method of the `Immu
 Handling different kinds of properties led us to use more abstraction in our aspect. As you can see, meta-programming, like other forms of programming, requires a strict definition of concepts and the right level of abstraction.
 
 Our aspect now correctly handles not only derived types but also immutable collections.
+

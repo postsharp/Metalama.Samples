@@ -25,6 +25,8 @@ Before reporting any error, we must declare a <xref:Metalama.Framework.Diagnosti
 
 [!metalama-file BuilderDiagnosticDefinitions.cs]
 
+For details, see <xref:diagnostics>.
+
 ## Step 2. Finding the base type and its members
 
 We can now inspect the base type and look for artifacts we will need: the constructors, the `Builder` type, and the constructors of the `Builder` type. If we don't find them, we report an error and quit.
@@ -33,7 +35,7 @@ We can now inspect the base type and look for artifacts we will need: the constr
 
 ## Step 3. Creating the Builder type
 
-Now that we have found the artifacts in the base type, we can update the rest of the `BuildAspect` method to use them.
+Now that we have found the artifacts in the base type, we can update the rest of the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method to use them.
 
 In the snippet that creates the `Builder` type, we specify the `Builder` of the base type as the base type of the new `Builder`:
 
@@ -43,7 +45,7 @@ Note that we set the `whenExist` parameter to `OverrideStrategy.New`. This means
 
 ## Step 4. Mapping properties
 
-To discover properties, we now use the `AllProperties` collection which, unlike `Properties`, includes properties defined by base types. We added an `IsInherited` property into the `PropertyMapping` field.
+To discover properties, we now use the <xref:Metalama.Framework.Code.INamedType.AllProperties> collection which, unlike <xref:Metalama.Framework.Code.INamedType.Properties>, includes properties defined by base types. We added an `IsInherited` property into the `PropertyMapping` field.
 
 Here is how we updated the code that discovers properties:
 
@@ -63,7 +65,7 @@ Here is the updated code:
 
 [!metalama-file GenerateBuilderAttribute.cs marker="CreateBuilderConstructor"]
 
-The first part of the logic is unchanged: we add a parameter for each required property, including inherited ones. Then, when we have a base class, we call the base constructor. First, we set the `InitializerKind` of the new constructor to `Base`. Then, for each parameter of the base constructor, we find the corresponding parameter in the new constructor, and we call the `AddInitializerArgument` method to add an argument to the call to the `base()` constructor. If we don't find this parameter, we report an error.
+The first part of the logic is unchanged: we add a parameter for each required property, including inherited ones. Then, when we have a base class, we call the base constructor. First, we set the <xref:Metalama.Framework.Code.DeclarationBuilders.IConstructorBuilder.InitializerKind> of the new constructor to <xref:Metalama.Framework.Code.ConstructorInitializerKind.Base>. Then, for each parameter of the base constructor, we find the corresponding parameter in the new constructor, and we call the <xrefMMetalama.Framework.Code.DeclarationBuilders.IConstructorBuilder.AddInitializerArgument*> method to add an argument to the call to the `base()` constructor. If we don't find this parameter, we report an error.
 
 ## Step 6. Other changes
 

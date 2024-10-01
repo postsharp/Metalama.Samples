@@ -32,7 +32,7 @@ Here's an illustration of the changes performed by this aspect when applied to a
 
 We are about to author complex aspects that introduce members with relationships to each other. Before diving in, a bit of planning and infrastructure is necessary.
 
-It's good practice to keep the T# template logic simple and do the hard work in the `BuildAspect` method. The question is how to pass data from `BuildAspect` to T# templates. As explained in <xref:sharing-state-with-advice>, a convenient approach is to use tags. Since we will have many tags, it's even more convenient to use strongly-typed tags containing all the data that `BuildAspect` needs to pass to templates. This is the purpose of the `Tags` record.
+It's good practice to keep the T# template logic simple and do the hard work in the <xref:Metalama.Framework.Aspects.IAspect`1.BuildAspect*> method. The question is how to pass data from `BuildAspect` to T# templates. As explained in <xref:sharing-state-with-advice>, a convenient approach is to use tags. Since we will have many tags, it's even more convenient to use strongly-typed tags containing all the data that `BuildAspect` needs to pass to templates. This is the purpose of the `Tags` record.
 
 A critical member of the `Tags` record is a collection of `PropertyMapping` objects. The `PropertyMapping` class maps a source property to a `Builder` property, as well as to the corresponding parameter in different constructors.
 
@@ -52,11 +52,13 @@ Spoiler alert: here's how we share the `Tags` class with advice at the end of th
 
 ## 2. Creating the Builder type and the properties
 
-Let's now create a nested type.
+Let's now create a nested type using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*>:
 
 [!metalama-file GenerateBuilderAttribute.cs marker="IntroduceBuilder"]
 
-Introducing properties is straightforward:
+For details about creating new types, see <xref:introducing-types>.
+
+Introducing properties is straightforward, as described in <xref:introducing-members>:
 
 [!metalama-file GenerateBuilderAttribute.cs marker="IntroduceProperties"]
 
@@ -70,7 +72,7 @@ Our next task is to create the public constructor of the `Builder` nested type, 
 
 [!metalama-file GenerateBuilderAttribute.cs marker="IntroducePublicConstructor"]
 
-We use the `AddParameter` method to dynamically create a parameter for each required property. We save the ordinal of this parameter in the `BuilderConstructorParameterIndex` property of the `PropertyMapping` object for later reference in the constructor implementation.
+We use the <xref:Metalama.Framework.Code.DeclarationBuilders.IMethodBaseBuilder.AddParameter*> method to dynamically create a parameter for each required property. We save the ordinal of this parameter in the `BuilderConstructorParameterIndex` property of the `PropertyMapping` object for later reference in the constructor implementation.
 
 Here is `BuilderConstructorTemplate`, the template for this constructor. You can now see how we use the `Tags` and `PropertyMapping` objects. This code iterates through required properties and assigns a property of the `Builder` type to the value of the corresponding constructor parameter.
 

@@ -9,7 +9,7 @@ modified-date: 2024-09-30
 
 # Implementing the Builder pattern without boilerplate
 
-The popularity of _immutable_ objects has made the Builder pattern crucial in C#. The most frequent use of builders in C# today is to simplify the creation of immutable objects using mutable objects, named _builders_, used solely to create the immutable ones. A prime example is the `System.Collections.Immutable` namespace, where each collection type has its own mutable builder.
+The popularity of _immutable_ objects has made the Builder pattern crucial in C#. The most frequent use of builders in C# today is to simplify the creation of immutable objects using mutable objects, named _builders_, used solely to create the immutable ones. A prime example is the <xref:System.Collections.Immutable> namespace, where each collection type has its own mutable builder.
 
 Without builders, constructing complex immutable objects can be cumbersome because all properties must be set at once. The Builder pattern allows you to split the object creation process into several steps.
 
