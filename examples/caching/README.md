@@ -6,7 +6,7 @@ created-date: 2023-04-06
 modified-date: 2024-09-09
 ---
 
-# Example: caching
+# Example: Caching
 
 In optimizing performance, it is important to store method outputs in memory to improve overall application efficiency, especially for time-consuming or computationally expensive tasks. By storing the results in memory, subsequent calls can quickly retrieve the data without having to re-execute the entire operation, reducing latency.
 
