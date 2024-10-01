@@ -1,12 +1,12 @@
 ---
 uid: sample-notifypropertychanged
 summary: "This document explains how to implement a custom `INotifyPropertyChanged` aspect using Metalama to reduce boilerplate code in .NET applications, highlighting its implementation and limitations."
-keywords: "INotifyPropertyChanged, data binding, MVVM pattern, aspect,  PropertyChanged event"
+keywords: "INotifyPropertyChanged, OnPropertyChanged, C# implement INotifyPropertyChanged, data binding, MVVM pattern, aspect"
 created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Example: custom INotifyPropertyChanged aspect
+# Implementing INotifyPropertyChanged without boilerplate
 
 [!metalama-project-buttons .]
 
@@ -29,6 +29,10 @@ In the following example, we show how source code is transformed by the aspect. 
 displayed in green.
 
 [!metalama-compare MovingVertex.cs]
+
+> [!INFO]
+> The objective of this article is didactic. For a production-ready and battle-tested implementation of caching, use the `Metalama.Patterns.Observability` package. See <xref:observability> for details.
+
 
 ## Implementation
 

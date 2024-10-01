@@ -7,7 +7,7 @@ created-date: 2024-09-05
 modified-date: 2024-09-09
 ---
 
-# Example: String normalization
+# Automatically trimming, upper-casing or normalizing strings
 
 [!metalama-project-buttons .]
 

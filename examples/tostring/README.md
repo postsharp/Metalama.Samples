@@ -6,7 +6,7 @@ created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Example: Generating the ToString method
+# Generating the ToString method automatically
 
 In this series, we will show how to create an aspect that generates the `ToString` method from properties. We will see how to make it configurable and how to improve the development experience (DevEx) of the aspect by adding some code refactorings to the lightbulb menu.
 

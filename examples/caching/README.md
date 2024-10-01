@@ -6,7 +6,7 @@ created-date: 2023-04-06
 modified-date: 2024-09-09
 ---
 
-# Example: Caching
+# Implementing caching without boilerplate
 
 In optimizing performance, it is important to store method outputs in memory to improve overall application efficiency, especially for time-consuming or computationally expensive tasks. By storing the results in memory, subsequent calls can quickly retrieve the data without having to re-execute the entire operation, reducing latency.
 
@@ -15,6 +15,11 @@ It is important to note that caching method outputs should only be applied to me
 Traditionally, caching the output of a method requires a lot of boilerplate code. However, this process can be significantly simplified by encapsulating it in an aspect.
 
 One of the significant challenges of caching is generating a unique cache key reliably. In this article series, we present strategies for creating this key.
+
+> [!INFO]
+> The objective of this series is didactic. For a production-ready and battle-tested implementation of caching, use the `Metalama.Patterns.Caching.Aspects` package. See <xref:caching> for details.
+
+## In this series
 
 | Article | Description |
 | ------- | ----------- |

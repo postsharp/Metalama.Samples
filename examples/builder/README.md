@@ -6,7 +6,7 @@ created-date: 2024-09-30
 modified-date: 2024-09-30
 ---
 
-# Example: Builder
+# Implementing the Builder pattern without boilerplate
 
 The popularity of _immutable_ objects made the Builder pattern one of the most important ones in C#. Indeed, the most frequent use of builders in C# today is to ease the creation of immutable objects using a mutable objects, the builder, used only to create the immutable one. An example of use of this pattern is the `System.Collections.Immutable` namespace, where each collection type comes with its own -- mutable -- builder.
 

@@ -1,12 +1,12 @@
 ---
 uid: sample-clone
 summary: "The Deep Clone pattern creates a completely separate copy of an object, including all its properties and sub-properties, using recursive cloning."
-keywords: "Deep Clone, recursively cloning, automate, aspect"
+keywords: "c# clone object, c# clone method"
 created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Example: deep cloning
+# Implementing object cloning without boilerplate
 
 The Deep Clone pattern creates a copy of an object that is completely separate from the original object, including its properties and sub-properties. Deep cloning is achieved by recursively cloning all the child objects that make up the original object, creating a new instance of each one, and assembling the parent clone from the child clones.
 
