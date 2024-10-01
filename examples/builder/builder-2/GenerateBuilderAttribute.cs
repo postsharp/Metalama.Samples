@@ -12,15 +12,17 @@ public class GenerateBuilderAttribute : TypeAspect
     [CompileTime]
     private class PropertyMapping
     {
-        public PropertyMapping( IProperty sourceProperty, bool isRequired )
+        public PropertyMapping( IProperty sourceProperty, bool isRequired, bool isInherited )
         {
             this.SourceProperty = sourceProperty;
             this.IsRequired = isRequired;
+            this.IsInherited = isInherited;
         }
 
         public IProperty SourceProperty { get; }
 
         public bool IsRequired { get; }
+        public bool IsInherited { get; }
 
         public IProperty? BuilderProperty { get; set; }
 
@@ -33,7 +35,7 @@ public class GenerateBuilderAttribute : TypeAspect
     private record Tags(
         IReadOnlyList<PropertyMapping> Properties,
         IConstructor SourceConstructor,
-        IConstructor BuilderConstructor );
+        IConstructor BuilderCopyConstructor );
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
@@ -45,7 +47,9 @@ public class GenerateBuilderAttribute : TypeAspect
 
         // Find the Builder nested type in the base type.
         INamedType? baseBuilderType = null;
-        IConstructor? baseConstructor = null;
+        IConstructor? baseConstructor = null,
+            baseBuilderConstructor = null,
+            baseBuilderCopyConstructor = null;
 
         if ( sourceType.BaseType != null && sourceType.BaseType.SpecialType != SpecialType.Object )
         {
@@ -87,14 +91,34 @@ public class GenerateBuilderAttribute : TypeAspect
                 default:
                     baseBuilderType = baseBuilderTypes[0];
 
-                    if ( baseBuilderType.Constructors.Count != 1 )
+                    // Check that we have exactly two constructors.
+                    if ( baseBuilderType.Constructors.Count != 2 )
                     {
                         builder.Diagnostics.Report(
-                            BuilderDiagnosticDefinitions.BaseTypeMustContainOneConstructor
+                            BuilderDiagnosticDefinitions.BaseBuilderMustContainOneNonCopyConstructor
                                 .WithArguments( (baseBuilderType,
                                     baseBuilderType.Constructors.Count) ) );
                         return;
                     }
+
+                    // Find the copy constructor.
+                    baseBuilderCopyConstructor = baseBuilderType.Constructors
+                        .SingleOrDefault( c =>
+                            c.Parameters.Count == 1 &&
+                            c.Parameters[0].Type == sourceType.BaseType );
+
+                    if ( baseBuilderCopyConstructor == null )
+                    {
+                        builder.Diagnostics.Report(
+                            BuilderDiagnosticDefinitions.BaseBuilderMustContainCopyConstructor
+                                .WithArguments( (baseBuilderType,
+                                    sourceType.BaseType) ) );
+                        return;
+                    }
+
+                    // The normal constructor is the other constructor.
+                    baseBuilderConstructor =
+                        baseBuilderType.Constructors.Single( c => c != baseBuilderCopyConstructor );
 
                     break;
             }
@@ -110,16 +134,20 @@ public class GenerateBuilderAttribute : TypeAspect
                 p => p.Writeability != Writeability.None &&
                      !p.IsStatic )
             .Select(
-                p => new PropertyMapping(
-                    p,
-                    p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
+                p =>
+                {
+                    var isRequired = p.Attributes.OfAttributeType( typeof(RequiredAttribute) )
+                        .Any();
+                    var isInherited = p.DeclaringType != sourceType;
+                    return new PropertyMapping( p, isRequired, isInherited );
+                } )
             .ToList();
 
         // Introduce the Builder nested type.
         var builderType = builder.IntroduceClass(
             "Builder",
-            whenExists: OverrideStrategy.New,
-            buildType: t =>
+            OverrideStrategy.New,
+            t =>
             {
                 t.Accessibility = Accessibility.Public;
                 t.BaseType = baseBuilderType;
@@ -137,7 +165,12 @@ public class GenerateBuilderAttribute : TypeAspect
                             property.SourceProperty.Name,
                             property.SourceProperty.Type,
                             IntroductionScope.Instance,
-                            buildProperty: p => p.Accessibility = Accessibility.Public )
+                            buildProperty: p =>
+                            {
+                                p.Accessibility = Accessibility.Public;
+                                p.InitializerExpression =
+                                    property.SourceProperty.InitializerExpression;
+                            } )
                         .Declaration;
             }
             else if ( baseBuilderType != null )
@@ -167,7 +200,7 @@ public class GenerateBuilderAttribute : TypeAspect
         }
 
         // Add a builder constructor accepting the required properties and update the mapping.
-        var builderConstructor = builderType.IntroduceConstructor(
+        builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
             buildConstructor: c =>
             {
@@ -184,9 +217,8 @@ public class GenerateBuilderAttribute : TypeAspect
                 }
 
                 // Calling the base constructor.
-                if ( baseBuilderType != null )
+                if ( baseBuilderConstructor != null )
                 {
-                    var baseBuilderConstructor = baseBuilderType.Constructors.Single();
                     c.InitializerKind = ConstructorInitializerKind.Base;
 
                     foreach ( var baseConstructorParameter in baseBuilderConstructor.Parameters )
@@ -194,6 +226,7 @@ public class GenerateBuilderAttribute : TypeAspect
                         var thisParameter =
                             c.Parameters.SingleOrDefault( p =>
                                 p.Name == baseConstructorParameter.Name );
+
                         if ( thisParameter != null )
                         {
                             c.AddInitializerArgument( thisParameter );
@@ -209,6 +242,25 @@ public class GenerateBuilderAttribute : TypeAspect
                         }
                     }
                 }
+            } );
+
+        // Add a builder constructor that creates a copy from the source type.
+        var builderCopyConstructor = builderType.IntroduceConstructor(
+            nameof(this.BuilderCopyConstructorTemplate),
+            buildConstructor: c =>
+            {
+                c.Accessibility = Accessibility.ProtectedInternal;
+                c.Parameters[0].Type = sourceType;
+
+                if ( baseBuilderCopyConstructor != null )
+                {
+                    c.InitializerKind = ConstructorInitializerKind.Base;
+
+                    if ( baseBuilderType != null )
+                    {
+                        c.AddInitializerArgument( c.Parameters[0] );
+                    }
+                }
             } ).Declaration;
 
 
@@ -221,8 +273,8 @@ public class GenerateBuilderAttribute : TypeAspect
         builderType.IntroduceMethod(
             nameof(this.BuildMethodTemplate),
             IntroductionScope.Instance,
-            whenExists: OverrideStrategy.New,
-            buildMethod: m =>
+            OverrideStrategy.New,
+            m =>
             {
                 m.Name = "Build";
                 m.Accessibility = Accessibility.Public;
@@ -283,7 +335,7 @@ public class GenerateBuilderAttribute : TypeAspect
                 m.IsVirtual = !sourceType.IsSealed;
             } );
 
-        builder.Tags = new Tags( properties, sourceConstructor, builderConstructor );
+        builder.Tags = new Tags( properties, sourceConstructor, builderCopyConstructor );
     }
 
     [Template]
@@ -291,10 +343,23 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        foreach ( var property in tags.Properties.Where( p => p.IsRequired ) )
+        foreach ( var property in tags.Properties.Where( p => p is
+                     { IsRequired: true, IsInherited: false } ) )
+        {
+            property.SourceProperty.Value =
+                meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
+        }
+    }
+
+    [Template]
+    private void BuilderCopyConstructorTemplate( dynamic source )
+    {
+        var tags = (Tags) meta.Tags.Source!;
+
+        foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
             property.BuilderProperty!.Value =
-                meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
+                property.SourceProperty.With( (IExpression) source ).Value;
         }
     }
 
@@ -303,13 +368,10 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        foreach ( var property in tags.Properties )
+        foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
-            if ( property.SourceProperty.DeclaringType == meta.Target.Type )
-            {
-                property.BuilderProperty!.Value =
-                    meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
-            }
+            property.BuilderProperty!.Value =
+                meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
 
@@ -326,34 +388,6 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        // Generate the list of constructor arguments, which much include all required properties.
-        var builderConstructorParameters =
-            new IExpression[tags.BuilderConstructor.Parameters.Count];
-
-        foreach ( var property in tags.Properties )
-        {
-            if ( property.IsRequired )
-            {
-                builderConstructorParameters[property.BuilderConstructorParameterIndex!.Value] =
-                    property.SourceProperty;
-            }
-        }
-
-        // Invoke the constructor and store the result in a local variable.
-        var builder =
-            tags.BuilderConstructor.CreateInvokeExpression( builderConstructorParameters ).Value!;
-
-
-        // Set non-required properties.
-        foreach ( var property in tags.Properties )
-        {
-            if ( !property.IsRequired )
-            {
-                property.BuilderProperty!.With( (IExpression) builder ).Value =
-                    property.SourceProperty.Value;
-            }
-        }
-
-        return builder;
+        return tags.BuilderCopyConstructor.Invoke( meta.This );
     }
 }

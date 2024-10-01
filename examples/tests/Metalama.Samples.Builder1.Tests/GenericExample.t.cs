@@ -10,14 +10,16 @@ public partial class StringKeyedValue<T>
   }
   public StringKeyedValue<T>.Builder ToBuilder()
   {
-    var builder = new StringKeyedValue<T>.Builder();
-    builder.Value = Value;
-    return builder;
+    return new StringKeyedValue<T>.Builder(this);
   }
   public class Builder
   {
     public Builder()
     {
+    }
+    protected internal Builder(StringKeyedValue<T> source)
+    {
+      Value = source.Value;
     }
     private T _value = default !;
     public T Value

@@ -18,9 +18,7 @@ public partial class Song
   }
   public virtual Builder ToBuilder()
   {
-    var builder = new Builder(Artist, Title);
-    builder.Duration = Duration;
-    return builder;
+    return new Builder(this);
   }
   public class Builder
   {
@@ -28,6 +26,12 @@ public partial class Song
     {
       Artist = artist;
       Title = title;
+    }
+    protected internal Builder(Song source)
+    {
+      Artist = source.Artist;
+      Title = source.Title;
+      Duration = source.Duration;
     }
     private string _artist = default !;
     public string Artist

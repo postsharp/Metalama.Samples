@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace Metalama.Samples.Builder2.Tests.DerivedType;
+namespace Metalama.Samples.Builder3.Tests.DerivedType;
 #pragma warning disable CS8618 //  Non-nullable property must contain a non-null value when exiting constructor.
 [GenerateBuilder]
 public class Article

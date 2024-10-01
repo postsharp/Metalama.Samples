@@ -1,6 +1,7 @@
-using Metalama.Samples.Builder1;
+using Metalama.Samples.Builder3;
 using System.ComponentModel.DataAnnotations;
-namespace ClassLibrary1Metalama.Samples.Builder1.Tests.SimpleExample;
+namespace ClassLibrary1Metalama.Samples.Builder3.Tests.SimpleExample;
+#pragma warning disable CS8618 //  Non-nullable property must contain a non-null value when exiting constructor.
 [GenerateBuilder]
 public partial class Song
 {
@@ -9,15 +10,13 @@ public partial class Song
   [Required]
   public string Title { get; }
   public TimeSpan? Duration { get; }
-  public string Genre { get; } = "General";
-  private Song(string artist, string title, TimeSpan? duration, string genre)
+  protected Song(string artist, string title, TimeSpan? duration)
   {
     Artist = artist;
     Title = title;
     Duration = duration;
-    Genre = genre;
   }
-  public Builder ToBuilder()
+  public virtual Builder ToBuilder()
   {
     return new Builder(this);
   }
@@ -33,7 +32,6 @@ public partial class Song
       Artist = source.Artist;
       Title = source.Title;
       Duration = source.Duration;
-      Genre = source.Genre;
     }
     private string _artist = default !;
     public string Artist
@@ -59,18 +57,6 @@ public partial class Song
         _duration = value;
       }
     }
-    private string _genre = "General";
-    public string Genre
-    {
-      get
-      {
-        return _genre;
-      }
-      set
-      {
-        _genre = value;
-      }
-    }
     private string _title = default !;
     public string Title
     {
@@ -85,7 +71,7 @@ public partial class Song
     }
     public Song Build()
     {
-      return new Song(Artist, Title, Duration, Genre)!;
+      return new Song(Artist, Title, Duration)!;
     }
   }
 }

@@ -2,36 +2,18 @@
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System.ComponentModel.DataAnnotations;
+using System.Net.NetworkInformation;
 
 namespace Metalama.Samples.Builder1;
 
-public class GenerateBuilderAttribute : TypeAspect
+public partial class GenerateBuilderAttribute : TypeAspect
 {
-    [CompileTime]
-    private class PropertyMapping
-    {
-        public PropertyMapping( IProperty sourceProperty, bool isRequired )
-        {
-            this.SourceProperty = sourceProperty;
-            this.IsRequired = isRequired;
-        }
-
-        public IProperty SourceProperty { get; }
-
-        public bool IsRequired { get; }
-
-        public IProperty? BuilderProperty { get; set; }
-
-        public int? SourceConstructorParameterIndex { get; set; }
-
-        public int? BuilderConstructorParameterIndex { get; set; }
-    }
-
     [CompileTime]
     private record Tags(
         IReadOnlyList<PropertyMapping> Properties,
         IConstructor SourceConstructor,
-        IConstructor BuilderConstructor );
+        IConstructor BuilderConstructor,
+        IConstructor BuilderCopyConstructor );
 
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
@@ -44,8 +26,7 @@ public class GenerateBuilderAttribute : TypeAspect
                 p => p.Writeability != Writeability.None &&
                      !p.IsStatic )
             .Select(
-                p => new PropertyMapping(
-                    p,
+                p => new PropertyMapping(p,
                     p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
             .ToList();
 
@@ -62,7 +43,11 @@ public class GenerateBuilderAttribute : TypeAspect
                         property.SourceProperty.Name,
                         property.SourceProperty.Type,
                         IntroductionScope.Instance,
-                        buildProperty: p => p.Accessibility = Accessibility.Public )
+                        buildProperty: p =>
+                        {
+                            p.Accessibility = Accessibility.Public;
+                            p.InitializerExpression = property.SourceProperty.InitializerExpression;
+                        } )
                     .Declaration;
         }
 
@@ -80,6 +65,15 @@ public class GenerateBuilderAttribute : TypeAspect
                             property.SourceProperty.Type )
                         .Index;
                 }
+            } ).Declaration;
+        
+        // Add a builder constructor that creates a copy from the source type.
+        var builderCopyConstructor = builderType.IntroduceConstructor(
+            nameof(this.BuilderCopyConstructorTemplate),
+            buildConstructor: c =>
+            {
+                c.Accessibility = Accessibility.ProtectedInternal;
+                c.Parameters[0].Type = sourceType;
             } ).Declaration;
 
         // Add a Build method to the builder.
@@ -118,7 +112,7 @@ public class GenerateBuilderAttribute : TypeAspect
             m.ReturnType = builderType.Declaration;
         } );
 
-        builder.Tags = new Tags( properties, sourceConstructor, builderConstructor );
+        builder.Tags = new Tags( properties, sourceConstructor, builderConstructor, builderCopyConstructor );
     }
 
     [Template]
@@ -132,6 +126,18 @@ public class GenerateBuilderAttribute : TypeAspect
                 meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
         }
     }
+    
+    [Template]
+    private void BuilderCopyConstructorTemplate( dynamic source )
+    {
+        var tags = (Tags) meta.Tags.Source!;
+
+        foreach ( var property in tags.Properties )
+        {
+            property.BuilderProperty!.Value =
+                property.SourceProperty.With( (IExpression) source ).Value;
+        }
+    }
 
     [Template]
     private void SourceConstructorTemplate()
@@ -140,7 +146,7 @@ public class GenerateBuilderAttribute : TypeAspect
 
         foreach ( var property in tags.Properties )
         {
-            property.BuilderProperty!.Value =
+            property.SourceProperty!.Value =
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
@@ -158,34 +164,6 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        // Generate the list of constructor arguments, which much include all required properties.
-        var builderConstructorParameters =
-            new IExpression[tags.BuilderConstructor.Parameters.Count];
-
-        foreach ( var property in tags.Properties )
-        {
-            if ( property.IsRequired )
-            {
-                builderConstructorParameters[property.BuilderConstructorParameterIndex!.Value] =
-                    property.SourceProperty;
-            }
-        }
-
-        // Invoke the constructor and store the result in a local variable.
-        var builder =
-            tags.BuilderConstructor.CreateInvokeExpression( builderConstructorParameters ).Value!;
-
-
-        // Set non-required properties.
-        foreach ( var property in tags.Properties )
-        {
-            if ( !property.IsRequired )
-            {
-                property.BuilderProperty!.With( (IExpression) builder ).Value =
-                    property.SourceProperty.Value;
-            }
-        }
-
-        return builder;
+        return tags.BuilderCopyConstructor.Invoke( meta.This );
     }
 }
