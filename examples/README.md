@@ -22,7 +22,8 @@ This chapter shows a few examples that demonstrate how to use Metalama. Each of 
 | [Memento](memento/README.md)                              | Implements the classic _Memento_ pattern.
 | [Enum View-Model](enum-viewmodel/README.md)               | Creates a view-model class to wrap an enum value.                                                                |
 | [Shared Fabric](fabrics/shared/README.md)                 | Demonstrates a fabric that targets several projects. Contributed by Whit Waldo. |
-| [ToString](tostring/README.md)        | Implements the <xref:System.Object.ToString*> method.                                                           |
+| [ToString](tostring/README.md)                            | Implements the <xref:System.Object.ToString*> method.                                                           |
+| [Builder](builder/README.md)                              | Implements the Builder pattern, i.e. a mutable `Builder` type nested inside an immutable type. |
 
 If you have developed an original aspect with Metalama, consider [contributing](contributing.md) to this list.
 
