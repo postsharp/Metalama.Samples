@@ -7,7 +7,7 @@ using Metalama.Framework.Project;
 [EditorExperience(SuggestAsLiveTemplate = true)]
 public class CloneableAttribute : TypeAspect
 {
-    // [snippet DiagnosticDefinitions]
+    // [<snippet DiagnosticDefinitions>]
     private static readonly DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)>
         _fieldOrPropertyCannotBeReadOnly =
             new("CLONE01", Severity.Error,
@@ -25,7 +25,7 @@ public class CloneableAttribute : TypeAspect
     private static readonly DiagnosticDefinition<IProperty> _childPropertyMustBeAutomatic =
         new("CLONE04", Severity.Error,
             "The property '{0}' cannot be a [Child] because is not an automatic property.");
-    // [endsnippet DiagnosticDefinitions]
+    // [<endsnippet DiagnosticDefinitions>]
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {

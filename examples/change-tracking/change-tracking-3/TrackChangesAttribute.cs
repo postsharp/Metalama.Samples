@@ -55,7 +55,7 @@ public class TrackChangesAttribute : TypeAspect
 
         var onPropertyChanged = this.GetOnPropertyChangedMethod(builder.Target);
 
-        // [snippet NoOnPropertyChanged]
+        // [<snippet NoOnPropertyChanged>]
         if (onPropertyChanged == null)
         {
             // If the type has an OnPropertyChanged method, we assume that all properties
@@ -73,15 +73,15 @@ public class TrackChangesAttribute : TypeAspect
                     nameof(this.OverrideSetter));
             }
         }
-        // [endsnippet NoOnPropertyChanged]
-        // [snippet OnPropertyChangedInCurrentType]
+        // [<endsnippet NoOnPropertyChanged>]
+        // [<snippet OnPropertyChangedInCurrentType>]
         else if (onPropertyChanged.DeclaringType.Equals(builder.Target))
         {
             // If the OnPropertyChanged method was declared in the current type, override it.
             builder.Advice.Override(onPropertyChanged, nameof(this.OnPropertyChanged));
         }
-        // [endsnippet OnPropertyChangedInCurrentType]
-        // [snippet OnPropertyChangedInBaseType]
+        // [<endsnippet OnPropertyChangedInCurrentType>]
+        // [<snippet OnPropertyChangedInBaseType>]
         else if (implementInterfaceResult.Outcome == AdviceOutcome.Ignore)
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
@@ -105,7 +105,7 @@ public class TrackChangesAttribute : TypeAspect
                     whenExists: OverrideStrategy.Override);
             }
         }
-        // [endsnippet OnPropertyChangedInBaseType]
+        // [<endsnippet OnPropertyChangedInBaseType>]
     }
 
 

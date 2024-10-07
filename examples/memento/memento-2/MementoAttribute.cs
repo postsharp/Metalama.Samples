@@ -3,10 +3,10 @@ using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
-// [snippet ClassDefinition]
+// [<snippet ClassDefinition>]
 [Inheritable]
 public sealed class MementoAttribute : TypeAspect
-// [endsnippet ClassDefinition]
+// [<endsnippet ClassDefinition>]
 {
     [CompileTime]
     private record BuildAspectInfo(
@@ -20,7 +20,7 @@ public sealed class MementoAttribute : TypeAspect
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
-        // [snippet GetBaseType]
+        // [<snippet GetBaseType>]
         var isBaseMementotable = builder.Target.BaseType?.Is(typeof(IMementoable)) == true;
 
         INamedType? baseMementoType;
@@ -87,9 +87,9 @@ public sealed class MementoAttribute : TypeAspect
             baseMementoType = null;
             baseMementoConstructor = null;
         }
-        // [endsnippet GetBaseType]
+        // [<endsnippet GetBaseType>]
 
-        // [snippet IntroduceType]
+        // [<snippet IntroduceType>]
         // Introduce a new private nested class called Memento.
         var mementoType =
             builder.IntroduceClass(
@@ -100,9 +100,9 @@ public sealed class MementoAttribute : TypeAspect
                     b.Accessibility = Metalama.Framework.Code.Accessibility.Protected;
                     b.BaseType = baseMementoType;
                 });
-        // [endsnippet IntroduceType]
+        // [<endsnippet IntroduceType>]
 
-        // [snippet SelectFields]
+        // [<snippet SelectFields>]
         var originatorFieldsAndProperties = builder.Target.FieldsAndProperties
             .Where(p => p is
             {
@@ -114,9 +114,9 @@ public sealed class MementoAttribute : TypeAspect
             .Where(p =>
                 !p.Attributes.OfAttributeType(typeof(MementoIgnoreAttribute))
                     .Any());
-        // [endsnippet SelectFields]
+        // [<endsnippet SelectFields>]
 
-        // [snippet IntroduceProperties]
+        // [<snippet IntroduceProperties>]
         // Introduce data properties to the Memento class for each field of the target class.
         var propertyMap = new Dictionary<IFieldOrProperty, IProperty>();
 
@@ -135,9 +135,9 @@ public sealed class MementoAttribute : TypeAspect
 
             propertyMap.Add(fieldOrProperty, introducedField.Declaration);
         }
-        // [endsnippet IntroduceProperties]
+        // [<endsnippet IntroduceProperties>]
 
-        // [snippet IntroduceConstructor]
+        // [<snippet IntroduceConstructor>]
         // Add a constructor to the Memento class that records the state of the originator.
         mementoType.IntroduceConstructor(
             nameof(this.MementoConstructorTemplate),
@@ -151,10 +151,10 @@ public sealed class MementoAttribute : TypeAspect
                     b.AddInitializerArgument(parameter);
                 }
             });
-        // [endsnippet IntroduceConstructor]
+        // [<endsnippet IntroduceConstructor>]
 
 
-        // [snippet AddMementoInterface]
+        // [<snippet AddMementoInterface>]
         // Implement the IMemento interface on the Memento class and add its members.   
         mementoType.ImplementInterface(typeof(IMemento),
             whenExists: OverrideStrategy.Ignore);
@@ -165,7 +165,7 @@ public sealed class MementoAttribute : TypeAspect
         var originatorProperty = introducePropertyResult.Outcome == AdviceOutcome.Default
             ? introducePropertyResult.Declaration
             : null;
-        // [endsnippet AddMementoInterface]
+        // [<endsnippet AddMementoInterface>]
 
         // Implement the rest of the IOriginator interface and its members.
         builder.ImplementInterface(typeof(IMementoable), OverrideStrategy.Ignore);
@@ -182,10 +182,10 @@ public sealed class MementoAttribute : TypeAspect
             whenExists: OverrideStrategy.Override);
 
         // Pass the state to the templates.
-        // [snippet SetTag]
+        // [<snippet SetTag>]
         builder.Tags = new BuildAspectInfo(mementoType.Declaration, propertyMap,
             originatorProperty);
-        // [endsnippet SetTag]
+        // [<endsnippet SetTag>]
     }
 
     [Template] public object? MementoProperty { get; }
@@ -195,9 +195,9 @@ public sealed class MementoAttribute : TypeAspect
     [Template]
     public IMemento SaveToMemento()
     {
-        // [snippet GetTag]
+        // [<snippet GetTag>]
         var buildAspectInfo = (BuildAspectInfo)meta.Tags.Source!;
-        // [endsnippet GetTag]
+        // [<endsnippet GetTag>]
 
         // Invoke the constructor of the Memento class and pass this object as the originator.
         return buildAspectInfo.MementoType.Constructors.Single()
@@ -221,7 +221,7 @@ public sealed class MementoAttribute : TypeAspect
         }
     }
 
-    // [snippet ConstructorTemplate]
+    // [<snippet ConstructorTemplate>]
     [Template]
     public void MementoConstructorTemplate()
     {
@@ -242,5 +242,5 @@ public sealed class MementoAttribute : TypeAspect
             pair.Value.Value = pair.Key.With(meta.Target.Parameters[0]).Value;
         }
     }
-    // [endsnippet ConstructorTemplate]
+    // [<endsnippet ConstructorTemplate>]
 }
