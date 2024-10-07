@@ -50,20 +50,20 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
 
             var baseBuilderTypes =
-                sourceType.BaseType.Definition.Types.OfName("Builder").ToList();
+                sourceType.BaseType.Types.OfName("Builder").ToList();
 
             switch (baseBuilderTypes.Count)
             {
                 case 0:
                     builder.Diagnostics.Report(
                         BuilderDiagnosticDefinitions.BaseTypeMustContainABuilderType.WithArguments(
-                            sourceType.BaseType.Definition));
+                            sourceType.BaseType));
                     return;
 
                 case > 1:
                     builder.Diagnostics.Report(
                         BuilderDiagnosticDefinitions.BaseTypeCannotContainMoreThanOneBuilderType
-                            .WithArguments(sourceType.BaseType.Definition));
+                            .WithArguments(sourceType.BaseType));
                     return;
 
                 default:
