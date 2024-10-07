@@ -4,14 +4,14 @@ using Metalama.Framework.Eligibility;
 
 internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
 {
-    // [snippet Constructor]
+    // [<snippet Constructor>]
     private readonly object?[] _ignoredValues;
 
     public IgnoreValuesAttribute(params object?[] values)
     {
         this._ignoredValues = values;
     }
-    // [endsnippet Constructor]
+    // [<endsnippet Constructor>]
 
     public override dynamic? OverrideProperty
     {

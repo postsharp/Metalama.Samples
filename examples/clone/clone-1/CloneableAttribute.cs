@@ -7,21 +7,21 @@ public class CloneableAttribute : TypeAspect
 {
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
-        // [snippet BuildAspect1]
+        // [<snippet BuildAspect1>]
         builder.Advice.ImplementInterface(
             builder.Target,
             typeof(ICloneable),
             OverrideStrategy.Ignore);
-        // [endsnippet BuildAspect1]
+        // [<endsnippet BuildAspect1>]
 
-        // [snippet BuildAspect2]
+        // [<snippet BuildAspect2>]
         builder.Advice.IntroduceMethod(
             builder.Target,
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
             buildMethod: m => m.Name = "Clone");
-        // [endsnippet BuildAspect2]
+        // [<endsnippet BuildAspect2>]
     }
 
     [InterfaceMember(IsExplicit = true)]
