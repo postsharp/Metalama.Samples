@@ -55,7 +55,8 @@ public class TrackChangesAttribute : TypeAspect
 
         var onPropertyChanged = this.GetOnPropertyChangedMethod(builder.Target);
 
-        if (onPropertyChanged == null) /*<NoOnPropertyChanged>*/
+        // [snippet NoOnPropertyChanged]
+        if (onPropertyChanged == null)
         {
             // If the type has an OnPropertyChanged method, we assume that all properties
             // and fields already call it, and we hook into OnPropertyChanged instead of
@@ -71,16 +72,17 @@ public class TrackChangesAttribute : TypeAspect
                 builder.Advice.OverrideAccessors(fieldOrProperty, null,
                     nameof(this.OverrideSetter));
             }
-        } /*</NoOnPropertyChanged>*/
-        else if
-            (onPropertyChanged.DeclaringType
-             .Equals(builder.Target)) /*<OnPropertyChangedInCurrentType>*/
+        }
+        // [endsnippet NoOnPropertyChanged]
+        // [snippet OnPropertyChangedInCurrentType]
+        else if (onPropertyChanged.DeclaringType.Equals(builder.Target))
         {
             // If the OnPropertyChanged method was declared in the current type, override it.
             builder.Advice.Override(onPropertyChanged, nameof(this.OnPropertyChanged));
-        } /*</OnPropertyChangedInCurrentType>*/
-        else if (implementInterfaceResult.Outcome ==
-                 AdviceOutcome.Ignore) /*<OnPropertyChangedInBaseType>*/
+        }
+        // [endsnippet OnPropertyChangedInCurrentType]
+        // [snippet OnPropertyChangedInBaseType]
+        else if (implementInterfaceResult.Outcome == AdviceOutcome.Ignore)
         {
             // If we have an OnPropertyChanged method but the type already implements ISwitchableChangeTracking,
             // we assume that the type already hooked the OnPropertyChanged method, and
@@ -102,7 +104,8 @@ public class TrackChangesAttribute : TypeAspect
                 builder.Advice.IntroduceMethod(builder.Target, nameof(this.OnPropertyChanged),
                     whenExists: OverrideStrategy.Override);
             }
-        } /*</OnPropertyChangedInBaseType>*/
+        }
+        // [endsnippet OnPropertyChangedInBaseType]
     }
 
 

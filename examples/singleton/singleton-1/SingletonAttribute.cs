@@ -9,20 +9,23 @@ using Metalama.Framework.Eligibility;
 
 public class SingletonAttribute : TypeAspect
 {
-    [Template] /*<InstanceTemplate>*/
-    public static object Instance { get; } /*</InstanceTemplate>*/
+    // [snippet InstanceTemplate]
+    [Template] public static object Instance { get; }
+    // [endsnippet InstanceTemplate]
 
+    // [snippet PrivateConstructorDiagnostic]
     private static readonly DiagnosticDefinition<(IConstructor, INamedType)>
-        _constructorHasToBePrivate /*<PrivateConstructorDiagnostic>*/
-            = new(
-                "SING01",
-                Severity.Warning,
-                "The '{0}' constructor must be private because the class is [Singleton]."); /*</PrivateConstructorDiagnostic>*/
+        _constructorHasToBePrivate = new(
+            "SING01",
+            Severity.Warning,
+            "The '{0}' constructor must be private because the class is [Singleton].");
+    // [endsnippet PrivateConstructorDiagnostic]
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
+        // [snippet IntroduceInstanceProperty]
         // Introduce the property.
-        builder.Advice.IntroduceProperty( /*<IntroduceInstanceProperty>*/
+        builder.Advice.IntroduceProperty(
             builder.Target,
             nameof(Instance),
             buildProperty: propertyBuilder =>
@@ -35,10 +38,12 @@ public class SingletonAttribute : TypeAspect
                 initializer.AppendVerbatim("()");
 
                 propertyBuilder.InitializerExpression = initializer.ToExpression();
-            }); /*</IntroduceInstanceProperty>*/
+            });
+        // [endsnippet IntroduceInstanceProperty]
 
+        // [snippet PrivateConstructorReport]
         // Verify constructors.
-        foreach (var constructor in builder.Target.Constructors) /*<PrivateConstructorReport>*/
+        foreach (var constructor in builder.Target.Constructors)
         {
             if (constructor.Accessibility != Accessibility.Private &&
                 !constructor.IsImplicitlyDeclared)
@@ -47,15 +52,18 @@ public class SingletonAttribute : TypeAspect
                     _constructorHasToBePrivate.WithArguments((constructor, builder.Target)),
                     constructor);
             }
-        } /*</PrivateConstructorReport>*/
+        }
+        // [endsnippet PrivateConstructorReport]
 
+        // [snippet AddPrivateConstructor]
         // If there is no explicit constructor, add one.
         if (builder.Target.Constructors.All(c =>
-                c.IsImplicitlyDeclared)) /*<AddPrivateConstructor>*/
+                c.IsImplicitlyDeclared))
         {
             builder.IntroduceConstructor(nameof(this.ConstructorTemplate),
                 buildConstructor: c => c.Accessibility = Accessibility.Private);
-        } /*</AddPrivateConstructor>*/
+        }
+        // [endsnippet AddPrivateConstructor]
     }
 
     [Template]
