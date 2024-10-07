@@ -52,11 +52,14 @@ public class CloneableAttribute : TypeAspect
                 m.Name = "Clone";
                 m.ReturnType = builder.Target;
             });
-        builder.Advice.IntroduceMethod( /*<AddCloneMembers>*/
+
+        // [snippet AddCloneMembers]
+        builder.Advice.IntroduceMethod(
             builder.Target,
             nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
-            args: new { T = builder.Target }); /*</AddCloneMembers>*/
+            args: new { T = builder.Target });
+        // [endsnippet AddCloneMembers]
 
         // Implement the ICloneable interface.
         builder.Advice.ImplementInterface(
@@ -78,7 +81,8 @@ public class CloneableAttribute : TypeAspect
                              .Any()));
 
 
-        foreach (var fieldOrProperty in eligibleChildren) /*<ReportUnannotatedProperties>*/
+        // [snippet ReportUnannotatedProperties]
+        foreach (var fieldOrProperty in eligibleChildren)
         {
             builder.Diagnostics.Report(_annotateFieldOrProperty
                 .WithArguments((fieldOrProperty.DeclarationKind, fieldOrProperty)).WithCodeFixes(
@@ -86,18 +90,20 @@ public class CloneableAttribute : TypeAspect
                         "Cloneable | Mark as child"),
                     CodeFixFactory.AddAttribute(fieldOrProperty, typeof(ReferenceAttribute),
                         "Cloneable | Mark as reference")), fieldOrProperty);
-        } /*</ReportUnannotatedProperties>*/
+        }
+        // [endsnippet ReportUnannotatedProperties]
 
+        // [snippet SuggestCloneMembers]
         // If we don't have a CloneMember method, suggest to add it.
-        if (!builder.Target.Methods.OfName(nameof(this.CloneMembers))
-                .Any()) /*<SuggestCloneMembers>*/
+        if (!builder.Target.Methods.OfName(nameof(this.CloneMembers)).Any())
         {
             builder.Diagnostics.Suggest(
                 new CodeFix("Cloneable | Customize manually",
                     codeFix =>
                         codeFix.ApplyAspectAsync(builder.Target,
                             new AddEmptyCloneMembersAspect())));
-        } /*</SuggestCloneMembers>*/
+        }
+        // [endsnippet SuggestCloneMembers]
     }
 
 
