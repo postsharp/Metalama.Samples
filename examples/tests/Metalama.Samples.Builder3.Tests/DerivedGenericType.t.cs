@@ -10,7 +10,7 @@ public class StringKeyedValue<T>
   {
     Value = value;
   }
-  public virtual StringKeyedValue<T>.Builder ToBuilder()
+  public virtual Builder ToBuilder()
   {
     return new StringKeyedValue<T>.Builder(this);
   }
