@@ -9,21 +9,21 @@ using Metalama.Framework.Eligibility;
 
 public class SingletonAttribute : TypeAspect
 {
-    // [snippet InstanceTemplate]
+    // [<snippet InstanceTemplate>]
     [Template] public static object Instance { get; }
-    // [endsnippet InstanceTemplate]
+    // [<endsnippet InstanceTemplate>]
 
-    // [snippet PrivateConstructorDiagnostic]
+    // [<snippet PrivateConstructorDiagnostic>]
     private static readonly DiagnosticDefinition<(IConstructor, INamedType)>
         _constructorHasToBePrivate = new(
             "SING01",
             Severity.Warning,
             "The '{0}' constructor must be private because the class is [Singleton].");
-    // [endsnippet PrivateConstructorDiagnostic]
+    // [<endsnippet PrivateConstructorDiagnostic>]
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
-        // [snippet IntroduceInstanceProperty]
+        // [<snippet IntroduceInstanceProperty>]
         // Introduce the property.
         builder.Advice.IntroduceProperty(
             builder.Target,
@@ -39,9 +39,9 @@ public class SingletonAttribute : TypeAspect
 
                 propertyBuilder.InitializerExpression = initializer.ToExpression();
             });
-        // [endsnippet IntroduceInstanceProperty]
+        // [<endsnippet IntroduceInstanceProperty>]
 
-        // [snippet PrivateConstructorReport]
+        // [<snippet PrivateConstructorReport>]
         // Verify constructors.
         foreach (var constructor in builder.Target.Constructors)
         {
@@ -53,9 +53,9 @@ public class SingletonAttribute : TypeAspect
                     constructor);
             }
         }
-        // [endsnippet PrivateConstructorReport]
+        // [<endsnippet PrivateConstructorReport>]
 
-        // [snippet AddPrivateConstructor]
+        // [<snippet AddPrivateConstructor>]
         // If there is no explicit constructor, add one.
         if (builder.Target.Constructors.All(c =>
                 c.IsImplicitlyDeclared))
@@ -63,7 +63,7 @@ public class SingletonAttribute : TypeAspect
             builder.IntroduceConstructor(nameof(this.ConstructorTemplate),
                 buildConstructor: c => c.Accessibility = Accessibility.Private);
         }
-        // [endsnippet AddPrivateConstructor]
+        // [<endsnippet AddPrivateConstructor>]
     }
 
     [Template]

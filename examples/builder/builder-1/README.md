@@ -38,7 +38,7 @@ A critical member of the `Tags` record is a collection of `PropertyMapping` obje
 
 Here's the source code for the `Tags` and `PropertyMapping` types:
 
-[!metalama-file GenerateBuilderAttribute.PropertyMapping.cs]
+[!metalama-file GenerateBuilderAttribute.PropertyMapping.cs marker="Tags"]
 
 The first thing we do in the `BuildAspect` method is build a list of properties. When we initialize this list, we don't yet know all data items because they haven't been created yet.
 

@@ -3,10 +3,10 @@ using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
 
-// [snippet AttributeUsage]
+// [<snippet AttributeUsage>]
 [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-// [endsnippet AttributeUsage]
-// [snippet ClassHeader]
+// [<endsnippet AttributeUsage>]
+// [<snippet ClassHeader>]
 public class GenerateEnumViewModelAttribute : CompilationAspect
 {
     public Type EnumType { get; }
@@ -17,9 +17,9 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
         this.EnumType = enumType;
         this.TargetNamespace = targetNamespace;
     }
-// [endsnippet ClassHeader]
+// [<endsnippet ClassHeader>]
 
-// [snippet MultiInstance]
+// [<snippet MultiInstance>]
     public override void BuildAspect(IAspectBuilder<ICompilation> builder)
     {
         ImplementViewModel(this);
@@ -30,10 +30,10 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
         }
 
         void ImplementViewModel(GenerateEnumViewModelAttribute aspectInstance)
-// [endsnippet MultiInstance]
+// [<endsnippet MultiInstance>]
 
         {
-            // [snippet ValidateInputs]
+            // [<snippet ValidateInputs>]
             var enumType =
                 (INamedType)TypeFactory.GetType(aspectInstance.EnumType);
 
@@ -44,9 +44,9 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
                 builder.SkipAspect();
                 return;
             }
-            // [endsnippet ValidateInputs]
+            // [<endsnippet ValidateInputs>]
 
-            // [snippet IntroduceClass]
+            // [<snippet IntroduceClass>]
             // Introduce the ViewModel type.
             var viewModelType = builder
                 .WithNamespace(this.TargetNamespace)
@@ -68,9 +68,9 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
             viewModelType.IntroduceConstructor(
                 nameof(this.ConstructorTemplate),
                 args: new { T = enumType });
-            // [endsnippet IntroduceClass]
+            // [<endsnippet IntroduceClass>]
 
-            // [snippet AddProperties]
+            // [<snippet AddProperties>]
             // Get the field type and decides the template.
             var isFlags = enumType.Attributes.Any(a => a.Type.Is(typeof(FlagsAttribute)));
             var template = isFlags ? nameof(this.IsFlagTemplate) : nameof(this.IsMemberTemplate);
@@ -83,7 +83,7 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
                     tags: new { member },
                     buildProperty: p => p.Name = "Is" + member.Name);
             }
-            // [endsnippet AddProperties]
+            // [<endsnippet AddProperties>]
         }
     }
 
@@ -106,9 +106,9 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
         }
     }
 
-    // [snippet ConstructorTemplate]
+    // [<snippet ConstructorTemplate>]
     [Template]
     public void ConstructorTemplate<[CompileTime] T>(T value) =>
         meta.This._value = value!;
-    // [endsnippet ConstructorTemplate]
+    // [<endsnippet ConstructorTemplate>]
 }

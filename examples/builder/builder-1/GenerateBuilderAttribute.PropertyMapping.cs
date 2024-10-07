@@ -5,6 +5,7 @@ namespace Metalama.Samples.Builder1;
 
 public partial class GenerateBuilderAttribute
 {
+    // [<snippet Tags>]
     [CompileTime]
     private record Tags(
         INamedType SourceType,
@@ -31,4 +32,5 @@ public partial class GenerateBuilderAttribute
 
         public int? BuilderConstructorParameterIndex { get; set; }
     }
+    // [<endsnippet Tags>]
 }

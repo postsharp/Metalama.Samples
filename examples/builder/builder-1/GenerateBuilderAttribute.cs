@@ -6,9 +6,11 @@ using System.Net.NetworkInformation;
 
 namespace Metalama.Samples.Builder1;
 
+// [<snippet ClassHeader>]
 public partial class GenerateBuilderAttribute : TypeAspect
+// [<endsnippet ClassHeader>]
 {
-    // [snippet InitializeMapping]
+    // [<snippet InitializeMapping>]
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         base.BuildAspect(builder);
@@ -23,16 +25,16 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 p => new PropertyMapping(p,
                     p.Attributes.OfAttributeType(typeof(RequiredAttribute)).Any()))
             .ToList();
-        // [endsnippet InitializeMapping]
+        // [<endsnippet InitializeMapping>]
 
-        // [snippet IntroduceBuilder]
+        // [<snippet IntroduceBuilder>]
         // Introduce the Builder nested type.
         var builderType = builder.IntroduceClass(
             "Builder",
             buildType: t => t.Accessibility = Accessibility.Public);
-        // [endsnippet IntroduceBuilder]
+        // [<endsnippet IntroduceBuilder>]
 
-        // [snippet IntroduceProperties]
+        // [<snippet IntroduceProperties>]
         // Add builder properties and update the mapping.
         foreach (var property in properties)
         {
@@ -47,9 +49,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                         })
                     .Declaration;
         }
-        // [endsnippet IntroduceProperties]
+        // [<endsnippet IntroduceProperties>]
 
-        // [snippet IntroducePublicConstructor]
+        // [<snippet IntroducePublicConstructor>]
         // Add a builder constructor accepting the required properties and update the mapping.
         builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
@@ -66,9 +68,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     property.BuilderConstructorParameterIndex = parameter.Index;
                 }
             });
-        // [endsnippet IntroducePublicConstructor]
+        // [<endsnippet IntroducePublicConstructor>]
 
-        // [snippet IntroduceSourceConstructor]
+        // [<snippet IntroduceSourceConstructor>]
         // Add a constructor to the source type with all properties.
         var sourceConstructor = builder.IntroduceConstructor(
                 nameof(this.SourceConstructorTemplate),
@@ -86,9 +88,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     }
                 })
             .Declaration;
-        // [endsnippet IntroduceSourceConstructor]
+        // [<endsnippet IntroduceSourceConstructor>]
 
-        // [snippet IntroduceBuildMethod]
+        // [<snippet IntroduceBuildMethod>]
         // Add a Build method to the builder.
         builderType.IntroduceMethod(
             nameof(this.BuildMethodTemplate),
@@ -99,9 +101,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 m.Accessibility = Accessibility.Public;
                 m.ReturnType = sourceType;
             });
-        // [endsnippet IntroduceBuildMethod]
+        // [<endsnippet IntroduceBuildMethod>]
 
-        // [snippet IntroduceCopyConstructor]
+        // [<snippet IntroduceCopyConstructor>]
         // Add a builder constructor that creates a copy from the source type.
         var builderCopyConstructor = builderType.IntroduceConstructor(
             nameof(this.BuilderCopyConstructorTemplate),
@@ -110,9 +112,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 c.Accessibility = Accessibility.Internal;
                 c.Parameters[0].Type = sourceType;
             }).Declaration;
-        // [endsnippet IntroduceCopyConstructor]
+        // [<endsnippet IntroduceCopyConstructor>]
 
-        // [snippet IntroduceToBuilderMethod]
+        // [<snippet IntroduceToBuilderMethod>]
         // Add a ToBuilder method to the source type.
         builder.IntroduceMethod(nameof(this.ToBuilderMethodTemplate), buildMethod: m =>
         {
@@ -120,14 +122,15 @@ public partial class GenerateBuilderAttribute : TypeAspect
             m.Name = "ToBuilder";
             m.ReturnType = builderType.Declaration;
         });
-        // [endsnippet IntroduceToBuilderMethod]
+        // [<endsnippet IntroduceToBuilderMethod>]
 
-        // [snippet SetTags]
+        // [<snippet SetTags>]
         builder.Tags = new Tags(builder.Target, properties, sourceConstructor,
             builderCopyConstructor);
-        // [endsnippet SetTags]
+        // [<endsnippet SetTags>]
     }
 
+    // [<snippet BuilderConstructorTemplate>]
     [Template]
     private void BuilderConstructorTemplate()
     {
@@ -139,6 +142,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
         }
     }
+    // [<endsnippet BuilderConstructorTemplate>]
 
     [Template]
     private void BuilderCopyConstructorTemplate(dynamic source)
@@ -152,6 +156,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         }
     }
 
+    // [<snippet SourceConstructorTemplate>]
     [Template]
     private void SourceConstructorTemplate()
     {
@@ -163,7 +168,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
+    // [<endsnippet SourceConstructorTemplate>]
 
+    // [<snippet BuildMethodTemplate>]
     [Template]
     private dynamic BuildMethodTemplate()
     {
@@ -185,6 +192,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         // Return the object.
         return instance;
     }
+    // [<endsnippet BuildMethodTemplate>]
 
     [Template]
     private dynamic ToBuilderMethodTemplate()

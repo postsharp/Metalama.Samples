@@ -53,13 +53,13 @@ public class CloneableAttribute : TypeAspect
                 m.ReturnType = builder.Target;
             });
 
-        // [snippet AddCloneMembers]
+        // [<snippet AddCloneMembers>]
         builder.Advice.IntroduceMethod(
             builder.Target,
             nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target });
-        // [endsnippet AddCloneMembers]
+        // [<endsnippet AddCloneMembers>]
 
         // Implement the ICloneable interface.
         builder.Advice.ImplementInterface(
@@ -81,7 +81,7 @@ public class CloneableAttribute : TypeAspect
                              .Any()));
 
 
-        // [snippet ReportUnannotatedProperties]
+        // [<snippet ReportUnannotatedProperties>]
         foreach (var fieldOrProperty in eligibleChildren)
         {
             builder.Diagnostics.Report(_annotateFieldOrProperty
@@ -91,9 +91,9 @@ public class CloneableAttribute : TypeAspect
                     CodeFixFactory.AddAttribute(fieldOrProperty, typeof(ReferenceAttribute),
                         "Cloneable | Mark as reference")), fieldOrProperty);
         }
-        // [endsnippet ReportUnannotatedProperties]
+        // [<endsnippet ReportUnannotatedProperties>]
 
-        // [snippet SuggestCloneMembers]
+        // [<snippet SuggestCloneMembers>]
         // If we don't have a CloneMember method, suggest to add it.
         if (!builder.Target.Methods.OfName(nameof(this.CloneMembers)).Any())
         {
@@ -103,7 +103,7 @@ public class CloneableAttribute : TypeAspect
                         codeFix.ApplyAspectAsync(builder.Target,
                             new AddEmptyCloneMembersAspect())));
         }
-        // [endsnippet SuggestCloneMembers]
+        // [<endsnippet SuggestCloneMembers>]
     }
 
 

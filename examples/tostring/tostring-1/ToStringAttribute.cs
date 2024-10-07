@@ -19,9 +19,9 @@ internal class ToStringAttribute : TypeAspect
             })
             .OrderBy(f => f.Name);
 
-        // [snippet CompileTimeVariable]
+        // [<snippet CompileTimeVariable>]
         var i = meta.CompileTime(0);
-        // [endsnippet CompileTimeVariable]
+        // [<endsnippet CompileTimeVariable>]
 
         foreach (var property in properties)
         {

@@ -10,7 +10,7 @@ public class ToStringAttribute : TypeAspect
     {
         base.BuildAspect(builder);
 
-        // [snippet AddNotToStringCodeFix]
+        // [<snippet AddNotToStringCodeFix>]
         // For each property, suggest a code fix to remove from ToString.
         foreach (var property in GetIncludedProperties(builder.Target))
         {
@@ -19,9 +19,9 @@ public class ToStringAttribute : TypeAspect
                     "Exclude from [ToString]"),
                 property);
         }
-        // [endsnippet AddNotToStringCodeFix]
+        // [<endsnippet AddNotToStringCodeFix>]
 
-        // [snippet SwitchToManualImplementation]
+        // [<snippet SwitchToManualImplementation>]
         // Suggest to switch to manual implementation.
         if (builder.AspectInstance.Predecessors[0].Instance is IAttribute attribute)
         {
@@ -37,7 +37,7 @@ public class ToStringAttribute : TypeAspect
                     }),
                 attribute);
         }
-        // [endsnippet SwitchToManualImplementation]
+        // [<endsnippet SwitchToManualImplementation>]
     }
 
     [CompileTime]
