@@ -128,8 +128,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 t.BaseType = baseBuilderType;
                 t.IsSealed = sourceType.IsSealed;
             });
-
-        /*<CreateBuilderProperties>*/
+        // [snippet CreateBuilderProperties]
         // Add builder properties and update the mapping.
         foreach (var property in properties)
         {
@@ -153,7 +152,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         {
             return;
         }
-        /*</CreateBuilderProperties>*/
+        // [endsnippet CreateBuilderProperties]
 
         // Add a builder constructor accepting the required properties and update the mapping.
         var builderConstructor = builderType.IntroduceConstructor(

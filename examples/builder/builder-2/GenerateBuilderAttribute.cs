@@ -23,8 +23,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         var hasError = false;
 
         var sourceType = builder.Target;
-
-        /*<FindBaseType>*/
+        // [snippet FindBaseType]
         // Find the Builder nested type in the base type.
         INamedType? baseBuilderType = null;
         IConstructor? baseConstructor = null,
@@ -108,9 +107,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
         {
             return;
         }
-        /*</FindBaseType>*/
+        // [endsnippet FindBaseType]
 
-        /*<CreatePropertyMap>*/
+        // [snippet CreatePropertyMap]
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
         var properties = sourceType.AllProperties.Where(
                 p => p.Writeability != Writeability.None &&
@@ -124,10 +123,11 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     return new PropertyMapping(p, isRequired, isInherited);
                 })
             .ToList();
-        /*</CreatePropertyMap>*/
+        // [endsnippet CreatePropertyMap]
 
+        // [snippet IntroduceBuilderType]
         // Introduce the Builder nested type.
-        var builderType = builder.IntroduceClass( /*<IntroduceBuilderType>*/
+        var builderType = builder.IntroduceClass(
             "Builder",
             OverrideStrategy.New,
             t =>
@@ -135,10 +135,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 t.Accessibility = Accessibility.Public;
                 t.BaseType = baseBuilderType;
                 t.IsSealed = sourceType.IsSealed;
-            }); /*</IntroduceBuilderType>*/
+            });
+        // [endsnippet IntroduceBuilderType]
 
-
-        /*<CreateProperties>*/
+        // [snippet CreateProperties]
         // Add builder properties and update the mapping.  
         foreach (var property in properties)
         {
@@ -177,14 +177,15 @@ public partial class GenerateBuilderAttribute : TypeAspect
                             })
                         .Declaration;
             }
-        } /*</CreateProperties>*/
+        }
+        // [endsnippet CreateProperties]
 
         if (hasError)
         {
             return;
         }
 
-        /*<CreateBuilderConstructor>*/
+        // [snippet CreateBuilderConstructor]
         // Add a builder constructor accepting the required properties and update the mapping.
         builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
@@ -229,7 +230,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     }
                 }
             });
-        /*</CreateBuilderConstructor>*/
+        // [endsnippet CreateBuilderConstructor]
 
         // Add a builder constructor that creates a copy from the source type.
         var builderCopyConstructor = builderType.IntroduceConstructor(

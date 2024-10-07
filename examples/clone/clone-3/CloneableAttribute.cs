@@ -7,8 +7,9 @@ using Metalama.Framework.Project;
 [EditorExperience(SuggestAsLiveTemplate = true)]
 public class CloneableAttribute : TypeAspect
 {
+    // [snippet DiagnosticDefinitions]
     private static readonly
-        DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)> /*<DiagnosticDefinitions>*/
+        DiagnosticDefinition<(DeclarationKind, IFieldOrProperty)>
         _fieldOrPropertyCannotBeReadOnly =
             new("CLONE01", Severity.Error,
                 "The {0} '{1}' cannot be read-only because it is marked as a [Child].");
@@ -24,7 +25,8 @@ public class CloneableAttribute : TypeAspect
 
     private static readonly DiagnosticDefinition<IProperty> _childPropertyMustBeAutomatic =
         new("CLONE04", Severity.Error,
-            "The property '{0}' cannot be a [Child] because is not an automatic property."); /*</DiagnosticDefinitions>*/
+            "The property '{0}' cannot be a [Child] because is not an automatic property.");
+    // [endsnippet DiagnosticDefinitions]
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
@@ -47,11 +49,13 @@ public class CloneableAttribute : TypeAspect
                 m.Name = "Clone";
                 m.ReturnType = builder.Target;
             });
-        builder.Advice.IntroduceMethod( /*<AddCloneMembers>*/
+// [snippet AddCloneMembers]
+        builder.Advice.IntroduceMethod(
             builder.Target,
             nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
-            args: new { T = builder.Target }); /*</AddCloneMembers>*/
+            args: new { T = builder.Target });
+// [endsnippet AddCloneMembers]
 
         // Implement the ICloneable interface.
         builder.Advice.ImplementInterface(

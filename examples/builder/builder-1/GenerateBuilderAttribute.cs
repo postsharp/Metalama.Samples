@@ -8,7 +8,7 @@ namespace Metalama.Samples.Builder1;
 
 public partial class GenerateBuilderAttribute : TypeAspect
 {
-    /*<InitializeMapping>*/
+    // [snippet InitializeMapping]
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         base.BuildAspect(builder);
@@ -22,15 +22,17 @@ public partial class GenerateBuilderAttribute : TypeAspect
             .Select(
                 p => new PropertyMapping(p,
                     p.Attributes.OfAttributeType(typeof(RequiredAttribute)).Any()))
-            .ToList(); /*</InitializeMapping>*/
+            .ToList();
+        // [endsnippet InitializeMapping]
 
-        /*<IntroduceBuilder>*/
+        // [snippet IntroduceBuilder]
         // Introduce the Builder nested type.
         var builderType = builder.IntroduceClass(
             "Builder",
-            buildType: t => t.Accessibility = Accessibility.Public); /*</IntroduceBuilder>*/
+            buildType: t => t.Accessibility = Accessibility.Public);
+        // [endsnippet IntroduceBuilder]
 
-        /*<IntroduceProperties>*/
+        // [snippet IntroduceProperties]
         // Add builder properties and update the mapping.
         foreach (var property in properties)
         {
@@ -44,9 +46,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
                             p.InitializerExpression = property.SourceProperty.InitializerExpression;
                         })
                     .Declaration;
-        } /*</IntroduceProperties>*/
+        }
+        // [endsnippet IntroduceProperties]
 
-        /*<IntroducePublicConstructor>*/
+        // [snippet IntroducePublicConstructor]
         // Add a builder constructor accepting the required properties and update the mapping.
         builderType.IntroduceConstructor(
             nameof(this.BuilderConstructorTemplate),
@@ -62,9 +65,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
                     property.BuilderConstructorParameterIndex = parameter.Index;
                 }
-            }); /*</IntroducePublicConstructor>*/
+            });
+        // [endsnippet IntroducePublicConstructor]
 
-        /*<IntroduceSourceConstructor>*/
+        // [snippet IntroduceSourceConstructor]
         // Add a constructor to the source type with all properties.
         var sourceConstructor = builder.IntroduceConstructor(
                 nameof(this.SourceConstructorTemplate),
@@ -81,9 +85,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
                         property.SourceConstructorParameterIndex = parameter.Index;
                     }
                 })
-            .Declaration; /*</IntroduceSourceConstructor>*/
+            .Declaration;
+        // [endsnippet IntroduceSourceConstructor]
 
-        /*<IntroduceBuildMethod>*/
+        // [snippet IntroduceBuildMethod]
         // Add a Build method to the builder.
         builderType.IntroduceMethod(
             nameof(this.BuildMethodTemplate),
@@ -94,9 +99,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
                 m.Accessibility = Accessibility.Public;
                 m.ReturnType = sourceType;
             });
-        /*</IntroduceBuildMethod>*/
+        // [endsnippet IntroduceBuildMethod]
 
-        /*<IntroduceCopyConstructor>*/
+        // [snippet IntroduceCopyConstructor]
         // Add a builder constructor that creates a copy from the source type.
         var builderCopyConstructor = builderType.IntroduceConstructor(
             nameof(this.BuilderCopyConstructorTemplate),
@@ -104,9 +109,10 @@ public partial class GenerateBuilderAttribute : TypeAspect
             {
                 c.Accessibility = Accessibility.Internal;
                 c.Parameters[0].Type = sourceType;
-            }).Declaration; /*</IntroduceCopyConstructor>*/
+            }).Declaration;
+        // [endsnippet IntroduceCopyConstructor]
 
-        /*<IntroduceToBuilderMethod>*/
+        // [snippet IntroduceToBuilderMethod]
         // Add a ToBuilder method to the source type.
         builder.IntroduceMethod(nameof(this.ToBuilderMethodTemplate), buildMethod: m =>
         {
@@ -114,11 +120,12 @@ public partial class GenerateBuilderAttribute : TypeAspect
             m.Name = "ToBuilder";
             m.ReturnType = builderType.Declaration;
         });
-        /*</IntroduceToBuilderMethod>*/
+        // [endsnippet IntroduceToBuilderMethod]
 
-        /*<SetTags>*/
+        // [snippet SetTags]
         builder.Tags = new Tags(builder.Target, properties, sourceConstructor,
-            builderCopyConstructor); /*</SetTags>*/
+            builderCopyConstructor);
+        // [endsnippet SetTags]
     }
 
     [Template]
