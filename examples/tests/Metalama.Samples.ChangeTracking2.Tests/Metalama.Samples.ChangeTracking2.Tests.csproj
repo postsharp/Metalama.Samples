@@ -1,23 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-
+        <TargetFramework>net8.0</TargetFramework>
         <IsPackable>false</IsPackable>
-
-        <Configurations>Debug;Release;LamaDebug</Configurations>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Remove="MissingOnChangeMethod - Copy.t.cs"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <None Include="OnChangeMethodNotProtected.t.cs">
-            <SubType>Code</SubType>
-            <DependentUpon>OnChangeMethodNotProtected.cs</DependentUpon>
-        </None>
-    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk"/>
