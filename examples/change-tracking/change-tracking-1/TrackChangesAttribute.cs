@@ -4,21 +4,21 @@ using Metalama.Framework.Code;
 [Inheritable]
 public class TrackChangesAttribute : TypeAspect
 {
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         // Implement the ISwitchableChangeTracking interface.
-        builder.Advice.ImplementInterface( builder.Target, typeof(ISwitchableChangeTracking),
-            OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface(builder.Target, typeof(ISwitchableChangeTracking),
+            OverrideStrategy.Ignore);
 
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where( f => !f.IsImplicitlyDeclared &&
-                         f.IsAutoPropertyOrField == true &&
-                         f.Writeability == Writeability.All );
+            .Where(f => !f.IsImplicitlyDeclared &&
+                        f.IsAutoPropertyOrField == true &&
+                        f.Writeability == Writeability.All);
 
-        foreach ( var fieldOrProperty in fieldsOrProperties )
+        foreach (var fieldOrProperty in fieldsOrProperties)
         {
-            builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+            builder.Advice.OverrideAccessors(fieldOrProperty, null, nameof(this.OverrideSetter));
         }
     }
 
@@ -30,19 +30,19 @@ public class TrackChangesAttribute : TypeAspect
     [InterfaceMember]
     public void AcceptChanges() => this.IsChanged = false;
 
-    [Introduce( WhenExists = OverrideStrategy.Ignore )]
+    [Introduce(WhenExists = OverrideStrategy.Ignore)]
     protected void OnChange()
     {
-        if ( this.IsTrackingChanges )
+        if (this.IsTrackingChanges)
         {
             this.IsChanged = true;
         }
     }
 
     [Template]
-    private void OverrideSetter( dynamic? value )
+    private void OverrideSetter(dynamic? value)
     {
-        if ( value != meta.Target.Property.Value )
+        if (value != meta.Target.Property.Value)
         {
             meta.Proceed();
 

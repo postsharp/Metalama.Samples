@@ -11,12 +11,12 @@ internal class Program
 
         var calculator = serviceProvider.GetRequiredService<Calculator>();
 
-        Console.WriteLine( "First call." );
-        calculator.Add( 1, 2 );
+        Console.WriteLine("First call.");
+        calculator.Add(1, 2);
 
-        Console.WriteLine( "Second call." );
-        calculator.Add( 1, 2 );
+        Console.WriteLine("Second call.");
+        calculator.Add(1, 2);
 
-        Console.WriteLine( $"Total real executions: {calculator.InvocationCounts}" );
+        Console.WriteLine($"Total real executions: {calculator.InvocationCounts}");
     }
 }

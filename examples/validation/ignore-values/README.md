@@ -5,7 +5,7 @@ created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Example: Ignore Values
+# Automatically ignoring property values without boilerplate
 
 [!metalama-project-buttons .]
 

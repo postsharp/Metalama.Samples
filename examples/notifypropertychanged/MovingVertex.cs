@@ -9,7 +9,7 @@ internal partial class MovingVertex
 
     public double DY { get; set; }
 
-    public void ApplyTime( double time )
+    public void ApplyTime(double time)
     {
         this.X += this.DX * time;
         this.Y += this.DY * time;

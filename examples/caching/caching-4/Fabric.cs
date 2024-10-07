@@ -2,14 +2,14 @@
 
 public class Fabric : ProjectFabric
 {
-    public override void AmendProject( IProjectAmender amender )
+    public override void AmendProject(IProjectAmender amender)
     {
         var cachingOptions = CachingOptions.Default
-            .UseToString( typeof(int) )
-            .UseToString( typeof(long) )
-            .UseToString( typeof(string) )
-            .UseCacheKeyBuilder( typeof(byte[]), typeof(ByteArrayCacheKeyBuilder) );
+            .UseToString(typeof(int))
+            .UseToString(typeof(long))
+            .UseToString(typeof(string))
+            .UseCacheKeyBuilder(typeof(byte[]), typeof(ByteArrayCacheKeyBuilder));
 
-        amender.SetOptions( cachingOptions );
+        amender.SetOptions(cachingOptions);
     }
 }

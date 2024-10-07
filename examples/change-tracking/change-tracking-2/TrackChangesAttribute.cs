@@ -16,40 +16,40 @@ public class TrackChangesAttribute : TypeAspect
         Severity.Error,
         $"The '{nameof(OnChange)}()' method must be have the 'protected' accessibility.");
 
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         // Implement the ISwitchableChangeTracking interface.         
-        var implementInterfaceResult = builder.Advice.ImplementInterface( builder.Target,
-            typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore ); /*<BuildAspect>*/
+        var implementInterfaceResult = builder.Advice.ImplementInterface(builder.Target,
+            typeof(ISwitchableChangeTracking), OverrideStrategy.Ignore); /*<BuildAspect>*/
 
         // If the type already implements IChangeTracking, it must have a protected method called OnChanged, without parameters, otherwise
         // this is a contract violation, so we report an error.
-        if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
+        if (implementInterfaceResult.Outcome == AdviceOutcome.Ignore)
         {
-            var onChangeMethod = builder.Target.AllMethods.OfName( nameof(this.OnChange) )
-                .SingleOrDefault( m => m.Parameters.Count == 0 );
+            var onChangeMethod = builder.Target.AllMethods.OfName(nameof(this.OnChange))
+                .SingleOrDefault(m => m.Parameters.Count == 0);
 
-            if ( onChangeMethod == null )
+            if (onChangeMethod == null)
             {
                 builder.Diagnostics.Report(
-                    _mustHaveOnChangeMethod.WithArguments( builder.Target ) );
+                    _mustHaveOnChangeMethod.WithArguments(builder.Target));
             }
-            else if ( onChangeMethod.Accessibility != Accessibility.Protected )
+            else if (onChangeMethod.Accessibility != Accessibility.Protected)
             {
-                builder.Diagnostics.Report( _onChangeMethodMustBeProtected );
+                builder.Diagnostics.Report(_onChangeMethodMustBeProtected);
             }
         }
         /*</BuildAspect>*/
 
         // Override all writable fields and automatic properties.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where( f =>
+            .Where(f =>
                 !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
-                f.IsAutoPropertyOrField == true );
+                f.IsAutoPropertyOrField == true);
 
-        foreach ( var fieldOrProperty in fieldsOrProperties )
+        foreach (var fieldOrProperty in fieldsOrProperties)
         {
-            builder.Advice.OverrideAccessors( fieldOrProperty, null, nameof(this.OverrideSetter) );
+            builder.Advice.OverrideAccessors(fieldOrProperty, null, nameof(this.OverrideSetter));
         }
     }
 
@@ -62,19 +62,19 @@ public class TrackChangesAttribute : TypeAspect
     [InterfaceMember]
     public void AcceptChanges() => this.IsChanged = false;
 
-    [Introduce( WhenExists = OverrideStrategy.Ignore )]
+    [Introduce(WhenExists = OverrideStrategy.Ignore)]
     protected void OnChange()
     {
-        if ( this.IsTrackingChanges )
+        if (this.IsTrackingChanges)
         {
             this.IsChanged = true;
         }
     }
 
     [Template]
-    private void OverrideSetter( dynamic? value )
+    private void OverrideSetter(dynamic? value)
     {
-        if ( value != meta.Target.Property.Value )
+        if (value != meta.Target.Property.Value)
         {
             meta.Proceed();
 

@@ -10,8 +10,8 @@ internal class Program
             .BuildServiceProvider();
 
         var service = serviceProvider.GetService<IPartProvider>()!;
-        service.GetPart( "main" );
+        service.GetPart("main");
 
-        Console.WriteLine( "The program ended gracefully." );
+        Console.WriteLine("The program ended gracefully.");
     }
 }

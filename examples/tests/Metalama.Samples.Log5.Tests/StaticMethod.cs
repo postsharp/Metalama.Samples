@@ -3,5 +3,7 @@
 internal class Foo
 {
     [Log]
-    public static void StaticBar() { }
+    public static void StaticBar()
+    {
+    }
 }

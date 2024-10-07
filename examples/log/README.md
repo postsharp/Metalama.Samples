@@ -6,7 +6,7 @@ created-date: 2023-03-29
 modified-date: 2024-09-09
 ---
 
-# Example: Logging
+# Implementing logging without boilerplate
 
 Logging is a key aspect of application development, enabling developers to understand the execution flow and identify bottlenecks. By providing detailed insights into system interactions, tracing helps optimize performance, pinpoint issues, and improve user experience. It plays a significant role in ensuring efficient and reliable software.
 

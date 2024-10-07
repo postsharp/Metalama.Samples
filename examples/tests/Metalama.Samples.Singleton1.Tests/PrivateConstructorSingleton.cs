@@ -1,5 +1,7 @@
 ﻿[Singleton]
 internal class PrivateConstructorSingleton
 {
-    private PrivateConstructorSingleton() { }
+    private PrivateConstructorSingleton()
+    {
+    }
 }

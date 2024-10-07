@@ -20,27 +20,30 @@ internal class PropertyMappingFactory
 
     private readonly INamedType _sourceType;
 
-    public PropertyMappingFactory( INamedType sourceType )
+    public PropertyMappingFactory(INamedType sourceType)
     {
         this._sourceType = sourceType;
     }
 
-    public PropertyMapping Create( IProperty sourceProperty )
+    public PropertyMapping Create(IProperty sourceProperty)
     {
-        var isRequired = sourceProperty.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any();
+        var isRequired = sourceProperty.Attributes.OfAttributeType(typeof(RequiredAttribute)).Any();
         var isInherited = sourceProperty.DeclaringType != this._sourceType;
 
-        if ( IsImmutableCollectionType( sourceProperty.Type ) )
+        if (IsImmutableCollectionType(sourceProperty.Type))
         {
-            return new ImmutableCollectionPropertyMapping( sourceProperty, isRequired, isInherited );
+            return new ImmutableCollectionPropertyMapping(sourceProperty, isRequired, isInherited);
         }
         else
         {
-            return new StandardPropertyMapping( sourceProperty, isRequired, isInherited );
+            return new StandardPropertyMapping(sourceProperty, isRequired, isInherited);
         }
     }
-    
-    private static bool IsImmutableCollectionType( IType type )
-        => type is INamedType { ContainingNamespace.FullName: "System.Collections.Immutable" } namedType
-           && _immutableCollectionTypes.Contains(  namedType.Name ); 
+
+    private static bool IsImmutableCollectionType(IType type)
+        => type is INamedType
+           {
+               ContainingNamespace.FullName: "System.Collections.Immutable"
+           } namedType
+           && _immutableCollectionTypes.Contains(namedType.Name);
 }

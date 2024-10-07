@@ -10,5 +10,5 @@ internal class MovingVertex
     public double DY { get; set; }
 
     public double Velocity
-        => Math.Sqrt( (this.DX * this.DX) + (this.DY * this.DY) );
+        => Math.Sqrt((this.DX * this.DX) + (this.DY * this.DY));
 }

@@ -5,15 +5,15 @@ namespace Metalama.Samples.NormalizeStrings;
 [RunTimeOrCompileTime]
 public sealed class TrimAttribute : StringContractAspect
 {
-    public override void Validate( dynamic? value )
+    public override void Validate(dynamic? value)
     {
-        if ( IsAppliedToNullableString() )
+        if (IsAppliedToNullableString())
         {
-            value = ((string?) value)?.Trim();
+            value = ((string?)value)?.Trim();
         }
         else
         {
-            value = ((string) value!).Trim();
+            value = ((string)value!).Trim();
         }
     }
 }

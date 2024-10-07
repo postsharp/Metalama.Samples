@@ -1,12 +1,12 @@
 ---
 uid: sample-singleton
 summary: "The Singleton pattern ensures a class has only one instance, maintaining state consistency and reducing resource overhead. This series explores classic and modern Singleton implementations."
-keywords: "Singleton pattern"
+keywords: "singleton in C#, c# singleton, singleton implementation c#"
 created-date: 2024-07-09
 modified-date: 2024-09-09
 ---
 
-# Example: Singleton
+# Implementing the Singleton pattern without boilerplate
 
 The Singleton pattern is useful in scenarios where a class in a software system should have only one instance available to all components.
 

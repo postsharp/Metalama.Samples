@@ -6,7 +6,7 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
 {
     private readonly object?[] _ignoredValues; /*<Constructor>*/
 
-    public IgnoreValuesAttribute( params object?[] values )
+    public IgnoreValuesAttribute(params object?[] values)
     {
         this._ignoredValues = values;
     } /*</Constructor>*/
@@ -16,9 +16,9 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
         get => meta.Proceed();
         set
         {
-            foreach ( var ignoredValue in this._ignoredValues )
+            foreach (var ignoredValue in this._ignoredValues)
             {
-                if ( value == meta.RunTime( ignoredValue ) )
+                if (value == meta.RunTime(ignoredValue))
                 {
                     return;
                 }
@@ -28,7 +28,7 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
         }
     }
 
-    public override void BuildEligibility( IEligibilityBuilder<IFieldOrProperty> builder )
+    public override void BuildEligibility(IEligibilityBuilder<IFieldOrProperty> builder)
     {
         var supportedTypes =
             new[]
@@ -38,7 +38,7 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
                 typeof(ushort), typeof(char), typeof(string), typeof(bool), typeof(Type)
             };
 
-        builder.Type().MustSatisfyAny( supportedTypes.Select( supportedType =>
-            new Action<IEligibilityBuilder<IType>>( t => t.MustBe( supportedType ) ) ).ToArray() );
+        builder.Type().MustSatisfyAny(supportedTypes.Select(supportedType =>
+            new Action<IEligibilityBuilder<IType>>(t => t.MustBe(supportedType))).ToArray());
     }
 }

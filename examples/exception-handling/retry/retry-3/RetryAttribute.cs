@@ -17,17 +17,17 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for non-async methods.
     public override dynamic? OverrideMethod()
     {
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return meta.Proceed();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                var delay = this.Delay * Math.Pow( 2, i + 1 );
-                Console.WriteLine( e.Message + $" Waiting {delay} ms." );
-                Thread.Sleep( (int) delay );
+                var delay = this.Delay * Math.Pow(2, i + 1);
+                Console.WriteLine(e.Message + $" Waiting {delay} ms.");
+                Thread.Sleep((int)delay);
             }
         }
     }
@@ -36,26 +36,26 @@ public class RetryAttribute : OverrideMethodAspect
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
         var cancellationTokenParameter
-            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
+            = meta.Target.Parameters.LastOrDefault(p => p.Type.Is(typeof(CancellationToken)));
 
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return await meta.ProceedAsync();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                var delay = this.Delay * Math.Pow( 2, i + 1 );
-                Console.WriteLine( e.Message + $" Waiting {delay} ms." );
+                var delay = this.Delay * Math.Pow(2, i + 1);
+                Console.WriteLine(e.Message + $" Waiting {delay} ms.");
 
-                if ( cancellationTokenParameter != null )
+                if (cancellationTokenParameter != null)
                 {
-                    await Task.Delay( (int) delay, cancellationTokenParameter.Value );
+                    await Task.Delay((int)delay, cancellationTokenParameter.Value);
                 }
                 else
                 {
-                    await Task.Delay( (int) delay );
+                    await Task.Delay((int)delay);
                 }
             }
         }

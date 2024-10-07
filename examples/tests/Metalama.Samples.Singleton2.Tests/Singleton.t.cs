@@ -1,4 +1,4 @@
-// Warning LAMA0905 on `new ConfigurationManager( configurationSource )`: `The 'ConfigurationManager.ConfigurationManager(IConfigurationSource)' constructor cannot be referenced by the 'ProductionClass' type. The class is a [Singleton].`
+// Warning LAMA0905 on `new ConfigurationManager(configurationSource)`: `The 'ConfigurationManager.ConfigurationManager(IConfigurationSource)' constructor cannot be referenced by the 'ProductionClass' type. The class is a [Singleton].`
 using System.Collections.Frozen;
 public interface IConfigurationSource
 {

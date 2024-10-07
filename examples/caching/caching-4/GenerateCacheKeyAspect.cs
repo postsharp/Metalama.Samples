@@ -9,86 +9,86 @@ using System.Text;
 ///     aspects.
 ///     It should never be added explicitly.
 /// </summary>
-[EditorExperience( SuggestAsAddAttribute = false )]
+[EditorExperience(SuggestAsAddAttribute = false)]
 internal class GenerateCacheKeyAspect : TypeAspect
 {
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         // Implement the ICacheKey interface.        
-        builder.Advice.ImplementInterface( builder.Target, typeof(ICacheKey),
-            OverrideStrategy.Ignore );
+        builder.Advice.ImplementInterface(builder.Target, typeof(ICacheKey),
+            OverrideStrategy.Ignore);
 
         // Verify that all cache key members have a valid type.
-        if ( !builder.Target.Compilation.IsPartial )
+        if (!builder.Target.Compilation.IsPartial)
         {
             var cachingOptions = builder.Target.Enhancements().GetOptions<CachingOptions>();
 
-            foreach ( var member in this.GetMembers( builder.Target ) )
+            foreach (var member in this.GetMembers(builder.Target))
             {
-                cachingOptions.VerifyCacheKeyMember( member, builder.Diagnostics );
+                cachingOptions.VerifyCacheKeyMember(member, builder.Diagnostics);
             }
         }
     }
 
     // Implementation of ICacheKey.ToCacheKey.
     [InterfaceMember]
-    public string ToCacheKey( ICacheKeyBuilderProvider provider )
+    public string ToCacheKey(ICacheKeyBuilderProvider provider)
     {
         var stringBuilder = new StringBuilder();
-        this.BuildCacheKey( stringBuilder, provider );
+        this.BuildCacheKey(stringBuilder, provider);
 
 
         return stringBuilder.ToString();
     }
 
-    private IEnumerable<IFieldOrProperty> GetMembers( INamedType type )
+    private IEnumerable<IFieldOrProperty> GetMembers(INamedType type)
         => type.FieldsAndProperties
-            .Where( f => f.Enhancements().HasAspect<CacheKeyMemberAttribute>() )
-            .OrderBy( f => f.Name );
+            .Where(f => f.Enhancements().HasAspect<CacheKeyMemberAttribute>())
+            .OrderBy(f => f.Name);
 
 
-    [Introduce( WhenExists = OverrideStrategy.Override )]
-    protected virtual void BuildCacheKey( StringBuilder stringBuilder,
-        ICacheKeyBuilderProvider provider )
+    [Introduce(WhenExists = OverrideStrategy.Override)]
+    protected virtual void BuildCacheKey(StringBuilder stringBuilder,
+        ICacheKeyBuilderProvider provider)
     {
         // Call the base method, if any.
-        if ( meta.Target.Method.IsOverride )
+        if (meta.Target.Method.IsOverride)
         {
             meta.Proceed();
-            stringBuilder.Append( ", " );
+            stringBuilder.Append(", ");
         }
 
-        if ( meta.Target.Compilation.IsPartial )
+        if (meta.Target.Compilation.IsPartial)
         {
             meta.InsertComment(
-                "Design-time preview code may be different that compile-time code because of unresolved cache key builders." );
+                "Design-time preview code may be different that compile-time code because of unresolved cache key builders.");
         }
 
         var cachingOptions = meta.Target.Type.Enhancements().GetOptions<CachingOptions>();
 
         // This is how we define a compile-time variable of value 0.
-        var i = meta.CompileTime( 0 );
-        foreach ( var member in this.GetMembers( meta.Target.Type ) )
+        var i = meta.CompileTime(0);
+        foreach (var member in this.GetMembers(meta.Target.Type))
         {
-            if ( i > 0 )
+            if (i > 0)
             {
-                stringBuilder.Append( ", " );
+                stringBuilder.Append(", ");
             }
 
             i++;
 
 
-            if ( cachingOptions.TryGetCacheKeyExpression( member,
-                    ExpressionFactory.Parse( nameof(provider) ),
-                    out var cacheKeyExpression ) )
+            if (cachingOptions.TryGetCacheKeyExpression(member,
+                    ExpressionFactory.Parse(nameof(provider)),
+                    out var cacheKeyExpression))
             {
-                stringBuilder.Append( cacheKeyExpression.Value );
+                stringBuilder.Append(cacheKeyExpression.Value);
             }
             else
             {
                 // This can happen at design time because we may have a partial compilation that
                 // does not contain the aspects on other types.
-                stringBuilder.Append( $"<unresolved:{member.Name}>" );
+                stringBuilder.Append($"<unresolved:{member.Name}>");
             }
         }
     }

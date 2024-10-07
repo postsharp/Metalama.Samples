@@ -23,5 +23,4 @@
       <ProjectReference Include="..\..\builder\builder-3\Metalama.Samples.Builder3.csproj" />
     </ItemGroup>
 
-
 </Project>

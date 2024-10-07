@@ -24,31 +24,31 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for non-async methods.
     public override dynamic? OverrideMethod()
     {
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return meta.Proceed();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                var delay = this.Delay * Math.Pow( 2, i + 1 );
+                var delay = this.Delay * Math.Pow(2, i + 1);
 
-                var waitMessage = LoggingHelper.BuildInterpolatedString( false );
-                waitMessage.AddText( " has failed: " );
-                waitMessage.AddExpression( e.Message );
-                waitMessage.AddText( " Retrying in " );
-                waitMessage.AddExpression( delay );
-                waitMessage.AddText( " ms." );
+                var waitMessage = LoggingHelper.BuildInterpolatedString(false);
+                waitMessage.AddText(" has failed: ");
+                waitMessage.AddExpression(e.Message);
+                waitMessage.AddText(" Retrying in ");
+                waitMessage.AddExpression(delay);
+                waitMessage.AddText(" ms.");
 
-                this._logger.LogWarning( (string) waitMessage.ToValue() );
+                this._logger.LogWarning((string)waitMessage.ToValue());
 
-                Thread.Sleep( (int) delay );
+                Thread.Sleep((int)delay);
 
-                var retryingMessage = LoggingHelper.BuildInterpolatedString( false );
-                retryingMessage.AddText( ": retrying now." );
+                var retryingMessage = LoggingHelper.BuildInterpolatedString(false);
+                retryingMessage.AddText(": retrying now.");
 
-                this._logger.LogTrace( (string) retryingMessage.ToValue() );
+                this._logger.LogTrace((string)retryingMessage.ToValue());
             }
         }
     }
@@ -57,40 +57,40 @@ public class RetryAttribute : OverrideMethodAspect
     public override async Task<dynamic?> OverrideAsyncMethod()
     {
         var cancellationTokenParameter
-            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof(CancellationToken) ) );
+            = meta.Target.Parameters.LastOrDefault(p => p.Type.Is(typeof(CancellationToken)));
 
-        for ( var i = 0;; i++ )
+        for (var i = 0;; i++)
         {
             try
             {
                 return await meta.ProceedAsync();
             }
-            catch ( Exception e ) when ( i < this.Attempts )
+            catch (Exception e) when (i < this.Attempts)
             {
-                var delay = this.Delay * Math.Pow( 2, i + 1 );
+                var delay = this.Delay * Math.Pow(2, i + 1);
 
-                var waitMessage = LoggingHelper.BuildInterpolatedString( false );
-                waitMessage.AddText( " has failed: " );
-                waitMessage.AddExpression( e.Message );
-                waitMessage.AddText( " Retrying in " );
-                waitMessage.AddExpression( delay );
-                waitMessage.AddText( " ms." );
+                var waitMessage = LoggingHelper.BuildInterpolatedString(false);
+                waitMessage.AddText(" has failed: ");
+                waitMessage.AddExpression(e.Message);
+                waitMessage.AddText(" Retrying in ");
+                waitMessage.AddExpression(delay);
+                waitMessage.AddText(" ms.");
 
-                this._logger.LogWarning( (string) waitMessage.ToValue() );
+                this._logger.LogWarning((string)waitMessage.ToValue());
 
-                if ( cancellationTokenParameter != null )
+                if (cancellationTokenParameter != null)
                 {
-                    await Task.Delay( (int) delay, cancellationTokenParameter.Value );
+                    await Task.Delay((int)delay, cancellationTokenParameter.Value);
                 }
                 else
                 {
-                    await Task.Delay( (int) delay );
+                    await Task.Delay((int)delay);
                 }
 
-                var retryingMessage = LoggingHelper.BuildInterpolatedString( false );
-                retryingMessage.AddText( ": retrying now." );
+                var retryingMessage = LoggingHelper.BuildInterpolatedString(false);
+                retryingMessage.AddText(": retrying now.");
 
-                this._logger.LogTrace( (string) retryingMessage.ToValue() );
+                this._logger.LogTrace((string)retryingMessage.ToValue());
             }
         }
     }

@@ -1,4 +1,4 @@
 ﻿public interface ICacheKey
 {
-    string ToCacheKey( ICacheKeyBuilderProvider provider );
+    string ToCacheKey(ICacheKeyBuilderProvider provider);
 }

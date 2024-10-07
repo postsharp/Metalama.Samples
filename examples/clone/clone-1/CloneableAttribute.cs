@@ -2,25 +2,25 @@
 using Metalama.Framework.Code;
 
 [Inheritable]
-[EditorExperience( SuggestAsLiveTemplate = true )]
+[EditorExperience(SuggestAsLiveTemplate = true)]
 public class CloneableAttribute : TypeAspect
 {
-    public override void BuildAspect( IAspectBuilder<INamedType> builder )
+    public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
         builder.Advice.ImplementInterface( /*<BuildAspect1>*/
             builder.Target,
             typeof(ICloneable),
-            OverrideStrategy.Ignore ); /*</BuildAspect1>*/
+            OverrideStrategy.Ignore); /*</BuildAspect1>*/
 
         builder.Advice.IntroduceMethod( /*<BuildAspect2>*/
             builder.Target,
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
-            buildMethod: m => m.Name = "Clone" ); /*</BuildAspect2>*/
+            buildMethod: m => m.Name = "Clone"); /*</BuildAspect2>*/
     }
 
-    [InterfaceMember( IsExplicit = true )]
+    [InterfaceMember(IsExplicit = true)]
     private object Clone() => meta.This.Clone();
 
     [Template]
@@ -31,29 +31,29 @@ public class CloneableAttribute : TypeAspect
         // we will call MemberwiseClone (this is the initialization of the pattern).
         IExpression baseCall;
 
-        if ( meta.Target.Method.IsOverride )
+        if (meta.Target.Method.IsOverride)
         {
-            baseCall = (IExpression) meta.Base.Clone();
+            baseCall = (IExpression)meta.Base.Clone();
         }
         else
         {
-            baseCall = (IExpression) meta.This.MemberwiseClone();
+            baseCall = (IExpression)meta.This.MemberwiseClone();
         }
 
         // Define a local variable of the same type as the target type.
-        var clone = (T) baseCall.Value!;
+        var clone = (T)baseCall.Value!;
 
         // Select cloneable fields.
         var cloneableFields =
             meta.Target.Type.FieldsAndProperties.Where(
-                f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
+                f => f.Attributes.OfAttributeType(typeof(ChildAttribute)).Any());
 
-        foreach ( var field in cloneableFields )
+        foreach (var field in cloneableFields)
         {
             // Check if we have a public method 'Clone()' for the type of the field.
-            var fieldType = (INamedType) field.Type;
+            var fieldType = (INamedType)field.Type;
 
-            field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
+            field.With(clone).Value = meta.Cast(fieldType, field.Value?.Clone());
         }
 
         return clone;

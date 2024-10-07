@@ -2,5 +2,5 @@
 {
     IMemento SaveToMemento();
 
-    void RestoreMemento( IMemento memento );
+    void RestoreMemento(IMemento memento);
 }

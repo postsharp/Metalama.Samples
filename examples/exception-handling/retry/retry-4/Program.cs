@@ -6,7 +6,7 @@ internal class Program
     private static void Main()
     {
         var serviceProvider = new ServiceCollection()
-            .AddLogging( builder => builder.AddConsole().SetMinimumLevel( LogLevel.Trace ) )
+            .AddLogging(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Trace))
             .AddSingleton<RemoteCalculator>()
             .BuildServiceProvider();
 
@@ -14,11 +14,11 @@ internal class Program
 
         try
         {
-            calculator.Add( 1, 1 );
+            calculator.Add(1, 1);
         }
-        catch ( Exception ex )
+        catch (Exception ex)
         {
-            Console.WriteLine( ex );
+            Console.WriteLine(ex);
         }
     }
 }

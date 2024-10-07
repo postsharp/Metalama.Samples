@@ -7,5 +7,7 @@ internal class Foo
     private TextWriter _logger;
 
     [Log]
-    public void Bar() { }
+    public void Bar()
+    {
+    }
 }

@@ -1,8 +1,8 @@
 ﻿try
 {
-    Calculator.Add( 1, 1 );
+    Calculator.Add(1, 1);
 }
-catch ( Exception ex )
+catch (Exception ex)
 {
-    Console.WriteLine( ex );
+    Console.WriteLine(ex);
 }

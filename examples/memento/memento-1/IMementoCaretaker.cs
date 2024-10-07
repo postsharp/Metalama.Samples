@@ -4,7 +4,7 @@ public interface IMementoCaretaker : INotifyPropertyChanged
 {
     bool CanUndo { get; }
 
-    void CaptureMemento( IMementoable originator );
+    void CaptureMemento(IMementoable originator);
 
     void Undo();
 }

@@ -6,7 +6,7 @@ public class LogAttribute : OverrideMethodAspect
 {
     public override dynamic? OverrideMethod()
     {
-        Console.WriteLine( $"Executing {meta.Target.Method}." );
+        Console.WriteLine($"Executing {meta.Target.Method}.");
 
         return meta.Proceed();
     }

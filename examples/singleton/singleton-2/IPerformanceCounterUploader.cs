@@ -1,4 +1,4 @@
 public interface IPerformanceCounterUploader
 {
-    void UploadCounter( string name, double value );
+    void UploadCounter(string name, double value);
 }

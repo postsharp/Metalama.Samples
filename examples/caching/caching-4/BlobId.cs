@@ -1,6 +1,6 @@
 ﻿public class BlobId
 {
-    public BlobId( string container, byte[] hash )
+    public BlobId(string container, byte[] hash)
     {
         this.Container = container;
         this.Hash = hash;

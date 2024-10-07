@@ -8,7 +8,7 @@ internal static class Program
     [Log]
     private static int SayHello()
     {
-        Console.WriteLine( "Hello, world." );
+        Console.WriteLine("Hello, world.");
 
         return 5;
     }
