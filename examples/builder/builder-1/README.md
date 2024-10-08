@@ -127,3 +127,5 @@ Here is the template for the constructor body. It only invokes the constructor.
 As you can see, automating the `Builder` aspect with Metalama can seem complex at the beginning, but the process can be split into individual simple tasks. It's crucial to start with proper analysis and planning. You should first know what you want and how exactly you want to transform the code. Once this is clear, the implementation becomes quite straightforward.
 
 In the next article, we will see how to take type inheritance into account.
+
+
