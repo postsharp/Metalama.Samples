@@ -8,7 +8,7 @@ public partial class StringKeyedValue<T>
   {
     Value = value;
   }
-  public StringKeyedValue<T>.Builder ToBuilder()
+  public Builder ToBuilder()
   {
     return new StringKeyedValue<T>.Builder(this);
   }
