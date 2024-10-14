@@ -329,15 +329,6 @@ object PublicBuild : BuildType({
             scriptArgs = "tools kill"
         }
         powerShell {
-            name = "Check pending upstream changes"
-            id = "UpstreamCheck"
-            scriptMode = file {
-                path = "Build.ps1"
-            }
-            noProfile = false
-            scriptArgs = "tools git check-upstream %UpstreamCheckArguments%"
-        }
-        powerShell {
             name = "Build"
             id = "Build"
             scriptMode = file {
