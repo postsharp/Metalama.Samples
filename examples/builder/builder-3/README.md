@@ -21,7 +21,7 @@ Additionally, we want the collection properties in the `Builder` type to be _laz
 
 Here is an example of a transformation performed by the aspect.
 
-[!metalama-compare ../../tests/Metalama.Samples.Builder3.Tests/DerivedType.cs]
+[!metalama-compare ../../tests/Metalama.Samples.Builder3.Tests/ImmutableArray.cs]
 
 ## Step 1. Setting up more abstractions
 
