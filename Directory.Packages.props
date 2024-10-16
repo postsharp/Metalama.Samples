@@ -20,7 +20,7 @@
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageVersion Include="NameGenerator" Version="2.0.4" />
-    <PackageVersion Include="Polly" Version="7.2.4" />
+    <PackageVersion Include="Polly.Core" Version="8.3.1" />
     <PackageVersion Include="PostSharp.Engineering.BuildTools" Version="$(PostSharpEngineeringVersion)" />
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageVersion Include="xunit.assert" Version="2.4.2" />
