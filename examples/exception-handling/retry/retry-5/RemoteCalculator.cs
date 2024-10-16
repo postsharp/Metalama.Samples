@@ -11,7 +11,7 @@
         Thread.Sleep(10);
 
         _attempts++;
-        Console.WriteLine($"Trying for the {_attempts}-th time.");
+        Console.WriteLine( $"Attempt #{_attempts}." );
 
         if (_attempts <= 3)
         {
@@ -32,7 +32,7 @@
         await Task.Delay(10);
 
         _attempts++;
-        Console.WriteLine($"Trying for the {_attempts}-th time.");
+        Console.WriteLine( $"Attempt #{_attempts}." );
 
         if (_attempts <= 3)
         {
