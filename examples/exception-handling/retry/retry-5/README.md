@@ -65,7 +65,7 @@ attribute on top of the fields introduces the fields and pulls them from the con
 
 Polly, by design, requires the logic to be wrapped in a delegate. In a Metalama template, we achieve this only with a
 local function because anonymous methods or lambdas can't contain calls to `meta.Proceed`. These local functions are
-named `ExecuteVoid`, `ExecuteCore`, and `ExecuteCoreAsync`. They have an exception handler that prints a warning with the method name and
+named `ExecuteVoid`, `ExecuteCore` or `ExecuteCoreAsync`. They have an exception handler that prints a warning with the method name and
 all method arguments when the method fails.
 
 We now have the best of both worlds: a fully-featured resilience framework with Polly, and boilerplate reduction with
