@@ -12,8 +12,8 @@ namespace Metalama.Samples.Proxy.Tests
     }
     public int NonVoidMethod(int a, string b)
     {
-      var args = ((int, string))(a, b);
-      return _interceptor!.Invoke(ref args, Invoke);
+      var args = (a, b);
+      return _interceptor.Invoke(ref args, Invoke);
       int Invoke(ref (int, string) receivedArgs)
       {
         return _intercepted.NonVoidMethod(receivedArgs.Item1, receivedArgs.Item2);
@@ -21,8 +21,8 @@ namespace Metalama.Samples.Proxy.Tests
     }
     public void VoidMethod(int a, string b)
     {
-      var args = ((int, string))(a, b);
-      _interceptor!.Invoke(ref args, Invoke);
+      var args = (a, b);
+      _interceptor.Invoke(ref args, Invoke);
       ValueTuple Invoke(ref (int, string) receivedArgs)
       {
         _intercepted.VoidMethod(receivedArgs.Item1, receivedArgs.Item2);
@@ -32,7 +32,7 @@ namespace Metalama.Samples.Proxy.Tests
     public void VoidNoParamMethod()
     {
       var args = default(ValueTuple);
-      _interceptor!.Invoke(ref args, Invoke);
+      _interceptor.Invoke(ref args, Invoke);
       ValueTuple Invoke(ref ValueTuple receivedArgs)
       {
         _intercepted.VoidNoParamMethod();

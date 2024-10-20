@@ -12,10 +12,10 @@ namespace Metalama.Samples.Proxy.Tests
     }
     public int NonVoidMethod(out int a, ref string b, in DateTime dt, ref readonly TimeSpan ts)
     {
-      var args = ((int, string, DateTime, TimeSpan))(default(int), b, dt, ts);
+      var args = (default(int), b, dt, ts);
       try
       {
-        return _interceptor!.Invoke(ref args, Invoke);
+        return _interceptor.Invoke(ref args, Invoke);
       }
       finally
       {
@@ -29,10 +29,10 @@ namespace Metalama.Samples.Proxy.Tests
     }
     public void VoidMethod(out int a, ref string b, in DateTime dt, ref readonly TimeSpan ts)
     {
-      var args = ((int, string, DateTime, TimeSpan))(default(int), b, dt, ts);
+      var args = (default(int), b, dt, ts);
       try
       {
-        _interceptor!.Invoke(ref args, Invoke);
+        _interceptor.Invoke(ref args, Invoke);
       }
       finally
       {
