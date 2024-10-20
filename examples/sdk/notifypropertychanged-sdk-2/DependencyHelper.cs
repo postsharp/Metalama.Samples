@@ -46,7 +46,7 @@ public static class DependencyHelper
 
         var semanticModel = property.Compilation.GetSemanticModel(body.SyntaxTree);
 
-        var properties = new HashSet<IPropertySymbol>();
+        var properties = new HashSet<IPropertySymbol>(SymbolEqualityComparer.Default);
         var visitor = new Visitor(properties, semanticModel);
         visitor.Visit(body);
 

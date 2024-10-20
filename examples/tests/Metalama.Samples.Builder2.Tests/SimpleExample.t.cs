@@ -71,7 +71,7 @@ public partial class Song
     }
     public Song Build()
     {
-      var instance = new Song(Artist, Title, Duration)!;
+      var instance = new Song(Artist, Title, Duration);
       return instance;
     }
   }

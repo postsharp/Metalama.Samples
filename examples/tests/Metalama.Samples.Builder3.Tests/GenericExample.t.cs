@@ -36,7 +36,7 @@ public partial class StringKeyedValue<T>
     }
     public StringKeyedValue<T> Build()
     {
-      var instance = new StringKeyedValue<T>(Value)!;
+      var instance = new StringKeyedValue<T>(Value);
       return instance;
     }
   }
