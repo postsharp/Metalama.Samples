@@ -55,7 +55,7 @@ public class Article
     }
     public Article Build()
     {
-      var instance = new Article(Url, Name)!;
+      var instance = new Article(Url, Name);
       return instance;
     }
   }
@@ -94,7 +94,7 @@ public class WebArticle : Article
     }
     public new WebArticle Build()
     {
-      var instance = new WebArticle(Keywords, Url, Name)!;
+      var instance = new WebArticle(Keywords, Url, Name);
       return instance;
     }
   }
