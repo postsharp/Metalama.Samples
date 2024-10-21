@@ -16,7 +16,7 @@ public partial class ColorWheel
   }
   public class Builder
   {
-    private ImmutableArray<string> _colors = global::System.Collections.Immutable.ImmutableArray<global::System.String>.Empty;
+    private ImmutableArray<string> _colors = ImmutableArray<string>.Empty;
     private ImmutableArray<string>.Builder? _colorsBuilder;
     public Builder()
     {
@@ -34,7 +34,7 @@ public partial class ColorWheel
     }
     public ColorWheel Build()
     {
-      var instance = new ColorWheel(GetImmutableColors())!;
+      var instance = new ColorWheel(GetImmutableColors());
       return instance;
     }
     protected ImmutableArray<string> GetImmutableColors()
@@ -45,7 +45,7 @@ public partial class ColorWheel
       }
       else
       {
-        return Colors!.ToImmutable();
+        return Colors.ToImmutable();
       }
     }
   }
