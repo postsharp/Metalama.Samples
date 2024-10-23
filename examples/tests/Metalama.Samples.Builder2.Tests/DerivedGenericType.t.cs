@@ -38,7 +38,7 @@ public class StringKeyedValue<T>
     }
     public StringKeyedValue<T> Build()
     {
-      var instance = new StringKeyedValue<T>(Value)!;
+      var instance = new StringKeyedValue<T>(Value);
       return instance;
     }
   }
@@ -77,7 +77,7 @@ public class TaggedKeyValue : StringKeyedValue<string>
     }
     public new TaggedKeyValue Build()
     {
-      var instance = new TaggedKeyValue(Tag, Value)!;
+      var instance = new TaggedKeyValue(Tag, Value);
       return instance;
     }
   }

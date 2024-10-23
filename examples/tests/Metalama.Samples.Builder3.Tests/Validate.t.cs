@@ -91,7 +91,7 @@ public partial class Invoice
     }
     public Invoice Build()
     {
-      var instance = new Invoice(Number, Caption, Amount, Discount)!;
+      var instance = new Invoice(Number, Caption, Amount, Discount);
       instance.Validate();
       return instance;
     }
