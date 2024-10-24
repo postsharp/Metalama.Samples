@@ -10,11 +10,12 @@ public class RetryAttribute : OverrideMethodAspect
 {
     [IntroduceDependency] private readonly ILogger _logger;
 
-    [IntroduceDependency] private readonly IPolicyFactory _policyFactory;
+    [IntroduceDependency]
+    private readonly IResiliencePipelineFactory _resiliencePipelineFactory;
 
-    public PolicyKind Kind { get; }
+    public StrategyKind Kind { get; }
 
-    public RetryAttribute(PolicyKind kind = PolicyKind.Retry)
+    public RetryAttribute( StrategyKind kind = StrategyKind.Retry )
     {
         this.Kind = kind;
     }
@@ -22,25 +23,51 @@ public class RetryAttribute : OverrideMethodAspect
     // Template for non-async methods.
     public override dynamic? OverrideMethod()
     {
-        object? ExecuteCore()
+        if ( meta.Target.Method.ReturnType.SpecialType == SpecialType.Void )
         {
-            try
+            void ExecuteVoid()
             {
-                return meta.Proceed();
-            }
-            catch (Exception e)
-            {
-                var messageBuilder = LoggingHelper.BuildInterpolatedString(false);
-                messageBuilder.AddText(" has failed: ");
-                messageBuilder.AddExpression(e.Message);
-                this._logger.LogWarning((string)messageBuilder.ToValue());
+                try
+                {
+                    meta.Proceed();
+                }
+                catch ( Exception e )
+                {
+                    var messageBuilder = LoggingHelper.BuildInterpolatedString( false );
+                    messageBuilder.AddText( " has failed: " );
+                    messageBuilder.AddExpression( e.Message );
+                    this._logger.LogWarning( (string) messageBuilder.ToValue() );
 
-                throw;
+                    throw;
+                }
             }
+
+            var pipeline = this._resiliencePipelineFactory.GetPipeline( this.Kind );
+            pipeline.Execute( ExecuteVoid );
+            return null; // Dummy
         }
+        else
+        {
+            object? ExecuteCore()
+            {
+                try
+                {
+                    return meta.Proceed();
+                }
+                catch ( Exception e )
+                {
+                    var messageBuilder = LoggingHelper.BuildInterpolatedString( false );
+                    messageBuilder.AddText( " has failed: " );
+                    messageBuilder.AddExpression( e.Message );
+                    this._logger.LogWarning( (string) messageBuilder.ToValue() );
 
-        var policy = this._policyFactory.GetPolicy(this.Kind);
-        return policy.Execute(ExecuteCore);
+                    throw;
+                }
+            }
+
+            var pipeline = this._resiliencePipelineFactory.GetPipeline( this.Kind );
+            return pipeline.Execute( ExecuteCore );
+        }
     }
 
     // Template for async methods.
@@ -64,10 +91,10 @@ public class RetryAttribute : OverrideMethodAspect
         }
 
         var cancellationTokenParameter
-            = meta.Target.Parameters.LastOrDefault(p => p.Type.Is(typeof(CancellationToken)));
+            = meta.Target.Parameters.LastOrDefault( p => p.Type.Is( typeof( CancellationToken ) ) );
 
-        var policy = this._policyFactory.GetAsyncPolicy(this.Kind);
-        return await policy.ExecuteAsync(ExecuteCoreAsync,
+        var pipeline = this._resiliencePipelineFactory.GetPipeline( this.Kind );
+        return await pipeline.ExecuteAsync( async token => await ExecuteCoreAsync( token ),
             cancellationTokenParameter != null
                 ? (CancellationToken)cancellationTokenParameter.Value!
                 : CancellationToken.None);

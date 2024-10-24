@@ -1,7 +1,7 @@
 ﻿using Metalama.Framework.Aspects;
 
 [RunTimeOrCompileTime]
-public enum PolicyKind
+public enum StrategyKind
 {
     Retry
 }
