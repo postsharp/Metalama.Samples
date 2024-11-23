@@ -159,6 +159,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy", "e
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy.Tests", "examples\tests\Metalama.Samples.Proxy.Tests\Metalama.Samples.Proxy.Tests.csproj", "{A5F3CE95-6C45-4E57-8D68-19B1662B506E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "abstract-factory", "abstract-factory", "{E4387CE3-6E3F-4AB0-92E1-2B4C8F0050E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.AbstractFactory", "examples\abstract-factory\Metalama.Samples.AbstractFactory\Metalama.Samples.AbstractFactory.csproj", "{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.AbstractFactory.Tests", "examples\tests\Metalama.Samples.AbstractFactory.Tests\Metalama.Samples.AbstractFactory.Tests.csproj", "{A6A91B6C-C74C-4D60-911D-6A9DA240E928}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -514,6 +520,18 @@ Global
 		{A5F3CE95-6C45-4E57-8D68-19B1662B506E}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
 		{A5F3CE95-6C45-4E57-8D68-19B1662B506E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F3CE95-6C45-4E57-8D68-19B1662B506E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.LamaDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.LamaDebug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -578,6 +596,8 @@ Global
 		{28B07832-5A6A-4FF2-B9C8-966EEE16095F} = {1BEB7296-2152-4595-AA39-C41FE9341798}
 		{B91E088B-D736-4E17-B493-8761A0CEBC8D} = {DEB63082-4F9A-4DEA-8D41-FFF66F78BAFE}
 		{A5F3CE95-6C45-4E57-8D68-19B1662B506E} = {DEB63082-4F9A-4DEA-8D41-FFF66F78BAFE}
+		{E3EF4E77-2E5A-47D2-9084-3D8461E176F8} = {E4387CE3-6E3F-4AB0-92E1-2B4C8F0050E9}
+		{A6A91B6C-C74C-4D60-911D-6A9DA240E928} = {E4387CE3-6E3F-4AB0-92E1-2B4C8F0050E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C409864-0EB7-4A04-8E6C-0A04A9F557C9}
