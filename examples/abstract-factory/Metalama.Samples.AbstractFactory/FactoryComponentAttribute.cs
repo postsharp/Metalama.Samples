@@ -15,6 +15,6 @@ public sealed class FactoryComponentAttribute : TypeAspect
 
     public override void BuildAspect(IAspectBuilder<INamedType> builder)
     {
-        builder.With( (INamedType) TypeFactory.GetType(this._factoryType)).AddAnnotation(new FactoryComponentAnnotation(builder.Target));
+        builder.With( (INamedType) TypeFactory.GetType(this._factoryType)).AddAnnotation(new FactoryComponentRegistration(builder.Target));
     }
 }

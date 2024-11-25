@@ -1,0 +1,1 @@
+// Error FACTORY01 on `WpfControlFactory`: `No implementation type was found implementing the return type 'IButton' of the 'IControlFactory.CreateButton()' method.`

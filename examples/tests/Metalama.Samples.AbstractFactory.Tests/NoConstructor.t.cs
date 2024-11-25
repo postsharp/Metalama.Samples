@@ -1,0 +1,1 @@
+// Error FACTORY03 on `WpfControlFactory`: `The 'WpfTextBox' type doesn't have a constructor that has the same parameters as the 'IControlFactory.CreateTextBox(string)' method.`

@@ -5,8 +5,8 @@ public class WpfControlFactory
   {
     return new WpfButton();
   }
-  public ITextBox CreateTextBox()
+  public ITextBox CreateTextBox(string text)
   {
-    return new WpfTextBox();
+    return new WpfTextBox(text);
   }
 }

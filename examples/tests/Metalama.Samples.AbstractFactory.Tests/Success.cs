@@ -1,8 +1,8 @@
-﻿namespace Metalama.Samples.AbstractFactory.Tests;
+﻿namespace Metalama.Samples.AbstractFactory.Tests.Success;
 
 public interface IControlFactory
 {
-    ITextBox CreateTextBox();
+    ITextBox CreateTextBox( string text );
     IButton CreateButton();
 }
 
@@ -12,7 +12,12 @@ public interface ITextBox;
 public interface IButton;
 
 [FactoryComponent(typeof(WpfControlFactory))]
-public class WpfTextBox : ITextBox;
+public class WpfTextBox : ITextBox
+{
+    public WpfTextBox(string text)
+    {
+    }
+}
 
 [FactoryComponent(typeof(WpfControlFactory))]
 public class WpfButton : IButton;

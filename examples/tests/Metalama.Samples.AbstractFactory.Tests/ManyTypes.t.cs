@@ -1,0 +1,1 @@
+// Error FACTORY02 on `WpfControlFactory`: `Several types implement the return type 'ITextBox' of the 'IControlFactory.CreateTextBox(string)' method: 'WpfTextBox', 'WpfTextBox2'.`
