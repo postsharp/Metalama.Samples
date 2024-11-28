@@ -7,7 +7,7 @@ created-date: 2024-09-09
 modified-date: 2024-09-09
 ---
 
-# Implementing the Memento pattern without boilerplate
+# Implementing the Memento pattern with Metalama
 
 The Memento pattern is a classic behavioral design pattern that allows you to capture the internal state of an object as a _memento_ object without violating encapsulation. You can then restore this memento state later.
 

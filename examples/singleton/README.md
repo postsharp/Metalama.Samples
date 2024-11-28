@@ -6,7 +6,7 @@ created-date: 2024-07-09
 modified-date: 2024-09-09
 ---
 
-# Implementing the Singleton pattern without boilerplate
+# Implementing the Singleton pattern with Metalama
 
 The Singleton pattern is useful in scenarios where a class in a software system should have only one instance available to all components.
 

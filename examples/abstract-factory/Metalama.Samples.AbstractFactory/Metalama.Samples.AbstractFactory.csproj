@@ -4,11 +4,14 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <OutputType>exe</OutputType>
     </PropertyGroup>
 
 
     <ItemGroup>
         <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Microsoft.Extensions.Http" />
+        <PackageReference Include="System.Net.Http.Formatting.Extension" />
     </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Implementing INotifyPropertyChanged without boilerplate
+# Implementing INotifyPropertyChanged with Metalama
 
 [!metalama-project-buttons .]
 

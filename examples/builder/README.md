@@ -7,7 +7,7 @@ created-date: 2024-09-30
 modified-date: 2024-09-30
 ---
 
-# Implementing the Builder pattern without boilerplate
+# Implementing the Builder pattern with Metalama
 
 The popularity of _immutable_ objects has made the Builder pattern crucial in C#. The most frequent use of builders in C# today is to simplify the creation of immutable objects using mutable objects, named _builders_, used solely to create the immutable ones. A prime example is the <xref:System.Collections.Immutable> namespace, where each collection type has its own mutable builder.
 

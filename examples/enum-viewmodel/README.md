@@ -7,7 +7,7 @@ created-date: 2023-03-28
 modified-date: 2024-09-09
 ---
 
-# Generating view-model wrappers for enums without boilerplate
+# Generating view-model wrappers for enums with Metalama
 
 [!metalama-project-buttons .]
 

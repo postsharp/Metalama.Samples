@@ -17,12 +17,14 @@
     <PackageVersion Include="Metalama.Framework.Sdk" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="9.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
     <PackageVersion Include="NameGenerator" Version="2.0.4" />
     <PackageVersion Include="Polly.Core" Version="8.4.2" />
     <PackageVersion Include="PostSharp.Engineering.BuildTools" Version="$(PostSharpEngineeringVersion)" />
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
+    <PackageVersion Include="System.Net.Http.Formatting.Extension" Version="5.2.3" />
     <PackageVersion Include="xunit.assert" Version="2.9.2" />
     <PackageVersion Include="xunit.extensibility.core" Version="2.9.2" />
   </ItemGroup>
