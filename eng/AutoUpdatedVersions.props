@@ -3,10 +3,10 @@
 
     <PropertyGroup>
         <MetalamaBackstageVersion>2025.0.8</MetalamaBackstageVersion>
-        <MetalamaCompilerVersion>2025.0.9</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.0.11</MetalamaVersion>
-        <MetalamaExtensionsVersion>2025.0.11</MetalamaExtensionsVersion>
-        <MetalamaPatternsVersion>2025.0.11</MetalamaPatternsVersion>
+        <MetalamaCompilerVersion>2025.0.10</MetalamaCompilerVersion>
+        <MetalamaVersion>2025.0.12</MetalamaVersion>
+        <MetalamaExtensionsVersion>2025.0.12</MetalamaExtensionsVersion>
+        <MetalamaPatternsVersion>2025.0.12</MetalamaPatternsVersion>
         <MetalamaFrameworkRunTimeVersion>2025.0.7</MetalamaFrameworkRunTimeVersion>
     </PropertyGroup>
 
