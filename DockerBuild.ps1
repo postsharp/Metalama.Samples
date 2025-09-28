@@ -13,7 +13,6 @@ param(
     [string]$BuildAgentPath = 'C:\BuildAgent',
     [switch]$LoadEnvFromKeyVault, # Forces loading environment variables form the key vault.
     [switch]$StartVsmon, # Enable the remote debugger.
-    [string]$Script = 'Build.ps1', # The build script to be executed inside Docker.
     [Parameter(ValueFromRemainingArguments)]
     [string[]]$BuildArgs   # Arguments passed to `Build.ps1` within the container.
 )
@@ -91,33 +90,19 @@ function New-EnvJson
     return $jsonPath
 }
 
-if ($env:RUNNING_IN_DOCKER)
-{
-    Write-Error "Already running in Docker."
-    exit 1
-}
-
 # Generate ImageName from script directory if not provided
 if ( [string]::IsNullOrEmpty($ImageName))
 {
     # Get full path without drive name (e.g., "C:\src\Metalama.Compiler" becomes "src\Metalama.Compiler")
     $fullPath = $PSScriptRoot -replace '^[A-Za-z]:\\', ''
     # Sanitize path to valid Docker image name (lowercase alphanumeric and hyphens only)
-    $ImageTag = $fullPath.ToLower() -replace '[^a-z0-9\-]', '-' -replace '-+', '-' -replace '^-|-$', ''
+    $ImageName = $fullPath.ToLower() -replace '[^a-z0-9\-]', '-' -replace '-+', '-' -replace '^-|-$', ''
     # Ensure it doesn't start with a hyphen and has at least one character
-    if ([string]::IsNullOrEmpty($ImageTag) -or $ImageTag -match '^-')
+    if ([string]::IsNullOrEmpty($ImageName) -or $ImageName -match '^-')
     {
-        $ImageTag = "docker-build-image"
+        $ImageName = "docker-build-image"
     }
-    Write-Host "Generated image name from directory: $ImageTag" -ForegroundColor Cyan
-}
-else
-{
-    # Generate a hash of the repo directory tagging (4 bytes, 8 hex chars)
-    $hashBytes = (New-Object -TypeName System.Security.Cryptography.SHA256Managed).ComputeHash([System.Text.Encoding]::UTF8.GetBytes($PSScriptRoot))
-    $directoryHash = [System.BitConverter]::ToString($hashBytes, 0, 4).Replace("-", "").ToLower()
-    $ImageTag = "$ImageName`:$directoryHash"
-    Write-Host "Image will be tagged as: $ImageTag" -ForegroundColor Cyan
+    Write-Host "Generated image name from directory: $ImageName" -ForegroundColor Cyan
 }
 
 # When building locally (as opposed as on the build agent), we must do a complete cleanup because 
@@ -270,16 +255,16 @@ Write-Host "Mount points: " $mountPointsAsString -ForegroundColor Gray
 Write-Host "Git directories: " $gitDirectoriesAsString -ForegroundColor Gray
 
 # Kill all containers
-docker ps -q --filter "ancestor=$ImageTag" | ForEach-Object {
+docker ps -q --filter "ancestor=$ImageName" | ForEach-Object {
     Write-Host "Killing container $_"
-    docker kill $_
+    docker kill $_ 
 }
 
 # Building the image.
 if (-not $NoBuildImage)
 {
-    Write-Host "Building the image with tag: $ImageTag" -ForegroundColor Green
-    Get-Content -Raw Dockerfile | docker build -t $ImageTag  --build-arg GITDIRS="$gitDirectoriesAsString"  --build-arg MOUNTPOINTS="$mountPointsAsString"  -f - $dockerContextDirectory
+    Write-Host "Building the image." -ForegroundColor Green
+    Get-Content -Raw Dockerfile | docker build -t $ImageName  --build-arg GITDIRS="$gitDirectoriesAsString"  --build-arg MOUNTPOINTS="$mountPointsAsString"  -f - $dockerContextDirectory
     if ($LASTEXITCODE -ne 0)
     {
         Write-Host "Docker build failed with exit code $LASTEXITCODE" -ForegroundColor Red
@@ -308,25 +293,23 @@ if (-not $BuildImage)
     if ($Interactive)
     {
         $pwshArgs = "-NoExit"
-        $BuildArgs = @("-Interactive") + $BuildArgs
-        $dockerArgs = @("-it")
-        $pwshExitCommand = ""
+$BuildArgs = @("-Interactive") + $BuildArgs
+$dockerArgs = @("-it")
     }
     else
     {
         $pwshArgs = "-NonInteractive"
-        $dockerArgs = @()
-        $pwshExitCommand = "exit `$LASTEXITCODE`;"
+$dockerArgs = @()
     }
 
     $buildArgsString = $BuildArgs -join " "
-    $VolumeMappingsAsString = $VolumeMappings -join " "
-    $dockerArgsAsString = $dockerArgs -join " "
+$VolumeMappingsAsString = $VolumeMappings -join " "
+$dockerArgsAsString = $dockerArgs -join " "
 
 
-    Write-Host "Executing: ``docker run --rm --memory=12g $dockerArgsAsString $VolumeMappingsAsString -w $SourceDirName $ImageTag pwsh $pwshArgs -Command `"& .\$Script $buildArgsString`; $pwshExitCommand`"" -ForegroundColor Cyan
+    Write-Host "Executing: ``docker run --rm --memory= 12g $VolumeMappingsAsString -w $SourceDirName $dockerArgsAsString $ImageName pwsh $pwshArgs -Command `"& .\Build.ps1 $buildArgsString`; exit `$LASTEXITCODE`"``." -ForegroundColor Cyan
 
-    docker run --rm --memory=12g $dockerArgs @VolumeMappings -w $SourceDirName @dockerArgs $ImageTag pwsh $pwshArgs -Command "& .\$Script $buildArgsString`; $pwshExitCommand; "
+    docker run --rm --memory=12g @VolumeMappings -w $SourceDirName @dockerArgs $ImageName pwsh $pwshArgs -Command "& .\Build.ps1 $buildArgsString`; exit `$LASTEXITCODE; "
     if ($LASTEXITCODE -ne 0)
     {
         Write-Host "Docker run (build) failed with exit code $LASTEXITCODE" -ForegroundColor Red

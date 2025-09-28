@@ -60,7 +60,3 @@ if (-not $Interactive -or $BuildArgs)
         Set-Location $previousLocation
     }
 }
-
-if ( $Interactive ) {
-    Write-Host "Entering interactive PowerShell." -ForegroundColor Green
-}
