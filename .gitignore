@@ -11,3 +11,9 @@ eng/tools
 *.log
 *.binlog
 /.config/dotnet-tools.json
+*.g.props
+*.g.ps1
+*.g.json
+global.json
+nuget.config
+**/.idea/copilot.data.*

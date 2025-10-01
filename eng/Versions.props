@@ -15,6 +15,8 @@
     <!-- Import overrides for the local build -->
     <Import Project="Versions.g.props" Condition="Exists('Versions.g.props')" />    
 
+
+
     <PropertyGroup>
         <AssemblyVersion>$(MetalamaSamplesAssemblyVersion)</AssemblyVersion>
         <Version>$(MetalamaSamplesVersion)</Version>
