@@ -49,8 +49,7 @@ public class CloneableAttribute : TypeAspect
         }
 
         // Introduce the Clone method.
-        builder.Advice.IntroduceMethod(
-            builder.Target,
+        builder.IntroduceMethod(
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
@@ -61,8 +60,7 @@ public class CloneableAttribute : TypeAspect
             } );
 
         // [<snippet AddCloneMembers>]
-        builder.Advice.IntroduceMethod(
-            builder.Target,
+        builder.IntroduceMethod(
             nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target } );
@@ -70,24 +68,22 @@ public class CloneableAttribute : TypeAspect
         // [<endsnippet AddCloneMembers>]
 
         // Implement the ICloneable interface.
-        builder.Advice.ImplementInterface(
-            builder.Target,
+        builder.ImplementInterface(
             typeof(ICloneable),
             OverrideStrategy.Ignore );
 
         // When we have non-child fields or properties of a cloneable type,
         // suggest to add the child attribute
         var eligibleChildren = builder.Target.FieldsAndProperties
-            .Where(
-                f => f.Writeability == Writeability.All &&
-                     !f.IsImplicitlyDeclared &&
-                     !f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() &&
-                     !f.Attributes.OfAttributeType( typeof(ReferenceAttribute) ).Any() &&
-                     f.Type is INamedType fieldType &&
-                     (fieldType.AllMethods.OfName( "Clone" )
-                          .Any( m => m.Parameters.Count == 0 ) ||
-                      fieldType.Attributes.OfAttributeType( typeof(CloneableAttribute) )
-                          .Any()) );
+            .Where( f => f.Writeability == Writeability.All &&
+                         !f.IsImplicitlyDeclared &&
+                         !f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() &&
+                         !f.Attributes.OfAttributeType( typeof(ReferenceAttribute) ).Any() &&
+                         f.Type is INamedType fieldType &&
+                         (fieldType.AllMethods.OfName( "Clone" )
+                              .Any( m => m.Parameters.Count == 0 ) ||
+                          fieldType.Attributes.OfAttributeType( typeof(CloneableAttribute) )
+                              .Any()) );
 
         // [<snippet ReportUnannotatedProperties>]
         foreach ( var fieldOrProperty in eligibleChildren )
@@ -209,9 +205,8 @@ public class CloneableAttribute : TypeAspect
     }
 
     private static IEnumerable<IFieldOrProperty> GetCloneableFieldsOrProperties( INamedType type )
-        => type.FieldsAndProperties.Where(
-            f =>
-                f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
+        => type.FieldsAndProperties.Where( f =>
+                                               f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
     [Template]
     public virtual T CloneImpl<[CompileTime] T>()
@@ -250,7 +245,7 @@ public class CloneableAttribute : TypeAspect
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;
 
-            field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
+            field.WithObject( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
         }
 
         // Call the handwritten implementation, if any.

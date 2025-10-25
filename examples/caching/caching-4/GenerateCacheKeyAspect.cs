@@ -15,8 +15,7 @@ internal class GenerateCacheKeyAspect : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ICacheKey interface.        
-        builder.Advice.ImplementInterface(
-            builder.Target,
+        builder.ImplementInterface(
             typeof(ICacheKey),
             OverrideStrategy.Ignore );
 

@@ -26,8 +26,7 @@ public class SingletonAttribute : TypeAspect
     {
         // [<snippet IntroduceInstanceProperty>]
         // Introduce the property.
-        builder.Advice.IntroduceProperty(
-            builder.Target,
+        builder.IntroduceProperty(
             nameof(Instance),
             buildProperty: propertyBuilder =>
             {
@@ -60,9 +59,8 @@ public class SingletonAttribute : TypeAspect
 
         // [<snippet AddPrivateConstructor>]
         // If there is no explicit constructor, add one.
-        if ( builder.Target.Constructors.All(
-                c =>
-                    c.IsImplicitlyDeclared ) )
+        if ( builder.Target.Constructors.All( c =>
+                                                  c.IsImplicitlyDeclared ) )
         {
             builder.IntroduceConstructor(
                 nameof(this.ConstructorTemplate),

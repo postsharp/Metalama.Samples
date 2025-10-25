@@ -10,7 +10,7 @@ public class MeasureExecutionTimeAttribute : MetricAttribute
 {
     internal override dynamic? OverrideMethodTemplate( IField metricsField, IFieldOrProperty metricProperty )
     {
-        var meterExpression = metricProperty.With( metricsField, InvokerOptions.NullConditional );
+        var meterExpression = metricProperty.WithObject( metricsField ).WithOptions( InvokerOptions.NullConditional );
 
         var timestamp = Stopwatch.GetTimestamp();
 

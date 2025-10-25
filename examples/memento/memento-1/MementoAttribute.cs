@@ -32,18 +32,16 @@ public sealed class MementoAttribute : TypeAspect
 
         // [<snippet SelectFields>]
         var originatorFieldsAndProperties = builder.Target.FieldsAndProperties
-            .Where(
-                p => p is
-                {
-                    IsStatic: false,
-                    IsAutoPropertyOrField: true,
-                    IsImplicitlyDeclared: false,
-                    Writeability: Writeability.All
-                } )
-            .Where(
-                p =>
-                    !p.Attributes.OfAttributeType( typeof(MementoIgnoreAttribute) )
-                        .Any() );
+            .Where( p => p is
+            {
+                IsStatic: false,
+                IsAutoPropertyOrField: true,
+                IsImplicitlyDeclared: false,
+                Writeability: Writeability.All
+            } )
+            .Where( p =>
+                        !p.Attributes.OfAttributeType( typeof(MementoIgnoreAttribute) )
+                            .Any() );
 
         // [<endsnippet SelectFields>]
 
@@ -143,7 +141,7 @@ public sealed class MementoAttribute : TypeAspect
         // Set fields of this instance to the values stored in the Memento.
         foreach ( var pair in buildAspectInfo.PropertyMap )
         {
-            pair.Key.Value = pair.Value.With( (IExpression) typedMemento ).Value;
+            pair.Key.Value = pair.Value.WithObject( (IExpression) typedMemento ).Value;
         }
     }
 
@@ -158,7 +156,7 @@ public sealed class MementoAttribute : TypeAspect
 
         foreach ( var pair in buildAspectInfo.PropertyMap )
         {
-            pair.Value.Value = pair.Key.With( meta.Target.Parameters[0] ).Value;
+            pair.Value.Value = pair.Key.WithObject( meta.Target.Parameters[0] ).Value;
         }
     }
 

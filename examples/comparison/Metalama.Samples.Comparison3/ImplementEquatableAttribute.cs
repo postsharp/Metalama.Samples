@@ -164,7 +164,7 @@ public class ImplementEquatableAttribute : TypeAspect
             // is overridden in the current type by the BaseTypeEqualsTemplate template.
             if ( baseEqualsMethod != null )
             {
-                if ( !baseEqualsMethod.With( InvokerOptions.Base ).Invoke( other ) )
+                if ( !baseEqualsMethod.WithOptions( InvokerOptions.Base ).Invoke( other ) )
                 {
                     return false;
                 }
@@ -192,7 +192,7 @@ public class ImplementEquatableAttribute : TypeAspect
                 .WithTypeArguments( field.Type )
                 .Properties["Default"];
 
-            if ( !defaultComparer.Value!.Equals( field.Value, field.With( other ).Value ) )
+            if ( !defaultComparer.Value!.Equals( field.Value, field.WithObject( other ).Value ) )
             {
                 return false;
             }
@@ -239,7 +239,7 @@ public class ImplementEquatableAttribute : TypeAspect
         // [<snippet CallBaseGetHashCode>]
         if ( baseGetHashCodeMethod != null )
         {
-            hashCode.Add( baseGetHashCodeMethod.With( InvokerOptions.Base ).Invoke() );
+            hashCode.Add( baseGetHashCodeMethod.WithOptions( InvokerOptions.Base ).Invoke() );
         }
 
         // [<endsnippet CallBaseGetHashCode>]

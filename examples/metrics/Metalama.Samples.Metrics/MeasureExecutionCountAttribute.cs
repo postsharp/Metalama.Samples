@@ -9,7 +9,7 @@ public class MeasureExecutionCountAttribute : MetricAttribute
 {
     internal override dynamic? OverrideMethodTemplate( IField metricsField, IFieldOrProperty metricProperty )
     {
-        var meterExpression = metricProperty.With( metricsField, InvokerOptions.NullConditional );
+        var meterExpression = metricProperty.WithObject( metricsField ).WithOptions( InvokerOptions.NullConditional );
 
         ((Counter<long>) meterExpression.Value!).Add( 1 );
 

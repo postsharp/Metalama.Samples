@@ -24,8 +24,7 @@ public class TrackChangesAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the ISwitchableChangeTracking interface.         
-        var implementInterfaceResult = builder.Advice.ImplementInterface(
-            builder.Target,
+        var implementInterfaceResult = builder.ImplementInterface(
             typeof(ISwitchableChangeTracking),
             OverrideStrategy.Ignore );
 
@@ -48,7 +47,7 @@ public class TrackChangesAttribute : TypeAspect
         }
         else
         {
-            builder.Advice.IntroduceField( builder.Target, "_isTrackingChanges", typeof(bool) );
+            builder.IntroduceField( "_isTrackingChanges", typeof(bool) );
         }
 
         var onPropertyChanged = this.GetOnPropertyChangedMethod( builder.Target );
@@ -61,17 +60,16 @@ public class TrackChangesAttribute : TypeAspect
             // overriding each setter.
 
             var fieldsOrProperties = builder.Target.FieldsAndProperties
-                .Where(
-                    f =>
-                        !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
-                        f.IsAutoPropertyOrField == true );
+                .Where( f =>
+                            !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
+                            f.IsAutoPropertyOrField == true );
 
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advice.OverrideAccessors(
-                    fieldOrProperty,
-                    null,
-                    nameof(this.OverrideSetter) );
+                builder.With( fieldOrProperty )
+                    .OverrideAccessors(
+                        null,
+                        nameof(this.OverrideSetter) );
             }
         }
 
@@ -80,7 +78,7 @@ public class TrackChangesAttribute : TypeAspect
         else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )
         {
             // If the OnPropertyChanged method was declared in the current type, override it.
-            builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
+            builder.With( onPropertyChanged ).Override( nameof(this.OnPropertyChanged) );
         }
 
         // [<endsnippet OnPropertyChangedInCurrentType>]
@@ -103,8 +101,7 @@ public class TrackChangesAttribute : TypeAspect
             }
             else
             {
-                builder.Advice.IntroduceMethod(
-                    builder.Target,
+                builder.IntroduceMethod(
                     nameof(this.OnPropertyChanged),
                     whenExists: OverrideStrategy.Override );
             }

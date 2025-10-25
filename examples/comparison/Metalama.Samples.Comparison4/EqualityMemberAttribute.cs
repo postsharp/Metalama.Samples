@@ -50,9 +50,9 @@ public class EqualityMemberAttribute : FieldOrPropertyAspect
 
             _ => field.Type switch
             {
-                { TypeKind: TypeKind.Struct or TypeKind.Class }
+                { TypeKind: TypeKind.Struct or TypeKind.Class } and INamedType { IsRecord: false }
                     when HasEqualsImplementation( (INamedType) field.Type ) => 10,
-                { TypeKind: TypeKind.RecordStruct or TypeKind.RecordClass } => 20,
+                { TypeKind: TypeKind.Struct or TypeKind.Class } and INamedType { IsRecord: true } => 20,
                 { TypeKind: TypeKind.Struct } => 200,
                 { TypeKind: TypeKind.Class } => 1,
                 _ => 100

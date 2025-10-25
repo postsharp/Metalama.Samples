@@ -54,10 +54,9 @@ public class TrackChangesAttribute : TypeAspect
     {
         // Select fields and automatic properties that can be changed.
         var fieldsOrProperties = builder.Target.FieldsAndProperties
-            .Where(
-                f =>
-                    !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
-                    f.IsAutoPropertyOrField == true )
+            .Where( f =>
+                        !f.IsImplicitlyDeclared && f.Writeability == Writeability.All &&
+                        f.IsAutoPropertyOrField == true )
             .ToArray();
 
         // [<snippet BuildDictionary>]
@@ -74,8 +73,7 @@ public class TrackChangesAttribute : TypeAspect
                 upperCaseName.Substring( 1 );
 
             var acceptedField =
-                builder.Advice.IntroduceField(
-                    builder.Target,
+                builder.IntroduceField(
                     "_accepted" + upperCaseName,
                     fieldOrProperty.Type );
 
@@ -83,8 +81,7 @@ public class TrackChangesAttribute : TypeAspect
         }
 
         // Implement the ISwitchableChangeTracking interface.         
-        var implementInterfaceResult = builder.Advice.ImplementInterface(
-            builder.Target,
+        var implementInterfaceResult = builder.ImplementInterface(
             typeof(ISwitchableChangeTracking),
             OverrideStrategy.Ignore,
             new { IntroducedFields = introducedFields } );
@@ -109,7 +106,7 @@ public class TrackChangesAttribute : TypeAspect
         }
         else
         {
-            builder.Advice.IntroduceField( builder.Target, "_isTrackingChanges", typeof(bool) );
+            builder.IntroduceField( "_isTrackingChanges", typeof(bool) );
         }
 
         // Override all writable fields and automatic properties.
@@ -125,15 +122,15 @@ public class TrackChangesAttribute : TypeAspect
             // overriding each setter.
             foreach ( var fieldOrProperty in fieldsOrProperties )
             {
-                builder.Advice.OverrideAccessors(
-                    fieldOrProperty,
-                    null,
-                    nameof(this.OverrideSetter) );
+                builder.With( fieldOrProperty )
+                    .OverrideAccessors(
+                        null,
+                        nameof(this.OverrideSetter) );
             }
         }
         else if ( onPropertyChanged.DeclaringType.Equals( builder.Target ) )
         {
-            builder.Advice.Override( onPropertyChanged, nameof(this.OnPropertyChanged) );
+            builder.With( onPropertyChanged ).Override( nameof(this.OnPropertyChanged) );
         }
         else if ( implementInterfaceResult.Outcome == AdviceOutcome.Ignore )
         {
@@ -153,8 +150,7 @@ public class TrackChangesAttribute : TypeAspect
             }
             else
             {
-                builder.Advice.IntroduceMethod(
-                    builder.Target,
+                builder.IntroduceMethod(
                     nameof(this.OnPropertyChanged),
                     whenExists: OverrideStrategy.Override );
             }

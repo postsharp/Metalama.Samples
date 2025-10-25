@@ -8,17 +8,19 @@ internal class NotifyPropertyChangedAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // Implement the interface.
-        builder.Advice.ImplementInterface(
-            builder.Target,
+        builder.ImplementInterface(
             typeof(INotifyPropertyChanged),
             OverrideStrategy.Ignore );
 
         // Override the property setters.
-        foreach ( var property in builder.Target.Properties.Where(
-                     p =>
-                         p is { IsAbstract: false, Writeability: Writeability.All } ) )
+        foreach ( var property in builder.Target.Properties.Where( p =>
+                                                                       p is
+                                                                       {
+                                                                           IsAbstract: false,
+                                                                           Writeability: Writeability.All
+                                                                       } ) )
         {
-            builder.Advice.OverrideAccessors( property, null, nameof(this.OverridePropertySetter) );
+            builder.With( property ).OverrideAccessors( null, nameof(this.OverridePropertySetter) );
         }
     }
 

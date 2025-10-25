@@ -8,16 +8,14 @@ public class CloneableAttribute : TypeAspect
     public override void BuildAspect( IAspectBuilder<INamedType> builder )
     {
         // [<snippet BuildAspect1>]
-        builder.Advice.ImplementInterface(
-            builder.Target,
+        builder.ImplementInterface(
             typeof(ICloneable),
             OverrideStrategy.Ignore );
 
         // [<endsnippet BuildAspect1>]
 
         // [<snippet BuildAspect2>]
-        builder.Advice.IntroduceMethod(
-            builder.Target,
+        builder.IntroduceMethod(
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
@@ -51,15 +49,15 @@ public class CloneableAttribute : TypeAspect
 
         // Select cloneable fields.
         var cloneableFields =
-            meta.Target.Type.FieldsAndProperties.Where(
-                f => f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
+            meta.Target.Type.FieldsAndProperties.Where( f => f.Attributes.OfAttributeType( typeof(ChildAttribute) )
+                                                            .Any() );
 
         foreach ( var field in cloneableFields )
         {
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;
 
-            field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
+            field.WithObject( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
         }
 
         return clone;

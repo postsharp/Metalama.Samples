@@ -88,10 +88,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
                     // Find the copy constructor.
                     baseBuilderCopyConstructor = baseBuilderType.Constructors
-                        .SingleOrDefault(
-                            c =>
-                                c.Parameters.Count == 1 &&
-                                c.Parameters[0].Type.Equals( sourceType.BaseType ) );
+                        .SingleOrDefault( c =>
+                                              c.Parameters.Count == 1 &&
+                                              c.Parameters[0].Type.Equals( sourceType.BaseType ) );
 
                     if ( baseBuilderCopyConstructor == null )
                     {
@@ -121,19 +120,17 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         // [<snippet CreatePropertyMap>]
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
-        var properties = sourceType.AllProperties.Where(
-                p => p.Writeability != Writeability.None &&
-                     !p.IsStatic )
-            .Select(
-                p =>
-                {
-                    var isRequired = p.Attributes.OfAttributeType( typeof(RequiredAttribute) )
-                        .Any();
+        var properties = sourceType.AllProperties.Where( p => p.Writeability != Writeability.None &&
+                                                              !p.IsStatic )
+            .Select( p =>
+            {
+                var isRequired = p.Attributes.OfAttributeType( typeof(RequiredAttribute) )
+                    .Any();
 
-                    var isInherited = !p.DeclaringType.Equals( sourceType );
+                var isInherited = !p.DeclaringType.Equals( sourceType );
 
-                    return new PropertyMapping( p, isRequired, isInherited );
-                } )
+                return new PropertyMapping( p, isRequired, isInherited );
+            } )
             .ToList();
 
         // [<endsnippet CreatePropertyMap>]
@@ -229,9 +226,8 @@ public partial class GenerateBuilderAttribute : TypeAspect
                     foreach ( var baseConstructorParameter in baseBuilderConstructor.Parameters )
                     {
                         var thisParameter =
-                            c.Parameters.SingleOrDefault(
-                                p =>
-                                    p.Name == baseConstructorParameter.Name );
+                            c.Parameters.SingleOrDefault( p =>
+                                                              p.Name == baseConstructorParameter.Name );
 
                         if ( thisParameter != null )
                         {
@@ -315,9 +311,9 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
                         foreach ( var baseConstructorParameter in baseConstructor.Parameters )
                         {
-                            var thisParameter = c.Parameters.SingleOrDefault(
-                                p =>
-                                    p.Name == baseConstructorParameter.Name );
+                            var thisParameter = c.Parameters.SingleOrDefault( p =>
+                                                                                  p.Name == baseConstructorParameter
+                                                                                      .Name );
 
                             if ( thisParameter == null )
                             {
@@ -362,9 +358,8 @@ public partial class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        foreach ( var property in tags.Properties.Where(
-                     p => p is
-                         { IsRequired: true, IsInherited: false } ) )
+        foreach ( var property in tags.Properties.Where( p => p is
+                                                             { IsRequired: true, IsInherited: false } ) )
         {
             property.SourceProperty.Value =
                 meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
@@ -379,7 +374,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
             property.BuilderProperty!.Value =
-                property.SourceProperty.With( (IExpression) source ).Value;
+                property.SourceProperty.WithObject( (IExpression) source ).Value;
         }
     }
 
@@ -410,7 +405,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         if ( validateMethod != null )
         {
-            validateMethod.With( (IExpression) instance ).Invoke();
+            validateMethod.WithObject( (IExpression) instance ).Invoke();
         }
 
         // Return the object.

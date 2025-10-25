@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Metalama.Framework.RunTime;
 using Metalama.Samples.Metrics;
 #pragma warning disable CA2201
 [assembly: GenerateAddMetricsExtension]
@@ -17,14 +18,14 @@ public class HatShop
       (_hatShopMetrics?.PlaceOrderExecutionCount).Add(1);
       try
       {
-    this._executionCount++;
-    if (this._executionCount % 10 == 0)
-    {
-      throw new Exception();
-    }
-    else
-    {
-      Console.WriteLine("Ordering a hat.");
+        this._executionCount++;
+        if (this._executionCount % 10 == 0)
+        {
+          throw new Exception();
+        }
+        else
+        {
+          Console.WriteLine("Ordering a hat.");
         }
       }
       catch
@@ -40,7 +41,7 @@ public class HatShop
     }
   }
   private HatShopMetrics _hatShopMetrics;
-  public HatShop(HatShopMetrics hatShopMetrics = null)
+  public HatShop([AspectGenerated] HatShopMetrics hatShopMetrics = null)
   {
     this._hatShopMetrics = hatShopMetrics;
   }

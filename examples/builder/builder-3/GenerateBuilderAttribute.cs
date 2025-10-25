@@ -87,10 +87,9 @@ public class GenerateBuilderAttribute : TypeAspect
 
                     // Find the copy constructor.
                     baseBuilderCopyConstructor = baseBuilderType.Constructors
-                        .SingleOrDefault(
-                            c =>
-                                c.Parameters.Count == 1 &&
-                                c.Parameters[0].Type.Equals( sourceType.BaseType ) );
+                        .SingleOrDefault( c =>
+                                              c.Parameters.Count == 1 &&
+                                              c.Parameters[0].Type.Equals( sourceType.BaseType ) );
 
                     if ( baseBuilderCopyConstructor == null )
                     {
@@ -119,9 +118,8 @@ public class GenerateBuilderAttribute : TypeAspect
         var propertyMappingFactory = new PropertyMappingFactory( sourceType );
 
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
-        var properties = sourceType.AllProperties.Where(
-                p => p.Writeability != Writeability.None &&
-                     !p.IsStatic )
+        var properties = sourceType.AllProperties.Where( p => p.Writeability != Writeability.None &&
+                                                              !p.IsStatic )
             .Select( p => propertyMappingFactory.Create( p ) )
             .ToList();
 
@@ -189,9 +187,8 @@ public class GenerateBuilderAttribute : TypeAspect
                     foreach ( var baseConstructorParameter in baseBuilderConstructor.Parameters )
                     {
                         var thisParameter =
-                            c.Parameters.SingleOrDefault(
-                                p =>
-                                    p.Name == baseConstructorParameter.Name );
+                            c.Parameters.SingleOrDefault( p =>
+                                                              p.Name == baseConstructorParameter.Name );
 
                         if ( thisParameter != null )
                         {
@@ -273,9 +270,9 @@ public class GenerateBuilderAttribute : TypeAspect
 
                         foreach ( var baseConstructorParameter in baseConstructor.Parameters )
                         {
-                            var thisParameter = c.Parameters.SingleOrDefault(
-                                p =>
-                                    p.Name == baseConstructorParameter.Name );
+                            var thisParameter = c.Parameters.SingleOrDefault( p =>
+                                                                                  p.Name == baseConstructorParameter
+                                                                                      .Name );
 
                             if ( thisParameter == null )
                             {
@@ -320,9 +317,8 @@ public class GenerateBuilderAttribute : TypeAspect
     {
         var tags = (Tags) meta.Tags.Source!;
 
-        foreach ( var property in tags.Properties.Where(
-                     p => p is
-                         { IsRequired: true, IsInherited: false } ) )
+        foreach ( var property in tags.Properties.Where( p => p is
+                                                             { IsRequired: true, IsInherited: false } ) )
         {
             property.SetBuilderPropertyValue(
                 meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value],
@@ -360,7 +356,7 @@ public class GenerateBuilderAttribute : TypeAspect
 
         if ( validateMethod != null )
         {
-            validateMethod.With( (IExpression) instance ).Invoke();
+            validateMethod.WithObject( (IExpression) instance ).Invoke();
         }
 
         // Return the object.
@@ -383,7 +379,7 @@ public class GenerateBuilderAttribute : TypeAspect
         foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
             property.SetBuilderPropertyValue(
-                property.SourceProperty.With( (IExpression) source ),
+                property.SourceProperty.WithObject( (IExpression) source ),
                 ExpressionFactory.This() );
         }
     }

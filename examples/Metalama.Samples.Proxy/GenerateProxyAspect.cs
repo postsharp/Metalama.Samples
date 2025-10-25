@@ -187,9 +187,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -227,11 +226,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            method.With( interceptedField ).Invoke( arguments );
+            method.WithObject( interceptedField ).Invoke( arguments );
 
             return default;
         }
@@ -250,9 +250,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -288,11 +287,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            return method.With( interceptedField ).Invoke( arguments )!;
+            return method.WithObject( interceptedField ).Invoke( arguments )!;
         }
     }
 
@@ -309,9 +309,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -349,11 +348,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            await method.With( interceptedField ).Invoke( arguments )!;
+            await method.WithObject( interceptedField ).Invoke( arguments )!;
 
             return default;
         }
@@ -372,9 +372,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -410,11 +409,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            return method.With( interceptedField ).Invoke( arguments )!;
+            return method.WithObject( interceptedField ).Invoke( arguments )!;
         }
     }
 
@@ -431,9 +431,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -471,11 +470,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            await method.With( interceptedField ).Invoke( arguments )!;
+            await method.WithObject( interceptedField ).Invoke( arguments )!;
 
             return default;
         }
@@ -495,9 +495,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where(
-                p =>
-                    p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p =>
+                                                              p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -533,11 +532,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select(
-                p =>
-                    TupleHelper.GetTupleItemExpression( receivedArgsExpression, p.Index ) );
+            var arguments = method.Parameters.Select( p =>
+                                                          TupleHelper.GetTupleItemExpression(
+                                                              receivedArgsExpression,
+                                                              p.Index ) );
 
-            return method.With( interceptedField ).Invoke( arguments )!;
+            return method.WithObject( interceptedField ).Invoke( arguments )!;
         }
     }
 

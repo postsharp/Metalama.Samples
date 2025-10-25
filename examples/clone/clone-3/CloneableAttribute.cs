@@ -48,8 +48,7 @@ public class CloneableAttribute : TypeAspect
         }
 
         // Introduce the Clone method.
-        builder.Advice.IntroduceMethod(
-            builder.Target,
+        builder.IntroduceMethod(
             nameof(this.CloneImpl),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target },
@@ -60,8 +59,7 @@ public class CloneableAttribute : TypeAspect
             } );
 
 // [<snippet AddCloneMembers>]
-        builder.Advice.IntroduceMethod(
-            builder.Target,
+        builder.IntroduceMethod(
             nameof(this.CloneMembers),
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target } );
@@ -69,8 +67,7 @@ public class CloneableAttribute : TypeAspect
 // [<endsnippet AddCloneMembers>]
 
         // Implement the ICloneable interface.
-        builder.Advice.ImplementInterface(
-            builder.Target,
+        builder.ImplementInterface(
             typeof(ICloneable),
             OverrideStrategy.Ignore );
     }
@@ -159,9 +156,8 @@ public class CloneableAttribute : TypeAspect
     }
 
     private static IEnumerable<IFieldOrProperty> GetCloneableFieldsOrProperties( INamedType type )
-        => type.FieldsAndProperties.Where(
-            f =>
-                f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
+        => type.FieldsAndProperties.Where( f =>
+                                               f.Attributes.OfAttributeType( typeof(ChildAttribute) ).Any() );
 
     [Template]
     public virtual T CloneImpl<[CompileTime] T>()
@@ -200,7 +196,7 @@ public class CloneableAttribute : TypeAspect
             // Check if we have a public method 'Clone()' for the type of the field.
             var fieldType = (INamedType) field.Type;
 
-            field.With( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
+            field.WithObject( clone ).Value = meta.Cast( fieldType, field.Value?.Clone() );
         }
 
         // Call the handwritten implementation, if any.

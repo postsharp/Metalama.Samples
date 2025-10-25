@@ -46,8 +46,7 @@ public class LogAttribute : MethodAspect
         }
 
         // Override the target method with our template. Pass the logger field or property to the template.
-        builder.Advice.Override(
-            builder.Target,
+        builder.Override(
             nameof(this.OverrideMethod),
             new { loggerFieldOrProperty } );
     }

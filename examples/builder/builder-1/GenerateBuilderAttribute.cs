@@ -18,13 +18,11 @@ public partial class GenerateBuilderAttribute : TypeAspect
         var sourceType = builder.Target;
 
         // Create a list of PropertyMapping items for all properties that we want to build using the Builder.
-        var properties = sourceType.Properties.Where(
-                p => p.Writeability != Writeability.None &&
-                     !p.IsStatic )
-            .Select(
-                p => new PropertyMapping(
-                    p,
-                    p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
+        var properties = sourceType.Properties.Where( p => p.Writeability != Writeability.None &&
+                                                           !p.IsStatic )
+            .Select( p => new PropertyMapping(
+                         p,
+                         p.Attributes.OfAttributeType( typeof(RequiredAttribute) ).Any() ) )
             .ToList();
 
         // [<endsnippet InitializeMapping>]
@@ -169,7 +167,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         foreach ( var property in tags.Properties )
         {
             property.BuilderProperty!.Value =
-                property.SourceProperty.With( (IExpression) source ).Value;
+                property.SourceProperty.WithObject( (IExpression) source ).Value;
         }
     }
 
@@ -203,7 +201,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         if ( validateMethod != null )
         {
-            validateMethod.With( (IExpression) instance ).Invoke();
+            validateMethod.WithObject( (IExpression) instance ).Invoke();
         }
 
         // Return the object.

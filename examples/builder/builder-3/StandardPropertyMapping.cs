@@ -43,6 +43,6 @@ internal class StandardPropertyMapping : PropertyMapping
         IExpression expression,
         IExpression builderInstance )
     {
-        this._builderProperty!.With( builderInstance ).Value = expression.Value;
+        this._builderProperty!.WithObject( builderInstance ).Value = expression.Value;
     }
 }

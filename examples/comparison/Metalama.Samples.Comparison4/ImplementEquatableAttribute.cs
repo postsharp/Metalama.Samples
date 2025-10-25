@@ -27,6 +27,7 @@ public class ImplementEquatableAttribute : TypeAspect
             .ThenBy( m => m.EqualityMember.Field.Name )
             .Select( m => m.EqualityMember )
             .ToList();
+
         // [<endsnippet GetFields>]
 
         // If there are no members, do not implement the aspect.
@@ -162,7 +163,7 @@ public class ImplementEquatableAttribute : TypeAspect
             // is overridden in the current type by the BaseTypeEqualsTemplate template.
             if ( baseEqualsMethod != null )
             {
-                if ( !baseEqualsMethod.With( InvokerOptions.Base ).Invoke( other ) )
+                if ( !baseEqualsMethod.WithOptions( InvokerOptions.Base ).Invoke( other ) )
                 {
                     return false;
                 }
@@ -187,11 +188,12 @@ public class ImplementEquatableAttribute : TypeAspect
         {
             var equalityComparer = field.Aspect.GetComparerExpression( field.Field );
 
-            if ( !equalityComparer.Value!.Equals( field.Field.Value, field.Field.With( other ).Value ) )
+            if ( !equalityComparer.Value!.Equals( field.Field.Value, field.Field.WithObject( other ).Value ) )
             {
                 return false;
             }
         }
+
         // [<endsnippet CompareFields>]
 
         return true;
@@ -235,7 +237,7 @@ public class ImplementEquatableAttribute : TypeAspect
         // [<snippet CallBaseGetHashCode>]
         if ( baseGetHashCodeMethod != null )
         {
-            hashCode.Add( baseGetHashCodeMethod.With( InvokerOptions.Base ).Invoke() );
+            hashCode.Add( baseGetHashCodeMethod.WithOptions( InvokerOptions.Base ).Invoke() );
         }
 
         foreach ( var field in fields )

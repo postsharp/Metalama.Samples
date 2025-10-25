@@ -141,6 +141,6 @@ internal class ImmutableCollectionPropertyMapping : PropertyMapping
         IExpression expression,
         IExpression builderInstance )
     {
-        this._initialValueField!.With( builderInstance ).Value = expression.Value;
+        this._initialValueField!.WithObject( builderInstance ).Value = expression.Value;
     }
 }

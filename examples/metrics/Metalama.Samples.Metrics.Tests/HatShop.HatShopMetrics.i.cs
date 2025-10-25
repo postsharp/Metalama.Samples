@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using System.Reflection;
+using Metalama.Framework.RunTime;
 using Metalama.Samples.Metrics;
 using Metalama.Samples.Metrics.Example;
 namespace Metrics
@@ -11,7 +12,7 @@ namespace Metrics
     internal readonly Counter<long> PlaceOrderExecutionTime;
     private IMeterFactory _meterFactory;
     private IMetricHost _metricHost;
-    public HatShopMetrics(IMeterFactory? meterFactory = null, IMetricHost? metricHost = null)
+    public HatShopMetrics([AspectGenerated] IMeterFactory? meterFactory = null, [AspectGenerated] IMetricHost? metricHost = null)
     {
       this._meterFactory = meterFactory ?? throw new System.ArgumentNullException(nameof(meterFactory));
       this._metricHost = metricHost ?? throw new System.ArgumentNullException(nameof(metricHost));

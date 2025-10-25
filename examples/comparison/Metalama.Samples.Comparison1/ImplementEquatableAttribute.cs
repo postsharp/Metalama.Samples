@@ -104,7 +104,7 @@ public class ImplementEquatableAttribute : TypeAspect
                 .WithTypeArguments( field.Type )
                 .Properties["Default"];
 
-            if ( !defaultComparer.Value!.Equals( field.Value, field.With( other ).Value ) )
+            if ( !defaultComparer.Value!.Equals( field.Value, field.WithObject( other ).Value ) )
             {
                 return false;
             }
