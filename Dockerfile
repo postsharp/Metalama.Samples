@@ -51,6 +51,10 @@ RUN Invoke-WebRequest -Uri https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet
 RUN powershell -ExecutionPolicy Bypass -File dotnet-install.ps1 -Version 9.0.205 -InstallDir 'C:\Program Files\dotnet'; 
 
 
+# Install .NET Sdk 10.0.100-rc.2.25502.107
+RUN powershell -ExecutionPolicy Bypass -File dotnet-install.ps1 -Version 10.0.100-rc.2.25502.107 -InstallDir 'C:\Program Files\dotnet'; 
+
+
 # Epilogue
 # Create directories for mountpoints
 ARG MOUNTPOINTS
