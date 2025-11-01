@@ -44,7 +44,7 @@ Let's add the following code to the <xref:Metalama.Framework.Aspects.TypeAspect.
 
 Let's start adding advice (i.e., code transformations) to the type.
 
-Our first piece of advice is to add the <xref:System.IEquatable%601> interface to the target type, where the generic parameter `T` is replaced with the target type itself. For this, we use the <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*?text=builder.ImplementInterface> method.
+Our first piece of advice is to add the <xref:System.IEquatable%601> interface to the target type, where the generic parameter `T` is replaced with the target type itself. For this, we use the <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*?text=builder.ImplementInterface> method.
 
 This is done with the following code:
 
@@ -56,7 +56,7 @@ To learn more about implementing interfaces, see <xref:implementing-interfaces>.
 
 ## Step 4. Adding the Equals(T) method
 
-Now, we want to introduce the strongly-typed `Equals(T)` method, where `T` is the target type of our aspect. We'll have two code snippets for this: a template method and a call to <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod%2A> in `BuildAspects`.
+Now, we want to introduce the strongly-typed `Equals(T)` method, where `T` is the target type of our aspect. We'll have two code snippets for this: a template method and a call to <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod%2A> in `BuildAspects`.
 
 First, we define a _template_ method. Here's its definition:
 
@@ -77,7 +77,7 @@ This template doesn't automatically add itself to the target type. We must add t
 
 [!metalama-file ImplementEquatableAttribute.cs member="ImplementEquatableAttribute.TypedEqualsTemplate"]
 
-We call the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod%2A> method from our <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A> method:
+We call the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod%2A> method from our <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A> method:
 
 [!metalama-file ImplementEquatableAttribute.cs marker="IntroduceTypedEquals"]
 
@@ -94,7 +94,7 @@ You can learn more about introducing methods in <xref:introducing-members>, and 
 
 Next, let's override the default <xref:System.Object.Equals%2A> method, so facilities that don't support the <xref:System.IEquatable%601> interface use the correct equality implementation.
 
-As with any member introduction, two steps are involved: implementing the template and calling <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod%2A> from <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>.
+As with any member introduction, two steps are involved: implementing the template and calling <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod%2A> from <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>.
 
 The template should be straightforward:
 
@@ -124,7 +124,7 @@ And here's the snippet to add to <xref:Metalama.Framework.Aspects.TypeAspect.Bui
 
 ## Step 7. Adding the operators
 
-The finishing touch, and a best practice, is to introduce the `==` and `!=` operators. This can be done by calling the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceBinaryOperator%2A> method from <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>.
+The finishing touch, and a best practice, is to introduce the `==` and `!=` operators. This can be done by calling the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceBinaryOperator%2A> method from <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>.
 
 Let's first define the templates:
 

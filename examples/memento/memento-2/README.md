@@ -62,10 +62,10 @@ For details regarding error reporting, see <xref:diagnostics>.
 
 ## Step 2. Specifying the OverrideAction
 
-By default, advising methods such as <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*> will fail if the same member already exists in the current or base type. To specify how the advising method should behave in this case, we must supply an <xref:Metalama.Framework.Aspects.OverrideStrategy> to the `whenExists` parameter. The default value is `Fail`. We must change it to `Ignore`, `Override`, or `New`:
-* When using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> to introduce the `Memento` nested class, we use `New`.
-* When using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod*> to introduce `SaveToMemento` or `RestoreMemento`, we use `Override`.
-* When using <xref:Metalama.Framework.Advising.AdviserExtensions.ImplementInterface*> to implement `IMemento` or `IMementoable`, we use `Ignore`.
+By default, advising methods such as <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> or <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> will fail if the same member already exists in the current or base type. To specify how the advising method should behave in this case, we must supply an <xref:Metalama.Framework.Aspects.OverrideStrategy> to the `whenExists` parameter. The default value is `Fail`. We must change it to `Ignore`, `Override`, or `New`:
+* When using <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> to introduce the `Memento` nested class, we use `New`.
+* When using <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod*> to introduce `SaveToMemento` or `RestoreMemento`, we use `Override`.
+* When using <xref:Metalama.Framework.Aspects.AdviserExtensions.ImplementInterface*> to implement `IMemento` or `IMementoable`, we use `Ignore`.
 
 ## Step 3. Setting the base type and constructor of the Memento type
 

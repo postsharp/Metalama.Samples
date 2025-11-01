@@ -52,7 +52,7 @@ Spoiler alert: here's how we share the `Tags` class with advice at the end of th
 
 ## 2. Creating the Builder type and the properties
 
-Let's now create a nested type using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*>:
+Let's now create a nested type using <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*>:
 
 [!metalama-file GenerateBuilderAttribute.cs marker="IntroduceBuilder"]
 

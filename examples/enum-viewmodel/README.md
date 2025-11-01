@@ -63,7 +63,7 @@ For details on reporting errors, see <xref:diagnostics>.
 
 ## Step 4. Introducing the class, the value field, and the constructor
 
-We can now introduce the view-model class using the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceClass*> method. This returns an object that we can use to add members to the value field (using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceField*>) and the constructor (using <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceConstructor*>).
+We can now introduce the view-model class using the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceClass*> method. This returns an object that we can use to add members to the value field (using <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceField*>) and the constructor (using <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*>).
 
 [!metalama-file GenerateEnumViewModelAttribute.cs marker="IntroduceClass"]
 
@@ -73,7 +73,7 @@ Here is the T# template of the constructor:
 
 [!metalama-file GenerateEnumViewModelAttribute.cs marker="ConstructorTemplate"]
 
-Note that this template accepts a compile-time generic parameter `T`, which represents the `enum` type. The value of this parameter is set in the call to <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceConstructor*> by setting the `args` parameter.
+Note that this template accepts a compile-time generic parameter `T`, which represents the `enum` type. The value of this parameter is set in the call to <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceConstructor*> by setting the `args` parameter.
 
 In this template, `meta.This._value` compiles to `this._value`. The C# compiler does not complain because `meta.This` returns a `dynamic` value, so we can have anything on the right hand of this expression. Metalama then just replaces `meta.This` with `this`.
 
@@ -87,7 +87,7 @@ Here is the code that adds the properties:
 
 The code first selects the proper template depending on the nature of the enum type.
 
-Then, it enumerates the enum members, and for each member, calls the <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceProperty*> method. Note that we are passing a `member` tag, which will be used by the templates.
+Then, it enumerates the enum members, and for each member, calls the <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceProperty*> method. Note that we are passing a `member` tag, which will be used by the templates.
 
 Here is the template for the non-flags variant:
 

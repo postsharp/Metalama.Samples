@@ -88,7 +88,7 @@ The last step is to update the `GetHashCode` method to make it call `baseGetHash
 
 This requires the following changes:
 
-1. In `BuildAspect`, pass `baseGetHashCodeMethod` to <xref:Metalama.Framework.Advising.AdviserExtensions.IntroduceMethod%2A>.
+1. In `BuildAspect`, pass `baseGetHashCodeMethod` to <xref:Metalama.Framework.Aspects.AdviserExtensions.IntroduceMethod%2A>.
 2. Add an <xref:Metalama.Framework.Code.IMethod>? `baseGetHashCodeMethod` parameter to the template for the <xref:System.Object.GetHashCode> method.
 3. Add the following snippet to the template:
 

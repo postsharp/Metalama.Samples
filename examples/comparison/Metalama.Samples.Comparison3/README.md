@@ -17,7 +17,7 @@ If we wanted to keep it simple, `EqualityMemberAttribute` could be a plain C# cu
 
 To make this happen, we derive the `EqualityMemberAttribute` class from <xref:Metalama.Framework.Aspects.TypeAspect>.
 
-In <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>, we call the <xref:Metalama.Framework.Advising.AdviserExtensions.RequireAspect%2A> method to implicitly add the `ImplementEquatable` aspect to the type, if it isn't already added.
+In <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>, we call the <xref:Metalama.Framework.Aspects.AdviserExtensions.RequireAspect%2A> method to implicitly add the `ImplementEquatable` aspect to the type, if it isn't already added.
 
 To define valid targets for this attribute, we implement the <xref:Metalama.Framework.Aspects.TypeAspect.BuildEligibility%2A> method.
 
