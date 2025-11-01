@@ -361,7 +361,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
         foreach ( var property in tags.Properties.Where( p => p is
                                                              { IsRequired: true, IsInherited: false } ) )
         {
-            property.SourceProperty.Value =
+            property.BuilderProperty!.Value =
                 meta.Target.Parameters[property.BuilderConstructorParameterIndex!.Value].Value;
         }
     }
@@ -385,7 +385,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
-            property.BuilderProperty!.Value =
+            property.SourceProperty!.Value =
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
