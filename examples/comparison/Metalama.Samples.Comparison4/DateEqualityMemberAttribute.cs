@@ -7,5 +7,5 @@ public class DateEqualityMemberAttribute : EqualityMemberAttribute
     public DateEqualityMemberAttribute( int order = DefaultOrder ) : base( order ) { }
 
     protected internal override IExpression GetComparerExpression( IFieldOrProperty field )
-        => ((INamedType) TypeFactory.GetType( typeof(DateComparer) )).Properties[nameof(DateComparer.Instance)];
+        => TypeFactory.GetNamedType( typeof(DateComparer) ).Properties[nameof(DateComparer.Instance)];
 }

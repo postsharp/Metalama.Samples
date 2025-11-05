@@ -85,8 +85,7 @@ public class ImplementEquatableAttribute : TypeAspect
         }
 
         // Add the IEquatable interface to the type (interface members will be added lower).
-        builder.ImplementInterface(
-            ((INamedType) TypeFactory.GetType( typeof(IEquatable<>) )).WithTypeArguments( targetType ) );
+        builder.ImplementInterface( TypeFactory.GetNamedType( typeof(IEquatable<>) ).WithTypeArguments( targetType ) );
 
         // Introduce the Equals methods.
         builder.IntroduceMethod(

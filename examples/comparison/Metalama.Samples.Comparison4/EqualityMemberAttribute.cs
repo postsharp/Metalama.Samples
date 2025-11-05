@@ -89,7 +89,7 @@ public class EqualityMemberAttribute : FieldOrPropertyAspect
 
     protected internal virtual IExpression GetComparerExpression( IFieldOrProperty field )
     {
-        return ((INamedType) TypeFactory.GetType( typeof(EqualityComparer<>) ))
+        return TypeFactory.GetNamedType( typeof(EqualityComparer<>) )
             .WithTypeArguments( field.Type )
             .Properties["Default"];
     }

@@ -28,8 +28,7 @@ public class ImplementEquatableAttribute : TypeAspect
 
         // [<snippet ImplementInterface>]
         // Add the IEquatable interface to the type (members will be added lower).
-        builder.ImplementInterface(
-            ((INamedType) TypeFactory.GetType( typeof(IEquatable<>) )).WithTypeArguments( targetType ) );
+        builder.ImplementInterface( TypeFactory.GetNamedType( typeof(IEquatable<>) ).WithTypeArguments( targetType ) );
 
         // [<endsnippet ImplementInterface>]
 
@@ -100,7 +99,7 @@ public class ImplementEquatableAttribute : TypeAspect
         // Compare all fields.
         foreach ( var field in fields )
         {
-            var defaultComparer = ((INamedType) TypeFactory.GetType( typeof(EqualityComparer<>) ))
+            var defaultComparer = TypeFactory.GetNamedType( typeof(EqualityComparer<>) )
                 .WithTypeArguments( field.Type )
                 .Properties["Default"];
 
@@ -137,7 +136,7 @@ public class ImplementEquatableAttribute : TypeAspect
 
         foreach ( var field in fields )
         {
-            var defaultComparer = ((INamedType) TypeFactory.GetType( typeof(EqualityComparer<>) ))
+            var defaultComparer = TypeFactory.GetNamedType( typeof(EqualityComparer<>) )
                 .WithTypeArguments( field.Type )
                 .Properties["Default"];
 

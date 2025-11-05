@@ -29,7 +29,7 @@ public partial class StringEqualityMemberAttribute : EqualityMemberAttribute
         var comparerType =
             this._trim ? typeof(TrimmingStringEqualityComparer) : typeof(StringComparer);
 
-        return ((INamedType) TypeFactory.GetType( comparerType ))
+        return TypeFactory.GetNamedType( comparerType )
             .Properties[this._stringComparison.ToString()];
     }
 }

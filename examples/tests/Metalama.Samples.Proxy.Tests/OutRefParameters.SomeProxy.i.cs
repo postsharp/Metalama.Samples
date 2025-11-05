@@ -12,22 +12,8 @@ namespace Metalama.Samples.Proxy.Tests
 
         static SomeProxy()
         {
-            _metadata1 = new InterceptionMetadata(
-                typeof(ISomeInterface).GetMethod("VoidMethod",
-                    BindingFlags.Public | BindingFlags.Instance, null,
-                    new[]
-                    {
-                        typeof(int).MakeByRefType(), typeof(string).MakeByRefType(),
-                        typeof(DateTime).MakeByRefType(), typeof(TimeSpan).MakeByRefType()
-                    }, null), false);
-            _metadata2 = new InterceptionMetadata(
-                typeof(ISomeInterface).GetMethod("NonVoidMethod",
-                    BindingFlags.Public | BindingFlags.Instance, null,
-                    new[]
-                    {
-                        typeof(int).MakeByRefType(), typeof(string).MakeByRefType(),
-                        typeof(DateTime).MakeByRefType(), typeof(TimeSpan).MakeByRefType()
-                    }, null), false);
+      _metadata1 = new InterceptionMetadata(typeof(ISomeInterface).GetMethod("VoidMethod", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(int).MakeByRefType(), typeof(string).MakeByRefType(), typeof(DateTime).MakeByRefType(), typeof(TimeSpan).MakeByRefType() }, null), false);
+      _metadata2 = new InterceptionMetadata(typeof(ISomeInterface).GetMethod("NonVoidMethod", BindingFlags.Public | BindingFlags.Instance, null, new[] { typeof(int).MakeByRefType(), typeof(string).MakeByRefType(), typeof(DateTime).MakeByRefType(), typeof(TimeSpan).MakeByRefType() }, null), false);
         }
 
         public SomeProxy(IInterceptor interceptor, ISomeInterface intercepted)
@@ -38,43 +24,39 @@ namespace Metalama.Samples.Proxy.Tests
 
         public int NonVoidMethod(out int a, ref string b, in DateTime dt, ref readonly TimeSpan ts)
         {
-            var args = (default(int), b, dt, ts);
+      var args = (a: default(int), b, dt, ts);
             try
             {
                 return _interceptor.Invoke(ref args, _metadata2, Invoke);
             }
             finally
             {
-                a = args.Item1;
-                b = args.Item2;
+        a = args.a;
+        b = args.b;
             }
-
-            int Invoke(ref (int, string, DateTime, TimeSpan) receivedArgs)
+      int Invoke(ref (int a, string b, DateTime dt, TimeSpan ts) receivedArgs)
             {
-                return _intercepted.NonVoidMethod(out receivedArgs.Item1, ref receivedArgs.Item2,
-                    receivedArgs.Item3, receivedArgs.Item4);
+        return _intercepted.NonVoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, receivedArgs.ts);
             }
         }
 
         public void VoidMethod(out int a, ref string b, in DateTime dt, ref readonly TimeSpan ts)
         {
-            var args = (default(int), b, dt, ts);
+      var args = (a: default(int), b, dt, ts);
             try
             {
                 _interceptor.Invoke(ref args, _metadata1, Invoke);
             }
             finally
             {
-                a = args.Item1;
-                b = args.Item2;
+        a = args.a;
+        b = args.b;
             }
 
             return;
-
-            ValueTuple Invoke(ref (int, string, DateTime, TimeSpan) receivedArgs)
+      ValueTuple Invoke(ref (int a, string b, DateTime dt, TimeSpan ts) receivedArgs)
             {
-                _intercepted.VoidMethod(out receivedArgs.Item1, ref receivedArgs.Item2,
-                    receivedArgs.Item3, receivedArgs.Item4);
+        _intercepted.VoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, receivedArgs.ts);
                 return default;
             }
         }

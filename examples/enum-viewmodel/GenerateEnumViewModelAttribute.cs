@@ -38,7 +38,7 @@ public class GenerateEnumViewModelAttribute : CompilationAspect
         {
             // [<snippet ValidateInputs>]
             var enumType =
-                (INamedType) TypeFactory.GetType( aspectInstance.EnumType );
+                TypeFactory.GetNamedType( aspectInstance.EnumType );
 
             if ( enumType.TypeKind != TypeKind.Enum )
             {

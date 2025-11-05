@@ -32,7 +32,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
         base.BuildAspect( builder );
 
         var interfaceType = this._interfaceType as INamedType ??
-                            (INamedType) TypeFactory.GetType( (Type) this._interfaceType );
+                            TypeFactory.GetNamedType( (Type) this._interfaceType );
 
         // Add a type.
         var type = builder.WithNamespace( this._ns )
@@ -63,7 +63,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             methodIndex++;
 
-            var argsType = TupleHelper.CreateTupleType( method );
+            var argsType = TypeFactory.CreateTupleType( method.Parameters );
             var asyncInfo = method.GetAsyncInfo();
             var hasByRefParameter = method.Parameters.Any( p => p.RefKind != RefKind.None );
 
@@ -183,12 +183,12 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
-        var writableParameters = method.Parameters.Where( p =>
-                                                              p.RefKind is RefKind.Out or RefKind.Ref )
+        var writableParameters = method.Parameters.Where( p => p.RefKind is RefKind.Out or RefKind.Ref )
             .ToList();
 
         // Invoke the interceptor.
@@ -214,8 +214,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.CreateGetItemExpression( argsExpression, parameter.Index );
                 }
             }
         }
@@ -227,7 +226,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
@@ -235,6 +234,14 @@ public sealed class GenerateProxyAspect : CompilationAspect
 
             return default;
         }
+    }
+
+    private static IExpression CreateTupleInstance( IMethod method, ITupleType argsType )
+    {
+        return argsType.CreateCreateInstanceExpression(
+            (IReadOnlyCollection<IExpression>) method.Parameters
+                .Select( p => p.RefKind != RefKind.Out ? p : ExpressionFactory.Default( p.Type ) )
+                .ToArray() );
     }
 
     [Template]
@@ -246,8 +253,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
-        var argsExpression = ExpressionFactory.Capture( args );
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
 
         // Get writable parameters.
         var writableParameters = method.Parameters.Where( p =>
@@ -278,7 +285,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 foreach ( var parameter in writableParameters )
                 {
                     parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                        argsType.CreateGetItemExpression( args, parameter.Index );
                 }
             }
         }
@@ -288,7 +295,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
@@ -305,7 +312,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
@@ -337,7 +345,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 foreach ( var parameter in writableParameters )
                 {
                     parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
                 }
             }
         }
@@ -349,7 +357,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
@@ -368,7 +376,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
@@ -400,7 +409,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 foreach ( var parameter in writableParameters )
                 {
                     parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
                 }
             }
         }
@@ -410,7 +419,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
@@ -427,7 +436,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
@@ -459,7 +469,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 foreach ( var parameter in writableParameters )
                 {
                     parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
                 }
             }
         }
@@ -471,7 +481,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
@@ -491,7 +501,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         where TArgs : struct, ITuple
     {
         // Prepare the context.
-        var args = (TArgs) TupleHelper.CreateTupleExpression( method ).Value!;
+        var argsType = TypeFactory.CreateTupleType( method.Parameters );
+        var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
         var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
@@ -523,7 +534,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 foreach ( var parameter in writableParameters )
                 {
                     parameter.Value =
-                        TupleHelper.GetTupleItemExpression( argsExpression, parameter.Index );
+                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
                 }
             }
         }
@@ -533,7 +544,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
             var arguments = method.Parameters.Select( p =>
-                                                          TupleHelper.GetTupleItemExpression(
+                                                          argsType.CreateGetItemExpression(
                                                               receivedArgsExpression,
                                                               p.Index ) );
 
