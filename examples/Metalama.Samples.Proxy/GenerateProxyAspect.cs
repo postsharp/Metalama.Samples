@@ -214,7 +214,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value = argsType.CreateGetItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -225,10 +225,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             method.WithObject( interceptedField ).Invoke( arguments );
 
@@ -255,6 +253,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
         // Prepare the context.
         var argsType = TypeFactory.CreateTupleType( method.Parameters );
         var args = (TArgs) CreateTupleInstance( method, argsType ).Value!;
+        var argsExpression = ExpressionFactory.Capture( args );
 
         // Get writable parameters.
         var writableParameters = method.Parameters.Where( p =>
@@ -284,8 +283,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        argsType.CreateGetItemExpression( args, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -294,10 +292,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             return method.WithObject( interceptedField ).Invoke( arguments )!;
         }
@@ -344,8 +340,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -356,10 +351,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             await method.WithObject( interceptedField ).Invoke( arguments )!;
 
@@ -408,8 +401,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -418,10 +410,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             return method.WithObject( interceptedField ).Invoke( arguments )!;
         }
@@ -468,8 +458,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -480,10 +469,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             await method.WithObject( interceptedField ).Invoke( arguments )!;
 
@@ -533,8 +520,7 @@ public sealed class GenerateProxyAspect : CompilationAspect
                 // Copy back parameters.
                 foreach ( var parameter in writableParameters )
                 {
-                    parameter.Value =
-                        argsType.CreateGetItemExpression( argsExpression, parameter.Index );
+                    parameter.Value = argsType.TupleElements[parameter.Index].WithObject( argsExpression ).Value;
                 }
             }
         }
@@ -543,10 +529,8 @@ public sealed class GenerateProxyAspect : CompilationAspect
         {
             var receivedArgsExpression = ExpressionFactory.Parse( "receivedArgs" );
 
-            var arguments = method.Parameters.Select( p =>
-                                                          argsType.CreateGetItemExpression(
-                                                              receivedArgsExpression,
-                                                              p.Index ) );
+            var arguments =
+                method.Parameters.Select( p => argsType.TupleElements[p.Index].WithObject( receivedArgsExpression ) );
 
             return method.WithObject( interceptedField ).Invoke( arguments )!;
         }

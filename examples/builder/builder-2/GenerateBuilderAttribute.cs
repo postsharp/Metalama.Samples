@@ -1,5 +1,4 @@
-﻿using Metalama.Framework.Advising;
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using System.ComponentModel.DataAnnotations;
 
@@ -385,7 +384,7 @@ public partial class GenerateBuilderAttribute : TypeAspect
 
         foreach ( var property in tags.Properties.Where( p => !p.IsInherited ) )
         {
-            property.SourceProperty!.Value =
+            property.SourceProperty.Value =
                 meta.Target.Parameters[property.SourceConstructorParameterIndex!.Value].Value;
         }
     }
