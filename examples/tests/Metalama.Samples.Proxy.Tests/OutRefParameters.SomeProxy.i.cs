@@ -36,7 +36,7 @@ namespace Metalama.Samples.Proxy.Tests
             }
       int Invoke(ref (int a, string b, DateTime dt, TimeSpan ts) receivedArgs)
             {
-        return _intercepted.NonVoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, receivedArgs.ts);
+        return _intercepted.NonVoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, in receivedArgs.ts);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Metalama.Samples.Proxy.Tests
             return;
       ValueTuple Invoke(ref (int a, string b, DateTime dt, TimeSpan ts) receivedArgs)
             {
-        _intercepted.VoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, receivedArgs.ts);
+        _intercepted.VoidMethod(out receivedArgs.a, ref receivedArgs.b, receivedArgs.dt, in receivedArgs.ts);
                 return default;
             }
         }
