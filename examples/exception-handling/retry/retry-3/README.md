@@ -59,7 +59,7 @@ Our example still has two drawbacks:
 
 > [!div class="see-also"]
 > <xref:template-compile-time>
-> <xref:template-dynamic-code>
+> <xref:dynamic-typing>
 
 
 

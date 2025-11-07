@@ -62,7 +62,7 @@ a `dynamic` object representing the interpolated string. It can be cast to a `st
 > - <xref:template-overview>
 > - <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > - <xref:template-compile-time>
-> - <xref:template-dynamic-code>
+> - <xref:dynamic-typing>
 
 
 

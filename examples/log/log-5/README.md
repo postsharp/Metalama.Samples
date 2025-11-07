@@ -90,7 +90,7 @@ aspect.
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
-> <xref:template-dynamic-code>
+> <xref:dynamic-typing>
 > <xref:overriding-methods>
 > <xref:template-parameters>
 > <xref:eligibility>

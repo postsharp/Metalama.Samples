@@ -64,7 +64,7 @@ Below is the aspect code update:
 > <xref:template-overview>
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
-> <xref:template-dynamic-code>
+> <xref:dynamic-typing>
 
 
 

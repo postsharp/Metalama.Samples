@@ -78,7 +78,7 @@ compile-time code.
 > [!div class="see-also"]
 > <xref:Metalama.Framework.Code.SyntaxBuilders.InterpolatedStringBuilder>
 > <xref:template-compile-time>
-> <xref:template-dynamic-code>
+> <xref:dynamic-typing>
 
 
 
