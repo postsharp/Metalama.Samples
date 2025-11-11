@@ -1,4 +1,5 @@
-﻿using Metalama.Framework.Aspects;
+﻿using JetBrains.Annotations;
+using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 
 [Inheritable]
@@ -25,6 +26,7 @@ public class CloneableAttribute : TypeAspect
     }
 
     [InterfaceMember( IsExplicit = true )]
+    [UsedImplicitly]
     private object Clone() => meta.This.Clone();
 
     [Template]

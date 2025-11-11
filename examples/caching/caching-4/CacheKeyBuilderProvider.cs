@@ -4,7 +4,7 @@
         where TBuilder : ICacheKeyBuilder<TValue>, new()
         => Instance<TBuilder>.Value;
 
-    private class Instance<TBuilder>
+    private static class Instance<TBuilder>
         where TBuilder : new()
     {
         public static TBuilder Value { get; } = new();

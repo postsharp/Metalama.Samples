@@ -1,5 +1,4 @@
-﻿using Metalama.Framework.Advising;
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.Invokers;
 
@@ -210,7 +209,7 @@ public class ImplementEquatableAttribute : TypeAspect
             return true;
         }
 
-        return (other is T typed && meta.This.Equals( typed ));
+        return other is T typed && meta.This.Equals( typed );
     }
 
     // Template for the Equals(object) method.

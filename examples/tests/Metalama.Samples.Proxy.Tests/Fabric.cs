@@ -1,5 +1,4 @@
-﻿using Metalama.Framework.Aspects;
-using Metalama.Framework.Fabrics;
+﻿using Metalama.Framework.Fabrics;
 
 namespace Metalama.Samples.Proxy.Tests.Fabric;
 

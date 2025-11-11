@@ -1,4 +1,5 @@
-﻿using Metalama.Extensions.CodeFixes;
+﻿using JetBrains.Annotations;
+using Metalama.Extensions.CodeFixes;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Diagnostics;
@@ -253,5 +254,6 @@ public class CloneableAttribute : TypeAspect
     }
 
     [InterfaceMember( IsExplicit = true )]
+    [UsedImplicitly]
     private object Clone() => meta.This.Clone();
 }

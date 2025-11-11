@@ -1,4 +1,3 @@
-using Metalama.Framework.Advising;
 using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
 using Metalama.Framework.Code.SyntaxBuilders;
@@ -105,7 +104,7 @@ internal class ImmutableCollectionPropertyMapping : PropertyMapping
     }
 
     public override IExpression GetBuilderPropertyValue()
-        => this._getImmutableValueMethod!.CreateInvokeExpression( [] );
+        => this._getImmutableValueMethod!.CreateInvokeExpression();
 
     public override bool TryImportBuilderArtifactsFromBaseType(
         INamedType baseType,

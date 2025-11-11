@@ -1,7 +1,5 @@
-﻿using Metalama.Framework.Advising;
-using Metalama.Framework.Aspects;
+﻿using Metalama.Framework.Aspects;
 using Metalama.Framework.Code;
-using Metalama.Framework.Code.SyntaxBuilders;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Metalama.Samples.Metrics;

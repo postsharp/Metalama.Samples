@@ -7,9 +7,8 @@
   <PropertyGroup>
     <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.275</PostSharpEngineeringVersion>
   </PropertyGroup>
-
-  
   <ItemGroup>
+    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
     <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
@@ -19,7 +18,6 @@
     <PackageVersion Include="Metalama.Extensions.CodeFixes" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaVersion)" />
     <PackageVersion Include="PostSharp.Engineering.BuildTools" Version="$(PostSharpEngineeringVersion)" />
-
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
@@ -27,7 +25,6 @@
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics" Version="8.0.1" />
-
     <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.23.0" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
     <PackageVersion Include="NameGenerator" Version="2.0.4" />
@@ -39,7 +36,5 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    
-
   </ItemGroup>
 </Project>

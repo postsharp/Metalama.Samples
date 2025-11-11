@@ -9,6 +9,8 @@ internal class AddEmptyCloneMembersAspect : IAspect<INamedType>
             whenExists: OverrideStrategy.Override,
             args: new { T = builder.Target } );
 
+    // ReSharper disable once UnusedParameter.Local
+
     [Template]
     private void CloneMembers<[CompileTime] T>( T clone )
     {
