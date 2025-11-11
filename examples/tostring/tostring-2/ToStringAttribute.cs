@@ -52,11 +52,10 @@ public class ToStringAttribute : TypeAspect
     [CompileTime]
     private static IEnumerable<IFieldOrProperty> GetIncludedProperties( INamedType target )
         => target.AllFieldsAndProperties
-            .Where(
-                f => f is
-                {
-                    IsStatic: false, IsImplicitlyDeclared: false, Accessibility: Accessibility.Public
-                } )
+            .Where( f => f is
+            {
+                IsStatic: false, IsImplicitlyDeclared: false, Accessibility: Accessibility.Public
+            } )
             .Where( p => !p.Attributes.Any( typeof(NotToStringAttribute) ) );
 
     [Introduce( WhenExists = OverrideStrategy.Override, Name = "ToString" )]

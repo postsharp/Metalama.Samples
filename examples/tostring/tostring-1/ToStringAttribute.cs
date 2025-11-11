@@ -13,11 +13,10 @@ internal class ToStringAttribute : TypeAspect
         stringBuilder.AddText( " " );
 
         var properties = meta.Target.Type.AllFieldsAndProperties
-            .Where(
-                f => f is
-                {
-                    IsStatic: false, IsImplicitlyDeclared: false, Accessibility: Accessibility.Public
-                } )
+            .Where( f => f is
+            {
+                IsStatic: false, IsImplicitlyDeclared: false, Accessibility: Accessibility.Public
+            } )
             .OrderBy( f => f.Name );
 
         // [<snippet CompileTimeVariable>]

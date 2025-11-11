@@ -11,20 +11,19 @@ public partial class App
     public App()
     {
         _host = Host.CreateDefaultBuilder()
-            .ConfigureServices(
-                ( _, services ) =>
-                {
-                    // Add windows
-                    services.AddSingleton<MainWindow>();
+            .ConfigureServices( ( _, services ) =>
+            {
+                // Add windows
+                services.AddSingleton<MainWindow>();
 
-                    // Add root view models
-                    services.AddSingleton<MainViewModel>();
+                // Add root view models
+                services.AddSingleton<MainViewModel>();
 
-                    // Add services
-                    services.AddSingleton<IMementoCaretaker, Caretaker>();
-                    services.AddSingleton<IFishGenerator, FishGenerator>();
-                    services.AddSingleton<GeneratorBase, RealNameGenerator>();
-                } )
+                // Add services
+                services.AddSingleton<IMementoCaretaker, Caretaker>();
+                services.AddSingleton<IFishGenerator, FishGenerator>();
+                services.AddSingleton<GeneratorBase, RealNameGenerator>();
+            } )
             .Build();
     }
 

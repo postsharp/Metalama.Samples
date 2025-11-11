@@ -39,12 +39,11 @@ internal class ImplementMetricsAspect : TypeAspect
 
         var predecessors = builder.AspectInstance.Predecessors
             .Select( p => (IAspectInstance) p.Instance )
-            .Select(
-                i => (Aspect: (MetricAttribute) i.Aspect, TargetMethod: (IMethod) i.TargetDeclaration.GetTarget()) )
+            .Select( i => (Aspect: (MetricAttribute) i.Aspect,
+                           TargetMethod: (IMethod) i.TargetDeclaration.GetTarget()) )
             .OrderBy( x => x.TargetMethod )
-            .ThenBy(
-                x => x.Aspect
-                    .MetricKind ); // TODO: It would be better to order by aspect execution order instead of alphabetical name, but we don't have access to this data.
+            .ThenBy( x => x.Aspect
+                         .MetricKind ); // TODO: It would be better to order by aspect execution order instead of alphabetical name, but we don't have access to this data.
 
         foreach ( var predecessor in predecessors )
         {

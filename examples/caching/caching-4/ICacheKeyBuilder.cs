@@ -1,4 +1,4 @@
 ﻿public interface ICacheKeyBuilder<T>
 {
-    public string? GetCacheKey( in T value, ICacheKeyBuilderProvider provider );
+    string? GetCacheKey( in T value, ICacheKeyBuilderProvider provider );
 }

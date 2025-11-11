@@ -15,11 +15,10 @@ public static class FabricExtensions
     {
         receiver.WithTag( type => type )
             .Select( type => type.Compilation )
-            .AddAspect(
-                ( _, type ) => new GenerateProxyAspect(
-                    type,
-                    getProxyTypeName?.Invoke( type ) ?? type.Name.Substring( 1 ) + "Proxy",
-                    getProxyNamespace?.Invoke( type ) ?? type.ContainingNamespace.FullName ) );
+            .AddAspect( ( _, type ) => new GenerateProxyAspect(
+                            type,
+                            getProxyTypeName?.Invoke( type ) ?? type.Name.Substring( 1 ) + "Proxy",
+                            getProxyNamespace?.Invoke( type ) ?? type.ContainingNamespace.FullName ) );
     }
 
     public static void GenerateStaticProxy(
@@ -29,10 +28,9 @@ public static class FabricExtensions
     {
         receiver.WithTag( type => type )
             .Select( type => type.Compilation )
-            .AddAspect(
-                ( _, type ) => new GenerateProxyAspect(
-                    type,
-                    proxyTypeName ?? type.Name.Substring( 1 ) + "Proxy",
-                    proxyNamespace ?? type.ContainingNamespace.FullName ) );
+            .AddAspect( ( _, type ) => new GenerateProxyAspect(
+                            type,
+                            proxyTypeName ?? type.Name.Substring( 1 ) + "Proxy",
+                            proxyNamespace ?? type.ContainingNamespace.FullName ) );
     }
 }

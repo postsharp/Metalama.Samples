@@ -55,9 +55,8 @@ internal class IgnoreValuesAttribute : OverrideFieldOrPropertyAspect
 
         builder.Type()
             .MustSatisfyAny(
-                supportedTypes.Select(
-                        supportedType =>
-                            new Action<IEligibilityBuilder<IType>>( t => t.MustEqual( supportedType ) ) )
+                supportedTypes.Select( supportedType =>
+                                           new Action<IEligibilityBuilder<IType>>( t => t.MustEqual( supportedType ) ) )
                     .ToArray() );
     }
 }

@@ -13,9 +13,8 @@ public static class DependencyHelper
     /// </summary>
     public static Dictionary<string, string[]> GetPropertyDependencyGraph( INamedType type )
         => type.Properties
-            .SelectMany(
-                p =>
-                    p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
+            .SelectMany( p =>
+                             p.GetReferencedProperties().Select( x => (Referenced: x, Referencing: p.Name) ) )
             .GroupBy( r => r.Referenced )
             .ToDictionary( g => g.Key, g => g.Select( x => x.Referencing ).ToArray() );
 
@@ -53,11 +52,10 @@ public static class DependencyHelper
 
         // We only take into account properties of the current type or any base type.
         return properties
-            .Where(
-                p =>
-                    compilation.HasImplicitConversion(
-                        propertySymbol.ContainingType,
-                        p.ContainingType ) )
+            .Where( p =>
+                        compilation.HasImplicitConversion(
+                            propertySymbol.ContainingType,
+                            p.ContainingType ) )
             .Select( p => p.Name );
     }
 
