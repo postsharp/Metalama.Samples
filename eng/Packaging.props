@@ -1,6 +1,6 @@
 <Project>
 
-    <Import Sdk="PostSharp.Engineering.Sdk" Project="MetalamaBranding.props" />
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="MetalamaBranding.props" Condition="Exists('../global.json')"/>
 
     <!-- Properties of NuGet packages-->
     <PropertyGroup>

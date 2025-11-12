@@ -13,8 +13,8 @@
     </PropertyGroup>
 
     <Import Project="eng\Versions.props"/>
-    <Import Sdk="PostSharp.Engineering.Sdk" Project="BuildOptions.props"/>
-    <Import Sdk="PostSharp.Engineering.Sdk" Project="SourceLink.props"/>
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="BuildOptions.props" Condition="Exists('global.json')"/>
+    <Import Sdk="PostSharp.Engineering.Sdk" Project="SourceLink.props" Condition="Exists('global.json')"/>
 
     <PropertyGroup>
         <NoWarn>LAMA0048;CA1050;LAMA0066</NoWarn>
