@@ -26,6 +26,12 @@
 
         <!-- The latest version supported by Metalama Compiler may be higher that the latest version supported by Metalama Framework. -->
         <LangVersion>$(LangMaxVersion)</LangVersion>
+        
+        <!-- These properties are redundant with BuildOptions.props but this file is not imported on end-user machines 
+             where global.json is not present.  -->
+        <LangVersion Condition="'$(LangVersion)'==''">latest</LangVersion>
+        <Nullable>enable</Nullable>
+
     </PropertyGroup>
 
 </Project>
