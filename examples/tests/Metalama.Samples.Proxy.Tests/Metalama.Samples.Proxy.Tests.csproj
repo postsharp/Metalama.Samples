@@ -14,7 +14,6 @@
         </PackageReference>
         <PackageReference Include="Metalama.Testing.AspectTesting"/>
         <PackageReference Include="Metalama.Extensions.Architecture"/>
-        <PackageReference Include="System.Collections.Immutable"/>
     </ItemGroup>
 
     <ItemGroup>

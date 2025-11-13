@@ -24,8 +24,8 @@
         <!-- HTML files are consumed by Metalama.Documentation. -->
         <MetalamaWriteHtml>True</MetalamaWriteHtml>
 
-        <!-- The latest version supported by Metalama Compiler may be higher that the latest version supported by Metalama Framework. -->
-        <LangVersion>$(LangMaxVersion)</LangVersion>
+        <!-- We want samples to be compatible with VS 2022. -->
+        <LangVersion>13.0</LangVersion>
         
         <!-- These properties are redundant with BuildOptions.props but this file is not imported on end-user machines 
              where global.json is not present.  -->
