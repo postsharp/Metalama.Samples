@@ -11,6 +11,7 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageVersion Include="Metalama.Extensions.Architecture" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Extensions.CodeFixes" Version="$(MetalamaPremiumVersion)" />
+    <PackageVersion Include="Metalama.Extensions.Validation" Version="$(MetalamaPremiumVersion)" />
     <PackageVersion Include="Metalama.Extensions.DependencyInjection" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
@@ -35,5 +36,6 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageVersion Include="xunit" Version="2.9.2" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.50" />
   </ItemGroup>
 </Project>
