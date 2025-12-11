@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0-windows10.0.19041.0</TargetFramework>
+        <!-- Full multi-platform: -->
+        <!-- <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks> -->
+        <!-- <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks> -->
+        <OutputType>WinExe</OutputType>
+        <RootNamespace>Metalama.Samples.MauiExceptionTracking.Demo</RootNamespace>
+        <UseMaui>true</UseMaui>
+        <SingleProject>true</SingleProject>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <!-- App Identifier -->
+        <ApplicationTitle>MauiExceptionTracking Demo</ApplicationTitle>
+        <ApplicationId>com.metalama.samples.mauiexceptiontracking.demo</ApplicationId>
+        <ApplicationIdGuid>5A0C6D2E-B8F3-4E7A-9C1D-3F8E2A5B7C9D</ApplicationIdGuid>
+        <ApplicationVersion>1</ApplicationVersion>
+        <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+        <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+
+        <!-- Windows-specific settings -->
+        <WindowsPackageType>None</WindowsPackageType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Metalama.Samples.MauiExceptionTracking\Metalama.Samples.MauiExceptionTracking.csproj" />
+    </ItemGroup>
+
+    <!-- XAML Files -->
+    <ItemGroup>
+        <MauiXaml Update="**\*.xaml" />
+    </ItemGroup>
+
+    <!-- App Icon & Splash Screen -->
+    <ItemGroup>
+        <!-- App Icon -->
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+        <!-- Splash Screen -->
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+        <!-- Images -->
+        <MauiImage Include="Resources\Images\*" />
+
+        <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+    </ItemGroup>
+
+    <!-- Fonts - disabled for unpackaged app compatibility -->
+    <!-- <ItemGroup>
+        <MauiFont Include="Resources\Fonts\*" />
+    </ItemGroup> -->
+
+</Project>

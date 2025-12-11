@@ -36,5 +36,6 @@
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.50" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Metalama.Framework" />
+        <PackageReference Include="Metalama.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Maui.Controls" />
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\README.md" Link="README.md" />
+    </ItemGroup>
+
+</Project>

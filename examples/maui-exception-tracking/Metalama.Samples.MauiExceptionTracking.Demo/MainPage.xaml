@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Metalama.Samples.MauiExceptionTracking.Demo"
+             xmlns:tracking="clr-namespace:Metalama.Samples.MauiExceptionTracking;assembly=Metalama.Samples.MauiExceptionTracking"
+             xmlns:converters="clr-namespace:Metalama.Samples.MauiExceptionTracking.Demo.Converters"
+             xmlns:viewmodels="clr-namespace:Metalama.Samples.MauiExceptionTracking.Demo.ViewModels"
+             x:Class="Metalama.Samples.MauiExceptionTracking.Demo.MainPage"
+             Title="Exception Tracking Demo">
+
+    <ContentPage.Resources>
+        <converters:FaultyConverter x:Key="FaultyConverter" />
+    </ContentPage.Resources>
+
+    <!-- BindingContext is set in code-behind via DI -->
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="15" Padding="20">
+
+            <!-- Header -->
+            <Label Text="MAUI Exception Tracking Demo"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+
+            <Label Text="This demo showcases exception tracking with visual context awareness."
+                   FontSize="14"
+                   HorizontalOptions="Center"
+                   TextColor="Gray" />
+
+            <!-- Command Exception Demos -->
+            <Frame BorderColor="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Command Exceptions" FontAttributes="Bold" FontSize="16" />
+
+                    <Button x:Name="SyncExceptionButton"
+                            AutomationId="SyncExceptionButton"
+                            Text="Throw Sync Exception"
+                            Command="{tracking:SafeCommand ThrowSyncCommand}"
+                            BackgroundColor="OrangeRed"
+                            TextColor="White" />
+
+                    <Button x:Name="AsyncExceptionButton"
+                            AutomationId="AsyncExceptionButton"
+                            Text="Throw Async Exception"
+                            Command="{tracking:SafeCommand ThrowDelayedCommand}"
+                            BackgroundColor="Orange"
+                            TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Binding Exception Demo -->
+            <Frame BorderColor="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Binding Exception (Counter > 5 throws)" FontAttributes="Bold" FontSize="16" />
+
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Button x:Name="IncrementButton"
+                                AutomationId="IncrementButton"
+                                Text="Increment Counter"
+                                Command="{tracking:SafeCommand IncrementCounterCommand}"
+                                BackgroundColor="DodgerBlue"
+                                TextColor="White" />
+
+                        <Label x:Name="CounterLabel"
+                               AutomationId="CounterLabel"
+                               Text="{tracking:SafeBinding Counter, Converter={StaticResource FaultyConverter}}"
+                               FontSize="24"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="Click increment until counter exceeds 5 to trigger converter exception"
+                           FontSize="12"
+                           TextColor="Gray"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Event Handler Exception Demo -->
+            <Frame BorderColor="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Event Handler Exception (Metalama Aspect)" FontAttributes="Bold" FontSize="16" />
+
+                    <Button x:Name="EventHandlerButton"
+                            AutomationId="EventHandlerButton"
+                            Text="Throw from Event Handler"
+                            Clicked="OnEventHandlerButton_Clicked"
+                            BackgroundColor="Purple"
+                            TextColor="White" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Exception List -->
+            <Frame BorderColor="LightGray" Padding="15">
+                <VerticalStackLayout Spacing="10">
+                    <HorizontalStackLayout Spacing="5">
+                        <Label Text="Recent Exceptions"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               VerticalOptions="Center"
+                               HorizontalOptions="StartAndExpand" />
+                        <Button Text="Refresh Context"
+                                Command="{Binding RefreshVisualContextCommand}"
+                                BackgroundColor="DodgerBlue"
+                                TextColor="White"
+                                HeightRequest="35"
+                                Padding="10,0" />
+                        <Button Text="Clear"
+                                Command="{Binding ClearExceptionsCommand}"
+                                BackgroundColor="Gray"
+                                TextColor="White"
+                                HeightRequest="35"
+                                Padding="10,0" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView ItemsSource="{Binding Exceptions}"
+                                    HeightRequest="300"
+                                    EmptyView="No exceptions recorded yet.">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="LightCoral"
+                                       BackgroundColor="#FFF0F0"
+                                       Margin="0,5"
+                                       Padding="10">
+                                    <VerticalStackLayout Spacing="3">
+                                        <Label Text="{Binding Exception.Message}"
+                                               FontAttributes="Bold"
+                                               TextColor="DarkRed" />
+                                        <Label FontSize="12" TextColor="Gray">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                    <Binding Path="Exception.GetType().Name" />
+                                                    <Binding Path="Timestamp" StringFormat="{}{0:HH:mm:ss}" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label FontSize="12" TextColor="DarkBlue">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="Source: {0} ({1})">
+                                                    <Binding Path="ElementType" />
+                                                    <Binding Path="ElementName" />
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                        <Label Text="{Binding VisualTreePath}"
+                                               FontSize="10"
+                                               TextColor="Gray"
+                                               LineBreakMode="TailTruncation" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
