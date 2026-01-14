@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
     <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2026.0.8</MetalamaCompilerVersion>
-    <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.0.14</MetalamaVersion>
-    <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.0.14</MetalamaPremiumVersion>
-    <MetalamaSamplesReleaseVersion>2026.0.14</MetalamaSamplesReleaseVersion>
-    <MetalamaSamplesReleaseMainVersion>2026.0.14</MetalamaSamplesReleaseMainVersion>
+    <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2026.0.15</MetalamaVersion>
+    <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2026.0.15</MetalamaPremiumVersion>
+    <MetalamaSamplesReleaseVersion>2026.0.15</MetalamaSamplesReleaseVersion>
+    <MetalamaSamplesReleaseMainVersion>2026.0.15</MetalamaSamplesReleaseMainVersion>
   </PropertyGroup>
 </Project>
