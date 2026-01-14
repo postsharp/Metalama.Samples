@@ -10,7 +10,7 @@ using PostSharp.Engineering.BuildTools.Dependencies.Definitions;
 using PostSharp.Engineering.BuildTools.Docker;
 using System.IO;
 using System.IO.Compression;
-using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_0;
+using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_1;
 
 // For samples we don't use the latest SDK.
 const string dotNetSdkVersion = "10.0.100";
