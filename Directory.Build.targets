@@ -1,0 +1,17 @@
+<Project>
+    <!--
+        Documentation generation - not needed for user/production projects.
+        Only added to projects that already use Metalama to avoid implicit dependencies.
+    -->
+    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Framework')) or @(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting'))">
+        <PackageReference Include="Metalama.Extensions.HtmlWriter" />
+    </ItemGroup>
+
+    <!--
+        Test convenience - not needed for user/production projects.
+        Launches diff tools when test output differs from expected.
+    -->
+    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting'))">
+        <PackageReference Include="Metalama.Extensions.DiffEngine" />
+    </ItemGroup>
+</Project>
