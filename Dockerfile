@@ -14,6 +14,11 @@ ENV TEMP=C:\Temp
 ENV TMP=C:\Temp
 ENV RUNNING_IN_DOCKER=TRUE
 
+# Set locale for consistent behavior regardless of host locale
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+ENV DOTNET_CLI_UI_LANGUAGE=en
+
 # Add Windows PowerShell to PATH (pwsh added later by PowershellComponent)
 ENV PATH="C:\Windows\System32\WindowsPowerShell\v1.0;${PATH}"
 
@@ -61,6 +66,9 @@ RUN & .\dotnet-install.ps1 -Version 10.0.100 -InstallDir 'C:\Program Files\dotne
 
 
 # Epilogue
+# Create docker-context directory for build scripts
+RUN New-Item -ItemType Directory -Path c:\docker-context -Force | Out-Null
+
 # Create directories for mountpoints
 ARG MOUNTPOINTS
 RUN if ($env:MOUNTPOINTS) { `
@@ -74,12 +82,12 @@ RUN if ($env:MOUNTPOINTS) { `
     }
 
 # Import environment variables
-COPY ReadEnvironmentVariables.ps1 c:\ReadEnvironmentVariables.ps1
-COPY env.g.json c:\env.g.json
-RUN c:\ReadEnvironmentVariables.ps1 c:\env.g.json
+COPY ReadEnvironmentVariables.ps1 c:\docker-context\ReadEnvironmentVariables.ps1
+COPY .g/env.g.json c:\docker-context\env.g.json
+RUN c:\docker-context\ReadEnvironmentVariables.ps1 c:\docker-context\env.g.json
 
 # Copy Init.g.ps1 placeholder (drive mappings handled inline in docker run)
-COPY Init.g.ps1 c:\Init.g.ps1
+COPY .g/Init.g.ps1 c:\docker-context\Init.g.ps1
 
 # Configure .NET SDK
 ENV DOTNET_NOLOGO=1
