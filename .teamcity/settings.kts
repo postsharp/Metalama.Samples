@@ -524,36 +524,6 @@ object UpstreamMerge : BuildType({
     }
 
     dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20261_Metalama_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama"
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaCompiler_ReleaseBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/packages/Release/Shipping/**/*=>dependencies/Metalama.Compiler"
-            }
-        }
-        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaPremium_DebugBuild")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.FAIL_TO_START
-            }
-
-            artifacts {
-                cleanDestination = true
-                artifactRules = "+:artifacts/publish/private/**/*=>dependencies/Metalama.Premium"
-            }
-        }
         dependency(AbsoluteId("Metalama_Metalama20261_MetalamaPremium_UpstreamMerge")) {
             snapshot {
                      onDependencyFailure = FailureAction.ADD_PROBLEM
