@@ -10,6 +10,7 @@
         <!-- Disable warnings about vulnerabilities in transitive dependencies. -->
         <!-- This is generally okay, since this code does not interact with users. -->
         <NoWarn>$(NoWarn);NU1903;NU1904</NoWarn>
+        <SampleProjectKind>Regular</SampleProjectKind>
     </PropertyGroup>
 
     <ItemGroup>

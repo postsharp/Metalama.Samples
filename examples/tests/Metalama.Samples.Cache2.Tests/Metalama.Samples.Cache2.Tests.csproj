@@ -5,6 +5,7 @@
         <IsPackable>false</IsPackable>
         <Configurations>Debug;Release;LamaDebug</Configurations>
         <RootNamespace>Metalama.Samples.Caching2.Tests</RootNamespace>
+        <SampleProjectKind>TestProject</SampleProjectKind>
     </PropertyGroup>
 
     <ItemGroup>

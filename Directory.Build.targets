@@ -1,17 +1,18 @@
 <Project>
     <!--
-        Documentation generation - not needed for user/production projects.
-        Only added to projects that already use Metalama to avoid implicit dependencies.
+        SampleProjectKind determines which Metalama extension packages to include:
+        - (default/empty): Include HtmlWriter only (for sample projects using Metalama)
+        - TestProject: Include both HtmlWriter and DiffEngine (for test projects)
+        - Regular: Don't include any Metalama extensions (for non-Metalama projects)
     -->
-    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Framework')) or @(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting'))">
+
+    <!-- Documentation generation for all Metalama sample projects -->
+    <ItemGroup Condition="'$(SampleProjectKind)' != 'Regular'">
         <PackageReference Include="Metalama.Extensions.HtmlWriter" />
     </ItemGroup>
 
-    <!--
-        Test convenience - not needed for user/production projects.
-        Launches diff tools when test output differs from expected.
-    -->
-    <ItemGroup Condition="@(PackageReference->AnyHaveMetadataValue('Identity', 'Metalama.Testing.AspectTesting'))">
+    <!-- Test convenience - launches diff tools when test output differs from expected -->
+    <ItemGroup Condition="'$(SampleProjectKind)' == 'TestProject'">
         <PackageReference Include="Metalama.Extensions.DiffEngine" />
     </ItemGroup>
 </Project>

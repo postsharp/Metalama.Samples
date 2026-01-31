@@ -7,6 +7,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <SampleProjectKind>TestProject</SampleProjectKind>
   </PropertyGroup>
 
   <ItemGroup>
