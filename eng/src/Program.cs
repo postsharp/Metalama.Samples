@@ -13,13 +13,16 @@ using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2026_1;
 
+// For samples we don't use the latest SDK.
+const string dotNetSdkVersion = PreferredVersions.DotNetSdk.V_10_0;
+
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
     OverriddenBuildAgentRequirements = new ContainerRequirements( ContainerHostKind.Windows )
     {
         Components =
         [
-            new DotNetComponent( PreferredVersions.DotNetSdk.V_10_0, DotNetComponentKind.Sdk ),
+            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
             new DotNetComponent( PreferredVersions.DotNetSdk.V_9_0, DotNetComponentKind.Sdk ),
         ]
     },
