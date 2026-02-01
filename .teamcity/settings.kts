@@ -528,13 +528,5 @@ object UpstreamMerge : BuildType({
         }
     }
 
-    dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20260_MetalamaPremium_UpstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
-            }
-        }
-     }
-
 })
 
