@@ -12,7 +12,7 @@ using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2025_1;
 
-const string dotNetSdkVersion = "9.0.205";
+const string dotNetSdkVersion = "9.0.310";
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
