@@ -17,3 +17,4 @@ eng/tools
 global.json
 nuget.config
 **/.idea/copilot.data.*
+eng/docker-context/.g
