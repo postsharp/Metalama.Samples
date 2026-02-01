@@ -73,6 +73,7 @@ object DebugBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -197,6 +198,7 @@ object ReleaseBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -310,6 +312,7 @@ object PublicBuild : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -418,6 +421,7 @@ object PublicDeployment : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
@@ -518,18 +522,11 @@ object UpstreamMerge : BuildType({
 
     features {
         swabra {
+            filesCleanup = Swabra.FilesCleanup.BEFORE_BUILD
             lockingProcesses = Swabra.LockingProcessPolicy.KILL
             verbose = true
         }
     }
-
-    dependencies {
-        dependency(AbsoluteId("Metalama_Metalama20261_MetalamaPremium_UpstreamMerge")) {
-            snapshot {
-                     onDependencyFailure = FailureAction.ADD_PROBLEM
-            }
-        }
-     }
 
 })
 
