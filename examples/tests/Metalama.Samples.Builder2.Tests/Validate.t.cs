@@ -41,54 +41,10 @@ public partial class Invoice
       Amount = source.Amount;
       Discount = source.Discount;
     }
-    private decimal _amount;
-    public decimal Amount
-    {
-      get
-      {
-        return _amount;
-      }
-      set
-      {
-        _amount = value;
-      }
-    }
-    private string _caption = default !;
-    public string Caption
-    {
-      get
-      {
-        return _caption;
-      }
-      set
-      {
-        _caption = value;
-      }
-    }
-    private decimal _discount;
-    public decimal Discount
-    {
-      get
-      {
-        return _discount;
-      }
-      set
-      {
-        _discount = value;
-      }
-    }
-    private string _number = default !;
-    public string Number
-    {
-      get
-      {
-        return _number;
-      }
-      set
-      {
-        _number = value;
-      }
-    }
+    public decimal Amount { get; set; }
+    public string Caption { get; set; }
+    public decimal Discount { get; set; }
+    public string Number { get; set; }
     public Invoice Build()
     {
       var instance = new Invoice(Number, Caption, Amount, Discount);

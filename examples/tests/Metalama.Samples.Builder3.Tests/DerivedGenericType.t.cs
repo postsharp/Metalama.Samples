@@ -24,18 +24,7 @@ public class StringKeyedValue<T>
     {
       Value = source.Value;
     }
-    private T _value = default !;
-    public T Value
-    {
-      get
-      {
-        return _value;
-      }
-      set
-      {
-        _value = value;
-      }
-    }
+    public T Value { get; set; }
     public StringKeyedValue<T> Build()
     {
       var instance = new StringKeyedValue<T>(Value);
@@ -63,18 +52,7 @@ public class TaggedKeyValue : StringKeyedValue<string>
     {
       Tag = source.Tag;
     }
-    private string _tag = default !;
-    public string Tag
-    {
-      get
-      {
-        return _tag;
-      }
-      set
-      {
-        _tag = value;
-      }
-    }
+    public string Tag { get; set; }
     public new TaggedKeyValue Build()
     {
       var instance = new TaggedKeyValue(Tag, Value);

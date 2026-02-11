@@ -32,42 +32,9 @@ public partial class Song
       Title = source.Title;
       Duration = source.Duration;
     }
-    private string _artist = default !;
-    public string Artist
-    {
-      get
-      {
-        return _artist;
-      }
-      set
-      {
-        _artist = value;
-      }
-    }
-    private TimeSpan? _duration;
-    public TimeSpan? Duration
-    {
-      get
-      {
-        return _duration;
-      }
-      set
-      {
-        _duration = value;
-      }
-    }
-    private string _title = default !;
-    public string Title
-    {
-      get
-      {
-        return _title;
-      }
-      set
-      {
-        _title = value;
-      }
-    }
+    public string Artist { get; set; }
+    public TimeSpan? Duration { get; set; }
+    public string Title { get; set; }
     public Song Build()
     {
       var instance = new Song(Artist, Title, Duration);

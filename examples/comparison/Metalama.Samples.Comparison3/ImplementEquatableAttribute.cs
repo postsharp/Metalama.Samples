@@ -113,21 +113,21 @@ public class ImplementEquatableAttribute : TypeAspect
             args: new { T = targetType, fields, baseGetHashCodeMethod } );
 
         // Introduce the operators.
-        builder.IntroduceBinaryOperator(
+        builder.IntroduceMethod(
             nameof(this.EqualityOperatorTemplate),
-            targetType,
-            targetType,
-            TypeFactory.GetType( typeof(bool) ),
-            OperatorKind.Equality,
-            args: new { T = targetType } );
+            args: new { T = targetType },
+            buildMethod: m =>
+            {
+                m.OperatorKind = OperatorKind.Equality;
+            } );
 
-        builder.IntroduceBinaryOperator(
+        builder.IntroduceMethod(
             nameof(this.InequalityOperatorTemplate),
-            targetType,
-            targetType,
-            TypeFactory.GetType( typeof(bool) ),
-            OperatorKind.Inequality,
-            args: new { T = targetType } );
+            args: new { T = targetType },
+            buildMethod: m =>
+            {
+                m.OperatorKind = OperatorKind.Inequality;
+            } );
     }
 
     private static bool CheckMethodOverridable(

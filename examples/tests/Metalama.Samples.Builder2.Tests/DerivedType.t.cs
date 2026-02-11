@@ -28,30 +28,8 @@ public class Article
       Url = source.Url;
       Name = source.Name;
     }
-    private string _name = default !;
-    public string Name
-    {
-      get
-      {
-        return _name;
-      }
-      set
-      {
-        _name = value;
-      }
-    }
-    private string _url = default !;
-    public string Url
-    {
-      get
-      {
-        return _url;
-      }
-      set
-      {
-        _url = value;
-      }
-    }
+    public string Name { get; set; }
+    public string Url { get; set; }
     public Article Build()
     {
       var instance = new Article(Url, Name);
@@ -79,18 +57,7 @@ public class WebArticle : Article
     {
       Keywords = source.Keywords;
     }
-    private string _keywords = default !;
-    public string Keywords
-    {
-      get
-      {
-        return _keywords;
-      }
-      set
-      {
-        _keywords = value;
-      }
-    }
+    public string Keywords { get; set; }
     public new WebArticle Build()
     {
       var instance = new WebArticle(Keywords, Url, Name);

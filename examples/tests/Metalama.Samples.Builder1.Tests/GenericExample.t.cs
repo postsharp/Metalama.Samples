@@ -20,18 +20,7 @@ public partial class StringKeyedValue<T>
     {
       Value = source.Value;
     }
-    private T _value = default !;
-    public T Value
-    {
-      get
-      {
-        return _value;
-      }
-      set
-      {
-        _value = value;
-      }
-    }
+    public T Value { get; set; }
     public StringKeyedValue<T> Build()
     {
       var instance = new StringKeyedValue<T>(Value);
