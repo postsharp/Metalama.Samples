@@ -18,11 +18,11 @@ namespace Metrics
       this._metricHost = metricHost ?? throw new System.ArgumentNullException(nameof(metricHost));
       var meter = _meterFactory.Create(_metricHost.ApplicationName, _metricHost.ApplicationVersion, _metricHost.Tags);
       PlaceOrderExceptionCount = meter.CreateCounter<long>("PlaceOrder.ExceptionCount");
-      _metricHost.RegisterInstrument(PlaceOrderExceptionCount, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null), "ExceptionCount");
+      _metricHost.RegisterInstrument(PlaceOrderExceptionCount, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) ?? throw new MissingMethodException("The method 'HatShop.PlaceOrder()' could not be found using reflection."), "ExceptionCount");
       PlaceOrderExecutionCount = meter.CreateCounter<long>("PlaceOrder.ExecutionCount");
-      _metricHost.RegisterInstrument(PlaceOrderExecutionCount, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null), "ExecutionCount");
+      _metricHost.RegisterInstrument(PlaceOrderExecutionCount, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) ?? throw new MissingMethodException("The method 'HatShop.PlaceOrder()' could not be found using reflection."), "ExecutionCount");
       PlaceOrderExecutionTime = meter.CreateCounter<long>("PlaceOrder.ExecutionTime");
-      _metricHost.RegisterInstrument(PlaceOrderExecutionTime, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null), "ExecutionTime");
+      _metricHost.RegisterInstrument(PlaceOrderExecutionTime, typeof(HatShop).GetMethod("PlaceOrder", BindingFlags.Public | BindingFlags.Instance, null, Type.EmptyTypes, null) ?? throw new MissingMethodException("The method 'HatShop.PlaceOrder()' could not be found using reflection."), "ExecutionTime");
     }
   }
 }
