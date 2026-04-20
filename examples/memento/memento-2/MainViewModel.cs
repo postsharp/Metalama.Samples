@@ -95,33 +95,7 @@ public sealed partial class MainViewModel
     private void ExecuteUndo()
     {
         this.IsEditing = false;
-
-        // Remember the main list selection status before undo.
-        var item = this.CurrentFish;
-
-        var index =
-            item != null
-                ? (int?) this.Fishes.IndexOf( item )
-                : null;
-
         this._caretaker?.Undo();
-
-        // Fix the current item after undo.
-        if ( index != null )
-        {
-            if ( index < this.Fishes.Count )
-            {
-                this.CurrentFish = this.Fishes[index.Value];
-            }
-            else if ( this.Fishes.Count > 0 )
-            {
-                this.CurrentFish = this.Fishes[^1];
-            }
-            else
-            {
-                this.CurrentFish = null;
-            }
-        }
     }
 
     public bool CanExecuteUndo => this._caretaker?.CanUndo == true;
