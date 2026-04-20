@@ -30,13 +30,16 @@ public sealed partial class MainViewModel
     {
         this._caretaker?.CaptureMemento( this );
 
-        this.Fishes = this.Fishes.Add(
-            new Fish()
-            {
-                Name = this._fishGenerator.GetNewName(),
-                Species = this._fishGenerator.GetNewSpecies(),
-                DateAdded = DateTime.Now
-            } );
+        var newFish = new Fish()
+        {
+            Name = this._fishGenerator.GetNewName(),
+            Species = this._fishGenerator.GetNewSpecies(),
+            DateAdded = DateTime.Now
+        };
+
+        this.Fishes = this.Fishes.Add( newFish );
+        this.CurrentFish = newFish;
+        this.IsEditing = true;
     }
 
     public bool CanExecuteNew => !this.IsEditing;

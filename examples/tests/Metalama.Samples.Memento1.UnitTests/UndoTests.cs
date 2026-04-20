@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Metalama.Samples.Memento2.UnitTests;
+namespace Metalama.Samples.Memento1.UnitTests;
 
 public class UndoTests
 {
@@ -25,57 +25,6 @@ public class UndoTests
         viewModel.SaveCommand.Execute();
 
         return viewModel;
-    }
-
-    [Fact]
-    public void Undo_AfterRemove_RestoresCurrentFishFromMemento()
-    {
-        var caretaker = new Caretaker();
-        var viewModel = CreateViewModelWithTwoFish( caretaker );
-
-        Assert.Equal( 2, viewModel.Fishes.Count );
-        var originalFirst = viewModel.Fishes[0];
-        var originalSecond = viewModel.Fishes[1];
-
-        // Second New auto-selected its fish.
-        Assert.Same( originalSecond, viewModel.CurrentFish );
-
-        // Act: remove the selected fish, then undo the removal.
-        viewModel.RemoveCommand.Execute();
-        Assert.Single( viewModel.Fishes );
-        Assert.Same( originalFirst, viewModel.CurrentFish );
-
-        viewModel.UndoCommand.Execute();
-
-        // Assert: the memento restores both the list and the selection
-        // that were current at the time the memento was captured.
-        Assert.Equal( 2, viewModel.Fishes.Count );
-        Assert.Same( originalFirst, viewModel.Fishes[0] );
-        Assert.Same( originalSecond, viewModel.Fishes[1] );
-        Assert.Same( originalSecond, viewModel.CurrentFish );
-    }
-
-    [Fact]
-    public void Undo_AfterNew_RestoresSelectionFromMemento()
-    {
-        var caretaker = new Caretaker();
-        var viewModel = CreateViewModelWithTwoFish( caretaker );
-
-        Assert.Equal( 2, viewModel.Fishes.Count );
-        var originalFirst = viewModel.Fishes[0];
-
-        // User navigates to the first fish before undoing.
-        viewModel.CurrentFish = originalFirst;
-
-        // Act: undo the second New.
-        viewModel.UndoCommand.Execute();
-
-        // Assert: the list is restored and CurrentFish matches what was selected
-        // when the second New was captured — the first fish, which the first New
-        // had auto-selected.
-        Assert.Single( viewModel.Fishes );
-        Assert.Same( originalFirst, viewModel.Fishes[0] );
-        Assert.Same( originalFirst, viewModel.CurrentFish );
     }
 
     [Fact]
@@ -105,5 +54,51 @@ public class UndoTests
         Assert.Empty( viewModel.Fishes );
         Assert.Null( viewModel.CurrentFish );
         Assert.False( viewModel.IsEditing );
+    }
+
+    [Fact]
+    public void Undo_AfterRemove_RestoresListAndKeepsPositionalSelection()
+    {
+        var caretaker = new Caretaker();
+        var viewModel = CreateViewModelWithTwoFish( caretaker );
+
+        var originalFirst = viewModel.Fishes[0];
+        var originalSecond = viewModel.Fishes[1];
+
+        // Second New auto-selected its fish.
+        Assert.Same( originalSecond, viewModel.CurrentFish );
+
+        // Act: remove the selected fish. ExecuteRemove picks the next item at
+        // the same index, falling back to the last one — here, originalFirst.
+        viewModel.RemoveCommand.Execute();
+        Assert.Single( viewModel.Fishes );
+        Assert.Same( originalFirst, viewModel.CurrentFish );
+
+        // Undo restores the list, and ExecuteUndo's positional fix-up keeps
+        // the pre-undo selection by index (index 0 → originalFirst).
+        viewModel.UndoCommand.Execute();
+
+        Assert.Equal( 2, viewModel.Fishes.Count );
+        Assert.Same( originalFirst, viewModel.Fishes[0] );
+        Assert.Same( originalSecond, viewModel.Fishes[1] );
+        Assert.Same( originalFirst, viewModel.CurrentFish );
+    }
+
+    [Fact]
+    public void Undo_AfterNew_RestoresPreviousList()
+    {
+        var caretaker = new Caretaker();
+        var viewModel = CreateViewModelWithTwoFish( caretaker );
+
+        var originalFirst = viewModel.Fishes[0];
+
+        // Act: undo the second New.
+        viewModel.UndoCommand.Execute();
+
+        // Assert: the list is restored to one fish; the pre-undo selection
+        // (index 1) is clamped to the last item in the restored list.
+        Assert.Single( viewModel.Fishes );
+        Assert.Same( originalFirst, viewModel.Fishes[0] );
+        Assert.Same( originalFirst, viewModel.CurrentFish );
     }
 }

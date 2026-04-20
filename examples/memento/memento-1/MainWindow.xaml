@@ -28,8 +28,8 @@
         <ListView Name="List"
                   Grid.Column="0"
                   Grid.Row="1"
-                  ItemsSource="{Binding Items}"
-                  SelectedItem="{Binding CurrentItem, Mode=TwoWay}"
+                  ItemsSource="{Binding Fishes}"
+                  SelectedItem="{Binding CurrentFish, Mode=TwoWay}"
                   SelectionMode="Single"
                   IsEnabled="{Binding IsEditing, Converter={StaticResource NotConverter}, UpdateSourceTrigger=PropertyChanged}">
             <ListView.ItemTemplate>
@@ -42,7 +42,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <global:FishControl Grid.Column="1" Grid.Row="1"
-                            DataContext="{Binding CurrentItem}"
+                            DataContext="{Binding CurrentFish}"
                             IsEnabled="{Binding ElementName=Window, Path=DataContext.IsEditing, UpdateSourceTrigger=PropertyChanged}" />
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
