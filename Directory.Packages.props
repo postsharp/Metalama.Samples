@@ -8,7 +8,7 @@
     <PostSharpEngineeringVersion Condition="'$(PostSharpEngineeringVersion)'==''">2023.2.358</PostSharpEngineeringVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageVersion Include="Metalama.Patterns.Observability" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Patterns.Wpf" Version="$(MetalamaVersion)" />
     <PackageVersion Include="Metalama.Framework" Version="$(MetalamaVersion)" />
