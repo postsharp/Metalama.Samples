@@ -3,135 +3,135 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache1", "examples\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache1", "src\caching\caching-1\Metalama.Samples.Cache1.csproj", "{44CDD123-61AE-4A9C-B7B2-BB3072E6C01D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone1", "examples\clone\clone-1\Metalama.Samples.Clone1.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone1", "src\clone\clone-1\Metalama.Samples.Clone1.csproj", "{48FC05CB-86BA-4924-917C-9DD38F3485A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking1", "examples\change-tracking\change-tracking-1\Metalama.Samples.ChangeTracking1.csproj", "{5BFA206D-41CE-47DC-A4EE-B8959F8B5AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking1", "src\change-tracking\change-tracking-1\Metalama.Samples.ChangeTracking1.csproj", "{5BFA206D-41CE-47DC-A4EE-B8959F8B5AEB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ExceptionEnrich", "examples\exception-handling\enrich-exception\Metalama.Samples.ExceptionEnrich.csproj", "{A9A5F335-9830-44B5-AF77-B052203D7557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ExceptionEnrich", "src\exception-handling\enrich-exception\Metalama.Samples.ExceptionEnrich.csproj", "{A9A5F335-9830-44B5-AF77-B052203D7557}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.EnumViewModel", "examples\enum-viewmodel\Metalama.Samples.EnumViewModel.csproj", "{6445B7D7-1CE2-4097-AE49-51F7E4B31327}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.EnumViewModel", "src\enum-viewmodel\Metalama.Samples.EnumViewModel.csproj", "{6445B7D7-1CE2-4097-AE49-51F7E4B31327}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "log", "log", "{DCB74618-ACBA-492D-B0E8-ADDCF054D9AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log1", "examples\log\log-1\Metalama.Samples.Log1.csproj", "{CD11C312-1F1B-43FE-AA68-5DB7C5A291A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log1", "src\log\log-1\Metalama.Samples.Log1.csproj", "{CD11C312-1F1B-43FE-AA68-5DB7C5A291A9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log2", "examples\log\log-2\Metalama.Samples.Log2.csproj", "{FD3EE653-84FB-4104-8022-04EBCDC3CF51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log2", "src\log\log-2\Metalama.Samples.Log2.csproj", "{FD3EE653-84FB-4104-8022-04EBCDC3CF51}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log3", "examples\log\log-3\Metalama.Samples.Log3.csproj", "{90979880-AF30-452E-80F0-56C588E9EE1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log3", "src\log\log-3\Metalama.Samples.Log3.csproj", "{90979880-AF30-452E-80F0-56C588E9EE1B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "notifypropertychanged", "notifypropertychanged", "{B0ADBBD1-23B8-4910-8B76-FF58A34A5E92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.NotifyPropertyChanged", "examples\notifypropertychanged\Metalama.Samples.NotifyPropertyChanged.csproj", "{C8C6D9A7-231E-4044-B343-9B4AA5E8130E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.NotifyPropertyChanged", "src\notifypropertychanged\Metalama.Samples.NotifyPropertyChanged.csproj", "{C8C6D9A7-231E-4044-B343-9B4AA5E8130E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry1", "examples\exception-handling\retry\retry-1\Metalama.Samples.Retry1.csproj", "{316C56F3-9CA8-4C37-85AD-4610C66D53F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry1", "src\exception-handling\retry\retry-1\Metalama.Samples.Retry1.csproj", "{316C56F3-9CA8-4C37-85AD-4610C66D53F3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2.Tests", "examples\tests\Metalama.Samples.Clone2.Tests\Metalama.Samples.Clone2.Tests.csproj", "{0BABE3DA-21E5-407E-AABC-F14CD6F61DB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2.Tests", "src\tests\Metalama.Samples.Clone2.Tests\Metalama.Samples.Clone2.Tests.csproj", "{0BABE3DA-21E5-407E-AABC-F14CD6F61DB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log2.Tests", "examples\tests\Metalama.Samples.Log2.Tests\Metalama.Samples.Log2.Tests.csproj", "{C7EC8353-5C89-4380-A535-FB90FCC97458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log2.Tests", "src\tests\Metalama.Samples.Log2.Tests\Metalama.Samples.Log2.Tests.csproj", "{C7EC8353-5C89-4380-A535-FB90FCC97458}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log3.Tests", "examples\tests\Metalama.Samples.Log3.Tests\Metalama.Samples.Log3.Tests.csproj", "{4DCB6077-34D5-44C3-9E71-D2A8A4F0A570}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log3.Tests", "src\tests\Metalama.Samples.Log3.Tests\Metalama.Samples.Log3.Tests.csproj", "{4DCB6077-34D5-44C3-9E71-D2A8A4F0A570}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tostring", "tostring", "{73B51082-DEDB-4224-B913-5A27AE7CE4FF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToString", "examples\tostring\tostring-1\Metalama.Samples.ToString.csproj", "{F29805E9-9257-4CD7-A688-7945818E0F89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToString", "src\tostring\tostring-1\Metalama.Samples.ToString.csproj", "{F29805E9-9257-4CD7-A688-7945818E0F89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToStringWithCodeFix", "examples\tostring\tostring-2\Metalama.Samples.ToStringWithCodeFix.csproj", "{D92737C1-EC6C-49BD-BB3B-24273217917B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ToStringWithCodeFix", "src\tostring\tostring-2\Metalama.Samples.ToStringWithCodeFix.csproj", "{D92737C1-EC6C-49BD-BB3B-24273217917B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log4", "examples\log\log-4\Metalama.Samples.Log4.csproj", "{E3622A30-F390-47A6-9E98-DD63E92528DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log4", "src\log\log-4\Metalama.Samples.Log4.csproj", "{E3622A30-F390-47A6-9E98-DD63E92528DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log5.Tests", "examples\tests\Metalama.Samples.Log5.Tests\Metalama.Samples.Log5.Tests.csproj", "{3393B786-FBE3-4F3E-B3C4-482F0FF54888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log5.Tests", "src\tests\Metalama.Samples.Log5.Tests\Metalama.Samples.Log5.Tests.csproj", "{3393B786-FBE3-4F3E-B3C4-482F0FF54888}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log5", "examples\log\log-5\Metalama.Samples.Log5.csproj", "{AD03F92F-D808-4109-A977-725A81101563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log5", "src\log\log-5\Metalama.Samples.Log5.csproj", "{AD03F92F-D808-4109-A977-725A81101563}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log6", "examples\log\log-6\Metalama.Samples.Log6.csproj", "{480219FB-C497-4036-84EC-82949DACC68B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log6", "src\log\log-6\Metalama.Samples.Log6.csproj", "{480219FB-C497-4036-84EC-82949DACC68B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "retry", "retry", "{47451698-A2B9-4D25-8E05-FDBCABC1ACDA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry2", "examples\exception-handling\retry\retry-2\Metalama.Samples.Retry2.csproj", "{0FD5314D-9680-4AFA-B6DA-22C3D38F1FF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry2", "src\exception-handling\retry\retry-2\Metalama.Samples.Retry2.csproj", "{0FD5314D-9680-4AFA-B6DA-22C3D38F1FF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry3", "examples\exception-handling\retry\retry-3\Metalama.Samples.Retry3.csproj", "{96AD489A-EAD6-4C4C-ACA9-5124DC06A013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry3", "src\exception-handling\retry\retry-3\Metalama.Samples.Retry3.csproj", "{96AD489A-EAD6-4C4C-ACA9-5124DC06A013}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry4", "examples\exception-handling\retry\retry-4\Metalama.Samples.Retry4.csproj", "{9E47D1B7-CD6B-4917-AD85-554B069680A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry4", "src\exception-handling\retry\retry-4\Metalama.Samples.Retry4.csproj", "{9E47D1B7-CD6B-4917-AD85-554B069680A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry5", "examples\exception-handling\retry\retry-5\Metalama.Samples.Retry5.csproj", "{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Retry5", "src\exception-handling\retry\retry-5\Metalama.Samples.Retry5.csproj", "{EFEE7211-7D60-48A7-85B1-8EE248A0B7CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "exception-handling", "exception-handling", "{76F98450-261F-470C-903F-17ED0BB00357}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log7", "examples\log\log-7\Metalama.Samples.Log7.csproj", "{422540C0-B083-4031-B796-271B0B69A2E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log7", "src\log\log-7\Metalama.Samples.Log7.csproj", "{422540C0-B083-4031-B796-271B0B69A2E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log8", "examples\log\log-8\Metalama.Samples.Log8.csproj", "{E0F5A200-1A06-4277-A64D-E8DE12685403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Log8", "src\log\log-8\Metalama.Samples.Log8.csproj", "{E0F5A200-1A06-4277-A64D-E8DE12685403}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ReportAndSwallow", "examples\exception-handling\report-and-swallow\Metalama.Samples.ReportAndSwallow.csproj", "{453269BA-65F7-4D4F-BE0A-1D5455926608}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ReportAndSwallow", "src\exception-handling\report-and-swallow\Metalama.Samples.ReportAndSwallow.csproj", "{453269BA-65F7-4D4F-BE0A-1D5455926608}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "caching", "caching", "{77C66C48-66C7-4D6C-8816-D27CA316ED56}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache2", "examples\caching\caching-2\Metalama.Samples.Cache2.csproj", "{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache2", "src\caching\caching-2\Metalama.Samples.Cache2.csproj", "{B8D41FD0-41A1-4E48-96AC-4F99B3AB4C41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache2.Tests", "examples\tests\Metalama.Samples.Cache2.Tests\Metalama.Samples.Cache2.Tests.csproj", "{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache2.Tests", "src\tests\Metalama.Samples.Cache2.Tests\Metalama.Samples.Cache2.Tests.csproj", "{B5EB9D3F-0925-44D1-984D-67F5CC38ED45}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache3", "examples\caching\caching-3\Metalama.Samples.Cache3.csproj", "{1D0C6ABB-3703-4315-AD44-23807E73BA01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache3", "src\caching\caching-3\Metalama.Samples.Cache3.csproj", "{1D0C6ABB-3703-4315-AD44-23807E73BA01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache4", "examples\caching\caching-4\Metalama.Samples.Cache4.csproj", "{3B95178C-0455-4115-B533-69C09CEA8C1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Cache4", "src\caching\caching-4\Metalama.Samples.Cache4.csproj", "{3B95178C-0455-4115-B533-69C09CEA8C1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "change-tracking", "change-tracking", "{9B3FE904-D75E-41D1-B7C6-96D0A5A43081}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking2", "examples\change-tracking\change-tracking-2\Metalama.Samples.ChangeTracking2.csproj", "{AECA4EDD-A63B-4AB0-8D5B-7F07E591A9CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking2", "src\change-tracking\change-tracking-2\Metalama.Samples.ChangeTracking2.csproj", "{AECA4EDD-A63B-4AB0-8D5B-7F07E591A9CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking2.Tests", "examples\tests\Metalama.Samples.ChangeTracking2.Tests\Metalama.Samples.ChangeTracking2.Tests.csproj", "{F886B0FC-AB80-45CB-ACE7-B51C50E6F9B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking2.Tests", "src\tests\Metalama.Samples.ChangeTracking2.Tests\Metalama.Samples.ChangeTracking2.Tests.csproj", "{F886B0FC-AB80-45CB-ACE7-B51C50E6F9B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking3", "examples\change-tracking\change-tracking-3\Metalama.Samples.ChangeTracking3.csproj", "{63D02C34-4E24-45E7-A3CD-EF8ECE90D9D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking3", "src\change-tracking\change-tracking-3\Metalama.Samples.ChangeTracking3.csproj", "{63D02C34-4E24-45E7-A3CD-EF8ECE90D9D2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking4", "examples\change-tracking\change-tracking-4\Metalama.Samples.ChangeTracking4.csproj", "{4913E93D-59F1-454D-9FA8-AD874CB78034}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.ChangeTracking4", "src\change-tracking\change-tracking-4\Metalama.Samples.ChangeTracking4.csproj", "{4913E93D-59F1-454D-9FA8-AD874CB78034}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "clone", "clone", "{B83BDFAD-4481-4AE0-982C-2D6734C4AF25}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2", "examples\clone\clone-2\Metalama.Samples.Clone2.csproj", "{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone2", "src\clone\clone-2\Metalama.Samples.Clone2.csproj", "{8E5B0EA6-9C6F-49D2-AE94-3D1AF4527BBA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone3", "examples\clone\clone-3\Metalama.Samples.Clone3.csproj", "{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone3", "src\clone\clone-3\Metalama.Samples.Clone3.csproj", "{9A2AFB50-6B72-4AC4-9760-EFFFF19C554F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone4", "examples\clone\clone-4\Metalama.Samples.Clone4.csproj", "{F085A769-5611-4A57-ACB4-09F0667106E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Clone4", "src\clone\clone-4\Metalama.Samples.Clone4.csproj", "{F085A769-5611-4A57-ACB4-09F0667106E5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Documentation.QuickStart", "examples\quickstart\Metalama.Documentation.QuickStart.csproj", "{2A30033C-0CB4-4817-B805-D4D921724888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Documentation.QuickStart", "src\quickstart\Metalama.Documentation.QuickStart.csproj", "{2A30033C-0CB4-4817-B805-D4D921724888}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sdk", "sdk", "{C47BBB65-4811-4856-BC95-88F1A5F501AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "notifypropertychanged-sdk-1", "examples\sdk\notifypropertychanged-sdk-1\notifypropertychanged-sdk-1.csproj", "{EB57CAB3-E207-4E50-BA50-45CAAD068BC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "notifypropertychanged-sdk-1", "src\sdk\notifypropertychanged-sdk-1\notifypropertychanged-sdk-1.csproj", "{EB57CAB3-E207-4E50-BA50-45CAAD068BC7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "notifypropertychanged-sdk-2", "examples\sdk\notifypropertychanged-sdk-2\notifypropertychanged-sdk-2.csproj", "{CD3F0981-296C-4821-8B46-013CA2DB2DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "notifypropertychanged-sdk-2", "src\sdk\notifypropertychanged-sdk-2\notifypropertychanged-sdk-2.csproj", "{CD3F0981-296C-4821-8B46-013CA2DB2DBB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "singleton", "singleton", "{694C7F45-9994-46A7-8B7A-880688B50559}"
 	ProjectSection(SolutionItems) = preProject
-		examples\singleton\README.md = examples\singleton\README.md
+		src\singleton\README.md = src\singleton\README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton1", "examples\singleton\singleton-1\Metalama.Samples.Singleton1.csproj", "{57B199B1-CD22-4B9F-93F0-41A26EBCC014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton1", "src\singleton\singleton-1\Metalama.Samples.Singleton1.csproj", "{57B199B1-CD22-4B9F-93F0-41A26EBCC014}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2E27C504-A200-4CAF-A9A7-7326327A475E}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton1.Tests", "examples\tests\Metalama.Samples.Singleton1.Tests\Metalama.Samples.Singleton1.Tests.csproj", "{531F72A5-86E9-4D35-AD75-DCC5DE829207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton1.Tests", "src\tests\Metalama.Samples.Singleton1.Tests\Metalama.Samples.Singleton1.Tests.csproj", "{531F72A5-86E9-4D35-AD75-DCC5DE829207}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2", "examples\singleton\singleton-2\Metalama.Samples.Singleton2.csproj", "{5629569B-5A30-431F-87B0-6A1C7D3B9BE4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2", "src\singleton\singleton-2\Metalama.Samples.Singleton2.csproj", "{5629569B-5A30-431F-87B0-6A1C7D3B9BE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2.Tests", "examples\tests\Metalama.Samples.Singleton2.Tests\Metalama.Samples.Singleton2.Tests.csproj", "{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton2.Tests", "src\tests\Metalama.Samples.Singleton2.Tests\Metalama.Samples.Singleton2.Tests.csproj", "{A41D07DC-B44C-4B21-B1A9-7F4B3E3AD035}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "memento", "memento", "{61054CBB-7CBB-4BFA-9B01-4A0072ADF28D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Memento1", "examples\memento\memento-1\Metalama.Samples.Memento1.csproj", "{652C25D5-921B-4F40-AA8D-F04D330F3137}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Memento1", "src\memento\memento-1\Metalama.Samples.Memento1.csproj", "{652C25D5-921B-4F40-AA8D-F04D330F3137}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton0", "examples\singleton\singleton-0\Metalama.Samples.Singleton0.csproj", "{FF399248-5500-4D69-ADFA-8428ABBE8D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Metalama.Samples.Singleton0", "src\singleton\singleton-0\Metalama.Samples.Singleton0.csproj", "{FF399248-5500-4D69-ADFA-8428ABBE8D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento2", "examples\memento\memento-2\Metalama.Samples.Memento2.csproj", "{709DF85F-9F13-44F4-9FB7-CA09616876A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento2", "src\memento\memento-2\Metalama.Samples.Memento2.csproj", "{709DF85F-9F13-44F4-9FB7-CA09616876A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "validation", "validation", "{3C086025-224A-4648-8A9C-7EDCFDFEE581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.IgnoreValues", "examples\validation\ignore-values\Metalama.Samples.IgnoreValues.csproj", "{C8C2F96C-BFD8-4348-A703-3E096CE66459}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.IgnoreValues", "src\validation\ignore-values\Metalama.Samples.IgnoreValues.csproj", "{C8C2F96C-BFD8-4348-A703-3E096CE66459}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.NormalizeStrings", "examples\validation\string-normalization\Metalama.Samples.NormalizeStrings.csproj", "{492D4201-A2A8-40C3-A29F-00752E85FFE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.NormalizeStrings", "src\validation\string-normalization\Metalama.Samples.NormalizeStrings.csproj", "{492D4201-A2A8-40C3-A29F-00752E85FFE3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "quickstart", "quickstart", "{BF372AB8-1FA3-436B-853D-F540B31CA28F}"
 EndProject
@@ -139,53 +139,53 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "viewmodel", "viewmodel", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "builder", "builder", "{1BEB7296-2152-4595-AA39-C41FE9341798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder1", "examples\builder\builder-1\Metalama.Samples.Builder1.csproj", "{09DD48D3-E07D-48BD-92DE-9A52509188A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder1", "src\builder\builder-1\Metalama.Samples.Builder1.csproj", "{09DD48D3-E07D-48BD-92DE-9A52509188A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder1.Tests", "examples\tests\Metalama.Samples.Builder1.Tests\Metalama.Samples.Builder1.Tests.csproj", "{8E3DBDF0-C803-4E69-B674-45D6ED065650}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder1.Tests", "src\tests\Metalama.Samples.Builder1.Tests\Metalama.Samples.Builder1.Tests.csproj", "{8E3DBDF0-C803-4E69-B674-45D6ED065650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder2", "examples\builder\builder-2\Metalama.Samples.Builder2.csproj", "{DE4663CD-0F68-4723-BB3A-C73E2C37E3AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder2", "src\builder\builder-2\Metalama.Samples.Builder2.csproj", "{DE4663CD-0F68-4723-BB3A-C73E2C37E3AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder2.Tests", "examples\tests\Metalama.Samples.Builder2.Tests\Metalama.Samples.Builder2.Tests.csproj", "{EEC7FB65-814C-40F6-801E-C1E81C0DBAC3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder2.Tests", "src\tests\Metalama.Samples.Builder2.Tests\Metalama.Samples.Builder2.Tests.csproj", "{EEC7FB65-814C-40F6-801E-C1E81C0DBAC3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3", "examples\builder\builder-3\Metalama.Samples.Builder3.csproj", "{E44B3B35-40F9-4F76-BC1D-D48EED2C0240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3", "src\builder\builder-3\Metalama.Samples.Builder3.csproj", "{E44B3B35-40F9-4F76-BC1D-D48EED2C0240}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3.Tests", "examples\tests\Metalama.Samples.Builder3.Tests\Metalama.Samples.Builder3.Tests.csproj", "{C0E8EC5E-4DD0-438A-9FE1-4F3A11B92C3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3.Tests", "src\tests\Metalama.Samples.Builder3.Tests\Metalama.Samples.Builder3.Tests.csproj", "{C0E8EC5E-4DD0-438A-9FE1-4F3A11B92C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3.UnitTests", "examples\tests\Metalama.Samples.Builder3.UnitTests\Metalama.Samples.Builder3.UnitTests.csproj", "{28B07832-5A6A-4FF2-B9C8-966EEE16095F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Builder3.UnitTests", "src\tests\Metalama.Samples.Builder3.UnitTests\Metalama.Samples.Builder3.UnitTests.csproj", "{28B07832-5A6A-4FF2-B9C8-966EEE16095F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{DEB63082-4F9A-4DEA-8D41-FFF66F78BAFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy", "examples\Metalama.Samples.Proxy\Metalama.Samples.Proxy.csproj", "{B91E088B-D736-4E17-B493-8761A0CEBC8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy", "src\Metalama.Samples.Proxy\Metalama.Samples.Proxy.csproj", "{B91E088B-D736-4E17-B493-8761A0CEBC8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy.Tests", "examples\tests\Metalama.Samples.Proxy.Tests\Metalama.Samples.Proxy.Tests.csproj", "{A5F3CE95-6C45-4E57-8D68-19B1662B506E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Proxy.Tests", "src\tests\Metalama.Samples.Proxy.Tests\Metalama.Samples.Proxy.Tests.csproj", "{A5F3CE95-6C45-4E57-8D68-19B1662B506E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "metrics", "metrics", "{6BA8EA1F-5DB3-4FA9-8550-E7B9188F536C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Metrics", "examples\metrics\Metalama.Samples.Metrics\Metalama.Samples.Metrics.csproj", "{A7C3BCDB-06AD-4915-8AE1-82DFF9866BA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Metrics", "src\metrics\Metalama.Samples.Metrics\Metalama.Samples.Metrics.csproj", "{A7C3BCDB-06AD-4915-8AE1-82DFF9866BA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Metrics.Tests", "examples\metrics\Metalama.Samples.Metrics.Tests\Metalama.Samples.Metrics.Tests.csproj", "{FB434847-B645-4134-9C99-2E2725E1A2BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Metrics.Tests", "src\metrics\Metalama.Samples.Metrics.Tests\Metalama.Samples.Metrics.Tests.csproj", "{FB434847-B645-4134-9C99-2E2725E1A2BF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "comparison", "comparison", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison1", "examples\comparison\Metalama.Samples.Comparison1\Metalama.Samples.Comparison1.csproj", "{787639C7-421D-4F3C-B5B2-9AAC6F5AD2AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison1", "src\comparison\Metalama.Samples.Comparison1\Metalama.Samples.Comparison1.csproj", "{787639C7-421D-4F3C-B5B2-9AAC6F5AD2AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison2", "examples\comparison\Metalama.Samples.Comparison2\Metalama.Samples.Comparison2.csproj", "{34C1CF76-9733-44D6-88F4-94AB030E3D97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison2", "src\comparison\Metalama.Samples.Comparison2\Metalama.Samples.Comparison2.csproj", "{34C1CF76-9733-44D6-88F4-94AB030E3D97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison3", "examples\comparison\Metalama.Samples.Comparison3\Metalama.Samples.Comparison3.csproj", "{A6D78693-EFF0-4AE6-865C-A2209231F00D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison3", "src\comparison\Metalama.Samples.Comparison3\Metalama.Samples.Comparison3.csproj", "{A6D78693-EFF0-4AE6-865C-A2209231F00D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison4", "examples\comparison\Metalama.Samples.Comparison4\Metalama.Samples.Comparison4.csproj", "{E480D607-BD56-4BB0-9800-BA83C77A0648}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Comparison4", "src\comparison\Metalama.Samples.Comparison4\Metalama.Samples.Comparison4.csproj", "{E480D607-BD56-4BB0-9800-BA83C77A0648}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{73E6DCC2-2E48-97B7-AE8A-7C4BE7738B96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento2.UnitTests", "examples\tests\Metalama.Samples.Memento2.UnitTests\Metalama.Samples.Memento2.UnitTests.csproj", "{AD4D254A-0E25-4839-B548-5111FC6FBBF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento2.UnitTests", "src\tests\Metalama.Samples.Memento2.UnitTests\Metalama.Samples.Memento2.UnitTests.csproj", "{AD4D254A-0E25-4839-B548-5111FC6FBBF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "memento", "memento", "{793F9E46-B208-E40E-DC0F-631B05047682}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "memento-2", "memento-2", "{D9B8DEBB-837A-DE8B-B80C-24101F341C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento1.UnitTests", "examples\tests\Metalama.Samples.Memento1.UnitTests\Metalama.Samples.Memento1.UnitTests.csproj", "{84896C57-020A-4C97-9C15-7062E63E7353}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metalama.Samples.Memento1.UnitTests", "src\tests\Metalama.Samples.Memento1.UnitTests\Metalama.Samples.Memento1.UnitTests.csproj", "{84896C57-020A-4C97-9C15-7062E63E7353}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "memento-1", "memento-1", "{EEE84523-B105-956C-DBC1-8A62B7459A1E}"
 EndProject

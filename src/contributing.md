@@ -15,7 +15,7 @@ Please follow the below procedure:
 2. Fork the `Metalama.Samples` repository.
 3. Create a subdirectory within the `examples` directory.
 4. Create a .NET 6 console project with your aspect, helper classes, and an executable that demonstrates the aspect.
-5. Optionally, create an aspect test project under the `examples/tests` directory.
+5. Optionally, create an aspect test project under the `src/tests` directory.
 6. Create a `README.md` file that explains the aspect's objective and the most significant elements of the its implementation.
 7. Submit a pull request to the `Metalama.Samples` repository.
 8. Most of the follow-up will happen on GitHub or through [Slack](https://www.postsharp.net/slack).
