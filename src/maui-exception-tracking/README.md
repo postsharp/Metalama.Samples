@@ -470,7 +470,7 @@ dotnet build
 dotnet run
 ```
 
-Note: The demo is configured for Windows only (`net9.0-windows10.0.19041.0`). For multi-platform support, uncomment the `TargetFrameworks` lines in the .csproj file.
+Note: The demo is configured for Windows only (`net10.0-windows10.0.19041.0`). For multi-platform support, uncomment the `TargetFrameworks` lines in the .csproj file.
 
 ## Key Concepts Demonstrated
 
