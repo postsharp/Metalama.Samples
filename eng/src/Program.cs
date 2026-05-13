@@ -47,7 +47,7 @@ return new EngineeringApp( product ).Run( args );
 
 void OnTestCompleted( BuildCompletedEventArgs args )
 {
-    var sourceDirectory = Path.Combine( args.Context.RepoDirectory, "examples" );
+    var sourceDirectory = Path.Combine( args.Context.RepoDirectory, "src" );
 
     var matcher = new Matcher();
     matcher.AddInclude( "**/*.html" );
