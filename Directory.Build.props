@@ -33,6 +33,9 @@
         <LangVersion Condition="'$(LangVersion)'==''">latest</LangVersion>
         <Nullable>enable</Nullable>
 
+        <!-- Enable build on non-Windows machines. -->
+         <EnableWindowsTargeting>True</EnableWindowsTargeting>
+
     </PropertyGroup>
 
 </Project>
