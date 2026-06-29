@@ -18,3 +18,4 @@ global.json
 nuget.config
 **/.idea/copilot.data.*
 eng/docket-context/.g/
+.g/
