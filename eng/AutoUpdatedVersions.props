@@ -1,10 +1,9 @@
-
 <Project>
-
-    <PropertyGroup>
-        <MetalamaCompilerVersion>2025.1.11</MetalamaCompilerVersion>
-        <MetalamaVersion>2025.1.17</MetalamaVersion>
-        <MetalamaPremiumVersion>2025.1.17</MetalamaPremiumVersion>
-    <MetalamaSamplesReleaseVersion>2025.1.17</MetalamaSamplesReleaseVersion><MetalamaSamplesReleaseMainVersion>2025.1.17</MetalamaSamplesReleaseMainVersion></PropertyGroup>
-
+  <PropertyGroup>
+    <MetalamaCompilerVersion Condition="'$(MetalamaCompilerVersion)' == ''">2025.1.12</MetalamaCompilerVersion>
+    <MetalamaVersion Condition="'$(MetalamaVersion)' == ''">2025.1.18</MetalamaVersion>
+    <MetalamaPremiumVersion Condition="'$(MetalamaPremiumVersion)' == ''">2025.1.18</MetalamaPremiumVersion>
+    <MetalamaSamplesReleaseVersion>2025.1.18</MetalamaSamplesReleaseVersion>
+    <MetalamaSamplesReleaseMainVersion>2025.1.18</MetalamaSamplesReleaseMainVersion>
+  </PropertyGroup>
 </Project>
