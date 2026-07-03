@@ -40,7 +40,7 @@ Now, we can update the logic that selects equality members in the <xref:Metalama
 What should happen when this query returns an empty set, i.e., the user did not tag any field or property with `[EqualityMember]`? The answer depends on the situation:
 
 - If the user _explicitly_ used the `[ImplementEquatable]` attribute on the type but omitted to mark any field, this is certainly an error that should be reported.
-- If the `[ImplementEquatable]` aspect was _inherited_ from a base type, and the current field does not add any equality member, then there's nothing to do—no error to report, nor any code transformation to perform. We can just ignore the aspect.
+- If the `[ImplementEquatable]` aspect was _inherited_ from a base type, and the current field does not add any equality member, then there's nothing to do: no error to report, nor any code transformation to perform. We can just ignore the aspect.
 
 This is implemented by the following code in <xref:Metalama.Framework.Aspects.TypeAspect.BuildAspect%2A>:
 
@@ -50,7 +50,7 @@ Here is the error definition:
 
 [!metalama-file DiagnosticDefinitions.cs member="DiagnosticDefinitions.NoEqualityMemberError"]
 
-And that's all! There's nothing else to change. This is the beauty of separating analysis from advising: you can seamlessly change the collection of equality members, and the rest of the aspect will simply consume it. As you can see, standard best practices also apply to meta-programming, especially separation of concerns!
+And that's all! There's nothing else to change. This is the beauty of separating analysis from advising: you can change the collection of equality members, and the rest of the aspect will simply consume it. As you can see, standard best practices also apply to meta-programming, especially separation of concerns.
 
 ## Summary
 

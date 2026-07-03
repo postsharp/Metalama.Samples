@@ -4,7 +4,7 @@ uid: sample-comparison-1
 
 # Equality comparison example, step 1: a minimal implementation
 
-In this article, we'll create the simplest possible aspect to automatically implement the equality comparison pattern. We'll call it `[ImplementEquatable]` because it implements the <xref:System.IEquatable%601> interface.
+This example builds the simplest possible aspect to automatically implement the equality comparison pattern. We'll call it `[ImplementEquatable]` because it implements the <xref:System.IEquatable%601> interface.
 
 Of course, just implementing the <xref:System.IEquatable%601> interface isn't enough for a complete equality comparison pattern. For a type `T`, a full equality comparison pattern involves the following operations:
 
@@ -110,7 +110,7 @@ The `whenExists` parameter determines the strategy if the member already exists 
 
 ## Step 6. Overriding the GetHashCode method
 
-To implement the <xref:System.Object.GetHashCode> method, we chose to rely on the <xref:System.HashCode> system class, which offers a robust mechanism to combine different values into a single hash.
+To implement the <xref:System.Object.GetHashCode> method, we chose to rely on the <xref:System.HashCode> system class, which combines different values into a single hash.
 
 The rest of the implementation follows the principles we've already explained.
 

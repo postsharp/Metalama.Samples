@@ -11,8 +11,8 @@ modified-date: 2024-09-09
 
 [!metalama-project-buttons .]
 
-In this example, we will enhance the caching aspect created in the previous example. Although powerful, it has certain
-limitations. A significant shortcoming we aim to address now is that the aspect generates invalid code when applied
+In this example, we will enhance the caching aspect created in the previous example. The aspect from the previous
+example has limitations. A significant shortcoming we aim to address now is that the aspect generates invalid code when applied
 to `void` methods or methods with `out` or `ref` parameter, causing user confusion. To prevent this, we will update the
 aspect to report an error to the user when an invalid method is targeted.
 
