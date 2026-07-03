@@ -31,7 +31,7 @@ displayed in green.
 [!metalama-compare MovingVertex.cs]
 
 > [!INFO]
-> The objective of this article is didactic. For a production-ready and battle-tested implementation of caching, use the `Metalama.Patterns.Observability` package. See <xref:observability> for details.
+> The objective of this article is didactic. For a production implementation of observability, use the `Metalama.Patterns.Observability` package. See <xref:observability> for details.
 
 
 ## Implementation

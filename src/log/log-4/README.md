@@ -16,7 +16,7 @@ messages to <xref:Microsoft.Extensions.Logging.ILogger> from the `Microsoft.Exte
 dependency injection to obtain the <xref:Microsoft.Extensions.Logging.ILogger>.
 
 Utilizing dependency injection to obtain an `ILogger` instance, rather than writing directly to `Console.WriteLine`,
-provides increased flexibility, maintainability, and testability. This approach enables seamless swapping of logging
+provides increased flexibility, maintainability, and testability. This approach lets you swap logging
 implementations, promotes a clean separation of concerns, simplifies configuration management, and allows effective unit
 testing by substituting real loggers with mock objects during testing.
 

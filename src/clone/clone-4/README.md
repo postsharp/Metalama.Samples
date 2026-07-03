@@ -10,7 +10,7 @@ modified-date: 2024-09-09
 
 [!metalama-project-buttons .]
 
-So far, we have built a powerful aspect that implements the Deep Clone pattern and has three pieces of API:
+So far, we have built an aspect that implements the Deep Clone pattern and has three pieces of API:
 the `[Cloneable]` and `[Child]` attributes and the method `void CloneMembers(T)`. Our aspect already reports errors in
 unsupported cases. We will now see how we can improve the productivity of the aspect's users by providing coding
 guidance.

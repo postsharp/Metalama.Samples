@@ -30,7 +30,7 @@ This simple approach works well for most types you can use in an attribute const
 - For enums (except .NET Standard 2.0 enums), the constructor will receive the _underlying integer_ value instead of a typed value. This means that our comparison will generate invalid C# because it will compare an enum to an integer.
 - For arrays, a simple `==` comparison is not sufficient.
 
-Both cases could be handled by a more complex aspect. However, in this example, we will simply prevent the aspect from being applied to fields or properties of an unsupported type. We achieve this by implementing the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method.
+Both cases could be handled by a more complex aspect. However, in this example, we prevent the aspect from being applied to fields or properties of an unsupported type. We achieve this by implementing the <xref:Metalama.Framework.Eligibility.IEligible`1.BuildEligibility*> method.
 
 [!metalama-file IgnoreValuesAttribute.cs member="IgnoreValuesAttribute.BuildEligibility"]
 
