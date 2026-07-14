@@ -58,7 +58,7 @@ We've defined a new custom attribute `[EqualityMember]`. We made it a <xref:Meta
 
 Then, we simply changed the logic that built the collection of equality members so that it checks for the presence of a custom attribute of type `EqualityMemberAttribute`.
 
-In the [next article](xref:sample-comparison-4), we'll supercharge the `EqualityMemberAttribute` aspect to make it possible to customize the equality contract.
+In the [next article](xref:sample-comparison-4), we'll extend the `EqualityMemberAttribute` aspect to make it possible to customize the equality contract.
 
 > [!div class="see-also"]
 > <xref:child-aspects>

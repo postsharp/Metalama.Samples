@@ -1,6 +1,6 @@
 ---
 uid: sample-retry
-summary: "The document discusses the importance of retry mechanisms for system reliability and explains a series of articles on implementing automatic retries with features like async support, logging, and using Polly."
+summary: "How to build an aspect that automatically retries a method after a transient failure, with async support, logging, and a Polly-based variant."
 keywords: "retry mechanisms, C#, .NET, transient faults, exponential backoff, automatic retries, async support, logging, Polly"
 created-date: 2023-04-06
 modified-date: 2024-09-09
@@ -8,7 +8,7 @@ modified-date: 2024-09-09
 
 # Sample: retry
 
-Retrying failed methods is crucial for ensuring reliability and efficiency in systems such as database transactions or online services. As temporary faults such as network congestion, hardware issues, or software glitches can cause initial failures, it is important to implement retry mechanisms with exponential backoff to increase the probability of success, minimize data loss, and provide a seamless user experience in the face of transient obstacles. Retry mechanisms enable systems to be dependable and resilient.
+Calls to a database or a remote service can fail for reasons that go away on their own: a congested network, a brief outage, a lock timeout. Retrying the call, typically with exponential backoff, is often enough to recover from these transient faults.
 
 This series of articles describes how to construct an aspect that automatically retries a failed method. This aspect modifies a method in the following way:
 

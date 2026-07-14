@@ -124,7 +124,7 @@ Here is the template for the constructor body. It only invokes the constructor.
 
 ## Conclusion
 
-As you can see, automating the `Builder` aspect with Metalama can seem complex at the beginning, but the process can be split into individual simple tasks. It's crucial to start with proper analysis and planning. You should first know what you want and how exactly you want to transform the code. Once this is clear, the implementation becomes quite straightforward.
+The `Builder` aspect looks complex at first, but it breaks down into small, independent steps. Decide exactly which code you want to generate before you write the aspect: once the target output is settled, the implementation follows from it.
 
 In the next article, we will see how to take type inheritance into account.
 

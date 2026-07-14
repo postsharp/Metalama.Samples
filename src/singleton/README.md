@@ -10,7 +10,7 @@ modified-date: 2024-09-09
 
 The Singleton pattern is useful in scenarios where a class in a software system should have only one instance available to all components.
 
-The Singleton pattern helps maintain state consistency across the system, whether it involves synchronized access to a shared resource (e.g., through locking) or ensuring data consistency. In these cases, having only a single instance of the object is crucial. Another scenario where the Singleton pattern can be beneficial is when creating multiple instances of a complex object might be resource-intensive. If a single instance suffices for the application’s needs, a Singleton can reduce overhead in terms of both memory and processing.
+A single instance is what makes synchronized access to a shared resource work, for instance through locking. A Singleton is also useful when the object is expensive to build and one instance is enough for the whole application, saving both memory and processing.
 
 The classic implementation of the Singleton pattern involves having a private constructor in the class, preventing it from being instantiated from outside and exposing a single instance through a static member.
 

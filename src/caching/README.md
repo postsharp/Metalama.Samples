@@ -1,6 +1,6 @@
 ---
 uid: sample-cache
-summary: "This chapters explains how to leverage aspect-oriented programming to cache method outputs and improve performance for computationally expensive tasks."
+summary: "How to cache the output of expensive methods with an aspect, instead of writing the caching boilerplate by hand."
 keywords: "cache C#, cache .NET, caching C#, caching .NET, aspect"
 created-date: 2023-04-06
 modified-date: 2024-09-09
@@ -8,13 +8,13 @@ modified-date: 2024-09-09
 
 # Implementing caching without boilerplate
 
-In optimizing performance, it is important to store method outputs in memory to improve overall application efficiency, especially for time-consuming or computationally expensive tasks. By storing the results in memory, subsequent calls can quickly retrieve the data without having to re-execute the entire operation, reducing latency.
+Caching stores the output of an expensive method in memory, so that subsequent calls with the same arguments return the stored result instead of executing the method again.
 
-It is important to note that caching method outputs should only be applied to methods without side effects. Side effects are any changes made to the state of the system or external components resulting from method execution. Caching methods with side effects can cause unintended consequences that bypass necessary updates, modifications, or validations, resulting in stale or incorrect data, which can impact application stability and correctness. To ensure the application's stability and correctness, only cache the results of pure, deterministic functions that always produce the same output given the same input, without altering any external state.
+Only cache pure methods: methods that always return the same output for the same input, and that change no state outside themselves. If you cache a method that has side effects, those side effects silently stop happening on a cache hit.
 
-Traditionally, caching the output of a method requires a lot of boilerplate code. However, this process can be significantly simplified by encapsulating it in an aspect.
+Caching a method by hand takes a lot of boilerplate. An aspect removes it.
 
-One of the significant challenges of caching is generating a unique cache key reliably. In this article series, we present strategies for creating this key.
+The hard part of caching is generating a cache key reliably. This series presents strategies for building one.
 
 > [!INFO]
 > The objective of this series is didactic. For a production-ready and battle-tested implementation of caching, use the `Metalama.Patterns.Caching.Aspects` package. See <xref:caching> for details.
