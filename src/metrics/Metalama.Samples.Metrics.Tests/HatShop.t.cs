@@ -41,7 +41,7 @@ public class HatShop
     }
   }
   private HatShopMetrics _hatShopMetrics;
-  public HatShop([AspectGenerated] HatShopMetrics hatShopMetrics = null)
+  public HatShop([AspectGenerated] HatShopMetrics? hatShopMetrics = null)
   {
     this._hatShopMetrics = hatShopMetrics;
   }
