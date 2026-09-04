@@ -13,7 +13,9 @@ using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2027_0;
 
-const string dotNetSdkVersion = PreferredVersions.DotNetSdk.V_10_0;
+// The only .NET SDK of the build agent, and the one pinned in global.json. The version comes from the product
+// family, so that it matches the feature band that the Visual Studio version of the family installs.
+var dotNetSdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
@@ -25,7 +27,7 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( PreferredVersions.DotNetSdk.V_10_0 ),
+    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
 
     
     Solutions =
