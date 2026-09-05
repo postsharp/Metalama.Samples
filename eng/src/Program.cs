@@ -13,9 +13,17 @@ using System.IO;
 using System.IO.Compression;
 using MetalamaDependencies = PostSharp.Engineering.BuildTools.Dependencies.Definitions.MetalamaDependencies.V2027_0;
 
-// The only .NET SDK of the build agent, and the one pinned in global.json. The version comes from the product
-// family, so that it matches the feature band that the Visual Studio version of the family installs.
-var dotNetSdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
+// The .NET 11 SDK, which global.json names as the main SDK of the product and which the build agent installs. The
+// version is a literal instead of a member of the product family, because the .NET 11 SDK is still a preview and
+// PostSharp.Engineering names only released feature bands. Keep it equal to the constant of the same name in the
+// Metalama repository, and move both to MetalamaDependencies.Family.PreferredVersions.DotNetSdk once the .NET 11
+// SDK is released.
+const string dotNet11SdkVersion = "11.0.100-preview.7.26381.103";
+
+// The .NET 10 SDK, which stays installed beside the .NET 11 one, because the build tool of this repository targets
+// net10.0 and the .NET 11 SDK carries no .NET 10 runtime. The version comes from the product family, so that it
+// matches the feature band that the Visual Studio version of the family installs.
+var dotNet10SdkVersion = MetalamaDependencies.Family.PreferredVersions.DotNetSdk.V_10_0;
 
 var product = new Product( MetalamaDependencies.MetalamaSamples )
 {
@@ -23,11 +31,12 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
     {
         Components =
         [
-            new DotNetComponent( dotNetSdkVersion, DotNetComponentKind.Sdk ),
+            new DotNetComponent( dotNet11SdkVersion, DotNetComponentKind.Sdk ),
+            new DotNetComponent( dotNet10SdkVersion, DotNetComponentKind.Sdk ),
         ]
     },
     GenerateNuGetConfig = true,
-    DotNetSdkVersion = new DotNetSdkVersion( dotNetSdkVersion ),
+    DotNetSdkVersion = new DotNetSdkVersion( dotNet11SdkVersion ) { AllowPrerelease = true },
 
     
     Solutions =
