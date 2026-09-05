@@ -1,7 +1,6 @@
 // Copyright (c) SharpCrafters s.r.o. All rights reserved.
 // This project is not open source. Please see the LICENSE.md file in the repository root for details.
 
-using BuildMetalamaSamples;
 using Microsoft.Extensions.FileSystemGlobbing;
 using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 using PostSharp.Engineering.BuildTools;
@@ -32,10 +31,6 @@ var product = new Product( MetalamaDependencies.MetalamaSamples )
     {
         Components =
         [
-            // Must precede every DotNetComponent: it decides the archive form that dotnet-install.ps1
-            // downloads.
-            new DotNetInstallZipComponent(),
-
             new DotNetComponent( dotNet11SdkVersion, DotNetComponentKind.Sdk ),
             new DotNetComponent( dotNet10SdkVersion, DotNetComponentKind.Sdk ),
         ]
